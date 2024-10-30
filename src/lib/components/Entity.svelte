@@ -5,11 +5,11 @@
 </script>
 
 <div
-	style:background={`url(${SPRITE_URL}) no-repeat ${entity.sprite.x}px ${entity.sprite.y}px`}
-	style:width={`${entity.width}px`}
-	style:height={`${entity.height}px`}
-	style:left={`${entity.position.x}px`}
-	style:top={`${entity.position.y}px`}
+	style:background={`url(${SPRITE_URL}) no-repeat ${entity.sprite.currentFrame.x}px ${entity.sprite.currentFrame.y}px`}
+	style:width={`${entity.sprite.width}px`}
+	style:height={`${entity.sprite.height}px`}
+	style:left={`${entity.collider.position.x}px`}
+	style:top={`${entity.collider.position.y}px`}
 ></div>
 
 <style>

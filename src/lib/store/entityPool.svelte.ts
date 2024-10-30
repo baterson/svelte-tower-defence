@@ -1,20 +1,20 @@
-import { Entity } from './entity.svelte';
+import { randomPick } from '$lib/utils/helpers';
+import { Entity } from './Entities/Entity.svelte';
+import { Tower } from './Tower.svelte';
 
 const SPAWN_AREAS = [10, 40, 70, 100, 130];
 const SPAWN_CD = 1000;
 
-const randomPick = (array) => {
-	return array[Math.floor(Math.random() * array.length)];
-};
-
+// todo: refactor. Make it proffessional
 export class EntityPool {
 	entities = $state([]);
+	towers = $state([]);
 	lastSpawn = $state(new Date().getTime());
 
 	constructor() {
 		this.spawn();
 		this.spawn();
-		// this.spawn();
+		this.towers.push(new Tower('tower1', 0));
 	}
 
 	update = (deltaTime) => {
@@ -22,8 +22,6 @@ export class EntityPool {
 		const next = new Date().getTime();
 
 		if (this.lastSpawn + SPAWN_CD < next) {
-			console.log('SPAWN');
-
 			this.spawn();
 			this.lastSpawn = next;
 		}
@@ -31,11 +29,7 @@ export class EntityPool {
 
 	spawn = () => {
 		const area = randomPick(SPAWN_AREAS);
-		// $inspect(this.entities);
-		console.log('area', this.entities.length);
-
-		this.entities.push(new Entity('gun', { x: area, y: 0 }));
-		// this.entities = [...this.entities, new Entity('blade', { x: area, y: 0 })];
+		this.entities.push(new Entity('enemy', { x: area, y: 0 }));
 	};
 
 	add = (object) => {

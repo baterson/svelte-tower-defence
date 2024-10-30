@@ -2,7 +2,7 @@
 	import TowerArea from '$lib/components/TowerArea.svelte';
 	import GameArea from '$lib/components/GameArea.svelte';
 	import Entity from '$lib/components/Entity.svelte';
-	import { game } from '$lib/store/game.svelte';
+	import { game } from '$lib/store/Game.svelte';
 
 	// const game = $state(new Game());
 
@@ -21,8 +21,8 @@
 
 <style>
 	section {
-		width: 500px;
-		height: 700px;
+		width: 720px;
+		height: 800px;
 		display: flex;
 		justify-content: space-between;
 	}

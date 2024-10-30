@@ -1,5 +1,5 @@
-import { EntityPool } from './entityPool.svelte';
-import { GameLoop } from './gameLoop.svelte';
+import { EntityPool } from './EntityPool.svelte';
+import { GameLoop } from './GameLoop.svelte';
 
 export class Game {
 	gameLoop = $state();

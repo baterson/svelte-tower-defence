@@ -1,6 +1,6 @@
 <script>
 	import Entity from '$lib/components/Entity.svelte';
-	import { game } from '$lib/store/game.svelte';
+	import { game } from '$lib/store/Game.svelte';
 
 	// console.log('game.entityPool', game.entityPool.entities);
 </script>
