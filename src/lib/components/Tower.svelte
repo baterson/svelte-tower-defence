@@ -2,6 +2,8 @@
 	import { SPRITE_URL } from '$lib/entitiesConfig';
 
 	const { tower } = $props();
+
+	// let spriteSheet = $derived(entities[entity.name].spriteSheet);
 </script>
 
 <div
