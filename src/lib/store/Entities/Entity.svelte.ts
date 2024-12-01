@@ -1,37 +1,54 @@
-import { entities } from '$lib/entitiesConfig';
-import { Sprite } from '$lib/store/Sprite.svelte';
-import { Collider } from '$lib/store/Collider.svelte';
-import type { Vector2 } from '$lib/store/Vector2.svelte';
-import { StateMachine } from '../StateMachine.svelte';
+import { getConfig } from '$lib/entitiesConfig';
+import { Sprite } from '$store/Sprite.svelte';
+import { Vector2 } from '$store/Vector2.svelte';
+import { StateMachine } from '$store/StateMachine.svelte';
+import { Collider } from '$store/Collider.svelte';
 
 export class Entity {
 	static lastId = 0;
-	id = $state(Entity.lastId++);
-	name = $state();
-	width = $state();
-	height = $state();
-	sprite = $state<Sprite>();
-	// collider = $state<Collider>();
-	position = $state<Vector2>();
-	state = $state();
-	stats = $state();
-	rotation = $state(0);
 
-	constructor(name, position) {
-		const { width, height, states, defaultState, stats } = entities[name];
+	id = $state(Entity.lastId++);
+	name = $state('');
+	type = $state('');
+	width = $state(0);
+	height = $state(0);
+	spriteSheet = $state('');
+	sprite = $state<Sprite>();
+	collider = $state<Collider>();
+	position = $state<Vector2>();
+	state = $state<StateMachine>();
+	stats = $state({});
+	rotation = $state(0);
+	isDestroyed = $state(false);
+
+	constructor(name: string, position: Vector2) {
+		const { width, height, type, states, sprites, spriteSheet, defaultState, stats } =
+			getConfig(name);
+
 		this.name = name;
+		this.type = type;
 		this.width = width;
 		this.height = height;
 		this.position = position;
-		this.state = new StateMachine(this, states, defaultState);
-		// this.collider = new Collider({});
+		this.stats = { ...stats };
+		this.spriteSheet = spriteSheet;
+		this.state = new StateMachine(this, states, defaultState, (name) =>
+			this.setSprite(name, sprites)
+		);
+		this.collider = new Collider(this);
 	}
 
-	update = (deltaTime) => {
-		this.state.update(deltaTime);
-	};
+	update(deltaTime: number, entityPool) {
+		// console.log('entity update', entityPool);
 
-	shoot = () => {
-		this.state.setState('shoot');
-	};
+		this.state.update(deltaTime, entityPool);
+		this.sprite.update(deltaTime);
+	}
+
+	setSprite(name: string, sprites) {
+		const sprite = sprites.find((sprite) => sprite.name === name);
+		if (!sprite) throw new Error(`Sprite not found for: ${name}`);
+
+		this.sprite = new Sprite(sprite, this.spriteSheet);
+	}
 }

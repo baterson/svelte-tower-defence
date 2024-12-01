@@ -13,7 +13,6 @@ export class Game {
 
 	update = (deltaTime) => {
 		this.entityPool.update(deltaTime);
-		// console.log('this.entityPool', this.entityPool.entities);
 	};
 
 	start = () => {

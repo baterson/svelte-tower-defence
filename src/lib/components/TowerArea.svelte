@@ -14,6 +14,5 @@
 		position: relative;
 		min-width: 100px;
 		/* width: 50px; */
-		background-color: bisque;
 	}
 </style>

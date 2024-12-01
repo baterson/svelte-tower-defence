@@ -2,6 +2,7 @@
 	import TowerArea from '$lib/components/TowerArea.svelte';
 	import GameArea from '$lib/components/GameArea.svelte';
 	import Entity from '$lib/components/Entity.svelte';
+	import TowerPlacement from '$components/TowerPlacement.svelte';
 	import { game } from '$lib/store/Game.svelte';
 
 	// const game = $state(new Game());
@@ -12,18 +13,16 @@
 </script>
 
 <section>
-	<!-- <Entity entity={game.obj} /> -->
-
-	<TowerArea />
+	<!-- <TowerPlacement /> -->
 	<GameArea />
-	<TowerArea />
 </section>
 
 <style>
 	section {
-		width: 720px;
-		height: 800px;
+		width: 440px;
+		height: 780px;
 		display: flex;
-		justify-content: space-between;
+		background: url('/Base_environment.png');
+		background-size: contain;
 	}
 </style>

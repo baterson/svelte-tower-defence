@@ -1,43 +1,73 @@
-import { randomPick } from '$lib/utils/helpers';
+import { TOWER_POSITIONS } from '$utils/towerPositions';
+import { CollisionManager } from './CollisionManager.svelte';
+import { Enemy } from './Entities/Enemy.svelte';
 import { Entity } from './Entities/Entity.svelte';
+import { Projectile } from './Entities/Projectile.svelte';
 import { Tower } from './Entities/Tower.svelte';
 import { Vector2 } from './Vector2.svelte';
 
-const SPAWN_AREAS = [10, 40, 70, 100, 130];
-const SPAWN_CD = 3000;
-
-// todo: refactor. Make it proffessional
 export class EntityPool {
 	entities = $state([]);
-	towers = $state([]);
+	towers = $derived(this.entities.filter((entity) => entity.type === 'tower'));
+	enemies = $derived(this.entities.filter((entity) => entity.type === 'enemy'));
+	projectiles = $derived(this.entities.filter((entity) => entity.type === 'projectile'));
+	private collisionManager = new CollisionManager();
 	lastSpawn = $state(new Date().getTime());
+	private SPAWN_CD = 1000;
 
 	constructor() {
-		this.spawn();
-		// this.towers.push(new Tower('tower1', new Vector2({ x: 0, y: 0 })));
+		this.spawnEnemy();
+		TOWER_POSITIONS.left.forEach((element) => {
+			this.spawnTower(element.x, element.y);
+		});
+		TOWER_POSITIONS.right.forEach((element) => {
+			this.spawnTower(element.x, element.y);
+		});
+
+		// this.spawnTower(300, 300);
 	}
 
-	update = (deltaTime) => {
-		this.entities.forEach((obj) => obj.update(deltaTime));
-		const next = new Date().getTime();
+	update = (deltaTime: number) => {
+		// Update all entities
+		this.entities.forEach((entity) => entity.update(deltaTime, this));
+		// Check collisions
+		// this.collisionManager.checkCollisions(this.entities);
 
-		if (this.lastSpawn + SPAWN_CD < next) {
-			this.entities.forEach((obj) => obj.shoot(deltaTime));
-			this.spawn();
-			this.lastSpawn = next;
+		// Handle spawning
+		const currentTime = new Date().getTime();
+		if (this.lastSpawn + this.SPAWN_CD < currentTime) {
+			this.spawnEnemy();
+			this.lastSpawn = currentTime;
 		}
+
+		// Clean up destroyed entities
+		// this.entities = this.entities.filter((entity) => !entity.isDestroyed);
 	};
 
-	spawn = () => {
-		const area = randomPick(SPAWN_AREAS);
-		this.entities.push(new Entity('archer', new Vector2(area, 5)));
+	spawnEnemy = (name = 'enemy1') => {
+		const names = ['enemy1', 'enemy2', 'enemy3'];
+		const randomName = names[Math.floor(Math.random() * names.length)];
+		const spawnAreas = [70, 100, 130, 160, 190, 220, 250, 280, 310, 340];
+		const area = spawnAreas[Math.floor(Math.random() * spawnAreas.length)];
+		const enemy = new Enemy(randomName, new Vector2(area, 5));
+		this.add(enemy);
 	};
 
-	add = (object) => {
-		this.entities.push(object);
+	spawnTower = (x, y, name = 'blueTower') => {
+		const tower = new Tower(name, new Vector2(x, y));
+		this.add(tower);
 	};
 
-	remove = (objectId) => {
-		this.entities = this.objects.filter((obj) => obj.id !== objectId);
+	spawnProjectile = (position, target, damage) => {
+		const projectile = new Projectile('projectile', position, target, damage);
+		this.add(projectile);
+	};
+
+	add = (entity: Entity) => {
+		this.entities.push(entity);
+	};
+
+	remove = (entityId: number) => {
+		this.entities = this.entities.filter((entity) => entity.id !== entityId);
 	};
 }
