@@ -1,19 +1,10 @@
-import { Idle } from './_old/Idle.svelte';
-import { Run } from './_old/Run.svelte';
-import { Shoot } from './_old/Shoot.svelte';
-import * as EnemyStates from './EnemyStates.svelte';
-import * as TowerStates from './TowerStates.svelte';
-import * as ProjectileStates from './ProjectileStates.svelte';
-
-export const states = {
-	idle: Idle,
-	run: Run,
-	shoot: Shoot
-};
+import * as EnemyStates from './Enemy/';
+import * as TowerStates from './Tower/';
+import * as ProjectileStates from './Projectile';
+import * as ThroneStates from './Throne/';
 
 export const initState = (entityType, name) => {
 	let State;
-	console.log(entityType, name);
 
 	if (entityType === 'enemy') {
 		State = EnemyStates[name];
@@ -21,6 +12,8 @@ export const initState = (entityType, name) => {
 		State = TowerStates[name];
 	} else if (entityType === 'projectile') {
 		State = ProjectileStates[name];
+	} else if (entityType === 'throne') {
+		State = ThroneStates[name];
 	}
 
 	return new State();

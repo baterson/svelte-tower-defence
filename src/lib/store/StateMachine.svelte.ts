@@ -18,6 +18,8 @@ export class StateMachine {
 	}
 
 	setState(name) {
+		if (name === this.currentState.name) return;
+
 		this.onEnter(name);
 		this.currentState = initState(this.owner.type, name);
 	}

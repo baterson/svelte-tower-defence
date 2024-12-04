@@ -13,15 +13,6 @@ export class Fly extends BaseState {
 		// Update movement
 		const speed = projectile.stats.speed * deltaTime;
 
-		// const angle = angleBetweenPoints(projectile.position, projectile.target.position);
-		// const direction = getDirectionFromAngle(angle);
-		// projectile.rotation = angle;
-
-		// projectile.position.x += direction.x * speed;
-		// projectile.position.y += direction.y * speed;
-		// debugger;
-
-		// // Update direction to target if it exists and not destroyed
 		if (projectile.target && !projectile.target.isDestroyed) {
 			const angle = angleBetweenPoints(projectile.position, projectile.target.position);
 			const direction = getDirectionFromAngle(angle);
@@ -31,23 +22,14 @@ export class Fly extends BaseState {
 			projectile.position.y += direction.y * speed;
 
 			// Check collision with target
+			// const target =
 			if (distance(projectile.position, projectile.target.position) < 10) {
-				projectile.target.takeDamage(projectile.damage);
-				projectile.state.setState('Impact');
+				projectile.target.resolveCollision(projectile);
+				projectile.resolveCollision();
 			}
 		} else {
 			// Target lost or destroyed, self-destruct
-			projectile.state.setState('Impact');
-		}
-	}
-}
-
-export class Impact extends BaseState {
-	update(deltaTime: number, projectile: Projectile, entityPool: EntityPool) {
-		// Play impact animation and destroy
-		if (projectile.sprite.isAnimationComplete) {
-			projectile.isDestroyed = true;
-			entityPool.remove(projectile.id);
+			projectile.state.setState('Hit');
 		}
 	}
 }

@@ -16,6 +16,8 @@
 	style:height={`${entity.height}px`}
 	style:left={`${entity.position.x}px`}
 	style:top={`${entity.position.y}px`}
+	style:transform={`rotate(${entity.rotation}deg) scale(${entity.sprite.scaleX}, ${entity.sprite.scaleY})`}
+	style:transform-origin={'center'}
 ></div>
 
 <style>

@@ -1,5 +1,5 @@
 <script>
-	import { SPRITE_URL } from '$lib/entitiesConfig';
+	// import { SPRITE_URL } from '$lib/entitiesConfig';
 
 	const { tower } = $props();
 
@@ -7,7 +7,7 @@
 </script>
 
 <div
-	style:background={`url(${SPRITE_URL}) no-repeat ${tower.sprite.currentFrame.x}px ${tower.sprite.currentFrame.y}px`}
+	style:background={`url(${tower.spriteSheet}) no-repeat ${tower.sprite.currentFrame.x}px ${tower.sprite.currentFrame.y}px`}
 	style:width={`${tower.sprite.width}px`}
 	style:height={`${tower.sprite.height}px`}
 ></div>

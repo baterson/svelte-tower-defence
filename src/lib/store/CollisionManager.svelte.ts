@@ -13,18 +13,4 @@ export class CollisionManager {
 			}
 		}
 	}
-
-	private handleCollision(entityA: Entity, entityB: Entity) {
-		// Handle specific collision cases based on entity types
-		if (entityA.type === 'projectile' && entityB.type === 'enemy') {
-			this.handleProjectileEnemyCollision(entityA, entityB);
-		} else if (entityA.type === 'enemy' && entityB.type === 'projectile') {
-			this.handleProjectileEnemyCollision(entityB, entityA);
-		}
-	}
-
-	private handleProjectileEnemyCollision(projectile: Entity, enemy: Entity) {
-		enemy.takeDamage(projectile.stats.damage);
-		projectile.destroy();
-	}
 }

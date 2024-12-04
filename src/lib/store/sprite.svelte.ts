@@ -1,4 +1,8 @@
+/**
+ * Sprite class handling animation frames and transformations
+ */
 type Frame = [number, number];
+
 interface SpriteConfig {
 	frames: Frame[];
 	frameRate: number;
@@ -12,6 +16,11 @@ export class Sprite {
 	currentFrameIndex = $state(0);
 	currentFrameTime = $state(0);
 	spritesheet = $state('');
+	scaleX = $state(1);
+	scaleY = $state(1);
+	offsetX = $state(0);
+	offsetY = $state(0);
+
 	currentFrame = $derived(this.getCurrentFrame());
 	isAnimationComplete = $derived(this.getIsAnimationComplete());
 
@@ -53,12 +62,21 @@ export class Sprite {
 		if (this.loop) {
 			return false;
 		}
-
 		return this.currentFrameIndex === this.frames.length - 1;
 	}
 
 	reset() {
 		this.currentFrameIndex = 0;
 		this.currentFrameTime = 0;
+	}
+
+	setScale(x: number, y = x) {
+		this.scaleX = x;
+		this.scaleY = y;
+	}
+
+	setOffset(x: number, y: number) {
+		this.offsetX = x;
+		this.offsetY = y;
 	}
 }

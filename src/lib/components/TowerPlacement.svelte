@@ -2,7 +2,7 @@
 	import { TOWER_POSITIONS, findNearestTowerPosition } from '$utils/towerPositions';
 	import type { EntityPool } from '$lib/store/EntityPool.svelte';
 
-	const { entityPool } = $props();
+	const { entityPool, children } = $props();
 
 	let scale = $state(1);
 	let placedTowers = $state(new Set());
@@ -39,7 +39,7 @@
 		/>
 	{/each}
 
-	<slot />
+	{@render children()}
 </div>
 
 <style>

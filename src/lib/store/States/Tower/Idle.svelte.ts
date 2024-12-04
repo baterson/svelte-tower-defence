@@ -6,16 +6,6 @@
 import { BaseState } from '$lib/store/States/BaseState.svelte';
 import { findNearestEntity } from '$utils/math';
 
-export class NotBuilt extends BaseState {}
-
-export class Build extends BaseState {
-	update(deltaTime, tower, entityPool) {
-		if (tower.sprite.isAnimationComplete) {
-			tower.state.setState('Idle');
-		}
-	}
-}
-
 export class Idle extends BaseState {
 	update(deltaTime, tower, entityPool) {
 		const currentTime = Date.now();
@@ -39,14 +29,5 @@ export class Idle extends BaseState {
 				entityPool.spawnProjectile(projectilePosition, target, tower.stats.damage);
 			}
 		}
-	}
-}
-
-export class Shoot extends BaseState {
-	update(deltaTime, tower, entityPool) {
-		// Return to idle state after shoot animation
-		setTimeout(() => {
-			tower.state.setState('Idle');
-		}, 600); // Duration of shoot animation
 	}
 }

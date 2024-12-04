@@ -1,3 +1,3 @@
 export class BaseState {
-	update(deltaTime, owner) {}
+	update(deltaTime, owner, entityConfig) {}
 }
