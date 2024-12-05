@@ -79,7 +79,7 @@ const towerCollider = (entity, target) => {
 const projectileCollider = (entity, target) => {
 	entity.stats.health -= 50;
 	if (entity.stats.health <= 0) {
-		entity.state.setState('Die');
+		entity.state.setState('Hit');
 	}
 
 	return;

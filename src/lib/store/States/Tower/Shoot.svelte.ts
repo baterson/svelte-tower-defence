@@ -10,6 +10,6 @@ export class Shoot extends BaseState {
 		// Return to idle state after shoot animation
 		setTimeout(() => {
 			tower.state.setState('Idle');
-		}, 600); // Duration of shoot animation
+		}, 1000); // Duration of shoot animation
 	}
 }

@@ -19,8 +19,6 @@ export class Run extends BaseState {
 	}
 
 	update(deltaTime: number, enemy: Entity, entityPool: EntityPool) {
-		// debugger;
-
 		const throne = entityPool.entities.find((e) => e.type === 'throne');
 		if (!throne) return;
 
@@ -31,7 +29,6 @@ export class Run extends BaseState {
 			return;
 		}
 
-		// Проверяем столкновение со стенами
 		for (const wall of Walls) {
 			if (checkWallCollision(enemy.position, wall)) {
 				// Получаем новое направление движения после отражения
@@ -51,7 +48,6 @@ export class Run extends BaseState {
 		enemy.position.x += this.currentDirection.x * speed;
 		enemy.position.y += this.currentDirection.y * speed;
 
-		// Обновляем поворот в направлении движения
 		enemy.rotation = Math.atan2(this.currentDirection.y, this.currentDirection.x);
 	}
 }

@@ -8,6 +8,6 @@ import type { EntityPool } from '$lib/store/EntityPool.svelte';
 
 export class Idle extends BaseState {
 	update(deltaTime: number, throne, entityPool: EntityPool) {
-		throne.update(deltaTime);
+		// throne.update(deltaTime);
 	}
 }

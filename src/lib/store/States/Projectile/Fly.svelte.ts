@@ -12,23 +12,21 @@ export class Fly extends BaseState {
 	update(deltaTime: number, projectile: Projectile, entityPool: EntityPool) {
 		// Update movement
 		const speed = projectile.stats.speed * deltaTime;
+		const { target } = projectile.context;
 
-		if (projectile.target && !projectile.target.isDestroyed) {
-			const angle = angleBetweenPoints(projectile.position, projectile.target.position);
+		if (target && !target.isDestroyed) {
+			const angle = angleBetweenPoints(projectile.position, target.position);
 			const direction = getDirectionFromAngle(angle);
 			projectile.rotation = angle;
 
 			projectile.position.x += direction.x * speed;
 			projectile.position.y += direction.y * speed;
 
-			// Check collision with target
-			// const target =
-			if (distance(projectile.position, projectile.target.position) < 10) {
-				projectile.target.resolveCollision(projectile);
-				projectile.resolveCollision();
+			if (distance(projectile.position, target.position) < 10) {
+				projectile.context.target.resolveCollision(projectile);
+				projectile.resolveCollision(target);
 			}
 		} else {
-			// Target lost or destroyed, self-destruct
 			projectile.state.setState('Hit');
 		}
 	}

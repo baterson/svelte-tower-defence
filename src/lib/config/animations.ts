@@ -6,6 +6,12 @@
 export const animations = {
 	enemy1: [
 		{
+			name: 'Idle',
+			frames: [[-19, -15]],
+			frameRate: 10,
+			loop: true
+		},
+		{
 			name: 'Run',
 			frames: [
 				[-19, -15],

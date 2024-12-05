@@ -19,9 +19,11 @@ export class EntityPool {
 	constructor() {
 		this.initializeTowers();
 		this.spawnEnemy();
+		this.spawnThrone();
 	}
 
 	private initializeTowers() {
+		// this.spawnTower(TOWER_POSITIONS.left[3].x, TOWER_POSITIONS.left[3].y);
 		[...TOWER_POSITIONS.left, ...TOWER_POSITIONS.right].forEach(({ x, y }) => {
 			this.spawnTower(x, y);
 		});
@@ -32,7 +34,7 @@ export class EntityPool {
 		this.entities.forEach((entity) => entity.update(deltaTime, this));
 
 		// Check collisions
-		this.checkCollisions();
+		// this.checkCollisions();
 
 		// Handle spawning
 		const currentTime = new Date().getTime();
@@ -41,8 +43,8 @@ export class EntityPool {
 			this.lastSpawn = currentTime;
 		}
 
-		// Clean up destroyed entities
-		this.entities = this.entities.filter((entity) => !entity.isDestroyed);
+		// // Clean up destroyed entities
+		// this.entities = this.entities.filter((entity) => !entity.isDestroyed);
 	};
 
 	checkCollisions = () => {
@@ -88,7 +90,7 @@ export class EntityPool {
 	};
 
 	spawnThrone = () => {
-		const throne = initEntity('throne', new Vector2(200, 500));
+		const throne = initEntity('throne', new Vector2(100, 500));
 		this.add(throne);
 	};
 

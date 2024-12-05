@@ -34,8 +34,8 @@ const entities: Record<string, EntityConfig> = {
 		states: ['Run', 'Shoot', 'Die'],
 		sprites: animations.enemy1,
 		stats: {
-			health: 100,
-			speed: 0.09,
+			health: 1,
+			speed: 0.05,
 			damage: 10
 		}
 	},
@@ -49,8 +49,8 @@ const entities: Record<string, EntityConfig> = {
 		states: ['Run', 'Shoot', 'Die'],
 		sprites: animations.enemy2,
 		stats: {
-			health: 100,
-			speed: 0.09,
+			health: 1,
+			speed: 0.07,
 			damage: 10
 		}
 	},
@@ -64,7 +64,7 @@ const entities: Record<string, EntityConfig> = {
 		states: ['Run', 'Shoot', 'Die'],
 		sprites: animations.enemy3,
 		stats: {
-			health: 100,
+			health: 10,
 			speed: 0.09,
 			damage: 10
 		}
@@ -95,7 +95,7 @@ const entities: Record<string, EntityConfig> = {
 		states: ['Fly', 'Hit'],
 		sprites: animations.projectile,
 		stats: {
-			health: 0,
+			health: 1,
 			speed: 0.5,
 			damage: 20
 		}
@@ -117,8 +117,8 @@ const entities: Record<string, EntityConfig> = {
 	},
 	throne: {
 		type: 'throne',
-		width: 400,
-		height: 80,
+		width: 250,
+		height: 200,
 		stats: {
 			health: 1000,
 			damage: 0,
@@ -126,8 +126,8 @@ const entities: Record<string, EntityConfig> = {
 			range: 40
 		},
 		states: ['Idle'],
-		sprites: animations.blueTower,
-		spriteSheet: 'throne',
+		sprites: animations.enemy1,
+		spriteSheet: '/1st_enemy_run.png',
 		defaultState: 'Idle'
 	}
 };
