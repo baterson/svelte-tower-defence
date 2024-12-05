@@ -3,7 +3,7 @@ import * as TowerStates from './Tower/';
 import * as ProjectileStates from './Projectile';
 import * as ThroneStates from './Throne/';
 
-export const initState = (entityType, name) => {
+export const initState = (stateMachine, entityType, name, stateContext = {}) => {
 	let State;
 
 	if (entityType === 'enemy') {
@@ -16,5 +16,5 @@ export const initState = (entityType, name) => {
 		State = ThroneStates[name];
 	}
 
-	return new State();
+	return new State(stateMachine, stateContext);
 };

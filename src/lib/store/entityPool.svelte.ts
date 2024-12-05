@@ -14,7 +14,7 @@ export class EntityPool {
 	enemies = $derived(this.entities.filter((entity) => entity.type === 'enemy'));
 	projectiles = $derived(this.entities.filter((entity) => entity.type === 'projectile'));
 	lastSpawn = $state(new Date().getTime());
-	private SPAWN_CD = 1000;
+	private SPAWN_CD = 100000;
 
 	constructor() {
 		this.initializeTowers();

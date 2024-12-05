@@ -4,10 +4,10 @@ export class StateMachine {
 	states = $state([]);
 	currentState = $state();
 
-	constructor(owner, states, initialState, onEnter) {
+	constructor(owner, states, initialState, onEnter, stateContext = {}) {
 		this.owner = owner;
 		this.states = states;
-		this.currentState = initState(owner.type, initialState, this.states[initialState]);
+		this.currentState = initState(this, owner.type, initialState, stateContext);
 		this.onEnter = onEnter;
 
 		this.onEnter(initialState);
@@ -17,10 +17,11 @@ export class StateMachine {
 		this.currentState.update(deltaTime, this.owner, entityPool);
 	}
 
-	setState(name) {
-		if (name === this.currentState.name) return;
+	setState(name, stateContext = {}) {
+		// if (name === this.currentState.name) return;
 
 		this.onEnter(name);
-		this.currentState = initState(this.owner.type, name);
+		this.currentState.transitioning = true;
+		this.currentState = initState(this, this.owner.type, name, stateContext);
 	}
 }

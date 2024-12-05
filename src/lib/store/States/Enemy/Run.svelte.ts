@@ -13,12 +13,21 @@ import { Vector2 } from '$store/Vector2.svelte';
 export class Run extends BaseState {
 	private currentDirection: Vector2;
 
-	constructor() {
-		super();
+	constructor(stateMachine, stateContext = {}) {
+		console.log('stateContext', stateContext);
+
+		super(stateContext);
 		this.currentDirection = new Vector2(0, 1); // Начальное движение вниз
+		setTimeout(() => {
+			stateMachine.setState('Shoot');
+		}, 1000);
 	}
 
 	update(deltaTime: number, enemy: Entity, entityPool: EntityPool) {
+		if (this.transitioning) {
+			return;
+		}
+
 		const throne = entityPool.entities.find((e) => e.type === 'throne');
 		if (!throne) return;
 
@@ -42,7 +51,8 @@ export class Run extends BaseState {
 			this.currentDirection = follow(enemy.position, throne.position);
 		}
 
-		const speed = enemy.stats.speed * deltaTime;
+		const speed = this.context.speed ? this.context.speed : enemy.stats.speed * deltaTime;
+		// console.log('speed', this.context);
 
 		// Обновляем позицию
 		enemy.position.x += this.currentDirection.x * speed;

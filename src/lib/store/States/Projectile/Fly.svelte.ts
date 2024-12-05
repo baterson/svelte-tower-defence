@@ -12,7 +12,7 @@ export class Fly extends BaseState {
 	update(deltaTime: number, projectile: Projectile, entityPool: EntityPool) {
 		// Update movement
 		const speed = projectile.stats.speed * deltaTime;
-		const { target } = projectile.context;
+		const { target } = this.context;
 
 		if (target && !target.isDestroyed) {
 			const angle = angleBetweenPoints(projectile.position, target.position);
@@ -23,7 +23,7 @@ export class Fly extends BaseState {
 			projectile.position.y += direction.y * speed;
 
 			if (distance(projectile.position, target.position) < 10) {
-				projectile.context.target.resolveCollision(projectile);
+				this.context.target.resolveCollision(projectile);
 				projectile.resolveCollision(target);
 			}
 		} else {

@@ -15,20 +15,18 @@ export class Entity {
 	height = $state(0);
 	spriteSheet = $state('');
 	sprite = $state<Sprite>();
-	collider = $state<Collider>();
 	position = $state<Vector2>();
 	state = $state<StateMachine>();
 	stats = $state({});
 	rotation = $state(0);
 	isDestroyed = $state(false);
-	context = $state({});
 
 	constructor(
 		name,
 		position,
 		{ width, height, type, states, sprites, spriteSheet, defaultState, stats },
-		onCollide,
-		context
+		stateContext,
+		onCollide
 	) {
 		this.name = name;
 		this.type = type;
@@ -37,11 +35,13 @@ export class Entity {
 		this.position = position;
 		this.stats = { ...stats };
 		this.spriteSheet = spriteSheet;
-		this.state = new StateMachine(this, states, defaultState, (name) =>
-			this.setSprite(name, sprites)
+		this.state = new StateMachine(
+			this,
+			states,
+			defaultState,
+			(stateName) => this.setSprite(stateName, sprites),
+			stateContext
 		);
-		this.collider = new Collider(this);
-		this.context = context;
 		this.resolveCollision = (other) => onCollide(this, other);
 	}
 
@@ -52,7 +52,7 @@ export class Entity {
 
 	setSprite(name: string, sprites) {
 		const sprite = sprites.find((sprite) => sprite.name === name);
-		if (!sprite) throw new Error(`Sprite not found for: ${name}`);
+		if (!sprite) throw new Error(`Sprite ${name} not found for: ${this.name}: ${this.type}`);
 
 		this.sprite = new Sprite(sprite, this.spriteSheet);
 	}
@@ -70,7 +70,7 @@ const enemyCollider = (entity, target) => {
 const towerCollider = (entity, target) => {
 	entity.stats.health -= 50;
 	if (entity.stats.health <= 0) {
-		entity.state.setState('Die');
+		// entity.state.setState('Die');
 	}
 
 	return;
@@ -108,9 +108,10 @@ const getCollider = (name) => {
 	throw new Error(`No Collider found for ${name}`);
 };
 
-export const initEntity = (name, position, context = {}) => {
+export const initEntity = (name, position, stateContext = {}) => {
 	const config = getConfig(name);
+
 	const onCollide = getCollider(name);
 
-	return new Entity(name, position, config, onCollide, context);
+	return new Entity(name, position, config, stateContext, onCollide);
 };

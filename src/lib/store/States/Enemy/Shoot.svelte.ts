@@ -7,21 +7,15 @@ import { BaseState } from '$lib/store/States/BaseState.svelte';
 import type { EntityPool } from '$lib/store/EntityPool.svelte';
 import type { Enemy } from '$store/Entities/Enemy.svelte';
 import { distance } from '$utils/math';
+import { Vector2 } from '$store/Vector2.svelte';
 
 export class Shoot extends BaseState {
 	update(deltaTime: number, enemy: Enemy, entityPool: EntityPool) {
+		if (this.transitioning) {
+			return;
+		}
 		// Check health first
-		if (enemy.health <= 0) {
-			enemy.state.setState('Death');
-			return;
-		}
-
-		const currentTime = Date.now();
-		const attackCooldown = 1000 / enemy.stats.attackSpeed;
-
-		if (currentTime - enemy.lastAttack < attackCooldown) {
-			return;
-		}
+		enemy.state.setState('Run');
 
 		const towers = entityPool.towers;
 		const nearestTower = towers.length
@@ -32,19 +26,12 @@ export class Shoot extends BaseState {
 				}, towers[0])
 			: null;
 
-		if (!nearestTower) {
-			enemy.state.setState('Run');
-			return;
-		}
+		// console.log('nearestTower', nearestTower);
 
-		const dist = distance(enemy.position, nearestTower.position);
-		if (dist > enemy.stats.range) {
-			enemy.state.setState('Run');
-			return;
-		}
+		// const dist = distance(enemy.position, nearestTower.position);
 
 		// Attack the tower
-		enemy.lastAttack = currentTime;
-		entityPool.spawnProjectile(enemy.position, nearestTower, enemy.stats.damage);
+		entityPool.spawnProjectile(new Vector2(enemy.position.x, enemy.position.y), nearestTower);
+		enemy.state.setState('Run');
 	}
 }
