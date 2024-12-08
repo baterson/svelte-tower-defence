@@ -16,5 +16,11 @@ export const initState = (stateMachine, entityType, name, stateContext = {}) => 
 		State = ThroneStates[name];
 	}
 
+	if (!State) {
+		throw new Error(`Invalid entity type: ${entityType} with name ${name}`);
+	}
+
+	console.log('State', State);
+
 	return new State(stateMachine, stateContext);
 };

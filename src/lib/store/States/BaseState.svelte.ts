@@ -1,12 +1,14 @@
+import type { Entity } from '$store/Entity.svelte';
+import type { EntityPool } from '$store/EntityPool.svelte';
+
 export class BaseState {
 	context = $state();
-	transitioning = $state(false);
+	stateMachine = $state();
 
 	constructor(stateMachine, context = {}) {
 		this.stateMachine = stateMachine;
-		this.transitioning = false;
 		this.context = context;
 	}
 
-	update(deltaTime) {}
+	update(deltaTime: number, entity: Entity, entityPool: EntityPool) {}
 }

@@ -1,13 +1,15 @@
 /**
- * TowerStates.ts
- * State classes for tower behavior
+ * Tower state machine states
+ * @module TowerStates
  */
 
 import { BaseState } from '$lib/store/States/BaseState.svelte';
-import { findNearestEntity } from '$utils/math';
+import { Vector2 } from '$lib/store/Vector2.svelte';
+import { distance } from '$utils/math';
 
 export class Idle extends BaseState {
-	update(deltaTime, tower, entityPool) {
+	update(deltaTime: number, tower: any, entityPool: any) {
+		// Check attack cooldown
 		const currentTime = Date.now();
 		const attackCooldown = 1000 / tower.stats.attackSpeed;
 
@@ -15,16 +17,19 @@ export class Idle extends BaseState {
 			return;
 		}
 
+		// Find target in range
 		if (entityPool.enemies.length > 0) {
-			const target = findNearestEntity(tower.position, entityPool.enemies);
+			const target = entityPool.getNearestEntityOfType(tower.position, 'enemy', tower.stats.range);
+
 			if (target) {
 				tower.state.setState('Shoot');
 				tower.lastAttack = currentTime;
 
-				const projectilePosition = {
-					x: tower.position.x + tower.width / 2,
-					y: tower.position.y + tower.height / 2
-				};
+				// Create projectile at tower's center
+				const projectilePosition = new Vector2(
+					tower.position.x + tower.width / 2,
+					tower.position.y + tower.height / 2
+				);
 
 				entityPool.spawnProjectile(projectilePosition, target, tower.stats.damage);
 			}

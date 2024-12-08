@@ -7,7 +7,7 @@ import { animations } from './animations';
 
 export interface EntityConfig {
 	name: string;
-	type: 'enemy' | 'tower' | 'projectile';
+	type: 'enemy' | 'tower' | 'projectile' | 'throne';
 	width: number;
 	height: number;
 	spriteSheet: string;

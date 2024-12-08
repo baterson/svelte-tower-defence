@@ -16,6 +16,7 @@ export class Entity {
 	spriteSheet = $state('');
 	sprite = $state<Sprite>();
 	position = $state<Vector2>();
+	prevPosition = $state<Vector2>();
 	state = $state<StateMachine>();
 	stats = $state({});
 	rotation = $state(0);
@@ -33,6 +34,7 @@ export class Entity {
 		this.width = width;
 		this.height = height;
 		this.position = position;
+		this.prevPosition = position;
 		this.stats = { ...stats };
 		this.spriteSheet = spriteSheet;
 		this.state = new StateMachine(
@@ -43,6 +45,10 @@ export class Entity {
 			stateContext
 		);
 		this.resolveCollision = (other) => onCollide(this, other);
+	}
+
+	beforeUpdate(deltaTime: number, entityPool?) {
+		this.prevPosition = this.position.clone();
 	}
 
 	update(deltaTime: number, entityPool) {
