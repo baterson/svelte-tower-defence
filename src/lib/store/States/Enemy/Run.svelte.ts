@@ -6,8 +6,6 @@
 import { BaseState } from '../BaseState.svelte';
 import type { Entity } from '$store/Entity.svelte';
 import type { EntityPool } from '$store/EntityPool.svelte';
-import { Walls } from '$lib/config/entitiyConfig';
-import { follow, checkWallCollision, reflectMovement, distance } from '$utils/math';
 import { Vector2 } from '$store/Vector2.svelte';
 
 export class Run extends BaseState {
@@ -15,10 +13,7 @@ export class Run extends BaseState {
 
 	constructor(stateMachine, stateContext = {}) {
 		super(stateContext);
-		this.currentDirection = new Vector2(0, 1); // Начальное движение вниз
-		// setTimeout(() => {
-		// 	stateMachine.setState('Shoot');
-		// }, 1000);
+		this.currentDirection = new Vector2(0, 1);
 	}
 
 	update(deltaTime: number, enemy: Entity, entityPool: EntityPool) {
@@ -28,7 +23,6 @@ export class Run extends BaseState {
 		const speed = enemy.stats.speed * deltaTime;
 
 		// Use Vector2 add method
-		// set prevposition
 		enemy.position.x += this.currentDirection.x * speed;
 		enemy.position.y += this.currentDirection.y * speed;
 

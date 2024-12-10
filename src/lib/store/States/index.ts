@@ -20,7 +20,5 @@ export const initState = (stateMachine, entityType, name, stateContext = {}) => 
 		throw new Error(`Invalid entity type: ${entityType} with name ${name}`);
 	}
 
-	console.log('State', State);
-
 	return new State(stateMachine, stateContext);
 };

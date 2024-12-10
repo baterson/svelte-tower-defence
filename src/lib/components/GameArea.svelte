@@ -4,7 +4,7 @@
 </script>
 
 <section>
-	{#each game.entityPool.entities as entity}
+	{#each game.entityManager.entities as entity (entity.id)}
 		<Entity {entity} />
 	{/each}
 </section>

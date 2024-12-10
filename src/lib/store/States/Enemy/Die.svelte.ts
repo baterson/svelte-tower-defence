@@ -6,25 +6,18 @@
 import { BaseState } from '$lib/store/States/BaseState.svelte';
 import type { EntityPool } from '$lib/store/EntityPool.svelte';
 import type { Enemy } from '$store/Entities/Enemy.svelte';
-import { distance } from '$utils/math';
+import { degToRad } from '$utils/math';
 
 export class Die extends BaseState {
-	private deathDelay = 600; // Duration of death animation
-	private startTime: number | null = null;
+	private readonly ROTATION_SPEED = 2; // градусов в кадр
+	private readonly TARGET_ROTATION = 90; // целевой угол в градусах
 
 	update(deltaTime: number, enemy: Enemy, entityPool: EntityPool) {
-		if (this.startTime === null) {
-			this.startTime = Date.now();
+		if (enemy.sprite.isAnimationComplete) {
+			enemy.destroy();
+			return;
 		}
-
-		const elapsedTime = Date.now() - this.startTime;
-
-		// Update opacity based on time
-		enemy.opacity = Math.max(0, 1 - elapsedTime / this.deathDelay);
-
-		if (elapsedTime >= this.deathDelay) {
-			enemy.isDestroyed = true;
-			entityPool.remove(enemy.id);
-		}
+		enemy.rotation =
+			Math.min(enemy.rotation + degToRad(this.ROTATION_SPEED), degToRad(this.TARGET_ROTATION)) * 30;
 	}
 }

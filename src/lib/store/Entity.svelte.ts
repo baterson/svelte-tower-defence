@@ -2,7 +2,6 @@ import { getConfig } from '$lib/config/entitiyConfig';
 import { Sprite } from '$store/Sprite.svelte';
 import { Vector2 } from '$store/Vector2.svelte';
 import { StateMachine } from '$store/StateMachine.svelte';
-import { Collider } from '$store/Collider.svelte';
 // import { isInRadius } from '$utils/math';
 
 export class Entity {
@@ -20,14 +19,14 @@ export class Entity {
 	state = $state<StateMachine>();
 	stats = $state({});
 	rotation = $state(0);
+	opacity = $state(1);
 	isDestroyed = $state(false);
 
 	constructor(
 		name,
 		position,
-		{ width, height, type, states, sprites, spriteSheet, defaultState, stats },
-		stateContext,
-		onCollide
+		{ width, height, type, states, animations, spriteSheet, defaultState, collider, stats },
+		stateContext
 	) {
 		this.name = name;
 		this.type = type;
@@ -41,10 +40,10 @@ export class Entity {
 			this,
 			states,
 			defaultState,
-			(stateName) => this.setSprite(stateName, sprites),
+			(stateName) => this.setSprite(stateName, animations),
 			stateContext
 		);
-		this.resolveCollision = (other) => onCollide(this, other);
+		this.resolveCollision = (other) => collider(this, other);
 	}
 
 	beforeUpdate(deltaTime: number, entityPool?) {
@@ -52,72 +51,26 @@ export class Entity {
 	}
 
 	update(deltaTime: number, entityPool) {
+		if (this.isDestroyed) return;
 		this.state.update(deltaTime, entityPool);
 		this.sprite.update(deltaTime);
 	}
 
-	setSprite(name: string, sprites) {
-		const sprite = sprites.find((sprite) => sprite.name === name);
-		if (!sprite) throw new Error(`Sprite ${name} not found for: ${this.name}: ${this.type}`);
+	setSprite(name: string, animations) {
+		const sprite = animations.find((sprite) => sprite.name === name);
+		if (!sprite)
+			throw new Error(`Sprite ${name} not found for: ${this.name}: with type ${this.type}`);
 
 		this.sprite = new Sprite(sprite, this.spriteSheet);
 	}
+
+	destroy() {
+		this.isDestroyed = true;
+	}
 }
-
-const enemyCollider = (entity, target) => {
-	entity.stats.health -= 50;
-	if (entity.stats.health <= 0) {
-		entity.state.setState('Die');
-	}
-
-	return;
-};
-
-const towerCollider = (entity, target) => {
-	entity.stats.health -= 50;
-	if (entity.stats.health <= 0) {
-		// entity.state.setState('Die');
-	}
-
-	return;
-};
-
-const projectileCollider = (entity, target) => {
-	entity.stats.health -= 50;
-	if (entity.stats.health <= 0) {
-		entity.state.setState('Hit');
-	}
-
-	return;
-};
-
-const throneCollider = (entity, target) => {
-	entity.stats.health -= 50;
-	if (entity.stats.health <= 0) {
-		entity.state.setState('Die');
-	}
-
-	return;
-};
-
-const getCollider = (name) => {
-	const enemies = ['enemy1', 'enemy2', 'enemy3'];
-	const towers = ['blueTower'];
-	const projectiles = ['projectile'];
-	const throne = ['throne'];
-
-	if (enemies.includes(name)) return enemyCollider;
-	if (towers.includes(name)) return towerCollider;
-	if (projectiles.includes(name)) return projectileCollider;
-	if (throne.includes(name)) return throneCollider;
-
-	throw new Error(`No Collider found for ${name}`);
-};
 
 export const initEntity = (name, position, stateContext = {}) => {
 	const config = getConfig(name);
 
-	const onCollide = getCollider(name);
-
-	return new Entity(name, position, config, stateContext, onCollide);
+	return new Entity(name, position, config, stateContext);
 };

@@ -3,7 +3,7 @@ import { GameLoop } from './GameLoop.svelte';
 
 export class Game {
 	gameLoop = $state();
-	entityPool = $state(new EntityManager());
+	entityManager = $state(new EntityManager());
 	// obj = $state({ x: 0, y: 0, sprite: { x: -640, y: -214 }, width: 60, height: 100 });
 
 	constructor() {
@@ -12,7 +12,7 @@ export class Game {
 	}
 
 	update = (deltaTime) => {
-		this.entityPool.update(deltaTime);
+		this.entityManager.update(deltaTime);
 	};
 
 	start = () => {

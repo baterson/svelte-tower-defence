@@ -4,7 +4,8 @@
 	import Entity from '$lib/components/Entity.svelte';
 	import TowerPlacement from '$components/TowerPlacement.svelte';
 	import { game } from '$lib/store/Game.svelte';
-
+	import Walls from '$components/Walls.svelte';
+	import DevTools from '$components/DevTools.svelte';
 	// const game = $state(new Game());
 
 	$effect(() => {
@@ -14,6 +15,8 @@
 
 <section>
 	<!-- <TowerPlacement /> -->
+	<DevTools {game} />
+	<Walls />
 	<GameArea />
 </section>
 

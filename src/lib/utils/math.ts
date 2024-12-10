@@ -7,6 +7,42 @@ import { Vector2 } from '$lib/store/Vector2.svelte';
 // import type { Rect2D } from '$lib/types/collision';
 // type Rect2D = {}
 
+export interface Rect2D {
+	x: number;
+	y: number;
+	width: number;
+	height: number;
+}
+
+// export function distance(point1: Vector2, point2: Vector2): number {
+// 	const dx = point2.x - point1.x;
+// 	const dy = point2.y - point1.y;
+// 	return Math.sqrt(dx * dx + dy * dy);
+// }
+
+export function calculateAngle(source: Vector2, target: Vector2): number {
+	return Math.atan2(target.y - source.y, target.x - source.x);
+}
+
+export function normalizeVector(current: Vector2, target: Vector2): Vector2 {
+	const dx = target.x - current.x;
+	const dy = target.y - current.y;
+	const distance = Math.sqrt(dx * dx + dy * dy);
+	return distance ? new Vector2(dx / distance, dy / distance) : Vector2.Zero();
+}
+
+export function checkRectCollision(rect1: Rect2D, rect2: Rect2D): boolean {
+	return (
+		rect1.x < rect2.x + rect2.width &&
+		rect1.x + rect1.width > rect2.x &&
+		rect1.y < rect2.y + rect2.height &&
+		rect1.y + rect1.height > rect2.y
+	);
+}
+
+export function checkCircleCollision(point: Vector2, center: Vector2, radius: number): boolean {
+	return distance(point, center) <= radius;
+}
 /**
  * Calculate distance between two points
  * @example

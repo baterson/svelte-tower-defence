@@ -18,7 +18,7 @@ export class StateMachine {
 	}
 
 	setState(name, stateContext = {}) {
-		// if (name === this.currentState.name) return;
+		if (name === this.currentState.name) return;
 
 		this.onEnter(name);
 		this.currentState.transitioning = true;
