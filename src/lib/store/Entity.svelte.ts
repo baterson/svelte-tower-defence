@@ -2,7 +2,7 @@ import { getConfig } from '$lib/config/entitiyConfig';
 import { Sprite } from '$store/Sprite.svelte';
 import { Vector2 } from '$store/Vector2.svelte';
 import { StateMachine } from '$store/StateMachine.svelte';
-// import { isInRadius } from '$utils/math';
+import { Collider } from './Collider.svelte';
 
 export class Entity {
 	static lastId = 0;
@@ -20,12 +20,14 @@ export class Entity {
 	stats = $state({});
 	rotation = $state(0);
 	opacity = $state(1);
+	collider = $state<Collider>();
 	isDestroyed = $state(false);
+	isInteractable = $state(true);
 
 	constructor(
 		name,
 		position,
-		{ width, height, type, states, animations, spriteSheet, defaultState, collider, stats },
+		{ width, height, type, states, animations, spriteSheet, defaultState, onCollide, stats },
 		stateContext
 	) {
 		this.name = name;
@@ -43,7 +45,7 @@ export class Entity {
 			(stateName) => this.setSprite(stateName, animations),
 			stateContext
 		);
-		this.resolveCollision = (other) => collider(this, other);
+		this.collider = new Collider(this, onCollide);
 	}
 
 	beforeUpdate(deltaTime: number, entityPool?) {
@@ -62,6 +64,10 @@ export class Entity {
 			throw new Error(`Sprite ${name} not found for: ${this.name}: with type ${this.type}`);
 
 		this.sprite = new Sprite(sprite, this.spriteSheet);
+	}
+
+	stopInteractions() {
+		this.isInteractable = false;
 	}
 
 	destroy() {

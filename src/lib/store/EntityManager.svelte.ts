@@ -1,23 +1,24 @@
 import { TOWER_POSITIONS } from '$utils/towerPositions';
-import { CollisionManager } from './CollisionManager.svelte';
 import { Entity, initEntity } from './Entity.svelte';
 import { TimeManager } from './TimeManager.svelte';
 import { Vector2 } from './Vector2.svelte';
 
 const SPAWN_CD = 1000;
-const CLEANUP_INTERVAL = 1000;
+const CLEANUP_INTERVAL = 100;
 
 export class EntityManager {
 	entities = $state<Entity[]>([]);
-	livingEntities = $derived(this.entities.filter((entity) => !entity.isDestroyed));
-	towers = $derived(this.entities.filter((entity) => entity.type === 'tower'));
-	enemies = $derived(this.entities.filter((entity) => entity.type === 'enemy'));
-	projectiles = $derived(this.entities.filter((entity) => entity.type === 'projectile'));
-	collisionManager = $state<CollisionManager>();
 	timeManager = $state<TimeManager>();
+	// Derived state
+	livingEntities = $derived(
+		this.entities.filter((entity) => !entity.isDestroyed && entity.isInteractable)
+	);
+	towers = $derived(this.livingEntities.filter((entity) => entity.type === 'tower'));
+	enemies = $derived(this.livingEntities.filter((entity) => entity.type === 'enemy'));
+	projectiles = $derived(this.livingEntities.filter((entity) => entity.type === 'projectile'));
+	throne = $derived(this.livingEntities.find((entity) => entity.type === 'throne'));
 
 	constructor() {
-		this.collisionManager = new CollisionManager();
 		this.initializeTowers();
 		this.spawnThrone();
 
@@ -29,16 +30,42 @@ export class EntityManager {
 
 	update = (deltaTime: number) => {
 		this.timeManager.update(deltaTime);
+
 		this.entities.forEach((entity) => entity.beforeUpdate(deltaTime, this));
 		this.entities.forEach((entity) => entity.update(deltaTime, this));
 
-		// const walls = this.collisionManager.detectWallCollisions(this.entities);
-		// const collisions = this.collisionManager.detectEntityCollisions(this.entities);
-
-		// this.collisionManager.resolveWallCollisions(walls);
-		this.collisionManager.resolveEntityCollisions(this.entities);
+		this.resolveCollisions();
 		this.cleanupEntities();
 	};
+
+	resolveCollisions() {
+		for (const enemy of this.enemies) {
+			if (enemy.isDestroyed) continue;
+
+			if (enemy.collider.checkCollision(this.throne.collider)) {
+				enemy.collider.resolveCollision(this.throne.collider);
+				this.throne.collider.resolveCollision(enemy.collider);
+			}
+
+			for (const projectile of this.projectiles) {
+				if (projectile.isDestroyed) continue;
+
+				if (enemy.collider.isInRange(projectile.collider, 10)) {
+					enemy.collider.resolveCollision(projectile.collider);
+					projectile.collider.resolveCollision(enemy.collider);
+				}
+			}
+
+			for (const tower of this.towers) {
+				if (tower.isDestroyed) continue;
+
+				if (enemy.collider.isInRange(tower.collider, 10)) {
+					enemy.collider.resolveCollision(tower.collider);
+					tower.collider.resolveCollision(enemy.collider);
+				}
+			}
+		}
+	}
 
 	private initializeTowers() {
 		[...TOWER_POSITIONS.left, ...TOWER_POSITIONS.right].forEach(({ x, y }) => {
@@ -66,7 +93,7 @@ export class EntityManager {
 	};
 
 	private spawnThrone = () => {
-		const throne = initEntity('throne', new Vector2(100, 600));
+		const throne = initEntity('throne', new Vector2(80, 600));
 		this.add(throne);
 	};
 

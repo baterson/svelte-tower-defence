@@ -9,6 +9,7 @@
 	onMount(() => {
 		window.game = game;
 		window.entityManager = game.entityManager;
+		window.enemies = game.entityManager.enemies;
 		window.towers = game.entityManager.towers;
 	});
 </script>
@@ -17,12 +18,12 @@
 	<div>
 		<button onclick={devTools.toggleWalls}>Toggle Walls</button>
 
-		<section>
+		<!-- <section>
 			{#each game.entityManager.towers as tower}
 				<h3>{tower.name}</h3>
 				<p>{tower.state.currentState.constructor.name}</p>
 			{/each}
-		</section>
+		</section> -->
 	</div>
 {/if}
 
@@ -44,8 +45,8 @@
 		top: 0;
 		right: 0;
 		padding: 20px 10px 20px 10px;
-		width: 400px;
-		height: 300px;
+		width: 200px;
+		height: 200px;
 		background-color: mediumpurple;
 		display: flex;
 		flex-direction: column;

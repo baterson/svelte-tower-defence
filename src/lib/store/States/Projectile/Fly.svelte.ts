@@ -24,12 +24,6 @@ export class Fly extends BaseState {
 			// Update position
 			projectile.position.x += direction.x * speed;
 			projectile.position.y += direction.y * speed;
-
-			// Check for collision with target
-			if (distance(projectile.position, target.position) < 10) {
-				this.context.target.resolveCollision(projectile);
-				projectile.resolveCollision(target);
-			}
 		} else {
 			// Target lost or destroyed
 			projectile.state.setState('Hit');

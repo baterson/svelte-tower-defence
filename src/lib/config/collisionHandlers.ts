@@ -41,9 +41,9 @@ export const projectileCollider = (entity, target) => {
 };
 
 export const throneCollider = (entity, target) => {
-	entity.stats.health -= 50;
-	if (entity.stats.health <= 0) {
-		entity.state.setState('Die');
-	}
+	// entity.stats.health -= 50;
+	// if (entity.stats.health <= 0) {
+	// 	entity.state.setState('Die');
+	// }
 	return;
 };

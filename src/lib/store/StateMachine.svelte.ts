@@ -21,7 +21,6 @@ export class StateMachine {
 		if (name === this.currentState.name) return;
 
 		this.onEnter(name);
-		this.currentState.transitioning = true;
 		this.currentState = initState(this, this.owner.type, name, stateContext);
 	}
 }

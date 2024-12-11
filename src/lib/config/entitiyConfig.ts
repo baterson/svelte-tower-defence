@@ -5,7 +5,12 @@
 
 import type { Entity } from '$store/Entity.svelte';
 import { animations } from './animations';
-import { enemyCollider, projectileCollider, throneCollider, towerCollider } from './colliders';
+import {
+	enemyCollider,
+	projectileCollider,
+	throneCollider,
+	towerCollider
+} from './collisionHandlers';
 
 export interface EntityConfig {
 	name: string;
@@ -16,7 +21,7 @@ export interface EntityConfig {
 	defaultState: string;
 	states: string[];
 	animations: any[];
-	collider?: (entity: Entity, target: Entity) => void;
+	onCollide?: (entity: Entity, target: Entity) => void;
 	stats: {
 		health?: number;
 		speed?: number;
@@ -38,10 +43,10 @@ const entities: Record<string, EntityConfig> = {
 		animations: animations.enemy1,
 		stats: {
 			health: 1,
-			speed: 0.05,
+			speed: 0.06,
 			damage: 10
 		},
-		collider: enemyCollider
+		onCollide: enemyCollider
 	},
 	enemy2: {
 		name: 'enemy2',
@@ -57,7 +62,7 @@ const entities: Record<string, EntityConfig> = {
 			speed: 0.07,
 			damage: 10
 		},
-		collider: enemyCollider
+		onCollide: enemyCollider
 	},
 	enemy3: {
 		name: 'enemy3',
@@ -73,7 +78,7 @@ const entities: Record<string, EntityConfig> = {
 			speed: 0.09,
 			damage: 10
 		},
-		collider: enemyCollider
+		onCollide: enemyCollider
 	},
 	blueTower: {
 		name: 'blueTower',
@@ -90,7 +95,7 @@ const entities: Record<string, EntityConfig> = {
 			attackSpeed: 0.5,
 			damage: 20
 		},
-		collider: towerCollider
+		onCollide: towerCollider
 	},
 	projectile: {
 		name: 'projectile',
@@ -106,7 +111,7 @@ const entities: Record<string, EntityConfig> = {
 			speed: 0.5,
 			damage: 20
 		},
-		collider: projectileCollider
+		onCollide: projectileCollider
 	},
 	laser: {
 		name: 'laser',
@@ -122,11 +127,11 @@ const entities: Record<string, EntityConfig> = {
 			speed: 0.5,
 			damage: 20
 		},
-		collider: projectileCollider
+		onCollide: projectileCollider
 	},
 	throne: {
 		type: 'throne',
-		width: 250,
+		width: 300,
 		height: 50,
 		stats: {
 			health: 1000,
@@ -138,7 +143,7 @@ const entities: Record<string, EntityConfig> = {
 		animations: animations.enemy1,
 		spriteSheet: '/1st_enemy_run.png',
 		defaultState: 'Idle',
-		collider: throneCollider
+		onCollide: throneCollider
 	}
 };
 

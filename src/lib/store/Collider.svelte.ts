@@ -1,4 +1,10 @@
-import type { Entity } from './Entities/Entity.svelte';
+// src/lib/core/Collider.ts
+/**
+ * Entity collision detection and resolution
+ * @module Collider
+ */
+
+import { Entity } from './Entity.svelte';
 import { Vector2 } from './Vector2.svelte';
 
 interface Bounds {
@@ -8,13 +14,27 @@ interface Bounds {
 	bottom: number;
 }
 
+type CollisionHandler = (entity: Entity, other: Entity) => boolean;
+
 export class Collider {
 	private entity: Entity;
+	private onCollision: CollisionHandler;
 
-	constructor(entity: Entity) {
+	constructor(entity: Entity, onCollision: CollisionHandler) {
 		this.entity = entity;
+		this.onCollision = onCollision;
 	}
 
+	/**
+	 * Resolve collision between two entities using collision handler
+	 */
+	resolveCollision(other: Collider): boolean {
+		return this.onCollision(this.entity, other.entity);
+	}
+
+	/**
+	 * Check for rectangular collision between two entities
+	 */
 	checkCollision(other: Collider): boolean {
 		const bounds = this.getBounds();
 		const otherBounds = other.getBounds();
@@ -27,10 +47,11 @@ export class Collider {
 		);
 	}
 
+	/**
+	 * Get entity bounding box
+	 */
 	getBounds(): Bounds {
-		const position = this.entity.position;
-		const width = this.entity.width;
-		const height = this.entity.height;
+		const { position, width, height } = this.entity;
 
 		return {
 			left: position.x,
@@ -40,6 +61,9 @@ export class Collider {
 		};
 	}
 
+	/**
+	 * Check if point is inside entity bounds
+	 */
 	containsPoint(point: Vector2): boolean {
 		const bounds = this.getBounds();
 		return (
@@ -50,15 +74,21 @@ export class Collider {
 		);
 	}
 
+	/**
+	 * Check if other entity is within specified range
+	 */
 	isInRange(other: Collider, range: number): boolean {
+		const bounds = this.getBounds();
+		const otherBounds = other.getBounds();
+
 		const centerA = new Vector2(
-			this.entity.position.x + this.entity.width / 2,
-			this.entity.position.y + this.entity.height / 2
+			bounds.left + (bounds.right - bounds.left) / 2,
+			bounds.top + (bounds.bottom - bounds.top) / 2
 		);
 
 		const centerB = new Vector2(
-			other.entity.position.x + other.entity.width / 2,
-			other.entity.position.y + other.entity.height / 2
+			otherBounds.left + (otherBounds.right - otherBounds.left) / 2,
+			otherBounds.top + (otherBounds.bottom - otherBounds.top) / 2
 		);
 
 		return centerA.distance(centerB) <= range;
