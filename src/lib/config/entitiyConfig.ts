@@ -90,7 +90,7 @@ const entities: Record<string, EntityConfig> = {
 		states: ['Build', 'Idle', 'Shoot', 'NotBuilt'],
 		animations: animations.blueTower,
 		stats: {
-			health: 200,
+			health: 10,
 			attackRange: 150,
 			attackSpeed: 0.5,
 			damage: 20

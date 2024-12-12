@@ -48,7 +48,7 @@ export class Entity {
 		this.collider = new Collider(this, onCollide);
 	}
 
-	beforeUpdate(deltaTime: number, entityPool?) {
+	beforeUpdate(deltaTime: number) {
 		this.prevPosition = this.position.clone();
 	}
 
@@ -60,10 +60,11 @@ export class Entity {
 
 	setSprite(name: string, animations) {
 		const sprite = animations.find((sprite) => sprite.name === name);
-		if (!sprite)
-			throw new Error(`Sprite ${name} not found for: ${this.name}: with type ${this.type}`);
-
-		this.sprite = new Sprite(sprite, this.spriteSheet);
+		// if (!sprite)
+		// 	throw new Error(`Sprite ${name} not found for: ${this.name}: with type ${this.type}`);
+		if (sprite) {
+			this.sprite = new Sprite(sprite, this.spriteSheet);
+		}
 	}
 
 	stopInteractions() {

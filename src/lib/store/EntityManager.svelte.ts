@@ -14,6 +14,9 @@ export class EntityManager {
 		this.entities.filter((entity) => !entity.isDestroyed && entity.isInteractable)
 	);
 	towers = $derived(this.livingEntities.filter((entity) => entity.type === 'tower'));
+	builtTowers = $derived(
+		this.towers.filter((tower) => tower.state.currentState.name !== 'NotBuilt')
+	);
 	enemies = $derived(this.livingEntities.filter((entity) => entity.type === 'enemy'));
 	projectiles = $derived(this.livingEntities.filter((entity) => entity.type === 'projectile'));
 	throne = $derived(this.livingEntities.find((entity) => entity.type === 'throne'));
@@ -50,7 +53,7 @@ export class EntityManager {
 			for (const projectile of this.projectiles) {
 				if (projectile.isDestroyed) continue;
 
-				if (enemy.collider.isInRange(projectile.collider, 10)) {
+				if (enemy.collider.checkCollision(projectile.collider)) {
 					enemy.collider.resolveCollision(projectile.collider);
 					projectile.collider.resolveCollision(enemy.collider);
 				}
@@ -59,9 +62,22 @@ export class EntityManager {
 			for (const tower of this.towers) {
 				if (tower.isDestroyed) continue;
 
-				if (enemy.collider.isInRange(tower.collider, 10)) {
+				if (enemy.collider.checkCollision(tower.collider)) {
 					enemy.collider.resolveCollision(tower.collider);
 					tower.collider.resolveCollision(enemy.collider);
+				}
+			}
+		}
+
+		for (const tower of this.builtTowers) {
+			if (tower.isDestroyed) continue;
+
+			for (const projectile of this.projectiles) {
+				if (projectile.isDestroyed) continue;
+
+				if (tower.collider.checkCollision(projectile.collider)) {
+					tower.collider.resolveCollision(projectile.collider);
+					projectile.collider.resolveCollision(tower.collider);
 				}
 			}
 		}

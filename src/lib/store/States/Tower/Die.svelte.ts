@@ -4,6 +4,11 @@
  */
 
 import { BaseState } from '$lib/store/States/BaseState.svelte';
-import type { Entity } from '$store/Entity.svelte';
 
-export class Die extends BaseState {}
+export class Die extends BaseState {
+	update(deltaTime: number, tower: any, entityManager: any): void {
+		if (tower.sprite.isAnimationComplete) {
+			tower.destroy();
+		}
+	}
+}

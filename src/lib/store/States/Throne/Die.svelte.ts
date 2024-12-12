@@ -8,6 +8,7 @@ import type { EntityPool } from '$lib/store/EntityPool.svelte';
 
 export class Die extends BaseState {
 	update(deltaTime: number, throne, entityPool: EntityPool) {
+		// if(throne.)
 		// throne.update(deltaTime);
 	}
 }

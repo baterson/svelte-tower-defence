@@ -13,8 +13,8 @@ export class StateMachine {
 		this.onEnter(initialState);
 	}
 
-	update(deltaTime, entityPool) {
-		this.currentState.update(deltaTime, this.owner, entityPool);
+	update(deltaTime, entityManager) {
+		this.currentState.update(deltaTime, this.owner, entityManager);
 	}
 
 	setState(name, stateContext = {}) {

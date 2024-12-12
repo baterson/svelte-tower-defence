@@ -4,12 +4,11 @@
  */
 
 import { BaseState } from '$lib/store/States/BaseState.svelte';
-import type { EntityPool } from '$store/EntityPool.svelte';
 import type { Projectile } from '$store/Entities/Projectile.svelte';
 import { distance, angleToTarget, getDirectionFromAngle } from '$utils/math';
 
 export class Fly extends BaseState {
-	update(deltaTime: number, projectile: Projectile, entityPool: EntityPool) {
+	update(deltaTime: number, projectile: Projectile, entityManager) {
 		const speed = projectile.stats.speed * deltaTime;
 		const { target } = this.context;
 

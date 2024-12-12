@@ -5,20 +5,31 @@
 
 import { BaseState } from '../BaseState.svelte';
 import type { Entity } from '$store/Entity.svelte';
-import type { EntityPool } from '$store/EntityPool.svelte';
 import { Vector2 } from '$store/Vector2.svelte';
+import { TimeManager } from '$store/TimeManager.svelte';
+
+const randomCooldownNumber = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
 export class Run extends BaseState {
 	private currentDirection: Vector2;
+	timeManager = $state();
 
 	constructor(stateMachine, stateContext = {}) {
-		super(stateContext);
+		super(stateMachine, stateContext);
 		this.currentDirection = new Vector2(0, 1);
+
+		this.timeManager = new TimeManager();
+
+		this.timeManager.setTimer(
+			() => {
+				// stateMachine.setState('ChargeShoot');
+			},
+			randomCooldownNumber(1000, 2000)
+		);
 	}
 
-	update(deltaTime: number, enemy: Entity, entityPool: EntityPool) {
-		const throne = entityPool.entities.find((e) => e.type === 'throne');
-		if (!throne) return;
+	update(deltaTime: number, enemy: Entity, entityManager) {
+		this.timeManager.update(deltaTime);
 
 		const speed = enemy.stats.speed * deltaTime;
 
