@@ -1,18 +1,19 @@
 import { TOWER_POSITIONS } from '$utils/towerPositions';
+import { CollisionManager } from './CollisionManager.svelte';
 import { Entity, initEntity } from './Entity.svelte';
 import { TimeManager } from './TimeManager.svelte';
 import { Vector2 } from './Vector2.svelte';
 
-const SPAWN_CD = 1000;
-const CLEANUP_INTERVAL = 100;
+const SPAWN_CD = 500;
+const CLEANUP_INTERVAL = 10;
 
 export class EntityManager {
 	entities = $state<Entity[]>([]);
 	timeManager = $state<TimeManager>();
+
+	collisionManager = $state<CollisionManager>();
 	// Derived state
-	livingEntities = $derived(
-		this.entities.filter((entity) => !entity.isDestroyed && entity.isInteractable)
-	);
+	livingEntities = $derived(this.entities.filter((entity) => entity.isInteractable));
 	towers = $derived(this.livingEntities.filter((entity) => entity.type === 'tower'));
 	builtTowers = $derived(
 		this.towers.filter((tower) => tower.state.currentState.name !== 'NotBuilt')
@@ -25,6 +26,7 @@ export class EntityManager {
 		this.initializeTowers();
 		this.spawnThrone();
 
+		this.collisionManager = new CollisionManager();
 		this.timeManager = new TimeManager();
 
 		this.timeManager.setTimer(this.spawnEnemy, SPAWN_CD, true);
@@ -34,59 +36,62 @@ export class EntityManager {
 	update = (deltaTime: number) => {
 		this.timeManager.update(deltaTime);
 
-		this.entities.forEach((entity) => entity.beforeUpdate(deltaTime, this));
 		this.entities.forEach((entity) => entity.update(deltaTime, this));
 
-		this.resolveCollisions();
+		this.collisionManager.update(this.livingEntities);
+
+		// this.resolveCollisions();
 		this.cleanupEntities();
 	};
 
-	resolveCollisions() {
-		for (const enemy of this.enemies) {
-			if (enemy.isDestroyed) continue;
+	// resolveCollisions() {
+	// 	for (const enemy of this.enemies) {
+	// 		if (enemy.isDestroyed) continue;
 
-			if (enemy.collider.checkCollision(this.throne.collider)) {
-				enemy.collider.resolveCollision(this.throne.collider);
-				this.throne.collider.resolveCollision(enemy.collider);
-			}
+	// 		if (enemy.collider.checkCollision(this.throne.collider)) {
+	// 			enemy.collider.resolveCollision(this.throne.collider);
+	// 			this.throne.collider.resolveCollision(enemy.collider);
+	// 		}
 
-			for (const projectile of this.projectiles) {
-				if (projectile.isDestroyed) continue;
+	// 		for (const projectile of this.projectiles) {
+	// 			if (projectile.isDestroyed) continue;
 
-				if (enemy.collider.checkCollision(projectile.collider)) {
-					enemy.collider.resolveCollision(projectile.collider);
-					projectile.collider.resolveCollision(enemy.collider);
-				}
-			}
+	// 			if (enemy.collider.checkCollision(projectile.collider)) {
+	// 				enemy.collider.resolveCollision(projectile.collider);
+	// 				projectile.collider.resolveCollision(enemy.collider);
+	// 			}
+	// 		}
 
-			for (const tower of this.towers) {
-				if (tower.isDestroyed) continue;
+	// 		for (const tower of this.towers) {
+	// 			if (tower.isDestroyed) continue;
 
-				if (enemy.collider.checkCollision(tower.collider)) {
-					enemy.collider.resolveCollision(tower.collider);
-					tower.collider.resolveCollision(enemy.collider);
-				}
-			}
-		}
+	// 			if (enemy.collider.checkCollision(tower.collider)) {
+	// 				enemy.collider.resolveCollision(tower.collider);
+	// 				tower.collider.resolveCollision(enemy.collider);
+	// 			}
+	// 		}
+	// 	}
 
-		for (const tower of this.builtTowers) {
-			if (tower.isDestroyed) continue;
+	// 	for (const tower of this.builtTowers) {
+	// 		if (tower.isDestroyed) continue;
 
-			for (const projectile of this.projectiles) {
-				if (projectile.isDestroyed) continue;
+	// 		for (const projectile of this.projectiles) {
+	// 			if (projectile.isDestroyed) continue;
 
-				if (tower.collider.checkCollision(projectile.collider)) {
-					tower.collider.resolveCollision(projectile.collider);
-					projectile.collider.resolveCollision(tower.collider);
-				}
-			}
-		}
-	}
+	// 			if (tower.collider.checkCollision(projectile.collider)) {
+	// 				tower.collider.resolveCollision(projectile.collider);
+	// 				projectile.collider.resolveCollision(tower.collider);
+	// 			}
+	// 		}
+	// 	}
+	// }
 
 	private initializeTowers() {
 		[...TOWER_POSITIONS.left, ...TOWER_POSITIONS.right].forEach(({ x, y }) => {
 			this.spawnTower(x, y);
 		});
+
+		// this.spawnTower(383, 162);
 	}
 
 	spawnEnemy = () => {
@@ -103,8 +108,8 @@ export class EntityManager {
 		this.add(tower);
 	};
 
-	spawnProjectile = (position: Vector2, target: Entity) => {
-		const projectile = initEntity('projectile', position, { target });
+	spawnProjectile = (spawner: Entity, target: Entity) => {
+		const projectile = initEntity('projectile', spawner.position, { spawner, target });
 		this.add(projectile);
 	};
 
@@ -156,7 +161,7 @@ export class EntityManager {
 	};
 
 	private cleanupEntities = () => {
-		this.entities = this.entities.filter((entity) => !entity.isDestroyed);
+		this.entities = this.entities.filter((entity) => !entity.toDestroy);
 	};
 
 	getEntityCount = (type: string): number => {
@@ -171,3 +176,5 @@ export class EntityManager {
 		this.entities = [];
 	};
 }
+
+export const entityManager = new EntityManager();

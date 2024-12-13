@@ -15,7 +15,7 @@
 
 <section>
 	<!-- <TowerPlacement /> -->
-	<DevTools {game} />
+	<!-- <DevTools {game} /> -->
 	<Walls />
 	<GameArea />
 </section>

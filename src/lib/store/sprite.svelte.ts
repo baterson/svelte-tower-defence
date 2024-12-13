@@ -16,6 +16,9 @@ export class Sprite {
 	currentFrameIndex = $state(0);
 	currentFrameTime = $state(0);
 	spritesheet = $state('');
+
+	// todo: remove or find a way to use.
+	// todo: probably size and dimentions should be in the entity
 	scaleX = $state(1);
 	scaleY = $state(1);
 	offsetX = $state(0);
@@ -42,7 +45,7 @@ export class Sprite {
 		}
 	}
 
-	private nextFrame() {
+	nextFrame() {
 		this.currentFrameIndex += 1;
 
 		if (this.currentFrameIndex >= this.frames.length) {

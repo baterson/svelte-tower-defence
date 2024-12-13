@@ -1,15 +1,17 @@
 export class BaseState {
-	context = $state();
 	stateMachine = $state();
 
-	constructor(stateMachine, context = {}) {
+	constructor(stateMachine) {
 		this.stateMachine = stateMachine;
-		this.context = context;
 	}
 
-	update(deltaTime: number, entity, entityManager) {}
+	update(deltaTime: number, entity) {}
 
 	get name() {
 		return this.constructor.name;
+	}
+
+	get entity() {
+		return this.stateMachine.owner;
 	}
 }

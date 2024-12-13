@@ -5,26 +5,31 @@
 
 import { BaseState } from '$lib/store/States/BaseState.svelte';
 import type { Projectile } from '$store/Entities/Projectile.svelte';
-import { distance, angleToTarget, getDirectionFromAngle } from '$utils/math';
+import { angleToTarget, getDirectionFromAngle } from '$utils/math';
 
+// todo: Add new State AutoAimFly
 export class Fly extends BaseState {
-	update(deltaTime: number, projectile: Projectile, entityManager) {
+	// todo: should always have a consistent angle
+	update(deltaTime: number, projectile: Projectile) {
 		const speed = projectile.stats.speed * deltaTime;
-		const { target } = this.context;
+		const { target } = this.stateMachine.context;
 
-		if (target && !target.isDestroyed) {
-			// Get angle and direction to target
+		if (!target.isInteractable) {
+			// todo: should fly untill reach next enemy or tower, should not change the initial angle
+			projectile.state.setState('Hit');
+			return;
+		}
+
+		if (target) {
+			// todo: should fly untill reach next enemy or tower, should not change the initial angle
 			const angle = angleToTarget(projectile.position, target.position);
 			const direction = getDirectionFromAngle(angle);
 
-			// Update projectile rotation
 			projectile.rotation = angle;
 
-			// Update position
 			projectile.position.x += direction.x * speed;
 			projectile.position.y += direction.y * speed;
 		} else {
-			// Target lost or destroyed
 			projectile.state.setState('Hit');
 		}
 	}

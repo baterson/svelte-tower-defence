@@ -32,14 +32,14 @@ export class TimeManager {
 		return id;
 	}
 
-	update(deltaTime: number): void {
+	update(deltaTime: number, cbArgs?: any): void {
 		this.timers.forEach((timer) => {
 			if (timer.isCompleted) return;
 
 			timer.elapsed += deltaTime;
 
 			if (timer.elapsed >= timer.delay) {
-				timer.callback();
+				timer.callback(cbArgs);
 
 				if (timer.repeat) {
 					timer.elapsed = 0;

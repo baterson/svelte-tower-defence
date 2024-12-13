@@ -6,7 +6,7 @@
 import { BaseState } from '$lib/store/States/BaseState.svelte';
 import type { Enemy } from '$store/Entities/Enemy.svelte';
 import { distance } from '$utils/math';
-import { Vector2 } from '$store/Vector2.svelte';
+// import { Vector2 } from '$store/Vector2.svelte';
 import type { EntityManager } from '$store/EntityManager.svelte';
 
 export class Shoot extends BaseState {
@@ -23,7 +23,7 @@ export class Shoot extends BaseState {
 
 		// Attack the tower
 		if (nearestTower) {
-			entityManager.spawnProjectile(new Vector2(enemy.position.x, enemy.position.y), nearestTower);
+			entityManager.spawnProjectile(enemy, nearestTower);
 		}
 		enemy.state.setState('Run');
 	}

@@ -1,23 +1,30 @@
 import type { Entity } from '$store/Entity.svelte';
 
-export const enemyCollider = (entity: Entity, target: Entity) => {
-	// Handle wall collisions
+const checkSameTarget = (projectile, other) => {
+	const { type: spawnerType } = projectile.state.context.spawner;
+	const { type: targetType } = other;
+	return spawnerType === targetType;
+};
 
-	// Handle other collisions
-	if (target.type === 'projectile' && target.state.currentState.context.target.type !== 'tower') {
-		entity.stats.health -= target.stats.damage;
-		if (entity.stats.health <= 0) {
-			entity.state.setState('Die');
-		}
+export const enemyCollider = (entity: Entity, other: Entity) => {
+	if ((other.type === 'projectile' && checkSameTarget(other, entity)) || other.type === 'enemy') {
+		return;
 	}
 
-	if (target.type === 'throne') {
+	entity.stats.health -= other.stats.damage;
+
+	if (entity.stats.health <= 0) {
 		entity.state.setState('Die');
 	}
 };
 
-export const towerCollider = (tower, target) => {
-	tower.stats.health -= 25;
+export const towerCollider = (tower, other) => {
+	if (other.type === 'projectile' && checkSameTarget(other, tower)) {
+		return;
+	}
+
+	tower.stats.health -= other.stats.damage;
+
 	if (tower.stats.health <= 0) {
 		tower.state.setState('Die');
 	}
@@ -25,20 +32,17 @@ export const towerCollider = (tower, target) => {
 	return;
 };
 
-export const projectileCollider = (projectile, target) => {
-	// debugger;
-	console.log('projectileCollider', projectile.state.currentState.context.target.type, target.type);
-
-	if (target.type !== projectile.state.currentState.context.target.type) {
+export const projectileCollider = (projectile, other) => {
+	if (checkSameTarget(projectile, other)) {
 		return;
-	} else {
-		projectile.state.setState('Hit');
 	}
+
+	projectile.state.setState('Hit');
 
 	return;
 };
 
-export const throneCollider = (entity, target) => {
+export const throneCollider = (entity, other) => {
 	// entity.stats.health -= 50;
 	// if (entity.stats.health <= 0) {
 	// 	entity.state.setState('Die');

@@ -11,18 +11,18 @@ const CHARGE_CD = 100;
 export class ChargeShoot extends BaseState {
 	timeManager = $state();
 
-	constructor(stateMachine, context) {
-		super(stateMachine, context);
+	constructor(stateMachine) {
+		super(stateMachine);
 
 		const onChargeReady = () => {
-			stateMachine.setState('Shoot');
+			this.stateMachine.setState('Shoot');
 		};
 
 		this.timeManager = new TimeManager();
 		this.timeManager.setTimer(onChargeReady, CHARGE_CD);
 	}
 
-	update(deltaTime: number, enemy, entityManager) {
+	update(deltaTime: number, enemy) {
 		enemy.rotation += deltaTime * 20;
 		this.timeManager.update(deltaTime);
 	}

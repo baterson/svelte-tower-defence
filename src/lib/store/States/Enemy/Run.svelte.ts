@@ -28,7 +28,7 @@ export class Run extends BaseState {
 		);
 	}
 
-	update(deltaTime: number, enemy: Entity, entityManager) {
+	update(deltaTime: number, enemy: Entity) {
 		this.timeManager.update(deltaTime);
 
 		const speed = enemy.stats.speed * deltaTime;

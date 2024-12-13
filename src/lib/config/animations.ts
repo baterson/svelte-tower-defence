@@ -181,7 +181,7 @@ export const animations = {
 			frameRate: 20
 		},
 		{
-			name: 'Idle',
+			name: 'Guard',
 			frames: [
 				[-19, -147],
 				[-83, -147],

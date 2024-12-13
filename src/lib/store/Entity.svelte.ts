@@ -2,7 +2,6 @@ import { getConfig } from '$lib/config/entitiyConfig';
 import { Sprite } from '$store/Sprite.svelte';
 import { Vector2 } from '$store/Vector2.svelte';
 import { StateMachine } from '$store/StateMachine.svelte';
-import { Collider } from './Collider.svelte';
 
 export class Entity {
 	static lastId = 0;
@@ -20,15 +19,14 @@ export class Entity {
 	stats = $state({});
 	rotation = $state(0);
 	opacity = $state(1);
-	collider = $state<Collider>();
-	isDestroyed = $state(false);
 	isInteractable = $state(true);
+	toDestroy = $derived.by(() => !this.isInteractable && this.sprite.isAnimationComplete);
 
 	constructor(
 		name,
 		position,
-		{ width, height, type, states, animations, spriteSheet, defaultState, onCollide, stats },
-		stateContext
+		{ width, height, type, states, animations, spriteSheet, initialState, onCollide, stats },
+		context
 	) {
 		this.name = name;
 		this.type = type;
@@ -38,23 +36,34 @@ export class Entity {
 		this.prevPosition = position;
 		this.stats = { ...stats };
 		this.spriteSheet = spriteSheet;
-		this.state = new StateMachine(
-			this,
+		this.state = new StateMachine({
+			owner: this,
 			states,
-			defaultState,
-			(stateName) => this.setSprite(stateName, animations),
-			stateContext
-		);
-		this.collider = new Collider(this, onCollide);
+			initialState,
+			onEnter: (stateName) => this.setSprite(stateName, animations),
+			context
+		});
+		this.onCollide = (other) => onCollide(this, other);
+	}
+
+	getBoundingBox(): BoundingBox {
+		return {
+			x: this.position.x,
+			y: this.position.y,
+			width: this.width,
+			height: this.height,
+			rotation: this.rotation
+		};
 	}
 
 	beforeUpdate(deltaTime: number) {
 		this.prevPosition = this.position.clone();
 	}
 
-	update(deltaTime: number, entityPool) {
+	update(deltaTime: number) {
 		if (this.isDestroyed) return;
-		this.state.update(deltaTime, entityPool);
+
+		this.state.update(deltaTime);
 		this.sprite.update(deltaTime);
 	}
 
@@ -70,14 +79,10 @@ export class Entity {
 	stopInteractions() {
 		this.isInteractable = false;
 	}
-
-	destroy() {
-		this.isDestroyed = true;
-	}
 }
 
 export const initEntity = (name, position, stateContext = {}) => {
 	const config = getConfig(name);
 
-	return new Entity(name, position, config, stateContext);
+	return new Entity(name, position.clone(), config, stateContext);
 };
