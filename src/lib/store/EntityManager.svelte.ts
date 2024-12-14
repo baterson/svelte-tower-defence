@@ -34,14 +34,11 @@ export class EntityManager {
 	}
 
 	update = (deltaTime: number) => {
-		this.timeManager.update(deltaTime);
-
-		this.entities.forEach((entity) => entity.update(deltaTime, this));
-
-		this.collisionManager.update(this.livingEntities);
-
-		// this.resolveCollisions();
-		this.cleanupEntities();
+		// this.timeManager.update(deltaTime);
+		// this.entities.forEach((entity) => entity.update(deltaTime, this));
+		// this.collisionManager.update(this.livingEntities);
+		// // this.resolveCollisions();
+		// this.cleanupEntities();
 	};
 
 	// resolveCollisions() {
