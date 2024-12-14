@@ -3,33 +3,27 @@
 	// Import the custom transition function
 	import { neonLightTransition } from './transitions.js';
 
-	// State to toggle the transition
-	let showCircle = false;
-
-	// Function to toggle the circle visibility
-	function toggleCircle() {
-		showCircle = !showCircle;
-	}
+	const { entity } = $props();
 </script>
 
-<button on:click={toggleCircle}>Toggle Circle</button>
-
-{#if showCircle}
-	<div
-		class="circle"
-		in:neonLightTransition={{ duration: 2000 }}
-		out:neonLightTransition={{ duration: 2000 }}
-	/>
-{/if}
+<div
+	class="circle"
+	in:neonLightTransition={{ duration: 300 }}
+	out:neonLightTransition={{ duration: 300 }}
+	style:width={`${entity.width}px`}
+	style:height={`${entity.height}px`}
+	style:left={`${entity.position.x}px`}
+	style:top={`${entity.position.y}px`}
+/>
 
 <style>
 	.circle {
 		position: absolute;
-		top: 50%;
+		/* top: 50%;
 		left: 50%;
-		transform: translate(-50%, -50%);
-		width: 200px;
-		height: 200px;
+		transform: translate(-50%, -50%); */
+		width: 30px;
+		height: 30px;
 		border-radius: 50%;
 		background: linear-gradient(90deg, #ff69b4, #ffe66d);
 		box-shadow:

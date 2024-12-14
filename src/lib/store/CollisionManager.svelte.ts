@@ -134,6 +134,29 @@ export class CollisionManager {
 		return group?.canCollideWith.includes(entity2.type) ?? false;
 	}
 
+	private gameBounds: GameBounds = {
+		minX: 0,
+		maxX: 440,
+		minY: 0,
+		maxY: 780
+	};
+
+	/**
+	 * Check if entity position is within game bounds
+	 */
+	checkGameBounds(entity: Entity): boolean {
+		const { position, width, height } = entity;
+
+		// Check if any part of the entity is outside bounds
+		const isOutsideX =
+			position.x < this.gameBounds.minX || position.x + width > this.gameBounds.maxX;
+
+		const isOutsideY =
+			position.y < this.gameBounds.minY || position.y + height > this.gameBounds.maxY;
+
+		return !(isOutsideX || isOutsideY);
+	}
+
 	/**
 	 * Check collision between two entities using SAT
 	 * @example
@@ -187,6 +210,10 @@ export class CollisionManager {
 		const allEntities = entities;
 
 		for (const entity1 of dynamicEntities) {
+			if (entity1.type === 'projectile' && !this.checkGameBounds(entity1)) {
+				entity1.onCollide('OUT_OF_BOUNDS');
+			}
+
 			for (const entity2 of allEntities) {
 				if (entity1 === entity2) continue;
 				if (this.checkCollision(entity1, entity2)) {

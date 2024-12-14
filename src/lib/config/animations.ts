@@ -178,7 +178,7 @@ export const animations = {
 				[-147, -77],
 				[-211, -77]
 			],
-			frameRate: 20
+			frameRate: 40
 		},
 		{
 			name: 'Guard',
@@ -189,7 +189,7 @@ export const animations = {
 				[-211, -147]
 			],
 			loop: true,
-			frameRate: 10
+			frameRate: 5
 		},
 		{
 			name: 'NotBuilt',

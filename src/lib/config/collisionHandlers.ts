@@ -33,6 +33,10 @@ export const towerCollider = (tower, other) => {
 };
 
 export const projectileCollider = (projectile, other) => {
+	if (other === 'OUT_OF_BOUNDS') {
+		projectile.stopInteractions();
+	}
+
 	if (checkSameTarget(projectile, other)) {
 		return;
 	}

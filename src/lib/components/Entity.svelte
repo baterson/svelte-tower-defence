@@ -19,7 +19,7 @@
 	style:height={`${entity.height}px`}
 	style:left={`${entity.position.x}px`}
 	style:top={`${entity.position.y}px`}
-	style:transform={`rotate(${entity.rotation}deg)`}
+	style:transform={`rotate(${entity.rotation}deg) scale(${entity.scale})`}
 	style:transform-origin={'center'}
 ></div>
 

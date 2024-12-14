@@ -19,11 +19,8 @@
 <section>
 	<!-- <TowerPlacement /> -->
 	<!-- <DevTools {game} /> -->
-	<Effect />
-	<Effect1 />
-	<!-- <Effect2 /> -->
-	<!-- <Walls />
-	<GameArea /> -->
+	<!-- <Effect /> -->
+	<GameArea />
 </section>
 
 <style>

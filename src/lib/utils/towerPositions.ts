@@ -12,21 +12,13 @@ interface TowerPosition {
 export const TOWER_POSITIONS = {
 	// Left side tower positions (from top to bottom)
 	left: [
-		{ x: 20, y: 162 },
-		{ x: 20, y: 242 },
 		{ x: 20, y: 322 },
-		{ x: 20, y: 402 },
-		{ x: 20, y: 482 },
-		{ x: 20, y: 562 }
+		{ x: 20, y: 482 }
 	],
 	// Right side tower positions (from top to bottom)
 	right: [
-		{ x: 383, y: 162 },
-		{ x: 383, y: 242 },
 		{ x: 383, y: 322 },
-		{ x: 383, y: 402 },
-		{ x: 383, y: 482 },
-		{ x: 383, y: 562 }
+		{ x: 383, y: 482 }
 	]
 } as const;
 

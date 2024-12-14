@@ -86,26 +86,25 @@ const entities: Record<string, EntityConfig> = {
 		width: 36,
 		height: 64,
 		spriteSheet: '/blueTower.png',
-		initialState: 'NotBuilt',
+		initialState: 'Guard',
 		states: ['Build', 'Guard', 'Shoot', 'NotBuilt'],
 		animations: animations.blueTower,
 		stats: {
 			health: 10,
-			attackRange: 150,
+			attackRange: Infinity,
 			attackSpeed: 0.5,
 			damage: 20
 		},
+		scale: 1.2,
 		onCollide: towerCollider
 	},
 	projectile: {
 		name: 'projectile',
 		type: 'projectile',
-		width: 20,
-		height: 20,
-		spriteSheet: '/projectile.sprite.png',
+		width: 18,
+		height: 18,
 		initialState: 'Fly',
 		states: ['Fly', 'Hit'],
-		animations: animations.projectile,
 		stats: {
 			health: 1,
 			speed: 0.5,

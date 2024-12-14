@@ -18,20 +18,22 @@ export class Entity {
 	state = $state<StateMachine>();
 	stats = $state({});
 	rotation = $state(0);
+	scale = $state(1);
 	opacity = $state(1);
 	isInteractable = $state(true);
-	toDestroy = $derived.by(() => !this.isInteractable && this.sprite.isAnimationComplete);
+	toDestroy = $derived(this.isQueuedForDestroy());
 
 	constructor(
 		name,
 		position,
-		{ width, height, type, states, animations, spriteSheet, initialState, onCollide, stats },
+		{ width, height, scale, type, states, animations, spriteSheet, initialState, onCollide, stats },
 		context
 	) {
 		this.name = name;
 		this.type = type;
 		this.width = width;
 		this.height = height;
+		this.scale = scale;
 		this.position = position;
 		this.prevPosition = position;
 		this.stats = { ...stats };
@@ -44,6 +46,22 @@ export class Entity {
 			context
 		});
 		this.onCollide = (other) => onCollide(this, other);
+	}
+
+	isQueuedForDestroy() {
+		if (this.isInteractable) {
+			return;
+		}
+
+		if (!this.sprite) {
+			return true;
+		}
+
+		if (this.sprite.isAnimationComplete) {
+			return true;
+		}
+
+		return false;
 	}
 
 	getBoundingBox(): BoundingBox {
@@ -64,10 +82,14 @@ export class Entity {
 		if (this.isDestroyed) return;
 
 		this.state.update(deltaTime);
-		this.sprite.update(deltaTime);
+
+		if (this.sprite) {
+			this.sprite.update(deltaTime);
+		}
 	}
 
 	setSprite(name: string, animations) {
+		if (!animations) return;
 		const sprite = animations.find((sprite) => sprite.name === name);
 		// if (!sprite)
 		// 	throw new Error(`Sprite ${name} not found for: ${this.name}: with type ${this.type}`);

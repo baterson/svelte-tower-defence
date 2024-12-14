@@ -4,7 +4,7 @@ import { Entity, initEntity } from './Entity.svelte';
 import { TimeManager } from './TimeManager.svelte';
 import { Vector2 } from './Vector2.svelte';
 
-const SPAWN_CD = 500;
+const SPAWN_CD = 200;
 const CLEANUP_INTERVAL = 10;
 
 export class EntityManager {
@@ -34,11 +34,10 @@ export class EntityManager {
 	}
 
 	update = (deltaTime: number) => {
-		// this.timeManager.update(deltaTime);
-		// this.entities.forEach((entity) => entity.update(deltaTime, this));
-		// this.collisionManager.update(this.livingEntities);
-		// // this.resolveCollisions();
-		// this.cleanupEntities();
+		this.timeManager.update(deltaTime);
+		this.entities.forEach((entity) => entity.update(deltaTime, this));
+		this.collisionManager.update(this.livingEntities);
+		this.cleanupEntities();
 	};
 
 	// resolveCollisions() {

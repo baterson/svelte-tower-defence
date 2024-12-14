@@ -1,12 +1,23 @@
 <script>
 	import Entity from '$lib/components/Entity.svelte';
-	import { game } from '$lib/store/Game.svelte';
+	import { entityManager } from '$lib/store/EntityManager.svelte';
+	import Effect1 from './Effect1.svelte';
 </script>
 
 <section>
-	{#each game.entityManager.entities as entity (entity.id)}
+	{#each entityManager.enemies as entity (entity.id)}
 		<Entity {entity} />
 	{/each}
+
+	{#each entityManager.towers as entity (entity.id)}
+		<Entity {entity} />
+	{/each}
+
+	{#each entityManager.projectiles as entity (entity.id)}
+		<Effect1 {entity} />
+	{/each}
+
+	<Entity entity={entityManager.throne} />
 </section>
 
 <style>

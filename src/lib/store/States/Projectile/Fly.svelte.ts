@@ -9,28 +9,24 @@ import { angleToTarget, getDirectionFromAngle } from '$utils/math';
 
 // todo: Add new State AutoAimFly
 export class Fly extends BaseState {
-	// todo: should always have a consistent angle
-	update(deltaTime: number, projectile: Projectile) {
-		const speed = projectile.stats.speed * deltaTime;
+	angle = $state();
+	direction = $state();
+
+	constructor(stateMachine) {
+		super(stateMachine);
+
 		const { target } = this.stateMachine.context;
+		const angle = angleToTarget(this.entity.position, target.position);
+		this.direction = getDirectionFromAngle(angle);
 
-		if (!target.isInteractable) {
-			// todo: should fly untill reach next enemy or tower, should not change the initial angle
-			projectile.state.setState('Hit');
-			return;
-		}
+		this.entity.rotation = angle;
+	}
 
-		if (target) {
-			// todo: should fly untill reach next enemy or tower, should not change the initial angle
-			const angle = angleToTarget(projectile.position, target.position);
-			const direction = getDirectionFromAngle(angle);
+	// todo: should always have a consistent angle
+	update(deltaTime: number) {
+		const speed = this.entity.stats.speed * deltaTime;
 
-			projectile.rotation = angle;
-
-			projectile.position.x += direction.x * speed;
-			projectile.position.y += direction.y * speed;
-		} else {
-			projectile.state.setState('Hit');
-		}
+		this.entity.position.x += this.direction.x * speed;
+		this.entity.position.y += this.direction.y * speed;
 	}
 }
