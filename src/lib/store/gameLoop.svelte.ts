@@ -2,9 +2,11 @@ const MS_PER_UPDATE = 16.666;
 
 export class GameLoop {
 	static lastCDId = 0;
+
 	previousTime = $state(performance.now());
 	accumulator = $state(0.0);
 	elapsedTime = $state(0.0);
+	pauseState = $state(null);
 	cooldowns = $state<
 		Record<
 			string,
@@ -30,6 +32,12 @@ export class GameLoop {
 	}
 
 	loop(currentTime) {
+		if (this.pauseState) {
+			this.previousTime = currentTime;
+			requestAnimationFrame(this.loop);
+			return;
+		}
+
 		let elapsed = currentTime - this.previousTime;
 		if (elapsed > 1000) elapsed = MS_PER_UPDATE;
 
@@ -77,6 +85,34 @@ export class GameLoop {
 			delete this.cooldowns[cooldownId];
 			return true;
 		}
+	}
+
+	pause() {
+		if (!this.pauseState) {
+			this.pauseState = { pausedTime: performance.now() };
+		} else {
+			this.resume();
+		}
+	}
+
+	resume() {
+		if (!this.pauseState) return;
+
+		const { pausedTime } = this.pauseState;
+
+		const pauseDuration = this.elapsedTime - pausedTime;
+		this.previousTime = performance.now();
+
+		Object.keys(this.cooldowns).forEach((id) => {
+			const cd = this.cooldowns[id];
+
+			this.cooldowns[id] = {
+				...cd,
+				startTime: cd.startTime + pauseDuration
+			};
+		});
+
+		this.pauseState = null;
 	}
 }
 

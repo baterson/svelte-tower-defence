@@ -4,7 +4,7 @@ import { Entity, initEntity } from './Entity.svelte';
 import { gameLoop } from './GameLoop.svelte';
 import { Vector2 } from './Vector2.svelte';
 
-const SPAWN_CD = 200;
+const SPAWN_CD = 50;
 const CLEANUP_INTERVAL = 10;
 
 export class EntityManager {
@@ -13,6 +13,7 @@ export class EntityManager {
 	collisionManager = $state<CollisionManager>();
 	// Derived state
 	livingEntities = $derived(this.entities.filter((entity) => entity.isInteractable));
+	destroyedEntities = $derived(this.entities.filter((entity) => entity.toDestroy));
 	towers = $derived(this.livingEntities.filter((entity) => entity.type === 'tower'));
 	builtTowers = $derived(
 		this.towers.filter((tower) => tower.state.currentState.name !== 'NotBuilt')

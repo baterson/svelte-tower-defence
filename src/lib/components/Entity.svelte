@@ -1,18 +1,14 @@
 <script>
+	import { devTools } from '$store/DevTools.svelte';
 	import { fade } from 'svelte/transition';
 
 	const { entity } = $props();
 
 	let spriteSheet = $derived(entity.spriteSheet);
-	const onClick = () => {
-		if (entity.type === 'tower') {
-			entity.state.setState('Build');
-		}
-	};
 </script>
 
 <div
-	onclick={onClick}
+	onclick={() => devTools.inspectEntity(entity)}
 	out:fade
 	style:background={`url(${spriteSheet}) no-repeat ${entity.sprite.currentFrame[0]}px ${entity.sprite.currentFrame[1]}px`}
 	style:width={`${entity.width}px`}

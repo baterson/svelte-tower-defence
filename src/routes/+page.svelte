@@ -14,7 +14,7 @@
 
 <section>
 	<!-- <TowerPlacement /> -->
-	<!-- <DevTools {game} /> -->
+	<DevTools />
 	<!-- <Effect /> -->
 	<GameArea />
 </section>
@@ -24,7 +24,7 @@
 		width: 440px;
 		height: 780px;
 		display: flex;
-		background: url('/Base_environment.png');
+		background: rgb(92, 87, 87);
 		background-size: contain;
 	}
 </style>

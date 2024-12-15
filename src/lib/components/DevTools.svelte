@@ -3,33 +3,68 @@
 	import { browser } from '$app/environment';
 	import { on } from 'svelte/events';
 	import { onMount } from 'svelte';
-
-	const { game } = $props();
+	import { game } from '$lib/store/Game.svelte';
+	import { entityManager } from '$lib/store/EntityManager.svelte';
+	import { gameLoop } from '$store/GameLoop.svelte';
 
 	onMount(() => {
 		window.game = game;
-		window.entityManager = game.entityManager;
-		window.enemies = game.entityManager.enemies;
-		window.towers = game.entityManager.towers;
+		window.entityManager = entityManager;
 	});
+
+	const pause = () => {
+		if (gameLoop.pauseState) {
+			gameLoop.resume();
+		} else {
+			gameLoop.pause();
+		}
+	};
+
+	let value = $state(devTools.debugEntity ? devTools.debugEntity.state.currentState.name : '');
+
+	const setState = (state) => {
+		if (!devTools.debugEntity) return;
+
+		entityManager.getById(devTools.debugEntity.id).state.setState(state);
+	};
 </script>
 
 {#if browser}
-	<div>
-		<button onclick={devTools.toggleWalls}>Toggle Walls</button>
+	<div class="wrapper">
+		<section>
+			<button onclick={() => pause()}> Pause </button>
+			<h2>Living Enemies count: {entityManager.enemies.length}</h2>
+			<h2>Living Projectiles count: {entityManager.projectiles.length}</h2>
+			<h2>Destroyed Entities count: {entityManager.destroyedEntities.length}</h2>
+		</section>
 
-		<!-- <section>
-			{#each game.entityManager.towers as tower}
-				<h3>{tower.name}</h3>
-				<p>{tower.state.currentState.constructor.name}</p>
-			{/each}
-		</section> -->
+		<section>
+			<h1 onclick={() => devTools.inspectEntity(null)}>Inscected Entity</h1>
+			{#if devTools.debugEntity}
+				<p>ID: {devTools.debugEntity.id}</p>
+				<p>Name: {devTools.debugEntity.name}</p>
+				<p>Position: {devTools.debugEntity.position.x}, {devTools.debugEntity.position.y}</p>
+				<p>Rotation: {devTools.debugEntity.rotation}</p>
+				<p>Scale: {devTools.debugEntity.scale}</p>
+
+				<input bind:value />
+
+				<button onclick={() => setState(value)}>Set State</button>
+			{/if}
+		</section>
 	</div>
 {/if}
 
 <style>
+	.wrapper {
+		position: absolute;
+		right: 0;
+		top: 0;
+		padding: 20px;
+		margin-top: 20px;
+	}
 	button {
-		background-color: mediumaquamarine;
+		background-color: mediumpurple;
 		border: none;
 		padding: 10px 20px;
 		font-size: 16px;
@@ -38,17 +73,5 @@
 
 	section {
 		margin-top: 20px;
-	}
-
-	div {
-		position: absolute;
-		top: 0;
-		right: 0;
-		padding: 20px 10px 20px 10px;
-		width: 200px;
-		height: 200px;
-		background-color: mediumpurple;
-		display: flex;
-		flex-direction: column;
 	}
 </style>
