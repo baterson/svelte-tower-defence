@@ -5,7 +5,7 @@
 
 import { BaseState } from '$lib/store/States/BaseState.svelte';
 import { entityManager } from '$store/EntityManager.svelte';
-import { TimeManager } from '$store/TimeManager.svelte';
+import { gameLoop } from '$store/GameLoop.svelte';
 
 export class Guard extends BaseState {
 	timeManager = $state();
@@ -13,25 +13,14 @@ export class Guard extends BaseState {
 	constructor(stateMachine) {
 		super(stateMachine);
 
-		this.timeManager = new TimeManager();
-
-		this.timeManager.setTimer(this.trackEnemy, 400, true);
+		this.cdId = gameLoop.setCD(400, true);
 	}
 
-	update(deltaTime) {
-		this.timeManager.update(deltaTime);
-	}
-
-	// todo: add cd for enemy track to avoid infinite projectile spawn
-	trackEnemy = (deltaTime) => {
-		// this.timeManager.update(deltaTime);
-
+	update(deltaTime, elapsedTime) {
 		const target = entityManager.getNearestEntityOfType(this.entity.position, 'enemy');
 
-		console.log('target', target);
-
-		if (target) {
+		if (gameLoop.isCDReady(this.cdId) && target) {
 			this.stateMachine.setState('Shoot', { spawner: this.entity, target });
 		}
-	};
+	}
 }

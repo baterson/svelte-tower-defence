@@ -6,10 +6,6 @@
 	import { game } from '$lib/store/Game.svelte';
 	import Walls from '$components/Walls.svelte';
 	import DevTools from '$components/DevTools.svelte';
-	import Effect from '$components/Effect.svelte';
-	import Effect1 from '$components/Effect1.svelte';
-	import Effect2 from '$components/Effect2.svelte';
-	// const game = $state(new Game());
 
 	$effect(() => {
 		game.start();

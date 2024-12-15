@@ -1,7 +1,7 @@
 import { TOWER_POSITIONS } from '$utils/towerPositions';
 import { CollisionManager } from './CollisionManager.svelte';
 import { Entity, initEntity } from './Entity.svelte';
-import { TimeManager } from './TimeManager.svelte';
+import { gameLoop } from './GameLoop.svelte';
 import { Vector2 } from './Vector2.svelte';
 
 const SPAWN_CD = 200;
@@ -9,7 +9,6 @@ const CLEANUP_INTERVAL = 10;
 
 export class EntityManager {
 	entities = $state<Entity[]>([]);
-	timeManager = $state<TimeManager>();
 
 	collisionManager = $state<CollisionManager>();
 	// Derived state
@@ -22,65 +21,28 @@ export class EntityManager {
 	projectiles = $derived(this.livingEntities.filter((entity) => entity.type === 'projectile'));
 	throne = $derived(this.livingEntities.find((entity) => entity.type === 'throne'));
 
+	spawnCDId = gameLoop.setCD(SPAWN_CD, true);
+	cleanupCDId = gameLoop.setCD(CLEANUP_INTERVAL, true);
+
 	constructor() {
 		this.initializeTowers();
 		this.spawnThrone();
 
 		this.collisionManager = new CollisionManager();
-		this.timeManager = new TimeManager();
-
-		this.timeManager.setTimer(this.spawnEnemy, SPAWN_CD, true);
-		this.timeManager.setTimer(this.cleanupEntities, CLEANUP_INTERVAL, true);
 	}
 
 	update = (deltaTime: number) => {
-		this.timeManager.update(deltaTime);
 		this.entities.forEach((entity) => entity.update(deltaTime, this));
 		this.collisionManager.update(this.livingEntities);
-		this.cleanupEntities();
+
+		if (gameLoop.isCDReady(this.spawnCDId)) {
+			this.spawnEnemy();
+		}
+
+		if (gameLoop.isCDReady(this.cleanupCDId)) {
+			this.cleanupEntities();
+		}
 	};
-
-	// resolveCollisions() {
-	// 	for (const enemy of this.enemies) {
-	// 		if (enemy.isDestroyed) continue;
-
-	// 		if (enemy.collider.checkCollision(this.throne.collider)) {
-	// 			enemy.collider.resolveCollision(this.throne.collider);
-	// 			this.throne.collider.resolveCollision(enemy.collider);
-	// 		}
-
-	// 		for (const projectile of this.projectiles) {
-	// 			if (projectile.isDestroyed) continue;
-
-	// 			if (enemy.collider.checkCollision(projectile.collider)) {
-	// 				enemy.collider.resolveCollision(projectile.collider);
-	// 				projectile.collider.resolveCollision(enemy.collider);
-	// 			}
-	// 		}
-
-	// 		for (const tower of this.towers) {
-	// 			if (tower.isDestroyed) continue;
-
-	// 			if (enemy.collider.checkCollision(tower.collider)) {
-	// 				enemy.collider.resolveCollision(tower.collider);
-	// 				tower.collider.resolveCollision(enemy.collider);
-	// 			}
-	// 		}
-	// 	}
-
-	// 	for (const tower of this.builtTowers) {
-	// 		if (tower.isDestroyed) continue;
-
-	// 		for (const projectile of this.projectiles) {
-	// 			if (projectile.isDestroyed) continue;
-
-	// 			if (tower.collider.checkCollision(projectile.collider)) {
-	// 				tower.collider.resolveCollision(projectile.collider);
-	// 				projectile.collider.resolveCollision(tower.collider);
-	// 			}
-	// 		}
-	// 	}
-	// }
 
 	private initializeTowers() {
 		[...TOWER_POSITIONS.left, ...TOWER_POSITIONS.right].forEach(({ x, y }) => {

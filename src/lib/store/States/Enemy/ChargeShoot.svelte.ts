@@ -4,7 +4,7 @@
  */
 
 import { BaseState } from '$lib/store/States/BaseState.svelte';
-import { TimeManager } from '$store/TimeManager.svelte';
+import { gameLoop } from '$store/GameLoop.svelte';
 
 const CHARGE_CD = 100;
 
@@ -13,17 +13,14 @@ export class ChargeShoot extends BaseState {
 
 	constructor(stateMachine) {
 		super(stateMachine);
-
-		const onChargeReady = () => {
-			this.stateMachine.setState('Shoot');
-		};
-
-		this.timeManager = new TimeManager();
-		this.timeManager.setTimer(onChargeReady, CHARGE_CD);
+		this.cdId = gameLoop.setCD(CHARGE_CD, false);
 	}
 
 	update(deltaTime: number, enemy) {
 		enemy.rotation += deltaTime * 20;
-		this.timeManager.update(deltaTime);
+
+		if (gameLoop.isCDReady(this.cdId)) {
+			this.stateMachine.setState('Shoot');
+		}
 	}
 }
