@@ -4,8 +4,8 @@ import { Entity, initEntity } from './Entity.svelte';
 import { gameLoop } from './GameLoop.svelte';
 import { Vector2 } from './Vector2.svelte';
 
-const SPAWN_CD = 50;
-const CLEANUP_INTERVAL = 10;
+const SPAWN_CD = 200;
+const CLEANUP_INTERVAL = 100;
 
 export class EntityManager {
 	entities = $state<Entity[]>([]);
@@ -68,7 +68,7 @@ export class EntityManager {
 	};
 
 	spawnProjectile = (spawner: Entity, target: Entity) => {
-		const projectile = initEntity('effect2', spawner.position, { spawner, target });
+		const projectile = initEntity('effect3', spawner.position, { spawner, target });
 		this.add(projectile);
 	};
 

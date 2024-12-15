@@ -140,6 +140,20 @@ const entities: Record<string, EntityConfig> = {
 		},
 		onCollide: projectileCollider
 	},
+	effect3: {
+		name: 'effect3',
+		type: 'projectile',
+		width: 18,
+		height: 18,
+		initialState: 'Fly',
+		states: ['Fly', 'Hit'],
+		stats: {
+			health: 1,
+			speed: 0.5,
+			damage: 100
+		},
+		onCollide: projectileCollider
+	},
 	laser: {
 		name: 'laser',
 		type: 'projectile',
