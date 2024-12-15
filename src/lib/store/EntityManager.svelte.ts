@@ -67,7 +67,7 @@ export class EntityManager {
 	};
 
 	spawnProjectile = (spawner: Entity, target: Entity) => {
-		const projectile = initEntity('projectile', spawner.position, { spawner, target });
+		const projectile = initEntity('effect2', spawner.position, { spawner, target });
 		this.add(projectile);
 	};
 

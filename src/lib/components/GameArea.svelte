@@ -1,7 +1,7 @@
 <script>
 	import Entity from '$lib/components/Entity.svelte';
 	import { entityManager } from '$lib/store/EntityManager.svelte';
-	import Effect1 from './Effect1.svelte';
+	import Effect from './Effects/index.svelte';
 </script>
 
 <section>
@@ -14,7 +14,7 @@
 	{/each}
 
 	{#each entityManager.projectiles as entity (entity.id)}
-		<Effect1 {entity} />
+		<Effect {entity} />
 	{/each}
 
 	<Entity entity={entityManager.throne} />

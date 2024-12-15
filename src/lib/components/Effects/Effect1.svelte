@@ -1,7 +1,7 @@
 <!-- NeonCircle.svelte -->
 <script>
 	// Import the custom transition function
-	import { neonLightTransition } from './transitions.js';
+	import { neonLightTransition } from '../transitions.js';
 
 	const { entity } = $props();
 </script>
@@ -22,8 +22,6 @@
 		/* top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%); */
-		width: 30px;
-		height: 30px;
 		border-radius: 50%;
 		background: linear-gradient(90deg, #ff69b4, #ffe66d);
 		box-shadow:
