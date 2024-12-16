@@ -55,7 +55,7 @@ export const throneCollider = (entity, other) => {
 
 export const lootCollider = (entity, other) => {
 	if (other.type === 'throne') {
-		entity.stopInteractions();
+		entity.state.setState('Die');
 	}
 	return;
 };

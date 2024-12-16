@@ -14,13 +14,15 @@ export class CollisionManager {
 		// Handle tower projectiles vs nearest enemies
 		this.handleProjectileCollisions(
 			this.filterProjectilesByOwner('tower'),
-			this.entityManager.enemies
+			this.entityManager.livingEntities.filter((entity) => entity.type === 'enemy')
 		);
 
 		// Handle enemy projectiles vs towers and throne
 		this.handleProjectileCollisions(
 			this.filterProjectilesByOwner('enemy'),
-			this.entityManager.base
+			this.entityManager.livingEntities.filter(
+				(entity) => entity.type === 'tower' || entity.type === 'throne'
+			)
 		);
 
 		// Handle enemy collisions

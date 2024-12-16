@@ -15,14 +15,12 @@ export class Entity {
 	effect = $state('');
 	sprite = $state<Sprite>();
 	position = $state<Vector2>();
-	prevPosition = $state<Vector2>();
 	state = $state<StateMachine>();
 	stats = $state({});
 	rotation = $state(0);
 	scale = $state(1);
 	opacity = $state(1);
 	isInteractable = $state(true);
-	toDestroy = $derived(this.isQueuedForDestroy());
 
 	constructor(
 		name,
@@ -31,6 +29,7 @@ export class Entity {
 			width,
 			height,
 			scale,
+			rotation,
 			type,
 			states,
 			animations,
@@ -42,13 +41,14 @@ export class Entity {
 		},
 		context
 	) {
+		// Entity stats
 		this.name = name;
 		this.type = type;
 		this.width = width;
 		this.height = height;
-		this.scale = scale;
+		this.scale = scale || 1;
+		this.rotation = rotation || 0;
 		this.position = position;
-		this.prevPosition = position;
 		this.stats = { ...stats };
 
 		// Entity has either effect or animations
@@ -74,22 +74,6 @@ export class Entity {
 		});
 	}
 
-	isQueuedForDestroy() {
-		if (this.isInteractable) {
-			return;
-		}
-
-		if (!this.sprite) {
-			return true;
-		}
-
-		if (this.sprite.isAnimationComplete) {
-			return true;
-		}
-
-		return false;
-	}
-
 	get boundingBox(): BoundingBox {
 		return {
 			x: this.position.x,
@@ -98,10 +82,6 @@ export class Entity {
 			height: this.height,
 			rotation: this.rotation
 		};
-	}
-
-	beforeUpdate(deltaTime: number) {
-		this.prevPosition = this.position.clone();
 	}
 
 	update(deltaTime: number) {

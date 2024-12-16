@@ -4,7 +4,6 @@
  */
 
 import { BaseState } from '$lib/store/States/BaseState.svelte';
-import type { Projectile } from '$store/Entities/Projectile.svelte';
 import { angleToTarget, getDirectionFromAngle } from '$utils/math';
 
 // todo: Add new State AutoAimFly

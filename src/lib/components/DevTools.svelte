@@ -32,9 +32,8 @@
 	<div class="wrapper">
 		<section>
 			<button onclick={() => pause()}> Pause </button>
-			<h2>Living Enemies count: {entityManager.enemies.length}</h2>
-			<h2>Living Projectiles count: {entityManager.projectiles.length}</h2>
-			<h2>Destroyed Entities count: {entityManager.destroyedEntities.length}</h2>
+			<h2>Enemies count: {entityManager.enemies.length}</h2>
+			<h2>Projectiles count: {entityManager.projectiles.length}</h2>
 		</section>
 
 		<section>

@@ -142,12 +142,12 @@ const entities: Record<string, EntityConfig> = {
 	},
 	loot: {
 		type: 'loot',
-		effect: 'effect1',
+		effect: 'effect3',
 
 		width: 15,
 		height: 15,
 		initialState: 'Fly',
-		states: ['Fly'],
+		states: ['Fly', 'Die'],
 		stats: {
 			health: 1,
 			damage: 0,

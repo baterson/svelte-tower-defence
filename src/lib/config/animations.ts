@@ -58,20 +58,6 @@ export const animations = {
 			],
 			frameRate: 20
 		}
-		// {
-		// 	name: 'ChargeShoot',
-		// 	frames: [
-		// 		[-19, -15],
-		// 		[-19, -15],
-		// 		[-19, -15],
-		// 		[-274, -15],
-		// 		[-274, -15],
-		// 		[-274, -15],
-		// 		[-19, -15],
-		// 		[-274, -15]
-		// 	],
-		// 	frameRate: 20
-		// }
 	],
 	enemy2: [
 		{
@@ -150,7 +136,7 @@ export const animations = {
 				[-19, -15],
 				[-274, -15]
 			],
-			frameRate: 20
+			frameRate: 10
 		}
 	],
 	blueTower: [
