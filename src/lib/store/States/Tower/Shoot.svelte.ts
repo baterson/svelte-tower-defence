@@ -12,7 +12,7 @@ export class Shoot extends BaseState {
 
 		const { spawner, target } = this.stateMachine.context;
 
-		entityManager.spawnProjectile(spawner, target);
+		// entityManager.spawnProjectile(spawner, target);
 	}
 
 	update(deltaTime: number) {

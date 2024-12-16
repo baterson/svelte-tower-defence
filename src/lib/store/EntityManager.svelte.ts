@@ -4,7 +4,7 @@ import { Entity, initEntity } from './Entity.svelte';
 import { gameLoop } from './GameLoop.svelte';
 import { Vector2 } from './Vector2.svelte';
 
-const SPAWN_CD = 200;
+const SPAWN_CD = 2000;
 const CLEANUP_INTERVAL = 100;
 
 export class EntityManager {
@@ -54,7 +54,7 @@ export class EntityManager {
 	}
 
 	spawnEnemy = () => {
-		const names = ['enemy1', 'enemy2', 'enemy3'];
+		const names = ['enemy4', 'enemy5'];
 		const randomName = names[Math.floor(Math.random() * names.length)];
 		const spawnAreas = [70, 100, 130, 160, 190, 220, 250, 280, 310, 340];
 		const area = spawnAreas[Math.floor(Math.random() * spawnAreas.length)];

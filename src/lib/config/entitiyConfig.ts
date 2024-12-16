@@ -80,6 +80,38 @@ const entities: Record<string, EntityConfig> = {
 		},
 		onCollide: enemyCollider
 	},
+	enemy4: {
+		name: 'enemy4',
+		type: 'enemy',
+		width: 30,
+		height: 64,
+		spriteSheet: '/4rd_flying_enemy.png',
+		initialState: 'Fly',
+		states: ['Fly', 'Shoot', 'Die'],
+		animations: animations.enemy4,
+		stats: {
+			health: 10,
+			speed: 0.09,
+			damage: 10
+		},
+		onCollide: enemyCollider
+	},
+	enemy5: {
+		name: 'enemy5',
+		type: 'enemy',
+		width: 30,
+		height: 64,
+		spriteSheet: '/5rd_сar_enemy.png',
+		initialState: 'Run',
+		states: ['Run', 'Shoot', 'Die'],
+		animations: animations.enemy5,
+		stats: {
+			health: 10,
+			speed: 0.09,
+			damage: 10
+		},
+		onCollide: enemyCollider
+	},
 	blueTower: {
 		name: 'blueTower',
 		type: 'tower',
