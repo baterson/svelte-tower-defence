@@ -21,7 +21,6 @@ export class Fly extends BaseState {
 		this.entity.rotation = angle;
 	}
 
-	// todo: should always have a consistent angle
 	update(deltaTime: number) {
 		const speed = this.entity.stats.speed * deltaTime;
 

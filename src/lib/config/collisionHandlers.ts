@@ -47,9 +47,15 @@ export const projectileCollider = (projectile, other) => {
 };
 
 export const throneCollider = (entity, other) => {
-	// entity.stats.health -= 50;
-	// if (entity.stats.health <= 0) {
-	// 	entity.state.setState('Die');
-	// }
+	if (other.type === 'loot') {
+		entity.scale += 0.1;
+	}
+	return;
+};
+
+export const lootCollider = (entity, other) => {
+	if (other.type === 'throne') {
+		entity.state.setState('Die');
+	}
 	return;
 };

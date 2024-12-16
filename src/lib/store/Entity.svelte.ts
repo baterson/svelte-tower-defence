@@ -12,59 +12,69 @@ export class Entity {
 	width = $state(0);
 	height = $state(0);
 	spriteSheet = $state('');
+	effect = $state('');
 	sprite = $state<Sprite>();
 	position = $state<Vector2>();
-	prevPosition = $state<Vector2>();
 	state = $state<StateMachine>();
 	stats = $state({});
 	rotation = $state(0);
 	scale = $state(1);
 	opacity = $state(1);
 	isInteractable = $state(true);
-	toDestroy = $derived(this.isQueuedForDestroy());
 
 	constructor(
 		name,
 		position,
-		{ width, height, scale, type, states, animations, spriteSheet, initialState, onCollide, stats },
+		{
+			width,
+			height,
+			scale,
+			rotation,
+			type,
+			states,
+			animations,
+			spriteSheet,
+			initialState,
+			onCollide,
+			stats,
+			effect
+		},
 		context
 	) {
+		// Entity stats
 		this.name = name;
 		this.type = type;
 		this.width = width;
 		this.height = height;
-		this.scale = scale;
+		this.scale = scale || 1;
+		this.rotation = rotation || 0;
 		this.position = position;
-		this.prevPosition = position;
 		this.stats = { ...stats };
+
+		// Entity has either effect or animations
+		this.effect = effect;
 		this.spriteSheet = spriteSheet;
+
+		// Handle collisions
+		this.onCollide = (other) => onCollide(this, other);
+
+		// Handle state changes
+		const onStateEnter = (stateName) => {
+			if (spriteSheet && animations) {
+				this.setSprite(stateName, animations);
+			}
+		};
+
 		this.state = new StateMachine({
 			owner: this,
 			states,
 			initialState,
-			onEnter: (stateName) => this.setSprite(stateName, animations),
+			onEnter: onStateEnter,
 			context
 		});
-		this.onCollide = (other) => onCollide(this, other);
 	}
 
-	isQueuedForDestroy() {
-		if (this.isInteractable) {
-			return;
-		}
-
-		if (!this.sprite) {
-			return true;
-		}
-
-		if (this.sprite.isAnimationComplete) {
-			return true;
-		}
-
-		return false;
-	}
-
-	getBoundingBox(): BoundingBox {
+	get boundingBox(): BoundingBox {
 		return {
 			x: this.position.x,
 			y: this.position.y,
@@ -72,10 +82,6 @@ export class Entity {
 			height: this.height,
 			rotation: this.rotation
 		};
-	}
-
-	beforeUpdate(deltaTime: number) {
-		this.prevPosition = this.position.clone();
 	}
 
 	update(deltaTime: number) {
@@ -89,10 +95,8 @@ export class Entity {
 	}
 
 	setSprite(name: string, animations) {
-		if (!animations) return;
 		const sprite = animations.find((sprite) => sprite.name === name);
-		// if (!sprite)
-		// 	throw new Error(`Sprite ${name} not found for: ${this.name}: with type ${this.type}`);
+
 		if (sprite) {
 			this.sprite = new Sprite(sprite, this.spriteSheet);
 		}

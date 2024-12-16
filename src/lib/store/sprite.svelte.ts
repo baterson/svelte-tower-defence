@@ -17,13 +17,6 @@ export class Sprite {
 	currentFrameTime = $state(0);
 	spritesheet = $state('');
 
-	// todo: remove or find a way to use.
-	// todo: probably size and dimentions should be in the entity
-	scaleX = $state(1);
-	scaleY = $state(1);
-	offsetX = $state(0);
-	offsetY = $state(0);
-
 	currentFrame = $derived(this.getCurrentFrame());
 	isAnimationComplete = $derived(this.getIsAnimationComplete());
 
@@ -66,20 +59,5 @@ export class Sprite {
 			return false;
 		}
 		return this.currentFrameIndex === this.frames.length - 1;
-	}
-
-	reset() {
-		this.currentFrameIndex = 0;
-		this.currentFrameTime = 0;
-	}
-
-	setScale(x: number, y = x) {
-		this.scaleX = x;
-		this.scaleY = y;
-	}
-
-	setOffset(x: number, y: number) {
-		this.offsetX = x;
-		this.offsetY = y;
 	}
 }

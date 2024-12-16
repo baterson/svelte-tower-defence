@@ -8,8 +8,8 @@
 </script>
 
 <div
-	onclick={() => devTools.inspectEntity(entity)}
 	out:fade
+	onclick={() => devTools.inspectEntity(entity)}
 	style:background={`url(${spriteSheet}) no-repeat ${entity.sprite.currentFrame[0]}px ${entity.sprite.currentFrame[1]}px`}
 	style:width={`${entity.width}px`}
 	style:height={`${entity.height}px`}

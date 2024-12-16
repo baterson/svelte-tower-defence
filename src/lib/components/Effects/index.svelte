@@ -6,10 +6,10 @@
 	const { entity } = $props();
 </script>
 
-{#if entity.name === 'effect1'}
+{#if entity.effect === 'effect1'}
 	<Effect1 {entity} />
-{:else if entity.name === 'effect2'}
+{:else if entity.effect === 'effect2'}
 	<Effect2 {entity} />
-{:else if entity.name === 'effect3'}
+{:else if entity.effect === 'effect3'}
 	<Effect3 {entity} />
 {/if}
