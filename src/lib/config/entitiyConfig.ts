@@ -7,20 +7,21 @@ import type { Entity } from '$store/Entity.svelte';
 import { animations } from './animations';
 import {
 	enemyCollider,
+	lootCollider,
 	projectileCollider,
 	throneCollider,
 	towerCollider
 } from './collisionHandlers';
 
 export interface EntityConfig {
-	name: string;
-	type: 'enemy' | 'tower' | 'projectile' | 'throne';
+	type: 'enemy' | 'tower' | 'projectile' | 'throne' | 'loot';
 	width: number;
 	height: number;
-	spriteSheet: string;
 	initialState: string;
 	states: string[];
-	animations: any[];
+	effect?: string;
+	spriteSheet?: string;
+	animations?: any[];
 	onCollide?: (entity: Entity, target: Entity) => void;
 	stats: {
 		health?: number;
@@ -33,7 +34,6 @@ export interface EntityConfig {
 
 const entities: Record<string, EntityConfig> = {
 	enemy1: {
-		name: 'enemy1',
 		type: 'enemy',
 		width: 30,
 		height: 40,
@@ -49,7 +49,6 @@ const entities: Record<string, EntityConfig> = {
 		onCollide: enemyCollider
 	},
 	enemy2: {
-		name: 'enemy2',
 		type: 'enemy',
 		width: 30,
 		height: 40,
@@ -65,7 +64,6 @@ const entities: Record<string, EntityConfig> = {
 		onCollide: enemyCollider
 	},
 	enemy3: {
-		name: 'enemy3',
 		type: 'enemy',
 		width: 30,
 		height: 40,
@@ -81,7 +79,6 @@ const entities: Record<string, EntityConfig> = {
 		onCollide: enemyCollider
 	},
 	blueTower: {
-		name: 'blueTower',
 		type: 'tower',
 		width: 36,
 		height: 64,
@@ -98,8 +95,8 @@ const entities: Record<string, EntityConfig> = {
 		scale: 1.2,
 		onCollide: towerCollider
 	},
-	projectile: {
-		name: 'projectile',
+	projectile1: {
+		effect: 'effect1',
 		type: 'projectile',
 		width: 18,
 		height: 18,
@@ -112,8 +109,8 @@ const entities: Record<string, EntityConfig> = {
 		},
 		onCollide: projectileCollider
 	},
-	effect1: {
-		name: 'effect1',
+	projectile2: {
+		effect: 'effect2',
 		type: 'projectile',
 		width: 18,
 		height: 18,
@@ -123,80 +120,42 @@ const entities: Record<string, EntityConfig> = {
 			health: 1,
 			speed: 0.5,
 			damage: 100
-		},
-		onCollide: projectileCollider
-	},
-	effect2: {
-		name: 'effect2',
-		type: 'projectile',
-		width: 18,
-		height: 18,
-		initialState: 'Fly',
-		states: ['Fly', 'Hit'],
-		stats: {
-			health: 1,
-			speed: 0.5,
-			damage: 100
-		},
-		onCollide: projectileCollider
-	},
-	laser: {
-		name: 'laser',
-		type: 'projectile',
-		width: 20,
-		height: 20,
-		spriteSheet: '/projectile.sprite.png',
-		initialState: 'Laser',
-		states: ['Laser', 'Impact'],
-		animations: animations.laser,
-		stats: {
-			health: 0,
-			speed: 0.5,
-			damage: 20
 		},
 		onCollide: projectileCollider
 	},
 	throne: {
 		type: 'throne',
-		width: 300,
-		height: 50,
+		width: 30,
+		height: 40,
 		stats: {
 			health: 1000,
 			damage: 999,
 			speed: 0,
 			range: 40
 		},
+		scale: 2,
 		states: ['Idle'],
 		animations: animations.enemy1,
 		spriteSheet: '/1st_enemy_run.png',
 		initialState: 'Idle',
 		onCollide: throneCollider
+	},
+	loot: {
+		type: 'loot',
+		effect: 'effect1',
+
+		width: 15,
+		height: 15,
+		initialState: 'Fly',
+		states: ['Fly'],
+		stats: {
+			health: 1,
+			damage: 0,
+			speed: 0.2
+		},
+		onCollide: lootCollider
 	}
 };
-
-export type Wall = {
-	type: 'wall';
-	x: number;
-	y: number;
-	width: number;
-	height: number;
-};
-
-const wall = (x: number, y: number, width: number, height: number): Wall => ({
-	type: 'wall',
-	x,
-	y,
-	width,
-	height
-});
-
-export const Walls = [
-	wall(0, 100, 80, 80),
-	wall(373, 100, 80, 80),
-	wall(0, 170, 93, 600),
-	wall(363, 170, 93, 600),
-	wall(95, 685, 280, 100)
-];
 
 export const getConfig = (name: string): EntityConfig => {
 	if (!entities[name]) throw new Error(`Entity config not found for: ${name}`);

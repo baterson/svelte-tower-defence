@@ -4,23 +4,28 @@ import { Entity, initEntity } from './Entity.svelte';
 import { gameLoop } from './GameLoop.svelte';
 import { Vector2 } from './Vector2.svelte';
 
-const SPAWN_CD = 50;
+const SPAWN_CD = 300;
 const CLEANUP_INTERVAL = 10;
 
 export class EntityManager {
 	entities = $state<Entity[]>([]);
+	// builtTowers = $derived(
+	// 	this.towers.filter((tower) => tower.state.currentState.name !== 'NotBuilt')
+	// );
 
 	collisionManager = $state<CollisionManager>();
 	// Derived state
+	// todo: refactor to have pending destoyed entities, so they don't lost in update
+	// don't use pending destoyed entities in collisions
 	livingEntities = $derived(this.entities.filter((entity) => entity.isInteractable));
 	destroyedEntities = $derived(this.entities.filter((entity) => entity.toDestroy));
 	towers = $derived(this.livingEntities.filter((entity) => entity.type === 'tower'));
-	builtTowers = $derived(
-		this.towers.filter((tower) => tower.state.currentState.name !== 'NotBuilt')
-	);
 	enemies = $derived(this.livingEntities.filter((entity) => entity.type === 'enemy'));
 	projectiles = $derived(this.livingEntities.filter((entity) => entity.type === 'projectile'));
+	loot = $derived(this.livingEntities.filter((entity) => entity.type === 'loot'));
 	throne = $derived(this.livingEntities.find((entity) => entity.type === 'throne'));
+	base = $derived([...this.towers, this.throne]);
+	fxEntities = $derived(this.entities.filter((entity) => entity.effect));
 
 	spawnCDId = gameLoop.setCD(SPAWN_CD, true);
 	cleanupCDId = gameLoop.setCD(CLEANUP_INTERVAL, true);
@@ -29,7 +34,7 @@ export class EntityManager {
 		this.initializeTowers();
 		this.spawnThrone();
 
-		this.collisionManager = new CollisionManager();
+		this.collisionManager = new CollisionManager(this);
 	}
 
 	update = (deltaTime: number) => {
@@ -49,8 +54,6 @@ export class EntityManager {
 		[...TOWER_POSITIONS.left, ...TOWER_POSITIONS.right].forEach(({ x, y }) => {
 			this.spawnTower(x, y);
 		});
-
-		// this.spawnTower(383, 162);
 	}
 
 	spawnEnemy = () => {
@@ -68,13 +71,18 @@ export class EntityManager {
 	};
 
 	spawnProjectile = (spawner: Entity, target: Entity) => {
-		const projectile = initEntity('effect2', spawner.position, { spawner, target });
+		const projectile = initEntity('projectile1', spawner.position, { spawner, target });
 		this.add(projectile);
 	};
 
-	private spawnThrone = () => {
-		const throne = initEntity('throne', new Vector2(80, 600));
+	spawnThrone = () => {
+		const throne = initEntity('throne', new Vector2(200, 600));
 		this.add(throne);
+	};
+
+	spawnLoot = (spawner: Entity) => {
+		const loot = initEntity('loot', spawner.position, { target: this.throne });
+		this.add(loot);
 	};
 
 	add = (entity: Entity) => {
@@ -119,20 +127,12 @@ export class EntityManager {
 		});
 	};
 
-	private cleanupEntities = () => {
+	cleanupEntities = () => {
 		this.entities = this.entities.filter((entity) => !entity.toDestroy);
 	};
 
 	getEntityCount = (type: string): number => {
 		return this.getByType(type).length;
-	};
-
-	clearEntitiesByType = (type: string) => {
-		this.entities = this.entities.filter((entity) => entity.type !== type);
-	};
-
-	clearAllEntities = () => {
-		this.entities = [];
 	};
 }
 

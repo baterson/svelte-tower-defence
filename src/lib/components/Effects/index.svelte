@@ -5,8 +5,8 @@
 	const { entity } = $props();
 </script>
 
-{#if entity.name === 'effect1'}
+{#if entity.effect === 'effect1'}
 	<Effect1 {entity} />
-{:else if entity.name === 'effect2'}
+{:else if entity.effect === 'effect2'}
 	<Effect2 {entity} />
 {/if}

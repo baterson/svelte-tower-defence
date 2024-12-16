@@ -1,7 +1,6 @@
 <script>
 	import { devTools } from '$lib/store/DevTools.svelte';
 	import { browser } from '$app/environment';
-	import { on } from 'svelte/events';
 	import { onMount } from 'svelte';
 	import { game } from '$lib/store/Game.svelte';
 	import { entityManager } from '$lib/store/EntityManager.svelte';

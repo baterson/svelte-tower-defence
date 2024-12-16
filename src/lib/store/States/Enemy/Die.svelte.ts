@@ -4,9 +4,9 @@
  */
 
 import { BaseState } from '$lib/store/States/BaseState.svelte';
-import type { EntityPool } from '$lib/store/EntityPool.svelte';
-import type { Enemy } from '$store/Entities/Enemy.svelte';
 import { degToRad } from '$utils/math';
+import { gameLoop } from '$store/GameLoop.svelte';
+import { entityManager } from '$store/EntityManager.svelte';
 
 export class Die extends BaseState {
 	private readonly ROTATION_SPEED = 2;
@@ -16,10 +16,16 @@ export class Die extends BaseState {
 		super(stateMachine);
 
 		stateMachine.owner.stopInteractions();
+		if (Math.random() > 0.5) {
+			entityManager.spawnLoot(stateMachine.owner);
+		}
 	}
 
-	update(deltaTime: number, enemy: Enemy, entityPool: EntityPool) {
-		enemy.rotation =
-			Math.min(enemy.rotation + degToRad(this.ROTATION_SPEED), degToRad(this.TARGET_ROTATION)) * 30;
+	update(deltaTime: number) {
+		this.entity.rotation =
+			Math.min(
+				this.entity.rotation + degToRad(this.ROTATION_SPEED),
+				degToRad(this.TARGET_ROTATION)
+			) * 30;
 	}
 }

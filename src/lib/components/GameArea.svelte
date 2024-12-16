@@ -13,7 +13,8 @@
 		<Entity {entity} />
 	{/each}
 
-	{#each entityManager.projectiles as entity (entity.id)}
+	<!-- All who uses effect instead of sprite -->
+	{#each entityManager.fxEntities as entity (entity.id)}
 		<Effect {entity} />
 	{/each}
 

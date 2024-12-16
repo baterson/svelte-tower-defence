@@ -7,8 +7,17 @@ export const animations = {
 	enemy1: [
 		{
 			name: 'Idle',
-			frames: [[-19, -15]],
-			frameRate: 10,
+			frames: [
+				[-19, -15],
+				[-82, -15],
+				[-145, -15],
+				[-210, -15],
+				[-274, -15],
+				[-338, -15],
+				[-402, -15],
+				[-466, -15]
+			],
+			frameRate: 3,
 			loop: true
 		},
 		{

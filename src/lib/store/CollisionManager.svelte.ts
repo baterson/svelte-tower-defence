@@ -1,226 +1,132 @@
-/**
- * Collision System Documentation
- *
- * This system uses Separating Axis Theorem (SAT) for collision detection
- * between rotated rectangular shapes. Here's how it works:
- *
- * Example 1: Rotated Tower and Enemy
- * ```
- * Tower (static)         Enemy (moving)
- *    /‾‾‾\                  /‾‾‾\
- *   |     |     -->        |     |
- *    \___/                  \___/
- *
- * 1. Get vertices of both shapes considering rotation
- * 2. Get normals (perpendicular vectors) from the edges
- * 3. Project vertices onto each normal
- * 4. If there's a gap in ANY projection, no collision
- * ```
- *
- * Example 2: Projectile and Target
- * ```
- * Projectile    Target
- *   -->[]      |¯¯¯¯|
- *              |    |
- *              |____|
- *
- * 1. Only check collision if projectile.target.type matches target.type
- * 2. Use SAT for precise collision even with rotation
- * ```
- */
-
-// math.ts
 import { Vector2 } from './Vector2.svelte';
-
-/**
- * Get vertices of a rotated rectangle
- * @example
- * const entity = { width: 50, height: 30, rotation: Math.PI/4 }
- * const vertices = getRotatedRectVertices(entity)
- * // Returns 4 Vector2 points of rotated rectangle corners
- */
-export function getRotatedRectVertices(
-	position: Vector2,
-	width: number,
-	height: number,
-	rotation: number
-): Vector2[] {
-	const halfWidth = width / 2;
-	const halfHeight = height / 2;
-
-	// Start with vertices at origin
-	const vertices = [
-		new Vector2(-halfWidth, -halfHeight),
-		new Vector2(halfWidth, -halfHeight),
-		new Vector2(halfWidth, halfHeight),
-		new Vector2(-halfWidth, halfHeight)
-	];
-
-	// Rotate and translate vertices
-	return vertices.map((vertex) => {
-		const rotated = new Vector2(
-			vertex.x * Math.cos(rotation) - vertex.y * Math.sin(rotation),
-			vertex.x * Math.sin(rotation) + vertex.y * Math.cos(rotation)
-		);
-		return rotated.add(position);
-	});
-}
-
-/**
- * Get normal vectors for rectangle edges
- * @example
- * const normals = getNormals(vertices)
- * // Returns array of Vector2 normals perpendicular to each edge
- */
-export function getNormals(vertices: Vector2[]): Vector2[] {
-	const normals: Vector2[] = [];
-
-	for (let i = 0; i < vertices.length; i++) {
-		const current = vertices[i];
-		const next = vertices[(i + 1) % vertices.length];
-		const edge = next.subtract(current);
-		normals.push(new Vector2(-edge.y, edge.x).normalize());
-	}
-
-	return normals;
-}
-
-/**
- * Project vertices onto an axis using dot product
- * @example
- * const axis = new Vector2(1, 0)  // Project onto x-axis
- * const projection = projectOntoAxis(vertices, axis)
- * // Returns { min: lowest projection, max: highest projection }
- */
-export function projectOntoAxis(vertices: Vector2[], axis: Vector2): { min: number; max: number } {
-	const dots = vertices.map((vertex) => vertex.dot(axis));
-	return {
-		min: Math.min(...dots),
-		max: Math.max(...dots)
-	};
-}
-
-// CollisionManager.ts
-interface CollisionGroup {
-	type: string;
-	canCollideWith: string[];
-}
+import type { Entity } from './Entity.svelte';
+import type { EntityManager } from './EntityManager.svelte';
 
 export class CollisionManager {
-	private collisionGroups: CollisionGroup[] = [
-		{ type: 'tower', canCollideWith: ['enemy', 'projectile'] },
-		{ type: 'enemy', canCollideWith: ['tower', 'projectile'] },
-		{ type: 'projectile', canCollideWith: ['tower', 'enemy'] }
-	];
+	private readonly COLLISION_RADIUS = 50;
+	private entityManager: EntityManager;
 
-	/**
-	 * Check if two entities can collide based on their types
-	 * @example
-	 * // Tower projectile hitting enemy
-	 * canCollide(projectile, enemy) // true if projectile.target.type === 'enemy'
-	 *
-	 * // Enemy projectile hitting tower
-	 * canCollide(projectile, tower) // true if projectile.target.type === 'tower'
-	 */
-	private canCollide(entity1: Entity, entity2: Entity): boolean {
-		if (entity1.type === 'projectile') {
-			return entity2.type === entity1.target?.type;
-		}
-		if (entity2.type === 'projectile') {
-			return entity1.type === entity2.target?.type;
-		}
-
-		const group = this.collisionGroups.find((g) => g.type === entity1.type);
-		return group?.canCollideWith.includes(entity2.type) ?? false;
+	constructor(entityManager: EntityManager) {
+		this.entityManager = entityManager;
 	}
 
-	private gameBounds: GameBounds = {
-		minX: 0,
-		maxX: 440,
-		minY: 0,
-		maxY: 780
-	};
-
-	/**
-	 * Check if entity position is within game bounds
-	 */
-	checkGameBounds(entity: Entity): boolean {
-		const { position, width, height } = entity;
-
-		// Check if any part of the entity is outside bounds
-		const isOutsideX =
-			position.x < this.gameBounds.minX || position.x + width > this.gameBounds.maxX;
-
-		const isOutsideY =
-			position.y < this.gameBounds.minY || position.y + height > this.gameBounds.maxY;
-
-		return !(isOutsideX || isOutsideY);
-	}
-
-	/**
-	 * Check collision between two entities using SAT
-	 * @example
-	 * // Check if enemy hits tower
-	 * checkCollision(enemy, tower)
-	 * // Returns true if shapes overlap, considering rotation
-	 */
-	checkCollision(entity1: Entity, entity2: Entity): boolean {
-		// if (!this.canCollide(entity1, entity2)) return false;
-
-		const box1 = entity1.getBoundingBox();
-		const box2 = entity2.getBoundingBox();
-
-		const vertices1 = getRotatedRectVertices(
-			new Vector2(box1.x, box1.y),
-			box1.width,
-			box1.height,
-			box1.rotation
+	update() {
+		// Handle tower projectiles vs nearest enemies
+		this.handleProjectileCollisions(
+			this.filterProjectilesByOwner('tower'),
+			this.entityManager.enemies
 		);
 
-		const vertices2 = getRotatedRectVertices(
-			new Vector2(box2.x, box2.y),
-			box2.width,
-			box2.height,
-			box2.rotation
+		// Handle enemy projectiles vs towers and throne
+		this.handleProjectileCollisions(
+			this.filterProjectilesByOwner('enemy'),
+			this.entityManager.base
 		);
 
-		const normals = [...getNormals(vertices1), ...getNormals(vertices2)];
+		// Handle enemy collisions
+		this.handleEnemyCollisions();
 
-		for (const normal of normals) {
-			const projection1 = projectOntoAxis(vertices1, normal);
-			const projection2 = projectOntoAxis(vertices2, normal);
-
-			if (projection1.max < projection2.min || projection2.max < projection1.min) {
-				return false;
-			}
-		}
-
-		return true;
+		this.handleLootCollisions();
 	}
 
-	/**
-	 * Update all collisions in the game
-	 * @example
-	 * // In game loop:
-	 * collisionManager.update(entities)
-	 * // Checks all valid entity pairs for collisions
-	 */
-	update(entities: Entity[]): void {
-		const dynamicEntities = entities.filter((e) => e.type !== 'tower');
-		const allEntities = entities;
+	private filterProjectilesByOwner(ownerType: string): Entity[] {
+		return this.entityManager.projectiles.filter(
+			(p) => p.state?.context?.spawner?.type === ownerType
+		);
+	}
 
-		for (const entity1 of dynamicEntities) {
-			if (entity1.type === 'projectile' && !this.checkGameBounds(entity1)) {
-				entity1.onCollide('OUT_OF_BOUNDS');
+	private handleProjectileCollisions(projectiles: Entity[], targets: Entity[]): void {
+		for (const projectile of projectiles) {
+			if (!this.checkGameBounds(projectile)) {
+				projectile.onCollide('OUT_OF_BOUNDS');
+
+				continue;
 			}
 
-			for (const entity2 of allEntities) {
-				if (entity1 === entity2) continue;
-				if (this.checkCollision(entity1, entity2)) {
-					entity1.onCollide(entity2);
-					entity2.onCollide(entity1);
-				}
+			const nearestTarget = this.findNearestEntity(projectile, targets);
+			if (!nearestTarget) continue;
+
+			if (this.checkCollision(projectile, nearestTarget)) {
+				projectile.onCollide(nearestTarget);
+				nearestTarget.onCollide(projectile);
 			}
 		}
+	}
+
+	private handleEnemyCollisions(): void {
+		const targets = [...this.entityManager.towers, this.entityManager.throne].filter(Boolean);
+
+		for (const enemy of this.entityManager.enemies) {
+			const nearestTarget = this.findNearestEntity(enemy, targets);
+			if (!nearestTarget) continue;
+
+			if (this.checkCollision(enemy, nearestTarget)) {
+				enemy.onCollide(nearestTarget);
+				nearestTarget.onCollide(enemy);
+			}
+		}
+	}
+
+	private handleLootCollisions(): void {
+		const throne = this.entityManager.throne;
+		if (!throne?.onCollide) return;
+
+		for (const loot of this.entityManager.livingEntities.filter((e) => e.type === 'loot')) {
+			if (this.checkCollision(loot, throne)) {
+				loot.onCollide(throne);
+				throne.onCollide(loot);
+			}
+		}
+	}
+
+	private findNearestEntity(source: Entity, targets: Entity[]): Entity | undefined {
+		let nearest: Entity | undefined;
+		let minDistance = this.COLLISION_RADIUS;
+
+		for (const target of targets) {
+			const distance = this.getDistance(source.position, target.position);
+			if (distance < minDistance) {
+				minDistance = distance;
+				nearest = target;
+			}
+		}
+
+		return nearest;
+	}
+
+	private getDistance(pos1: Vector2, pos2: Vector2): number {
+		const dx = pos2.x - pos1.x;
+		const dy = pos2.y - pos1.y;
+		return Math.sqrt(dx * dx + dy * dy);
+	}
+
+	private checkCollision(entity1: Entity, entity2: Entity): boolean {
+		const box1 = entity1.boundingBox;
+		const box2 = entity2.boundingBox;
+
+		return (
+			box1.x < box2.x + box2.width &&
+			box1.x + box1.width > box2.x &&
+			box1.y < box2.y + box2.height &&
+			box1.y + box1.height > box2.y
+		);
+	}
+
+	private checkGameBounds(entity: Entity): boolean {
+		const bounds = {
+			minX: 0,
+			maxX: 440,
+			minY: 0,
+			maxY: 780
+		};
+
+		const box = entity.boundingBox;
+
+		return !(
+			box.x < bounds.minX ||
+			box.x + box.width > bounds.maxX ||
+			box.y < bounds.minY ||
+			box.y + box.height > bounds.maxY
+		);
 	}
 }
