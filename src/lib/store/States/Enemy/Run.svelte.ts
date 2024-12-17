@@ -7,8 +7,6 @@ import { BaseState } from '../BaseState.svelte';
 import type { Entity } from '$store/Entity.svelte';
 import { Vector2 } from '$store/Vector2.svelte';
 
-const randomCooldownNumber = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
-
 export class Run extends BaseState {
 	private currentDirection: Vector2;
 	timeManager = $state();

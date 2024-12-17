@@ -229,3 +229,13 @@ export function bezierPoint(start: Vector2, control: Vector2, end: Vector2, t: n
 		oneMinusT * oneMinusT * start.y + 2 * oneMinusT * t * control.y + t * t * end.y
 	);
 }
+
+/**
+ * Генерирует случайное число в диапазоне [min, max]
+ * @param {number} min - Минимальное значение
+ * @param {number} max - Максимальное значение
+ * @returns {number} Случайное число
+ */
+export function random(min: number, max: number): number {
+	return Math.random() * (max - min) + min;
+}

@@ -44,8 +44,6 @@ export class EntityManager {
 	}
 
 	spawnEnemy = () => {
-		// const names = ['enemy1', 'enemy2', 'enemy3'];
-		// const randomName = names[Math.floor(Math.random() * names.length)];
 		const randomName = 'enemy1';
 		const spawnAreas = [70, 100, 130, 160, 190, 220, 250, 280, 310, 340];
 		const area = spawnAreas[Math.floor(Math.random() * spawnAreas.length)];
