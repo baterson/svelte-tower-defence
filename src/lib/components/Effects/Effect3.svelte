@@ -65,6 +65,7 @@
 		position: absolute;
 		pointer-events: none;
 		transform-origin: center;
+		z-index: 3;
 	}
 
 	/* Форма звезды при помощи clip-path:

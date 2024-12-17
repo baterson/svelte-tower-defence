@@ -2,12 +2,31 @@
 	import { devTools } from '$lib/store/DevTools.svelte';
 	import { browser } from '$app/environment';
 	import { onMount } from 'svelte';
-	import { game } from '$lib/store/Game.svelte';
 	import { entityManager } from '$lib/store/EntityManager.svelte';
 	import { gameLoop } from '$store/GameLoop.svelte';
+	import { game } from '$lib/store/Game.svelte';
+
+	// Background options
+	const baseOptions = [
+		'/background/BlueNebula/Blue_Nebula_01.png',
+		'/background/BlueNebula/Blue_Nebula_02.png',
+		'/background/BlueNebula/Blue_Nebula_03.png',
+		'/background/PurpleNebula/Purple_Nebula_01.png',
+		'/background/PurpleNebula/Purple_Nebula_02.png',
+		'/background/PurpleNebula/Purple_Nebula_03.png'
+	];
+
+	const starOptions = [
+		'/background/Starfields/Starfield_01.png',
+		'/background/Starfields/Starfield_02.png',
+		'/background/Starfields/Starfield_03.png',
+		'/background/Starfields/Starfield_08.png'
+	];
+
+	let selectedBase = $state(baseOptions[0]);
+	let selectedStars = $state(starOptions[0]);
 
 	onMount(() => {
-		window.game = game;
 		window.entityManager = entityManager;
 	});
 
@@ -19,11 +38,20 @@
 		}
 	};
 
+	const handleBaseChange = (event) => {
+		selectedBase = event.target.value;
+		game.background.setBase(selectedBase);
+	};
+
+	const handleStarsChange = (event) => {
+		selectedStars = event.target.value;
+		game.background.setStars(selectedStars);
+	};
+
 	let value = $state(devTools.debugEntity ? devTools.debugEntity.state.currentState.name : '');
 
 	const setState = (state) => {
 		if (!devTools.debugEntity) return;
-
 		entityManager.getById(devTools.debugEntity.id).state.setState(state);
 	};
 </script>
@@ -32,12 +60,37 @@
 	<div class="wrapper">
 		<section>
 			<button onclick={() => pause()}> Pause </button>
-			<h2>Enemies count: {entityManager.enemies.length}</h2>
-			<h2>Projectiles count: {entityManager.projectiles.length}</h2>
+
+			<div class="select-group">
+				<label>
+					Base Background:
+					<select value={selectedBase} onchange={handleBaseChange}>
+						{#each baseOptions as option}
+							<option value={option}>
+								{option.split('/').pop().replace('.png', '')}
+							</option>
+						{/each}
+					</select>
+				</label>
+
+				<label>
+					Stars Background:
+					<select value={selectedStars} onchange={handleStarsChange}>
+						{#each starOptions as option}
+							<option value={option}>
+								{option.split('/').pop().replace('.png', '')}
+							</option>
+						{/each}
+					</select>
+				</label>
+			</div>
+
+			<h2>Enemies: {entityManager.enemies.length}</h2>
+			<h2>Projectiles: {entityManager.projectiles.length}</h2>
 		</section>
 
 		<section>
-			<h1 onclick={() => devTools.inspectEntity(null)}>Inscected Entity</h1>
+			<h1 onclick={() => devTools.inspectEntity(null)}>Inspected Entity</h1>
 			{#if devTools.debugEntity}
 				<p>ID: {devTools.debugEntity.id}</p>
 				<p>Name: {devTools.debugEntity.name}</p>
@@ -46,7 +99,6 @@
 				<p>Scale: {devTools.debugEntity.scale}</p>
 
 				<input bind:value />
-
 				<button onclick={() => setState(value)}>Set State</button>
 			{/if}
 		</section>
@@ -55,21 +107,56 @@
 
 <style>
 	.wrapper {
+		z-index: 4;
 		position: absolute;
 		right: 0;
 		top: 0;
 		padding: 20px;
 		margin-top: 20px;
 	}
+
 	button {
 		background-color: mediumpurple;
 		border: none;
 		padding: 10px 20px;
 		font-size: 16px;
 		cursor: pointer;
+		margin-bottom: 10px;
 	}
 
 	section {
+		z-index: 4;
+		background-color: antiquewhite;
 		margin-top: 20px;
+		padding: 15px;
+		border-radius: 5px;
+	}
+
+	.select-group {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		margin: 10px 0;
+	}
+
+	label {
+		display: flex;
+		flex-direction: column;
+		gap: 5px;
+		font-size: 14px;
+	}
+
+	select {
+		padding: 5px;
+		border-radius: 3px;
+		border: 1px solid #ccc;
+		background-color: white;
+		font-size: 14px;
+		width: 200px;
+	}
+
+	h1,
+	h2 {
+		margin: 10px 0;
 	}
 </style>

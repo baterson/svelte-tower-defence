@@ -3,20 +3,24 @@
 	import { game } from '$lib/store/Game.svelte';
 	import DevTools from '$components/DevTools.svelte';
 	import SynthwaveGrid from '$components/SynthwaveGrid.svelte';
+	import ParallaxBackground from '$components/ParallaxBackground.svelte';
+	import { onMount } from 'svelte';
 
-	$effect(() => {
+	onMount(() => {
 		game.start();
+		game.setBackground(window.innerWidth, window.innerHeight);
 	});
 </script>
 
-<div>
-	<DevTools />
-</div>
+<!-- <div>
+    </div> -->
+<DevTools />
+
+<ParallaxBackground />
+
 <section>
 	<!-- <TowerPlacement /> -->
-	<SynthwaveGrid />
-
-	<!-- <Effect /> -->
+	<!-- <SynthwaveGrid /> -->
 
 	<GameArea />
 </section>
@@ -26,10 +30,10 @@
 		position: relative;
 		width: 440px;
 		height: 780px;
-		display: flex;
+
 		/* background: rgb(92, 87, 87); */
-		background-size: contain;
-		background-color: black;
+		/* background-size: contain; */
+		/* background-color: black; */
 		overflow: hidden;
 	}
 </style>

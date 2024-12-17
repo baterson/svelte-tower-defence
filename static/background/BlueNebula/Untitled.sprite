@@ -1,0 +1,17 @@
+{
+   "style_name": "Untitled",
+   "images": [
+      "Blue_Nebula_01.png",
+      "Blue_Nebula_02.png",
+      "Blue_Nebula_03.png"
+   ],
+   "orientation": "vertical",
+   "padding": 5,
+   "custom_styles": {
+      "display": "inline-block"
+   },
+   "stylesheet": "css",
+   "path_prefix": "",
+   "output": "png",
+   "enable_cache_busting": true
+}
