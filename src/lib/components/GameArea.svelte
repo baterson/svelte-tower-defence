@@ -2,15 +2,17 @@
 	import Entity from '$lib/components/Entity.svelte';
 	import { entityManager } from '$lib/store/EntityManager.svelte';
 	import Effect from './Effects/index.svelte';
+	import Enemy from './Enemy.svelte';
+	import Tower from './Tower.svelte';
 </script>
 
 <section>
-	{#each entityManager.enemies as entity (entity.id)}
-		<Entity {entity} />
+	{#each entityManager.enemies as enemy (enemy.id)}
+		<Enemy {enemy} />
 	{/each}
 
-	{#each entityManager.towers as entity (entity.id)}
-		<Entity {entity} />
+	{#each entityManager.towers as tower (tower.id)}
+		<Tower {tower} />
 	{/each}
 
 	<!-- All who uses effect instead of sprite -->

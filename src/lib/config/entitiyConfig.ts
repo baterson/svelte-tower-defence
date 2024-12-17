@@ -12,6 +12,7 @@ import {
 	throneCollider,
 	towerCollider
 } from './collisionHandlers';
+import { upgradeTower } from './upgrades';
 
 export interface EntityConfig {
 	type: 'enemy' | 'tower' | 'projectile' | 'throne' | 'loot';
@@ -93,7 +94,8 @@ const entities: Record<string, EntityConfig> = {
 			damage: 20
 		},
 		scale: 1.2,
-		onCollide: towerCollider
+		onCollide: towerCollider,
+		onUpgrade: upgradeTower
 	},
 	projectile1: {
 		effect: 'effect1',
@@ -128,7 +130,7 @@ const entities: Record<string, EntityConfig> = {
 		width: 30,
 		height: 40,
 		stats: {
-			health: 1000,
+			health: 100,
 			damage: 999,
 			speed: 0,
 			range: 40
@@ -143,6 +145,21 @@ const entities: Record<string, EntityConfig> = {
 	loot: {
 		type: 'loot',
 		effect: 'effect3',
+
+		width: 15,
+		height: 15,
+		initialState: 'Fly',
+		states: ['Fly', 'Die'],
+		stats: {
+			health: 1,
+			damage: 0,
+			speed: 0.2
+		},
+		onCollide: lootCollider
+	},
+	upgradePoint: {
+		type: 'loot',
+		effect: 'effect2',
 
 		width: 15,
 		height: 15,

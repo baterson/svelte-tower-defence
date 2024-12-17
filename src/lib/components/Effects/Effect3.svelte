@@ -19,8 +19,8 @@
 <style>
 	.circle {
 		position: absolute;
-		border-radius: 80%;
-		background: linear-gradient(40deg, #deff05, #7b7762);
+		border-radius: 10%;
+		background: linear-gradient(10deg, #deff05, #aa9219);
 		box-shadow:
 			0 0 10px #ffe66d,
 			0 0 20px #ff69b4,

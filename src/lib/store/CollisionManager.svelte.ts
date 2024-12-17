@@ -78,6 +78,13 @@ export class CollisionManager {
 				loot.onCollide(throne);
 				throne.onCollide(loot);
 			}
+
+			for (const tower of this.entityManager.livingEntities.filter((e) => e.type === 'tower')) {
+				if (this.checkCollision(loot, tower)) {
+					loot.onCollide(tower);
+					tower.onCollide(loot);
+				}
+			}
 		}
 	}
 

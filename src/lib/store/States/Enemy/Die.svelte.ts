@@ -4,13 +4,9 @@
  */
 
 import { BaseState } from '$lib/store/States/BaseState.svelte';
-import { degToRad } from '$utils/math';
 import { entityManager } from '$store/EntityManager.svelte';
 
 export class Die extends BaseState {
-	private readonly ROTATION_SPEED = 10;
-	private readonly TARGET_ROTATION = 90;
-
 	constructor(stateMachine) {
 		super(stateMachine);
 
@@ -24,7 +20,7 @@ export class Die extends BaseState {
 			entityManager.destroy(this.entity.id);
 
 			if (Math.random() > 0.5) {
-				entityManager.spawnLoot(this.entity);
+				entityManager.spawnLoot('loot', this.entity, entityManager.throne);
 			}
 		}
 	}

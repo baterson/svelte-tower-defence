@@ -2,6 +2,7 @@ import { getConfig } from '$lib/config/entitiyConfig';
 import { Sprite } from '$store/Sprite.svelte';
 import { Vector2 } from '$store/Vector2.svelte';
 import { StateMachine } from '$store/StateMachine.svelte';
+import { upgradeTower } from '$lib/config/upgrades';
 
 export class Entity {
 	static lastId = 0;
@@ -21,6 +22,7 @@ export class Entity {
 	scale = $state(1);
 	opacity = $state(1);
 	isInteractable = $state(true);
+	upgradeLevel = $state(-1);
 
 	constructor(
 		name,
@@ -37,6 +39,7 @@ export class Entity {
 			initialState,
 			onCollide,
 			stats,
+			upgradeLevel,
 			effect
 		},
 		context
@@ -50,6 +53,7 @@ export class Entity {
 		this.rotation = rotation || 0;
 		this.position = position;
 		this.stats = { ...stats };
+		this.upgradeLevel = upgradeLevel || -1;
 
 		// Entity has either effect or animations
 		this.effect = effect;
@@ -105,6 +109,13 @@ export class Entity {
 	stopInteractions() {
 		this.isInteractable = false;
 	}
+
+	upgrade = () => {
+		if (this.type === 'tower') {
+			this.upgradeLevel += 1;
+			upgradeTower(this, this.upgradeLevel);
+		}
+	};
 }
 
 export const initEntity = (name, position, stateContext = {}) => {

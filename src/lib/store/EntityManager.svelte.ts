@@ -68,9 +68,14 @@ export class EntityManager {
 		this.add(throne);
 	};
 
-	spawnLoot = (spawner: Entity) => {
-		const loot = initEntity('loot', spawner.position, { target: this.throne });
+	spawnLoot = (lootName: string, spawner: Entity, target: Entity) => {
+		const loot = initEntity(lootName, spawner.position, { target, spawner });
 		this.add(loot);
+	};
+
+	spawnUpgradePoints = (towerTarget: Entity) => {
+		const upgradePoints = initEntity('upgradePoint', this.throne.position, { target: towerTarget });
+		this.add(upgradePoints);
 	};
 
 	add = (entity: Entity) => {

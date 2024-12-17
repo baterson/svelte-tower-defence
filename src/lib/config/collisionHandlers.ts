@@ -47,14 +47,23 @@ export const projectileCollider = (projectile, other) => {
 };
 
 export const throneCollider = (entity, other) => {
-	if (other.type === 'loot') {
+	const { spawner } = other.state.context;
+
+	if (other.type === 'loot' && spawner.type === 'enemy') {
 		entity.scale += 0.1;
+		entity.health += 20;
 	}
 	return;
 };
 
 export const lootCollider = (entity, other) => {
-	if (other.type === 'throne') {
+	const { spawner } = entity.state.context;
+
+	if (spawner.type === 'enemy' && other.type === 'throne') {
+		entity.state.setState('Die');
+	}
+
+	if (spawner.type === 'throne' && other.type === 'tower') {
 		entity.state.setState('Die');
 	}
 	return;
