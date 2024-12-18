@@ -111,6 +111,22 @@ const entities: Record<string, EntityConfig> = {
 		},
 		onCollide: enemyCollider
 	},
+	boss: {
+		name: 'boss',
+		type: 'enemy',
+		width: 200,
+		height: 160,
+		spriteSheet: '/boss_test.png',
+		initialState: 'Walk',
+		states: ['Walk', 'RangeAttack'],
+		animations: animations.boss,
+		stats: {
+			health: 100,
+			speed: 0.09,
+			damage: 0.01
+		},
+		onCollide: enemyCollider
+	},
 	blueTower: {
 		type: 'tower',
 		width: 36,
@@ -153,7 +169,7 @@ const entities: Record<string, EntityConfig> = {
 		stats: {
 			health: 1,
 			speed: 0.5,
-			damage: 100
+			damage: 1
 		},
 		onCollide: projectileCollider
 	},
@@ -181,7 +197,7 @@ const entities: Record<string, EntityConfig> = {
 		stats: {
 			health: 1,
 			speed: 0.5,
-			damage: 100
+			damage: 1
 		},
 		onCollide: projectileCollider
 	},
@@ -206,7 +222,6 @@ const entities: Record<string, EntityConfig> = {
 	loot: {
 		type: 'loot',
 		effect: 'effect4',
-
 		width: 15,
 		height: 15,
 		initialState: 'Fly',
@@ -221,7 +236,6 @@ const entities: Record<string, EntityConfig> = {
 	upgradePoint: {
 		type: 'loot',
 		effect: 'effect2',
-
 		width: 15,
 		height: 15,
 		initialState: 'Fly',

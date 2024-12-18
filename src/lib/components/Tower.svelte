@@ -1,5 +1,6 @@
 <script>
 	import { devTools } from '$store/DevTools.svelte';
+	import TowerEffects from './effects/TowerEffects.svelte';
 
 	const { tower } = $props();
 
@@ -20,7 +21,9 @@
 	style:top={`${tower.position.y}px`}
 	style:transform={`rotate(${tower.rotation}deg) scale(${tower.scale})`}
 	style:transform-origin={'center'}
-></div>
+>
+	<TowerEffects {tower} />
+</div>
 
 <style>
 	div {

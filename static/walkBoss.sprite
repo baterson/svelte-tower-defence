@@ -1,0 +1,26 @@
+{
+   "style_name": "walkBoss",
+   "images": [
+      "demon_walk_1.png",
+      "demon_walk_2.png",
+      "demon_walk_3.png",
+      "demon_walk_4.png",
+      "demon_walk_5.png",
+      "demon_walk_6.png",
+      "demon_walk_7.png",
+      "demon_walk_8.png",
+      "demon_walk_9.png",
+      "demon_walk_10.png",
+      "demon_walk_11.png",
+      "demon_walk_12.png"
+   ],
+   "orientation": "horizontal",
+   "padding": 5,
+   "custom_styles": {
+      "display": "inline-block"
+   },
+   "stylesheet": "css",
+   "path_prefix": "",
+   "output": "png",
+   "enable_cache_busting": true
+}

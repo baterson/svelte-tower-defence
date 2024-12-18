@@ -11,6 +11,7 @@ export class Shoot extends BaseState {
 		super(stateMachine);
 
 		const { spawner, target } = this.stateMachine.context;
+		// console.log(target);
 
 		entityManager.spawnProjectile(spawner, target);
 	}

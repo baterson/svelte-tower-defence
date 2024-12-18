@@ -5,6 +5,7 @@ import { gameLoop } from './GameLoop.svelte';
 import { Vector2 } from './Vector2.svelte';
 
 const SPAWN_CD = 300;
+let enemySpwned = false;
 
 export class EntityManager {
 	entities = $state<Entity[]>([]);
@@ -32,8 +33,13 @@ export class EntityManager {
 		this.entities.forEach((entity) => entity.update(deltaTime));
 		this.collisionManager.update();
 
-		if (gameLoop.isCDReady(this.spawnCDId)) {
+		// if (gameLoop.isCDReady(this.spawnCDId)) {
+		// 	this.spawnEnemy();
+		// }
+
+		if (!enemySpwned) {
 			this.spawnEnemy();
+			enemySpwned = true;
 		}
 	};
 
@@ -44,8 +50,8 @@ export class EntityManager {
 	}
 
 	spawnEnemy = () => {
-		const randomName = 'enemy5';
-		const spawnAreas = [70, 100, 130, 160, 190, 220, 250, 280, 310, 340];
+		const randomName = 'boss';
+		const spawnAreas = [100];
 		const area = spawnAreas[Math.floor(Math.random() * spawnAreas.length)];
 		const enemy = initEntity(randomName, new Vector2(area, 5));
 		this.add(enemy);
@@ -56,8 +62,8 @@ export class EntityManager {
 		this.add(tower);
 	};
 
-	spawnProjectile = (spawner: Entity, target: Entity) => {
-		const projectile = initEntity('projectile6', spawner.position, { spawner, target });
+	spawnProjectile = (spawner: Entity, target: Entity, projectileName: string = 'projectile6') => {
+		const projectile = initEntity(projectileName, spawner.center, { spawner, target });
 
 		this.add(projectile);
 	};

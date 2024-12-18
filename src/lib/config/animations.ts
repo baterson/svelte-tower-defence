@@ -17,7 +17,7 @@ export const animations = {
 				[-402, -15],
 				[-466, -15]
 			],
-			frameRate: 3,
+			frameRate: 10,
 			loop: true
 		},
 		{
@@ -217,6 +217,35 @@ export const animations = {
 				[-274, -15]
 			],
 			frameRate: 20
+		}
+	],
+	boss: [
+		{
+			name: 'Walk',
+			frames: [
+				[-5, -5], // Кадр 1
+				[-298, -5], // Кадр 2
+				[-591, -5], // Кадр 3
+				[-884, -5], // Кадр 4
+				[-1177, -5], // Кадр 5
+				[-1470, -5] // Кадр 6
+			],
+			frameRate: 10,
+			loop: true
+		},
+
+		{
+			name: 'RangeAttack',
+			frames: [
+				[-5, -5], // 1
+				[-293, -5], // 2
+				[-581, -5], // 3
+				[-869, -5], // 4
+				[-1157, -5], // 5
+				[-1445, -5] // 6
+			],
+			frameRate: 10,
+			loop: true
 		}
 	],
 	blueTower: [

@@ -82,10 +82,15 @@ export class Entity {
 		return {
 			x: this.position.x,
 			y: this.position.y,
+			center: this.center,
 			width: this.width,
 			height: this.height,
 			rotation: this.rotation
 		};
+	}
+
+	get center(): Vector2 {
+		return new Vector2(this.position.x + this.width / 2, this.position.y + this.height / 2);
 	}
 
 	update(deltaTime: number) {
