@@ -4,6 +4,7 @@
 	import { onMount } from 'svelte';
 	import { entityManager } from '$lib/store/EntityManager.svelte';
 	import { gameLoop } from '$store/GameLoop.svelte';
+	import { background } from '$store/Background.svelte';
 
 	// Background options
 	const baseOptions = [
@@ -39,12 +40,12 @@
 
 	const handleBaseChange = (event) => {
 		selectedBase = event.target.value;
-		game.background.setBase(selectedBase);
+		background.setBase(selectedBase);
 	};
 
 	const handleStarsChange = (event) => {
 		selectedStars = event.target.value;
-		game.background.setStars(selectedStars);
+		background.setStars(selectedStars);
 	};
 
 	let value = $state(devTools.debugEntity ? devTools.debugEntity.state.currentState.name : '');
