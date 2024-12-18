@@ -71,6 +71,7 @@
 
 <style>
 	.laser-container {
+		z-index: 3;
 		position: absolute;
 		pointer-events: none;
 		transform-origin: left center; /* вращение вокруг левого конца луча */
@@ -116,7 +117,7 @@
 		animation: particleMove 0.8s ease-out infinite;
 	}
 
-	/* Позиционирование частиц вдоль луча: 
+	/* Позиционирование частиц вдоль луча:
        Используем custom properties:
        --offset определяет, где по длине луча (от 0 до 1) частица изначально появляется.
        Анимация смещает её в обратную сторону, создавая эффект пробегающих искр.

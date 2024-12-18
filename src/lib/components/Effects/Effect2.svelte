@@ -18,6 +18,7 @@
 
 <style>
 	.circle {
+		z-index: 3;
 		position: absolute;
 		/* top: 50%;
 		left: 50%;
