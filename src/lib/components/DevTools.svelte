@@ -4,7 +4,6 @@
 	import { onMount } from 'svelte';
 	import { entityManager } from '$lib/store/EntityManager.svelte';
 	import { gameLoop } from '$store/GameLoop.svelte';
-	import { game } from '$lib/store/Game.svelte';
 
 	// Background options
 	const baseOptions = [
@@ -54,54 +53,59 @@
 		if (!devTools.debugEntity) return;
 		entityManager.getById(devTools.debugEntity.id).state.setState(state);
 	};
+
+	let isHidden = $state(true);
 </script>
 
 {#if browser}
 	<div class="wrapper">
-		<section>
-			<button onclick={() => pause()}> Pause </button>
+		<button onclick={() => (isHidden = !isHidden)}>{isHidden ? 'Show' : 'Hide'}</button>
+		<button onclick={() => pause()}> Pause </button>
 
-			<div class="select-group">
-				<label>
-					Base Background:
-					<select value={selectedBase} onchange={handleBaseChange}>
-						{#each baseOptions as option}
-							<option value={option}>
-								{option.split('/').pop().replace('.png', '')}
-							</option>
-						{/each}
-					</select>
-				</label>
+		{#if !isHidden}
+			<section>
+				<div class="select-group">
+					<label>
+						Base Background:
+						<select value={selectedBase} onchange={handleBaseChange}>
+							{#each baseOptions as option}
+								<option value={option}>
+									{option.split('/').pop().replace('.png', '')}
+								</option>
+							{/each}
+						</select>
+					</label>
 
-				<label>
-					Stars Background:
-					<select value={selectedStars} onchange={handleStarsChange}>
-						{#each starOptions as option}
-							<option value={option}>
-								{option.split('/').pop().replace('.png', '')}
-							</option>
-						{/each}
-					</select>
-				</label>
-			</div>
+					<label>
+						Stars Background:
+						<select value={selectedStars} onchange={handleStarsChange}>
+							{#each starOptions as option}
+								<option value={option}>
+									{option.split('/').pop().replace('.png', '')}
+								</option>
+							{/each}
+						</select>
+					</label>
+				</div>
 
-			<h2>Enemies: {entityManager.enemies.length}</h2>
-			<h2>Projectiles: {entityManager.projectiles.length}</h2>
-		</section>
+				<h2>Enemies: {entityManager.enemies.length}</h2>
+				<h2>Projectiles: {entityManager.projectiles.length}</h2>
+			</section>
 
-		<section>
-			<h1 onclick={() => devTools.inspectEntity(null)}>Inspected Entity</h1>
-			{#if devTools.debugEntity}
-				<p>ID: {devTools.debugEntity.id}</p>
-				<p>Name: {devTools.debugEntity.name}</p>
-				<p>Position: {devTools.debugEntity.position.x}, {devTools.debugEntity.position.y}</p>
-				<p>Rotation: {devTools.debugEntity.rotation}</p>
-				<p>Scale: {devTools.debugEntity.scale}</p>
+			<section>
+				<h1 onclick={() => devTools.inspectEntity(null)}>Inspected Entity</h1>
+				{#if devTools.debugEntity}
+					<p>ID: {devTools.debugEntity.id}</p>
+					<p>Name: {devTools.debugEntity.name}</p>
+					<p>Position: {devTools.debugEntity.position.x}, {devTools.debugEntity.position.y}</p>
+					<p>Rotation: {devTools.debugEntity.rotation}</p>
+					<p>Scale: {devTools.debugEntity.scale}</p>
 
-				<input bind:value />
-				<button onclick={() => setState(value)}>Set State</button>
-			{/if}
-		</section>
+					<input bind:value />
+					<button onclick={() => setState(value)}>Set State</button>
+				{/if}
+			</section>
+		{/if}
 	</div>
 {/if}
 

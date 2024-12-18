@@ -4,7 +4,7 @@ import { Entity, initEntity } from './Entity.svelte';
 import { gameLoop } from './GameLoop.svelte';
 import { Vector2 } from './Vector2.svelte';
 
-const SPAWN_CD = 290;
+const SPAWN_CD = 500;
 
 export class EntityManager {
 	entities = $state<Entity[]>([]);
@@ -37,9 +37,9 @@ export class EntityManager {
 		}
 	};
 
-	private initializeTowers() {
-		[...TOWER_POSITIONS.left, ...TOWER_POSITIONS.right].forEach(({ x, y }) => {
-			this.spawnTower(x, y);
+	initializeTowers() {
+		[0, 1, 2, 3].forEach((i) => {
+			this.spawnTower('blueTower');
 		});
 	}
 
@@ -51,8 +51,8 @@ export class EntityManager {
 		this.add(enemy);
 	};
 
-	spawnTower = (x: number, y: number, name = 'blueTower') => {
-		const tower = initEntity(name, new Vector2(x, y));
+	spawnTower = (name = 'blueTower') => {
+		const tower = initEntity(name, new Vector2(0, 0));
 		this.add(tower);
 	};
 

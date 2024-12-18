@@ -1,8 +1,11 @@
 <script>
-	import { game } from '$lib/store/Game.svelte';
+	import { background } from '$lib/store/Background.svelte';
+	import { screen } from '$lib/store/Screen.svelte';
 	import { fade } from 'svelte/transition';
 
-	const background = $derived(game.background);
+	$effect(() => {
+		background.updateDimensions(screen.width, screen.height);
+	});
 </script>
 
 {#if background}
@@ -36,14 +39,16 @@
 	.background-container {
 		position: absolute;
 		overflow: hidden;
+		width: 100vw;
+		height: 100vh;
 	}
 
 	.base-layer {
 		position: absolute;
 		top: 0;
 		left: 0;
-		width: 100%;
-		height: 100%;
+		width: 100vw;
+		height: 100vh;
 		background-size: cover;
 		z-index: 1;
 	}
@@ -57,7 +62,7 @@
 		background-repeat: repeat-y;
 		will-change: transform;
 		transition: transform 50ms linear;
-		opacity: 0.4;
+		opacity: 0.1;
 		z-index: 2;
 	}
 </style>

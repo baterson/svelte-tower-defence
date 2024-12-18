@@ -1,4 +1,4 @@
-import { Background } from './Background.svelte';
+import { background, Background } from './Background.svelte';
 import { entityManager } from './EntityManager.svelte';
 import { gameLoop } from './GameLoop.svelte';
 
@@ -8,13 +8,12 @@ export class Game {
 
 	constructor() {
 		this.gameLoop = gameLoop;
-		// this.background = new Background(windowWidth, windowHeight);
 	}
 
 	update = (deltaTime, elapsedTime) => {
 		entityManager.update(deltaTime, elapsedTime);
 
-		this.background.update(deltaTime);
+		background.update(deltaTime);
 	};
 
 	setBackground = (windowWidth, windowHeight) => {
@@ -25,5 +24,3 @@ export class Game {
 		this.gameLoop.start(this.update);
 	};
 }
-
-export const game = new Game();

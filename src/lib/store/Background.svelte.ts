@@ -1,9 +1,7 @@
+import { screen } from '$lib/store/Screen.svelte';
 export class Background {
 	base = $state('/background/BlueNebula/Blue_Nebula_01.png');
 	stars = $state('/background/Starfields/Starfield_01.png');
-
-	windowWidth = $state(0);
-	windowHeight = $state(0);
 
 	starLayer1Position = $state(0);
 	starLayer2Position = $state(0);
@@ -11,21 +9,10 @@ export class Background {
 
 	starSpeed = $state(0.5);
 
-	constructor(width: number, height: number) {
-		this.updateDimensions(width, height);
+	constructor() {
 		this.setBase('/background/BlueNebula/Blue_Nebula_01.png');
 		this.setStars('/background/Starfields/Starfield_01.png');
 		this.setSpeed(0.5);
-	}
-
-	updateDimensions(width: number, height: number) {
-		this.windowWidth = width;
-		this.windowHeight = height;
-		this.layerHeight = height * 2; // Double the height for seamless scrolling
-
-		// Reset positions with new dimensions
-		this.starLayer1Position = 0;
-		this.starLayer2Position = -this.layerHeight;
 	}
 
 	update(deltaTime: number) {
@@ -44,6 +31,16 @@ export class Background {
 		}
 	}
 
+	updateDimensions(width: number, height: number) {
+		// this.windowWidth = width;
+		// this.windowHeight = height;
+		this.layerHeight = height * 2; // Double the height for seamless scrolling
+
+		// Reset positions with new dimensions
+		this.starLayer1Position = 0;
+		this.starLayer2Position = -this.layerHeight;
+	}
+
 	setBase(base: string) {
 		this.base = base;
 	}
@@ -56,3 +53,5 @@ export class Background {
 		this.starSpeed = speed;
 	}
 }
+
+export const background = new Background();

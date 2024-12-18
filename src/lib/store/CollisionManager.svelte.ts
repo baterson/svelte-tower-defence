@@ -1,6 +1,7 @@
 import { Vector2 } from './Vector2.svelte';
 import type { Entity } from './Entity.svelte';
 import type { EntityManager } from './EntityManager.svelte';
+import { screen } from '$lib/store/Screen.svelte';
 
 export class CollisionManager {
 	private readonly COLLISION_RADIUS = 50;
@@ -27,7 +28,6 @@ export class CollisionManager {
 
 		// Handle enemy collisions
 		this.handleEnemyCollisions();
-
 		this.handleLootCollisions();
 	}
 
@@ -39,11 +39,16 @@ export class CollisionManager {
 
 	private handleProjectileCollisions(projectiles: Entity[], targets: Entity[]): void {
 		for (const projectile of projectiles) {
-			if (!this.checkGameBounds(projectile)) {
+			// Check if outside screen first
+			if (!this.checkScreenBounds(projectile)) {
 				projectile.onCollide('OUT_OF_BOUNDS');
-
 				continue;
 			}
+
+			// // Only check game bounds for actual collisions
+			// if (!this.checkGameBounds(projectile)) {
+			// 	continue;
+			// }
 
 			const nearestTarget = this.findNearestEntity(projectile, targets);
 			if (!nearestTarget) continue;
@@ -121,15 +126,31 @@ export class CollisionManager {
 		);
 	}
 
-	private checkGameBounds(entity: Entity): boolean {
+	private checkScreenBounds(entity: Entity): boolean {
+		const box = entity.boundingBox;
 		const bounds = {
-			minX: 0,
-			maxX: 440,
-			minY: 0,
-			maxY: 780
+			minX: -box.width,
+			maxX: screen.width + box.width,
+			minY: -box.height - 100,
+			maxY: screen.height + box.height
 		};
 
+		return !(
+			box.x < bounds.minX ||
+			box.x > bounds.maxX ||
+			box.y < bounds.minY ||
+			box.y > bounds.maxY
+		);
+	}
+
+	private checkGameBounds(entity: Entity): boolean {
 		const box = entity.boundingBox;
+		const bounds = {
+			minX: screen.gameXOffset,
+			maxX: screen.gameXOffset + screen.gameAreaWidth,
+			minY: screen.gameYOffset,
+			maxY: screen.gameYOffset + screen.gameAreaHeight
+		};
 
 		return !(
 			box.x < bounds.minX ||

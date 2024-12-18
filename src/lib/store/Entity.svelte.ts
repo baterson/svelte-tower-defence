@@ -98,6 +98,10 @@ export class Entity {
 		}
 	}
 
+	setPosition = (position: Vector2) => {
+		this.position = position;
+	};
+
 	setSprite(name: string, animations) {
 		const sprite = animations.find((sprite) => sprite.name === name);
 
