@@ -33,17 +33,19 @@
 		z-index: 3;
 		position: absolute;
 		width: 100vw;
-		height: 100vh;
+		height: 100dvh;
 		display: flex;
 		justify-content: center;
+		/* align-items: center; */
 		overflow: hidden;
 	}
 
 	.game-container {
 		position: relative;
 		width: 520px;
-		height: 100vh;
+		height: 100dvh;
 		will-change: transform;
+		padding-top: 100px;
 	}
 
 	/* Mobile styles - game takes full screen */
@@ -54,7 +56,9 @@
 
 		.game-container {
 			width: 100vw;
-			height: 100vh;
+			height: 100dvh;
+			padding-top: 0;
+			padding-bottom: 40px;
 		}
 	}
 </style>

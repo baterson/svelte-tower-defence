@@ -24,10 +24,4 @@
 		background-position: center;
 		z-index: 10;
 	}
-
-	@media (max-width: 768px) {
-		div {
-			margin-bottom: 80px;
-		}
-	}
 </style>

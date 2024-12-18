@@ -39,7 +39,6 @@
 		width: 100%;
 		height: 100%;
 		will-change: transform;
-		margin-top: 100px;
 	}
 
 	.towers {
