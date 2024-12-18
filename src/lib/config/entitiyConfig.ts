@@ -157,6 +157,34 @@ const entities: Record<string, EntityConfig> = {
 		},
 		onCollide: projectileCollider
 	},
+	projectile5: {
+		effect: 'effect5',
+		type: 'projectile',
+		width: 18,
+		height: 18,
+		initialState: 'Fly',
+		states: ['Fly', 'Hit'],
+		stats: {
+			health: 1,
+			speed: 0.5,
+			damage: 100
+		},
+		onCollide: projectileCollider
+	},
+	projectile6: {
+		effect: 'effect6',
+		type: 'projectile',
+		width: 18,
+		height: 18,
+		initialState: 'Fly',
+		states: ['Fly', 'Hit'],
+		stats: {
+			health: 1,
+			speed: 0.5,
+			damage: 100
+		},
+		onCollide: projectileCollider
+	},
 
 	throne: {
 		type: 'throne',
@@ -177,7 +205,7 @@ const entities: Record<string, EntityConfig> = {
 	},
 	loot: {
 		type: 'loot',
-		effect: 'effect3',
+		effect: 'effect4',
 
 		width: 15,
 		height: 15,

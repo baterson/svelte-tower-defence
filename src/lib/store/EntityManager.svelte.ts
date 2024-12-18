@@ -4,7 +4,7 @@ import { Entity, initEntity } from './Entity.svelte';
 import { gameLoop } from './GameLoop.svelte';
 import { Vector2 } from './Vector2.svelte';
 
-const SPAWN_CD = 290;
+const SPAWN_CD = 300;
 
 export class EntityManager {
 	entities = $state<Entity[]>([]);
@@ -44,7 +44,7 @@ export class EntityManager {
 	}
 
 	spawnEnemy = () => {
-		const randomName = 'enemy1';
+		const randomName = 'enemy5';
 		const spawnAreas = [70, 100, 130, 160, 190, 220, 250, 280, 310, 340];
 		const area = spawnAreas[Math.floor(Math.random() * spawnAreas.length)];
 		const enemy = initEntity(randomName, new Vector2(area, 5));
@@ -57,7 +57,7 @@ export class EntityManager {
 	};
 
 	spawnProjectile = (spawner: Entity, target: Entity) => {
-		const projectile = initEntity('projectile1', spawner.position, { spawner, target });
+		const projectile = initEntity('projectile6', spawner.position, { spawner, target });
 
 		this.add(projectile);
 	};
