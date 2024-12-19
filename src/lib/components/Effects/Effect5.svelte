@@ -10,8 +10,8 @@
 	class="circle"
 	in:neonLightTransition={{ duration: 300 }}
 	out:neonLightTransition={{ duration: 300 }}
-	style:width={`${entity.width}px`}
-	style:height={`${entity.height}px`}
+	style:width={`${entity.width + 10}px`}
+	style:height={`${entity.height + 10}px`}
 	style:left={`0`}
 	style:top={`0`}
 />
@@ -23,11 +23,11 @@
 		/* top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%); */
-		border-radius: 50%;
-		background: linear-gradient(90deg, #ff69b4, #ffe66d);
+		border-radius: 78%;
+		background: linear-gradient(90deg, #ff0000, #d410c7);
 		box-shadow:
-			0 0 10px #ffe66d,
-			0 0 20px #ff69b4,
-			0 0 30px #ffe66d;
+			0 0 10px #d410c7,
+			0 0 40px #ff0000,
+			0 0 50px #d410c7;
 	}
 </style>

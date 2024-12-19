@@ -13,7 +13,7 @@ export class Entity {
 	width = $state(0);
 	height = $state(0);
 	spriteSheet = $state('');
-	effect = $state('');
+	effects = $state([]);
 	sprite = $state<Sprite>();
 	position = $state<Vector2>();
 	state = $state<StateMachine>();
@@ -22,7 +22,7 @@ export class Entity {
 	scale = $state(1);
 	opacity = $state(1);
 	isInteractable = $state(true);
-	upgradeLevel = $state(-1);
+	upgradeLevel = $state(0);
 
 	constructor(
 		name,
@@ -40,7 +40,7 @@ export class Entity {
 			onCollide,
 			stats,
 			upgradeLevel,
-			effect
+			effects
 		},
 		context
 	) {
@@ -53,10 +53,10 @@ export class Entity {
 		this.rotation = rotation || 0;
 		this.position = position;
 		this.stats = { ...stats };
-		this.upgradeLevel = upgradeLevel || -1;
+		this.upgradeLevel = upgradeLevel || 0;
 
 		// Entity has either effect or animations
-		this.effect = effect;
+		this.effects = effects;
 		this.spriteSheet = spriteSheet;
 
 		// Handle collisions
@@ -116,8 +116,7 @@ export class Entity {
 
 	upgrade = () => {
 		if (this.type === 'tower') {
-			this.upgradeLevel += 1;
-			upgradeTower(this, this.upgradeLevel);
+			upgradeTower(this);
 		}
 	};
 }

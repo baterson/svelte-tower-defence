@@ -1,8 +1,3 @@
-/**
- * Tower state machine states
- * @module TowerStates
- */
-
 import { BaseState } from '$lib/store/States/BaseState.svelte';
 import { entityManager } from '$store/EntityManager.svelte';
 
@@ -12,12 +7,10 @@ export class Shoot extends BaseState {
 
 		const { spawner, target } = this.stateMachine.context;
 
-		entityManager.spawnProjectile(spawner, target);
+		entityManager.spawnProjectile('projectile1', spawner, target);
 	}
 
-	update(deltaTime: number) {
-		if (this.entity.sprite.isAnimationComplete) {
-			this.entity.state.setState('Guard');
-		}
+	update(deltaTime: number, entity: any): void {
+		this.entity.state.setState('Guard');
 	}
 }

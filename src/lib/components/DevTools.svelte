@@ -27,7 +27,7 @@
 	let selectedStars = $state(starOptions[0]);
 
 	onMount(() => {
-		window.entityManager = entityManager;
+		window.em = entityManager;
 	});
 
 	const pause = () => {
@@ -91,6 +91,7 @@
 
 				<h2>Enemies: {entityManager.enemies.length}</h2>
 				<h2>Projectiles: {entityManager.projectiles.length}</h2>
+				<h2>Loot: {entityManager.loot.length}</h2>
 			</section>
 
 			<section>

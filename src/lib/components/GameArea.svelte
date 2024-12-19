@@ -1,10 +1,10 @@
 <script>
-	import Entity from '$lib/components/Entity.svelte';
 	import { entityManager } from '$lib/store/EntityManager.svelte';
-	import Effect from './Effects/index.svelte';
-	import Enemy from './Enemy.svelte';
-	import Tower from './Tower.svelte';
-	import Throne from './Throne.svelte';
+	import Loot from './Entities/Loot.svelte';
+	import Enemy from './Entities/Enemy.svelte';
+	import Tower from './Entities/Tower.svelte';
+	import Throne from './Entities/Throne.svelte';
+	import Projectile from './Entities/Projectile.svelte';
 </script>
 
 <section>
@@ -12,9 +12,12 @@
 		<Enemy {enemy} />
 	{/each}
 
-	<!-- All who uses effect instead of sprite -->
-	{#each entityManager.fxEntities as entity (entity.id)}
-		<Effect {entity} />
+	{#each entityManager.projectiles as projectile (projectile.id)}
+		<Projectile {projectile} />
+	{/each}
+
+	{#each entityManager.loot as loot (loot.id)}
+		<Loot {loot} />
 	{/each}
 
 	<div class="towers">

@@ -59,12 +59,19 @@ export const throneCollider = (entity, other) => {
 export const lootCollider = (entity, other) => {
 	const { spawner } = entity.state.context;
 
+	if (spawner.type === 'throne' && other.type === 'tower') {
+		entity.state.setState('Die');
+		other.upgrade();
+		return;
+	}
+
 	if (spawner.type === 'enemy' && other.type === 'throne') {
 		entity.state.setState('Die');
+		return;
 	}
 
 	if (spawner.type === 'throne' && other.type === 'tower') {
 		entity.state.setState('Die');
+		return;
 	}
-	return;
 };

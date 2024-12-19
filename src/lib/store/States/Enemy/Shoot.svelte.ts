@@ -23,7 +23,7 @@ export class Shoot extends BaseState {
 
 		// Attack the tower
 		if (nearestTower) {
-			entityManager.spawnProjectile(enemy, nearestTower);
+			entityManager.spawnProjectile('projectile1', enemy, nearestTower);
 		}
 		enemy.state.setState('Run');
 	}

@@ -12,8 +12,8 @@
 	out:neonLightTransition={{ duration: 300 }}
 	style:width={`${entity.width}px`}
 	style:height={`${entity.height}px`}
-	style:left={`0`}
-	style:top={`0`}
+	style:left={`${entity.position.x}px`}
+	style:top={`${entity.position.y}px`}
 />
 
 <style>
@@ -24,10 +24,10 @@
 		left: 50%;
 		transform: translate(-50%, -50%); */
 		border-radius: 50%;
-		background: linear-gradient(90deg, #ff69b4, #ffe66d);
+		background: linear-gradient(90deg, #3b6979, #da0c0c);
 		box-shadow:
-			0 0 10px #ffe66d,
+			0 0 10px #916dff,
 			0 0 20px #ff69b4,
-			0 0 30px #ffe66d;
+			0 0 30px #1a9e0c;
 	}
 </style>

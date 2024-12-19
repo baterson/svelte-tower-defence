@@ -20,7 +20,7 @@ export interface EntityConfig {
 	height: number;
 	initialState: string;
 	states: string[];
-	effect?: string;
+	effects?: string[];
 	spriteSheet?: string;
 	animations?: any[];
 	onCollide?: (entity: Entity, target: Entity) => void;
@@ -129,11 +129,30 @@ const entities: Record<string, EntityConfig> = {
 		onCollide: towerCollider,
 		onUpgrade: upgradeTower
 	},
+	moon: {
+		type: 'tower',
+		width: 48,
+		height: 48,
+		spriteSheet: '/Moon.sprite.png',
+		initialState: 'Guard',
+		states: ['Build', 'Guard', 'Shoot', 'NotBuilt'],
+		animations: animations.moon,
+		effects: [],
+		stats: {
+			health: 10,
+			attackRange: Infinity,
+			attackSpeed: 0.5,
+			damage: 20
+		},
+		scale: 1.2,
+		onCollide: towerCollider,
+		onUpgrade: upgradeTower
+	},
 	projectile1: {
-		effect: 'effect1',
 		type: 'projectile',
 		width: 18,
 		height: 18,
+		effects: ['effect1'],
 		initialState: 'Fly',
 		states: ['Fly', 'Hit'],
 		stats: {
@@ -144,16 +163,30 @@ const entities: Record<string, EntityConfig> = {
 		onCollide: projectileCollider
 	},
 	projectile2: {
-		effect: 'effect2',
 		type: 'projectile',
 		width: 18,
 		height: 18,
+		effects: ['effect2'],
 		initialState: 'Fly',
 		states: ['Fly', 'Hit'],
 		stats: {
 			health: 1,
 			speed: 0.5,
 			damage: 100
+		},
+		onCollide: projectileCollider
+	},
+	projectileStun: {
+		type: 'projectile',
+		width: 24,
+		height: 24,
+		effects: ['effect5'],
+		initialState: 'Fly',
+		states: ['Fly', 'Hit'],
+		stats: {
+			health: 1,
+			speed: 0.5,
+			damage: 0.01
 		},
 		onCollide: projectileCollider
 	},
@@ -177,7 +210,7 @@ const entities: Record<string, EntityConfig> = {
 	},
 	loot: {
 		type: 'loot',
-		effect: 'effect3',
+		effects: ['effect4'],
 
 		width: 15,
 		height: 15,
@@ -192,7 +225,7 @@ const entities: Record<string, EntityConfig> = {
 	},
 	upgradePoint: {
 		type: 'loot',
-		effect: 'effect2',
+		effects: ['effect4'],
 
 		width: 15,
 		height: 15,
@@ -201,9 +234,26 @@ const entities: Record<string, EntityConfig> = {
 		stats: {
 			health: 1,
 			damage: 0,
-			speed: 0.2
+			speed: 0.9
 		},
 		onCollide: lootCollider
+	},
+	stunner: {
+		type: 'enemy',
+		width: 30,
+		height: 40,
+		initialState: 'RunToPoint',
+		states: ['RunToPoint', 'StunAllTowers'],
+		scale: 1.5,
+		spriteSheet: '/1st_enemy_run.png',
+		animations: animations.enemy1,
+
+		stats: {
+			health: 9999,
+			damage: 2,
+			speed: 0.05
+		},
+		onCollide: enemyCollider
 	}
 };
 
