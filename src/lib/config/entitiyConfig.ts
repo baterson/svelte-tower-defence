@@ -114,14 +114,14 @@ const entities: Record<string, EntityConfig> = {
 	boss: {
 		name: 'boss',
 		type: 'enemy',
-		width: 200,
+		width: 180,
 		height: 160,
 		spriteSheet: '/boss_test.png',
 		initialState: 'Walk',
-		states: ['Walk', 'RangeAttack'],
+		states: ['Walk', 'RangeAttack', 'Charge', 'MeleAttack'],
 		animations: animations.boss,
 		stats: {
-			health: 100,
+			health: 20,
 			speed: 0.09,
 			damage: 0.01
 		},
@@ -136,7 +136,7 @@ const entities: Record<string, EntityConfig> = {
 		states: ['Build', 'Guard', 'Shoot', 'NotBuilt'],
 		animations: animations.blueTower,
 		stats: {
-			health: 10,
+			health: 50,
 			attackRange: Infinity,
 			attackSpeed: 0.5,
 			damage: 20

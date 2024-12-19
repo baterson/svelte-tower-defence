@@ -14,7 +14,7 @@ export const enemyCollider = (entity: Entity, other: Entity) => {
 	entity.stats.health -= other.stats.damage;
 
 	if (entity.stats.health <= 0) {
-		entity.state.setState('Die');
+		// entity.state.setState('Die');
 	}
 };
 

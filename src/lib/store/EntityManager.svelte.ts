@@ -105,6 +105,22 @@ export class EntityManager {
 
 		for (const entity of this[type]) {
 			const distance = position.distance(entity.position);
+
+			if (distance < minDistance) {
+				minDistance = distance;
+				nearest = entity;
+			}
+		}
+		return nearest;
+	};
+
+	getNearestTowerLiving = (position: Vector2, maxRange?: number): Entity | undefined => {
+		let nearest: Entity | undefined;
+		let minDistance = Infinity;
+
+		for (const entity of this.livingEntities.filter((entity) => entity.type === 'tower')) {
+			const distance = position.distance(entity.position);
+
 			if (distance < minDistance) {
 				minDistance = distance;
 				nearest = entity;

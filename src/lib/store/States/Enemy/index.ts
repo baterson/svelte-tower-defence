@@ -5,3 +5,5 @@ export { ChargeShoot } from './ChargeShoot.svelte';
 export { Fly } from './Fly.svelte';
 export { Walk } from './boss/Walk.svelte';
 export { RangeAttack } from './boss/RangeAttack.svelte';
+export { Charge } from './boss/Charge.svelte';
+export { MeleAttack } from './boss/MeleAttack.svelte';

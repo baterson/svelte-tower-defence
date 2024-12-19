@@ -25,6 +25,7 @@
 
 	let selectedBase = $state(baseOptions[0]);
 	let selectedStars = $state(starOptions[0]);
+	let value = $state(0);
 
 	onMount(() => {
 		window.entityManager = entityManager;
@@ -48,7 +49,12 @@
 		game.background.setStars(selectedStars);
 	};
 
-	let value = $state(devTools.debugEntity ? devTools.debugEntity.state.currentState.name : '');
+	// let value = $state(devTools.debugEntity ? devTools.debugEntity.state.currentState.name : '');
+	$effect(() => {
+		if (devTools.debugEntity) {
+			value = devTools.debugEntity.state.currentState.name;
+		}
+	});
 
 	const setState = (state) => {
 		if (!devTools.debugEntity) return;
