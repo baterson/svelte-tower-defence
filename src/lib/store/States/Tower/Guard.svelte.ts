@@ -8,8 +8,6 @@ import { entityManager } from '$store/EntityManager.svelte';
 import { gameLoop } from '$store/GameLoop.svelte';
 
 export class Guard extends BaseState {
-	timeManager = $state();
-
 	constructor(stateMachine) {
 		super(stateMachine);
 
@@ -18,7 +16,6 @@ export class Guard extends BaseState {
 
 	update(deltaTime, elapsedTime) {
 		const target = entityManager.getNearestEntityOfType(this.entity.position, 'enemies');
-
 		if (gameLoop.isCDReady(this.cdId) && target) {
 			this.stateMachine.setState('Shoot', { spawner: this.entity, target });
 		}

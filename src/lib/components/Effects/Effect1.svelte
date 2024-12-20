@@ -12,13 +12,13 @@
 	out:neonLightTransition={{ duration: 300 }}
 	style:width={`${entity.width}px`}
 	style:height={`${entity.height}px`}
-	style:left={`${entity.position.x}px`}
-	style:top={`${entity.position.y}px`}
+	style:left={`0`}
+	style:top={`0`}
 />
 
 <style>
 	.circle {
-		z-index: 3;
+		z-index: 99;
 		position: absolute;
 		/* top: 50%;
 		left: 50%;

@@ -1,9 +1,10 @@
 <script>
-	import Entity from '$lib/components/Entity.svelte';
 	import { entityManager } from '$lib/store/EntityManager.svelte';
-	import Effect from './Effects/index.svelte';
-	import Enemy from './Enemy.svelte';
-	import Tower from './Tower.svelte';
+	import Loot from './Entities/Loot.svelte';
+	import Enemy from './Entities/Enemy.svelte';
+	import Tower from './Entities/Tower.svelte';
+	import Throne from './Entities/Throne.svelte';
+	import Projectile from './Entities/Projectile.svelte';
 </script>
 
 <section>
@@ -11,16 +12,23 @@
 		<Enemy {enemy} />
 	{/each}
 
-	{#each entityManager.towers as tower (tower.id)}
-		<Tower {tower} />
+	{#each entityManager.projectiles as projectile (projectile.id)}
+		<Projectile {projectile} />
 	{/each}
 
-	<!-- All who uses effect instead of sprite -->
-	{#each entityManager.fxEntities as entity (entity.id)}
-		<Effect {entity} />
+	{#each entityManager.loot as loot (loot.id)}
+		<Loot {loot} />
 	{/each}
 
-	<Entity entity={entityManager.throne} />
+	<div class="towers">
+		{#each entityManager.towers as tower, index (tower.id)}
+			<Tower {tower} placement={index % 2 !== 0 ? 'end' : 'start'} />
+		{/each}
+	</div>
+
+	<div class="throne">
+		<Throne throne={entityManager.throne} />
+	</div>
 </section>
 
 <style>
@@ -28,5 +36,38 @@
 		position: relative;
 		flex: 1;
 		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		width: 100%;
+		height: 100%;
+		will-change: transform;
+	}
+
+	.towers {
+		width: 100%;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 60px;
+		padding: 0 20px 0 20px;
+	}
+
+	.throne {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	@media (max-width: 768px) {
+		section {
+			margin-top: 0;
+			justify-content: end;
+		}
+
+		.towers {
+			gap: 20px;
+			padding: 0 20px 0 20px;
+		}
 	}
 </style>

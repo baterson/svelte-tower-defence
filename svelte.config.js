@@ -22,6 +22,12 @@ const config = {
 			// $components: path.resolve('./src/lib/components'),
 			// $utils: path.resolve('./src/lib/utils')
 		}
+	},
+	onwarn: (warning, handler) => {
+		if (warning.code.startsWith('a11y-')) {
+			return;
+		}
+		handler(warning);
 	}
 };
 
