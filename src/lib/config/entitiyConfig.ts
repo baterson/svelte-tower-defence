@@ -274,6 +274,7 @@ const entities: Record<string, EntityConfig> = {
 		width: 30,
 		height: 40,
 		initialState: 'RunToPoint',
+		effects: ['ParcticalEffect'],
 		states: ['RunToPoint', 'StunAllTowers'],
 		scale: 1.5,
 		spriteSheet: '/1st_enemy_run.png',
