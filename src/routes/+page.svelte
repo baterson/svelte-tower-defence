@@ -19,8 +19,8 @@
 <ParallaxBackground />
 <div class="wrapper">
 	<div
-		bind:clientHeight={screen.gameAreaHeight}
-		bind:clientWidth={screen.gameAreaWidth}
+		bind:offsetHeight={screen.gameAreaHeight}
+		bind:offsetWidth={screen.gameAreaWidth}
 		class="game-container"
 		style:transform-origin="center"
 	>

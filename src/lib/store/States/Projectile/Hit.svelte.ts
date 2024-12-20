@@ -9,7 +9,6 @@ import { entityManager } from '$store/EntityManager.svelte';
 export class Hit extends BaseState {
 	constructor(stateMachine) {
 		super(stateMachine);
-
 		entityManager.destroy(this.entity.id);
 	}
 }

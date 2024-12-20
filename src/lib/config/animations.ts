@@ -394,7 +394,7 @@ export const animations = {
 				[-5, -3079],
 				[-5, -3132]
 			],
-			frameRate: 0.1,
+			frameRate: 30,
 			loop: true
 		},
 		{
@@ -461,7 +461,7 @@ export const animations = {
 				[-5, -58],
 				[-5, -5]
 			],
-			frameRate: 40,
+			frameRate: 20,
 			loop: false
 		}
 	],
