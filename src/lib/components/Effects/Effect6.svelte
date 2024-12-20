@@ -1,38 +1,32 @@
 <script>
-	import { fade } from 'svelte/transition';
+	// Import the custom transition function
+	import { neonLightTransition } from '../transitions.js';
+
 	const { entity } = $props();
-	let scale = $state(1);
-
-	$effect(() => {
-		const interval = setInterval(() => {
-			scale = 1 + Math.sin(Date.now() / 500) * 0.2;
-		}, 16);
-
-		return () => clearInterval(interval);
-	});
 </script>
 
 <div
-	class="effect-6"
+	class="circle"
 	in:neonLightTransition={{ duration: 300 }}
 	out:neonLightTransition={{ duration: 300 }}
-	style:width={`${entity.width}px`}
-	style:height={`${entity.height}px`}
-	style:left={`0px`}
-	style:top={`0px`}
-	style:transform={`scale(${scale})`}
+	style:width={`${entity.width + 10}px`}
+	style:height={`${entity.height + 10}px`}
+	style:left={`20px`}
+	style:top={`10px`}
 />
 
 <style>
-	.effect-6 {
+	.circle {
+		z-index: 99;
 		position: absolute;
-		border-radius: 50%;
-		background: radial-gradient(circle, #00ffff 0%, #ff00ff 100%);
+		/* top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%); */
+		border-radius: 10px;
+		background: linear-gradient(180deg, #ff0000, #d410c7);
 		box-shadow:
-			0 0 10px #00ffff,
-			0 0 20px #ff00ff;
-		opacity: 0.7;
-		pointer-events: none;
-		z-index: 4;
+			0 0 10px #d410c7,
+			0 0 40px #ff0000,
+			0 0 50px #d410c7;
 	}
 </style>

@@ -1,15 +1,8 @@
-/**
- * Projectile state machine states
- * @module ProjectileStates
- */
-
 import { BaseState } from '$lib/store/States/BaseState.svelte';
 import { angleToTarget, getDirectionFromAngle } from '$utils/math';
 
-// todo: Add new State AutoAimFly
 export class Fly extends BaseState {
-	angle = $state();
-	direction = $state();
+	direction;
 
 	constructor(stateMachine) {
 		super(stateMachine);
@@ -17,14 +10,14 @@ export class Fly extends BaseState {
 		const { target } = this.stateMachine.context;
 		const angle = angleToTarget(this.entity.position, target.position);
 		this.direction = getDirectionFromAngle(angle);
-
-		this.entity.rotation = angle;
 	}
 
-	// todo: should always have a consistent angle
 	update(deltaTime: number) {
+		const { target } = this.stateMachine.context;
 		const speed = this.entity.stats.speed * deltaTime;
-		this.entity.position.x += this.direction.x * speed;
-		this.entity.position.y += this.direction.y * speed;
+
+		this.entity.velocity = this.direction.multiply(speed);
+		this.entity.position = this.entity.position.add(this.entity.velocity);
+		this.entity.rotation = angleToTarget(this.entity.position, target.position);
 	}
 }

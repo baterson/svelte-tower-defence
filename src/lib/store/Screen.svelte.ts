@@ -5,6 +5,24 @@ export class Screen {
 	gameAreaHeight = $state(0);
 	gameXOffset = $state(0);
 	gameYOffset = $state(0);
+
+	get screenBounds() {
+		return {
+			x1: 0,
+			y1: 0,
+			x2: this.width,
+			y2: this.height
+		};
+	}
+
+	get gameBoundingBox() {
+		return {
+			x1: this.gameXOffset,
+			y1: this.gameYOffset,
+			x2: this.width,
+			y2: this.height
+		};
+	}
 }
 
 export const screen = new Screen();

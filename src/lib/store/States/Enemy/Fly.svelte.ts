@@ -1,8 +1,7 @@
 import { BaseState } from '../BaseState.svelte';
-import type { Entity } from '$store/Entity.svelte';
 import { Vector2 } from '$store/Vector2.svelte';
-import { radToDeg } from '$utils/math';
 
+// todo rewrite using velocity, Vecto2 and math
 export class Fly extends BaseState {
 	constructor(stateMachine) {
 		super(stateMachine);
@@ -13,17 +12,17 @@ export class Fly extends BaseState {
 		this.direction = Vector2.Down();
 	}
 
-	update(deltaTime: number, enemy: Entity) {
+	update(deltaTime: number) {
 		this.time += deltaTime;
-		const speed = enemy.stats.speed * deltaTime;
+		const speed = this.entity.stats.speed * deltaTime;
 
 		const xOffset = Math.sin(this.time * this.frequency) * this.amplitude;
-		enemy.position.x = this.baseX + xOffset;
+		this.entity.position = this.entity.position.add(new Vector2(xOffset, 0));
 
 		const movement = new Vector2(xOffset, this.direction.y * speed);
-		enemy.position = enemy.position.add(movement);
+		this.entity.position = this.entity.position.add(movement);
 
 		const angle = Math.atan2(movement.y, movement.x);
-		enemy.rotation = radToDeg(angle);
+		this.entity.rotation = radToDeg(angle);
 	}
 }
