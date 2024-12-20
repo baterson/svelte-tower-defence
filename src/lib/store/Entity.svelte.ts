@@ -12,6 +12,7 @@ export class Entity {
 	type = $state('');
 	width = $state(0);
 	height = $state(0);
+	velocity = $state<Vector2>();
 	spriteSheet = $state('');
 	effects = $state([]);
 	sprite = $state<Sprite>();
@@ -52,6 +53,7 @@ export class Entity {
 		this.scale = scale || 1;
 		this.rotation = rotation || 0;
 		this.position = position;
+		this.velocity = new Vector2();
 		this.stats = { ...stats };
 		this.upgradeLevel = upgradeLevel || 0;
 
@@ -78,13 +80,13 @@ export class Entity {
 		});
 	}
 
-	get boundingBox(): BoundingBox {
+	get boundingBox() {
 		return {
-			x: this.position.x,
-			y: this.position.y,
-			width: this.width,
-			height: this.height,
-			rotation: this.rotation
+			x1: this.position.x,
+			y1: this.position.y,
+			x2: this.position.x + this.width,
+			y2: this.position.y + this.height,
+			center: this.position.clone().add(new Vector2(this.width / 2, this.height / 2))
 		};
 	}
 

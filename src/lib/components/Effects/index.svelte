@@ -7,6 +7,7 @@
 	import BlinkingStar from './BlinkingStar.svelte';
 	import Effect4 from './Effect4.svelte';
 	import Effect5 from './Effect5.svelte';
+	import Effect6 from './Effect6.svelte';
 
 	const { entity, name } = $props();
 </script>
@@ -27,4 +28,6 @@
 	<Effect4 {entity} />
 {:else if name === 'effect5'}
 	<Effect5 {entity} />
+{:else if name === 'effect6'}
+	<Effect6 {entity} />
 {/if}

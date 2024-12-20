@@ -9,9 +9,19 @@ export class EntityManager {
 	entities = $state<Entity[]>([]);
 	collisionManager = $state<CollisionManager>();
 
+	// Derived states from entities which  interactive
 	livingEntities = $derived(
 		this.entities.filter((entity) => entity.state?.currentState.name !== 'Die')
 	);
+	livingTowers = $derived(this.livingEntities.filter((entity) => entity.type === 'tower'));
+	livingEnemies = $derived(this.livingEntities.filter((entity) => entity.type === 'enemy'));
+	livingProjectiles = $derived(
+		this.livingEntities.filter((entity) => entity.type === 'projectile')
+	);
+	livingLoot = $derived(this.livingEntities.filter((entity) => entity.type === 'loot'));
+	livingThrone = $derived(this.livingEntities.find((entity) => entity.type === 'throne'));
+
+	// Derived states from entities which could be notInteractive
 	towers = $derived(this.entities.filter((entity) => entity.type === 'tower'));
 	enemies = $derived(this.entities.filter((entity) => entity.type === 'enemy'));
 	projectiles = $derived(this.entities.filter((entity) => entity.type === 'projectile'));
@@ -37,6 +47,20 @@ export class EntityManager {
 		}
 	};
 
+	filterProjectiles(ownerType: string): Entity[] {
+		return this.livingProjectiles.filter((p) => p.state?.context?.spawner?.type === ownerType);
+	}
+
+	findNearestEntity(source: Entity, targets: Entity[]): Entity | undefined {
+		const distances = targets.map((target) => {
+			return source.position.distance(target.position);
+		});
+		const minDistance = Math.min(...distances);
+		const index = distances.indexOf(minDistance);
+
+		return targets[index];
+	}
+
 	initializeTowers() {
 		[0, 1, 2, 3].forEach((i) => {
 			this.spawnTower('moon');
@@ -56,11 +80,11 @@ export class EntityManager {
 	};
 
 	spawnProjectile = (name, spawner: Entity, target: Entity) => {
-		const projectile = initEntity(name, spawner.position, { spawner, target });
+		const projectile = initEntity(name, spawner.position.clone(), { spawner, target });
 		this.add(projectile);
 	};
 
-	private spawnThrone = () => {
+	spawnThrone = () => {
 		const throne = initEntity('throne', new Vector2(200, 600));
 		this.add(throne);
 	};
@@ -87,27 +111,9 @@ export class EntityManager {
 		return this.entities.find((entity) => entity.id === entityId);
 	};
 
-	getNearestEntityOfType = (
-		position: Vector2,
-		type: 'enemies' | 'projectiles' | 'towers' | 'throne' | 'loot',
-		maxRange?: number
-	): Entity | undefined => {
-		let nearest: Entity | undefined;
-		let minDistance = maxRange ?? Infinity;
-
-		for (const entity of this[type]) {
-			const distance = position.distance(entity.position);
-			if (distance < minDistance) {
-				minDistance = distance;
-				nearest = entity;
-			}
-		}
-		return nearest;
-	};
-
-	getEntitiesInRadius = (position: Vector2, radius: number): Entity[] => {
-		return this.entities.filter((entity) => position.distance(entity.position) <= radius);
-	};
+	// getEntitiesInRadius = (position: Vector2, radius: number): Entity[] => {
+	// 	return this.entities.filter((entity) => position.distance(entity.position) <= radius);
+	// };
 }
 
 export const entityManager = new EntityManager();

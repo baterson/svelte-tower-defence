@@ -1,46 +1,29 @@
 import { BaseState } from '../BaseState.svelte';
-import type { Entity } from '$store/Entity.svelte';
 import { Vector2 } from '$store/Vector2.svelte';
-import { angleToTarget, checkRectCollision, getDirectionFromAngle } from '$utils/math';
+import { angleToTarget, checkPointInRect, getDirectionFromAngle } from '$utils/math';
 
 export class RunToPoint extends BaseState {
-	private currentDirection: Vector2;
+	private direction: Vector2;
 
 	constructor(stateMachine, stateContext = {}) {
 		super(stateMachine, stateContext);
 
 		const { targetPosition } = this.stateMachine.context;
-		const angle = angleToTarget(this.entity.position, targetPosition);
-		this.currentDirection = getDirectionFromAngle(angle);
 
-		this.entity.rotation = angle;
+		const angle = angleToTarget(this.entity.position, targetPosition);
+		this.direction = getDirectionFromAngle(angle);
 	}
 
-	update(deltaTime: number, enemy: Entity) {
-		const speed = enemy.stats.speed * deltaTime;
+	update(deltaTime: number) {
 		const { targetPosition } = this.stateMachine.context;
 
-		enemy.position.x += this.currentDirection.x * speed;
-		enemy.position.y += this.currentDirection.y * speed;
+		const speed = this.entity.stats.speed * deltaTime;
 
-		enemy.rotation = Math.atan2(this.currentDirection.y, this.currentDirection.x);
+		this.entity.velocity = this.direction.multiply(speed);
+		this.entity.position = this.entity.position.add(this.entity.velocity);
+		this.entity.rotation = angleToTarget(this.entity.position, targetPosition);
 
-		if (
-			checkRectCollision(
-				{
-					x: enemy.position.x,
-					y: enemy.position.y,
-					width: enemy.width,
-					height: enemy.height
-				},
-				{
-					x: targetPosition.x - enemy.width / 2,
-					y: targetPosition.y - enemy.height / 2,
-					width: enemy.width,
-					height: enemy.height
-				}
-			)
-		) {
+		if (checkPointInRect(targetPosition, this.entity.boundingBox)) {
 			this.stateMachine.setState('StunAllTowers');
 		}
 	}

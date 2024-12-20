@@ -180,7 +180,7 @@ const entities: Record<string, EntityConfig> = {
 		type: 'projectile',
 		width: 24,
 		height: 24,
-		effects: ['effect5'],
+		effects: ['effect6'],
 		initialState: 'Fly',
 		states: ['Fly', 'Hit'],
 		stats: {
