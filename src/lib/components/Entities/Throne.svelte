@@ -2,7 +2,7 @@
 	import { devTools } from '$store/DevTools.svelte';
 	import { entityManager } from '$store/EntityManager.svelte';
 	import { handleScreenChange } from '$store/States/effects';
-	import Entity from './Entity.svelte';
+	import Entity from '../Entity.svelte';
 
 	const { throne } = $props();
 

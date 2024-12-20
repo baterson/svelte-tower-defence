@@ -1,5 +1,5 @@
 <script>
-	import Effect from '$lib/components/Effects/index.svelte';
+	import Effect from './Effect.svelte';
 	// todo: pass in/out transitions
 	let {
 		entity,
@@ -36,7 +36,7 @@
 	style={`${positionStyles}; ${bgStyles}`}
 >
 	{#each entity.effects as effect (effect)}
-		<Effect {entity} name={effect} />
+		<Effect name={effect} {entity} />
 	{/each}
 </div>
 

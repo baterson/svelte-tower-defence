@@ -152,7 +152,7 @@ const entities: Record<string, EntityConfig> = {
 		type: 'projectile',
 		width: 18,
 		height: 18,
-		effects: ['effect1'],
+		effects: ['Effect1'],
 		initialState: 'Fly',
 		states: ['Fly', 'Hit'],
 		stats: {
@@ -166,7 +166,7 @@ const entities: Record<string, EntityConfig> = {
 		type: 'projectile',
 		width: 18,
 		height: 18,
-		effects: ['effect2'],
+		effects: ['Effect2'],
 		initialState: 'Fly',
 		states: ['Fly', 'Hit'],
 		stats: {
@@ -180,7 +180,7 @@ const entities: Record<string, EntityConfig> = {
 		type: 'projectile',
 		width: 24,
 		height: 24,
-		effects: ['effect6'],
+		effects: ['Effect6'],
 		initialState: 'Fly',
 		states: ['Fly', 'Hit'],
 		stats: {
@@ -210,7 +210,7 @@ const entities: Record<string, EntityConfig> = {
 	},
 	loot: {
 		type: 'loot',
-		effects: ['effect4'],
+		effects: ['Effect4'],
 
 		width: 15,
 		height: 15,
@@ -225,7 +225,7 @@ const entities: Record<string, EntityConfig> = {
 	},
 	upgradePoint: {
 		type: 'loot',
-		effects: ['effect4'],
+		effects: ['Effect4'],
 
 		width: 15,
 		height: 15,

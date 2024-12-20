@@ -2,7 +2,7 @@
 	import { spendUpgradePoints } from '$lib/config/upgrades';
 	import { entityManager } from '$store/EntityManager.svelte';
 	import { handleScreenChange } from '$store/States/effects';
-	import Entity from './Entity.svelte';
+	import Entity from '../Entity.svelte';
 
 	let node = $state();
 
