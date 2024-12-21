@@ -69,6 +69,7 @@ export class EntityManager {
 
 	spawnEnemy = (name = 'enemy1', context = {}) => {
 		const spawnAreas = [70, 100, 130, 160, 190, 220, 250, 280, 310, 340];
+
 		const area = spawnAreas[Math.floor(Math.random() * spawnAreas.length)];
 		const enemy = initEntity(name, new Vector2(area, 5), context);
 		this.add(enemy);
@@ -81,6 +82,7 @@ export class EntityManager {
 
 	spawnProjectile = (name, spawner: Entity, target: Entity) => {
 		const projectile = initEntity(name, spawner.position.clone(), { spawner, target });
+
 		this.add(projectile);
 	};
 

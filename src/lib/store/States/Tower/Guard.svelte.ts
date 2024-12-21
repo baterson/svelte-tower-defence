@@ -11,7 +11,7 @@ export class Guard extends BaseState {
 	constructor(stateMachine) {
 		super(stateMachine);
 
-		this.cdId = gameLoop.setCD(400, true);
+		this.cdId = gameLoop.setCD(900, true);
 	}
 
 	update(deltaTime, elapsedTime) {

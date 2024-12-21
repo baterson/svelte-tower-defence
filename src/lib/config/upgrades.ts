@@ -6,20 +6,21 @@ export const towerUpgrades = [
 		tower.stats.speed += 0.1;
 		tower.scale += 0.3;
 		tower.upgradeLevel = 1;
-		tower.effects.push('toxicCloud');
+		tower.effects.push('TowerEffectsElectricLow');
 	},
 	(tower) => {
 		tower.stats.health += 20;
 		tower.stats.speed += 0.2;
 		tower.scale += 0.3;
 		tower.upgradeLevel = 2;
-		tower.effects.push('blinkingStar');
+		tower.effects.push('TowerEffectMedium');
 	},
 	(tower) => {
 		tower.stats.health += 30;
 		tower.stats.speed += 0.3;
 		tower.scale += 0.3;
 		tower.upgradeLevel = 3;
+		tower.effects.push('TowerEffectRingHigh');
 	}
 ];
 

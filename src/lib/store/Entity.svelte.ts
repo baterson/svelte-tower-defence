@@ -90,6 +90,10 @@ export class Entity {
 		};
 	}
 
+	get center(): Vector2 {
+		return new Vector2(this.position.x + this.width / 2, this.position.y + this.height / 2);
+	}
+
 	update(deltaTime: number) {
 		if (this.isDestroyed) return;
 

@@ -75,7 +75,9 @@
 		background-repeat: repeat-y;
 		will-change: transform;
 		transition: transform 50ms linear;
+
 		opacity: 0.5;
+
 		z-index: 2;
 	}
 </style>

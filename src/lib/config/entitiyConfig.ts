@@ -111,6 +111,22 @@ const entities: Record<string, EntityConfig> = {
 		},
 		onCollide: enemyCollider
 	},
+	boss: {
+		name: 'boss',
+		type: 'enemy',
+		width: 180,
+		height: 160,
+		spriteSheet: '/boss_test.png',
+		initialState: 'Walk',
+		states: ['Walk', 'RangeAttack', 'Charge', 'MeleAttack'],
+		animations: animations.boss,
+		stats: {
+			health: 20,
+			speed: 0.09,
+			damage: 0.01
+		},
+		onCollide: enemyCollider
+	},
 	blueTower: {
 		type: 'tower',
 		width: 36,
@@ -120,7 +136,7 @@ const entities: Record<string, EntityConfig> = {
 		states: ['Build', 'Guard', 'Shoot', 'NotBuilt'],
 		animations: animations.blueTower,
 		stats: {
-			health: 10,
+			health: 50,
 			attackRange: Infinity,
 			attackSpeed: 0.5,
 			damage: 20
@@ -172,20 +188,39 @@ const entities: Record<string, EntityConfig> = {
 		stats: {
 			health: 1,
 			speed: 0.5,
-			damage: 100
+			damage: 1
 		},
 		onCollide: projectileCollider
 	},
-	projectileStun: {
+	projectile3: {
 		type: 'projectile',
+
 		width: 24,
 		height: 24,
 		effects: ['Effect6'],
+
 		initialState: 'Fly',
 		states: ['Fly', 'Hit'],
 		stats: {
 			health: 1,
 			speed: 0.5,
+			damage: 100
+		},
+		onCollide: projectileCollider
+	},
+
+	projectileStun: {
+		type: 'projectile',
+		width: 24,
+		height: 24,
+		effects: ['effect5'],
+
+		initialState: 'Fly',
+		states: ['Fly', 'Hit'],
+		stats: {
+			health: 1,
+			speed: 0.5,
+
 			damage: 0.01
 		},
 		onCollide: projectileCollider
@@ -210,6 +245,7 @@ const entities: Record<string, EntityConfig> = {
 	},
 	loot: {
 		type: 'loot',
+
 		effects: ['Effect4'],
 
 		width: 15,
@@ -225,6 +261,7 @@ const entities: Record<string, EntityConfig> = {
 	},
 	upgradePoint: {
 		type: 'loot',
+
 		effects: ['Effect4'],
 
 		width: 15,
@@ -243,6 +280,7 @@ const entities: Record<string, EntityConfig> = {
 		width: 30,
 		height: 40,
 		initialState: 'RunToPoint',
+		effects: ['ParcticalEffect'],
 		states: ['RunToPoint', 'StunAllTowers'],
 		scale: 1.5,
 		spriteSheet: '/1st_enemy_run.png',

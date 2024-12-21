@@ -17,7 +17,7 @@ export const animations = {
 				[-402, -15],
 				[-466, -15]
 			],
-			frameRate: 3,
+			frameRate: 10,
 			loop: true
 		},
 		{
@@ -250,7 +250,6 @@ export const animations = {
 		}
 	],
 
-	// TOWERS
 	blueTower: [
 		{
 			name: 'Build',

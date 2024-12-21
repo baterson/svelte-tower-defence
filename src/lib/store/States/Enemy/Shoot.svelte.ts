@@ -6,6 +6,7 @@
 import { BaseState } from '$lib/store/States/BaseState.svelte';
 import type { Enemy } from '$store/Entities/Enemy.svelte';
 import type { EntityManager } from '$store/EntityManager.svelte';
+import { Vector2 } from '$store/Vector2.svelte';
 
 export class Shoot extends BaseState {
 	update(deltaTime: number, enemy: Enemy, entityManager: EntityManager) {

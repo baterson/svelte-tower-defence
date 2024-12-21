@@ -6,8 +6,9 @@ export class Shoot extends BaseState {
 		super(stateMachine);
 
 		const { spawner, target } = this.stateMachine.context;
+		// console.log(target);
 
-		entityManager.spawnProjectile('projectile1', spawner, target);
+		entityManager.spawnProjectile('projectile3', spawner, target);
 	}
 
 	update(deltaTime: number, entity: any): void {
