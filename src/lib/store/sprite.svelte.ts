@@ -6,6 +6,7 @@ type Frame = [number, number];
 interface SpriteConfig {
 	frames: Frame[];
 	frameRate: number;
+	spritesheet: string;
 	loop?: boolean;
 }
 
@@ -20,7 +21,7 @@ export class Sprite {
 	currentFrame = $derived(this.getCurrentFrame());
 	isAnimationComplete = $derived(this.getIsAnimationComplete());
 
-	constructor({ frames, frameRate, loop = false }: SpriteConfig, spritesheet: string) {
+	constructor({ frames, frameRate, spritesheet, loop = false }: SpriteConfig) {
 		this.frames = frames;
 		this.frameRate = frameRate;
 		this.loop = loop;

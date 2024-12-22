@@ -5,6 +5,7 @@
 	import { screen } from '$lib/store/Screen.svelte';
 	import ParallaxBackground from '$components/ParallaxBackground.svelte';
 	import DevTools from '$components/DevTools.svelte';
+	import { stageManager } from '$store/StageManager.svelte';
 
 	onMount(() => {
 		const game = new Game();
@@ -18,6 +19,7 @@
 <DevTools />
 <ParallaxBackground />
 <div class="wrapper">
+	<div class="time">Stage {stageManager.stageNumber + 1}</div>
 	<div
 		bind:offsetHeight={screen.gameAreaHeight}
 		bind:offsetWidth={screen.gameAreaWidth}
@@ -29,6 +31,15 @@
 </div>
 
 <style>
+	.time {
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: 3;
+		font-size: 40px;
+		color: white;
+	}
+
 	.wrapper {
 		z-index: 3;
 		position: absolute;

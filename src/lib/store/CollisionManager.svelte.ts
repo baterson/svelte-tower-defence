@@ -1,28 +1,20 @@
-import { Vector2 } from './Vector2.svelte';
+import { entityManager } from './EntityManager.svelte';
 import type { Entity } from './Entity.svelte';
-import type { EntityManager } from './EntityManager.svelte';
 import { screen } from '$lib/store/Screen.svelte';
 import { checkRectCollision } from '$utils/math';
 
 export class CollisionManager {
-	private readonly COLLISION_RADIUS = 50;
-	private entityManager: EntityManager;
-
-	constructor(entityManager: EntityManager) {
-		this.entityManager = entityManager;
-	}
-
 	update() {
 		// Handle tower projectiles vs nearest enemies
 		this.handleProjectileCollisions(
-			this.entityManager.filterProjectiles('tower'),
-			this.entityManager.livingEnemies
+			entityManager.filterProjectiles('tower'),
+			entityManager.livingEnemies
 		);
 
 		// Handle enemy projectiles vs towers and throne
-		this.handleProjectileCollisions(this.entityManager.filterProjectiles('enemy'), [
-			...this.entityManager.livingTowers,
-			this.entityManager.livingThrone
+		this.handleProjectileCollisions(entityManager.filterProjectiles('enemy'), [
+			...entityManager.livingTowers,
+			entityManager.livingThrone
 		]);
 
 		// Handle enemy collisions
@@ -38,7 +30,7 @@ export class CollisionManager {
 				continue;
 			}
 
-			const nearestTarget = this.entityManager.findNearestEntity(projectile, targets);
+			const nearestTarget = entityManager.findNearestEntity(projectile, targets);
 			if (!nearestTarget) continue;
 
 			if (this.checkCollision(projectile, nearestTarget)) {
@@ -49,12 +41,10 @@ export class CollisionManager {
 	}
 
 	private handleEnemyCollisions(): void {
-		const targets = [...this.entityManager.livingTowers, this.entityManager.livingThrone].filter(
-			Boolean
-		);
+		const targets = [...entityManager.livingTowers, entityManager.livingThrone].filter(Boolean);
 
-		for (const enemy of this.entityManager.livingEnemies) {
-			const nearestTarget = this.entityManager.findNearestEntity(enemy, targets);
+		for (const enemy of entityManager.livingEnemies) {
+			const nearestTarget = entityManager.findNearestEntity(enemy, targets);
 			if (!nearestTarget) continue;
 
 			if (this.checkCollision(enemy, nearestTarget)) {
@@ -65,15 +55,15 @@ export class CollisionManager {
 	}
 
 	handleLootCollisions(): void {
-		const throne = this.entityManager.livingThrone;
+		const throne = entityManager.livingThrone;
 
-		for (const loot of this.entityManager.livingLoot) {
+		for (const loot of entityManager.livingLoot) {
 			if (this.checkCollision(loot, throne)) {
 				loot.onCollide(throne);
 				throne.onCollide(loot);
 			}
 
-			for (const tower of this.entityManager.livingTowers) {
+			for (const tower of entityManager.livingTowers) {
 				if (this.checkCollision(loot, tower)) {
 					loot.onCollide(tower);
 					tower.onCollide(loot);
@@ -94,3 +84,5 @@ export class CollisionManager {
 		return checkRectCollision(entity.boundingBox, screen.gameBounds);
 	}
 }
+
+export const collisionManager = new CollisionManager();

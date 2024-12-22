@@ -26,9 +26,11 @@ export const towerUpgrades = [
 
 export const spendUpgradePoints = (tower) => {
 	entityManager.throne.stats.health -= 20;
-	entityManager.throne.scale -= 0.2;
 
-	entityManager.spawnLoot('upgradePoint', entityManager.throne, tower);
+	stageManager.spawnEntity('upgradePoint', entityManager.throne.position.clone(), {
+		target: entityManager.throne,
+		spawner: tower
+	});
 };
 
 export const upgradeTower = (tower) => {

@@ -4,7 +4,8 @@
  */
 
 import type { Entity } from '$store/Entity.svelte';
-import { animations } from './animations';
+import { Vector2 } from '$store/Vector2.svelte';
+import { sprites } from './sprites';
 import {
 	enemyCollider,
 	lootCollider,
@@ -22,7 +23,7 @@ export interface EntityConfig {
 	states: string[];
 	effects?: string[];
 	spriteSheet?: string;
-	animations?: any[];
+	sprites?: any[];
 	onCollide?: (entity: Entity, target: Entity) => void;
 	stats: {
 		health?: number;
@@ -38,10 +39,9 @@ const entities: Record<string, EntityConfig> = {
 		type: 'enemy',
 		width: 30,
 		height: 40,
-		spriteSheet: '/1st_enemy_run.png',
 		initialState: 'Run',
 		states: ['Run', 'Shoot', 'Die'],
-		animations: animations.enemy1,
+		sprites: [sprites.enemy1],
 		stats: {
 			health: 1,
 			speed: 0.06,
@@ -56,7 +56,7 @@ const entities: Record<string, EntityConfig> = {
 		spriteSheet: '/2nd_enemy_run.png',
 		initialState: 'Run',
 		states: ['Run', 'Shoot', 'Die'],
-		animations: animations.enemy2,
+		sprites: [sprites.enemy2],
 		stats: {
 			health: 1,
 			speed: 0.07,
@@ -71,7 +71,7 @@ const entities: Record<string, EntityConfig> = {
 		spriteSheet: '/3rd_enemy_run.png',
 		initialState: 'Run',
 		states: ['Run', 'Shoot', 'Die'],
-		animations: animations.enemy3,
+		sprites: [sprites.enemy3],
 		stats: {
 			health: 10,
 			speed: 0.09,
@@ -80,14 +80,13 @@ const entities: Record<string, EntityConfig> = {
 		onCollide: enemyCollider
 	},
 	enemy4: {
-		name: 'enemy4',
 		type: 'enemy',
 		width: 30,
 		height: 64,
 		spriteSheet: '/4rd_flying_enemy.png',
 		initialState: 'Fly',
 		states: ['Fly', 'Shoot', 'Die'],
-		animations: animations.enemy4,
+		sprites: [sprites.enemy4],
 		stats: {
 			health: 10,
 			speed: 0.09,
@@ -96,14 +95,13 @@ const entities: Record<string, EntityConfig> = {
 		onCollide: enemyCollider
 	},
 	enemy5: {
-		name: 'enemy5',
 		type: 'enemy',
 		width: 30,
 		height: 64,
 		spriteSheet: '/5rd_сar_enemy.png',
 		initialState: 'Run',
 		states: ['Run', 'Shoot', 'Die'],
-		animations: animations.enemy5,
+		sprites: [sprites.enemy5],
 		stats: {
 			health: 10,
 			speed: 0.09,
@@ -111,59 +109,20 @@ const entities: Record<string, EntityConfig> = {
 		},
 		onCollide: enemyCollider
 	},
-	boss: {
-		name: 'boss',
-		type: 'enemy',
-		width: 180,
-		height: 160,
-		spriteSheet: '/boss_test.png',
-		initialState: 'Walk',
-		states: ['Walk', 'RangeAttack', 'Charge', 'MeleAttack'],
-		animations: animations.boss,
-		stats: {
-			health: 20,
-			speed: 0.09,
-			damage: 0.01
-		},
-		onCollide: enemyCollider
-	},
-	blueTower: {
-		type: 'tower',
-		width: 36,
-		height: 64,
-		spriteSheet: '/blueTower.png',
-		initialState: 'Guard',
-		states: ['Build', 'Guard', 'Shoot', 'NotBuilt'],
-		animations: animations.blueTower,
-		stats: {
-			health: 50,
-			attackRange: Infinity,
-			attackSpeed: 0.5,
-			damage: 20
-		},
-		scale: 1.2,
-		onCollide: towerCollider,
-		onUpgrade: upgradeTower
-	},
-	moon: {
-		type: 'tower',
-		width: 48,
-		height: 48,
-		spriteSheet: '/Moon.sprite.png',
-		initialState: 'Guard',
-		states: ['Build', 'Guard', 'Shoot', 'NotBuilt'],
-		animations: animations.moon,
-		effects: [],
-		stats: {
-			health: 10,
-			attackRange: Infinity,
-			attackSpeed: 0.5,
-			damage: 20
-		},
-		scale: 1.2,
-		onCollide: towerCollider,
-		onUpgrade: upgradeTower
-	},
+	// boss: {
+	// 	type: 'enemy',
+	// 	width: 180,
+	// 	height: 160,
+	// 	initialState: 'Walk',
+	// 	states: ['Walk', 'RangeAttack', 'Charge', 'MeleAttack'],
+	// 	sprites: [sprites.boss],
+	// 	stats: {
+	// 		health: 20,
+	// 		speed: 0.09,
+	// 		damage: 0.01
+	// 	},
+	// 	onCollide: enemyCollider
+	// },
 	projectile1: {
 		type: 'projectile',
 		width: 18,
@@ -213,7 +172,7 @@ const entities: Record<string, EntityConfig> = {
 		type: 'projectile',
 		width: 24,
 		height: 24,
-		effects: ['effect5'],
+		effects: ['Effect5'],
 
 		initialState: 'Fly',
 		states: ['Fly', 'Hit'],
@@ -233,13 +192,10 @@ const entities: Record<string, EntityConfig> = {
 		stats: {
 			health: 100,
 			damage: 999,
-			speed: 0,
-			range: 40
+			speed: 0
 		},
-		scale: 2,
 		states: ['Idle'],
-		animations: animations.enemy1,
-		spriteSheet: '/1st_enemy_run.png',
+		sprites: [sprites.enemy1],
 		initialState: 'Idle',
 		onCollide: throneCollider
 	},
@@ -282,9 +238,10 @@ const entities: Record<string, EntityConfig> = {
 		initialState: 'RunToPoint',
 		effects: ['ParcticalEffect'],
 		states: ['RunToPoint', 'StunAllTowers'],
-		scale: 1.5,
-		spriteSheet: '/1st_enemy_run.png',
-		animations: animations.enemy1,
+		sprites: [sprites.enemy1],
+		context: {
+			targetPoint: new Vector2(200, 200)
+		},
 
 		stats: {
 			health: 9999,
@@ -292,6 +249,42 @@ const entities: Record<string, EntityConfig> = {
 			speed: 0.05
 		},
 		onCollide: enemyCollider
+	},
+	fireTower: {
+		type: 'tower',
+		width: 48,
+		height: 48,
+		initialState: 'Guard',
+		states: ['Build', 'Guard', 'Shoot', 'NotBuilt'],
+		sprites: [sprites.moon],
+		effects: [],
+		stats: {
+			health: 50,
+			attackRange: Infinity,
+			attackSpeed: 0.5,
+			damage: 20
+		},
+		scale: 1.2,
+		onCollide: towerCollider,
+		onUpgrade: upgradeTower
+	},
+	windTower: {
+		type: 'tower',
+		width: 48,
+		height: 48,
+		initialState: 'Guard',
+		states: ['Build', 'Guard', 'Shoot', 'NotBuilt'],
+		sprites: [sprites.moon],
+		effects: [],
+		stats: {
+			health: 50,
+			attackRange: Infinity,
+			attackSpeed: 0.5,
+			damage: 20
+		},
+		scale: 1.2,
+		onCollide: towerCollider,
+		onUpgrade: upgradeTower
 	}
 };
 

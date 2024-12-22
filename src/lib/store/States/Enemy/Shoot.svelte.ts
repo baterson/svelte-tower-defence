@@ -6,11 +6,11 @@
 import { BaseState } from '$lib/store/States/BaseState.svelte';
 import type { Enemy } from '$store/Entities/Enemy.svelte';
 import type { EntityManager } from '$store/EntityManager.svelte';
-import { Vector2 } from '$store/Vector2.svelte';
+import { stageManager } from '$store/StageManager.svelte';
 
 export class Shoot extends BaseState {
 	update(deltaTime: number, enemy: Enemy, entityManager: EntityManager) {
-		const towers = entityManager.builtTowers;
+		const towers = entityManager.livingTowers;
 
 		const nearestTower = towers.length
 			? towers.reduce((nearest, tower) => {
@@ -22,7 +22,10 @@ export class Shoot extends BaseState {
 
 		// Attack the tower
 		if (nearestTower) {
-			entityManager.spawnProjectile('projectile1', enemy, nearestTower);
+			stageManager.spawnEntity('projectile1', enemy.position.clone(), {
+				spawner: enemy,
+				target: nearestTower
+			});
 		}
 		enemy.state.setState('Run');
 	}

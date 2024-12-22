@@ -17,11 +17,10 @@
 	);
 
 	const bgStyles = $derived(
-		entity.spriteSheet
-			? `background: url(${entity.spriteSheet}) no-repeat ${entity.sprite.currentFrame[0]}px ${entity.sprite.currentFrame[1]}px;`
+		entity.sprite
+			? `background: url(${entity.sprite.spritesheet}) no-repeat ${entity.sprite.currentFrame[0]}px ${entity.sprite.currentFrame[1]}px;`
 			: ''
 	);
-	// style={`${positionStyles}; ${bgStyles}`}
 </script>
 
 <!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions (because of reasons) -->

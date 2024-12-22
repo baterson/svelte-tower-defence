@@ -1,4 +1,3 @@
-import { getConfig } from '$lib/config/entitiyConfig';
 import { Sprite } from '$store/Sprite.svelte';
 import { Vector2 } from '$store/Vector2.svelte';
 import { StateMachine } from '$store/StateMachine.svelte';
@@ -13,7 +12,6 @@ export class Entity {
 	width = $state(0);
 	height = $state(0);
 	velocity = $state<Vector2>();
-	spriteSheet = $state('');
 	effects = $state([]);
 	sprite = $state<Sprite>();
 	position = $state<Vector2>();
@@ -35,8 +33,7 @@ export class Entity {
 			rotation,
 			type,
 			states,
-			animations,
-			spriteSheet,
+			sprites,
 			initialState,
 			onCollide,
 			stats,
@@ -58,16 +55,15 @@ export class Entity {
 		this.upgradeLevel = upgradeLevel || 0;
 
 		// Entity has either effect or animations
-		this.effects = effects;
-		this.spriteSheet = spriteSheet;
+		this.effects = effects || [];
 
 		// Handle collisions
 		this.onCollide = (other) => onCollide(this, other);
 
-		// Handle state changes
+		// Sync sprite with state
 		const onStateEnter = (stateName) => {
-			if (spriteSheet && animations) {
-				this.setSprite(stateName, animations);
+			if (sprites) {
+				this.setSprite(stateName, sprites);
 			}
 		};
 
@@ -89,11 +85,6 @@ export class Entity {
 			center: this.position.clone().add(new Vector2(this.width / 2, this.height / 2))
 		};
 	}
-
-	get center(): Vector2 {
-		return new Vector2(this.position.x + this.width / 2, this.position.y + this.height / 2);
-	}
-
 	update(deltaTime: number) {
 		if (this.isDestroyed) return;
 
@@ -108,11 +99,16 @@ export class Entity {
 		this.position = position;
 	};
 
-	setSprite(name: string, animations) {
-		const sprite = animations.find((sprite) => sprite.name === name);
+	setSprite(name: string, sprites) {
+		let sprite;
 
-		if (sprite) {
-			this.sprite = new Sprite(sprite, this.spriteSheet);
+		for (const entry of sprites) {
+			const { animations, spritesheet } = entry;
+
+			sprite = animations.find((sprite) => sprite.name === name);
+			if (sprite) {
+				this.sprite = new Sprite({ ...sprite, spritesheet });
+			}
 		}
 	}
 
@@ -126,9 +122,3 @@ export class Entity {
 		}
 	};
 }
-
-export const initEntity = (name, position, stateContext = {}) => {
-	const config = getConfig(name);
-
-	return new Entity(name, position.clone(), config, stateContext);
-};

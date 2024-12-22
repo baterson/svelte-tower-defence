@@ -1,5 +1,6 @@
 import { BaseState } from '$store/States/BaseState.svelte';
 import { Vector2 } from '$store/Vector2.svelte';
+
 export class Walk extends BaseState {
 	constructor(stateMachine) {
 		super(stateMachine);
