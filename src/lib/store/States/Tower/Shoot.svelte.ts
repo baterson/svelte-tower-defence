@@ -5,15 +5,27 @@ export class Shoot extends BaseState {
 	constructor(stateMachine) {
 		super(stateMachine);
 
-		const { spawner, target } = this.stateMachine.context;
-
-		stageManager.spawnEntity('projectile3', spawner.position.clone(), {
-			spawner,
-			target
-		});
+		this.shoot();
 	}
 
-	update(deltaTime: number, entity: any): void {
+	update() {
 		this.entity.state.setState('Guard');
+	}
+
+	shoot() {
+		const { spawner, target } = this.stateMachine.context;
+
+		for (let i = 0; i < this.entity.stats.projectileNumber; i++) {
+			let targetPoint;
+			if (i > 0) {
+				targetPoint = target.position.clone().add({ x: 100 * i, y: 100 * i });
+			}
+
+			stageManager.spawnEntity('projectile3', spawner.position.clone(), {
+				spawner,
+				target,
+				targetPoint
+			});
+		}
 	}
 }

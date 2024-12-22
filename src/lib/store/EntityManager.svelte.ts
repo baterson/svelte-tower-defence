@@ -40,8 +40,8 @@ export class EntityManager {
 		return targets[index];
 	}
 
-	add = (entity: Entity) => {
-		this.entities.push(entity);
+	add = (entity: Entity | Entity[]) => {
+		this.entities = [...this.entities, ...(Array.isArray(entity) ? entity : [entity])];
 	};
 
 	destroy = (entityId: number) => {

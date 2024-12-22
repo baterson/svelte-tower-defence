@@ -6,18 +6,24 @@ export class Fly extends BaseState {
 
 	constructor(stateMachine) {
 		super(stateMachine);
+		const { target, targetPoint } = this.stateMachine.context;
+		const targetPosition = targetPoint || target?.position;
 
-		const { target } = this.stateMachine.context;
-		const angle = angleToTarget(this.entity.position, target.position);
+		const angle = angleToTarget(this.entity.position, targetPosition);
 		this.direction = getDirectionFromAngle(angle);
 	}
 
 	update(deltaTime: number) {
-		const { target } = this.stateMachine.context;
+		this.fly(deltaTime);
+	}
+
+	fly(deltaTime: number) {
+		const { target, targetPoint } = this.stateMachine.context;
+		const targetPosition = targetPoint || target?.position;
 		const speed = this.entity.stats.speed * deltaTime;
 
 		this.entity.velocity = this.direction.multiply(speed);
 		this.entity.position = this.entity.position.add(this.entity.velocity);
-		this.entity.rotation = angleToTarget(this.entity.position, target.position);
+		this.entity.rotation = angleToTarget(this.entity.position, targetPosition);
 	}
 }

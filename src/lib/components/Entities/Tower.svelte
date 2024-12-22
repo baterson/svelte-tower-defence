@@ -1,6 +1,5 @@
 <script>
-	import { spendUpgradePoints } from '$lib/config/upgrades';
-	import { entityManager } from '$store/EntityManager.svelte';
+	import { spendUpgradePoints } from '$store/gameActions.svelte';
 	import { handleScreenChange } from '$store/States/effects';
 	import Entity from '../Entity.svelte';
 
@@ -16,9 +15,14 @@
 </script>
 
 <Entity
+	onclick={() => {
+		if (tower.isUpgradable) {
+			spendUpgradePoints(tower);
+		}
+	}}
+	oncontextmenu={() => devTools.inspectEntity(tower)}
 	bind:node
 	entity={tower}
 	{placementStyles}
 	isStatic={true}
-	onclick={() => spendUpgradePoints(tower)}
 />

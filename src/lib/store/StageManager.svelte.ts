@@ -52,8 +52,14 @@ export class StageManager {
 	};
 
 	spawnTowers() {
-		[0, 1, 2, 3].forEach((i) => {
-			this.spawnEntity('fireTower', new Vector2(0, 0));
+		// ['fireTower'].forEach((name) => {
+		// 	this.spawnEntity(name, new Vector2(0, 0));
+		// });
+		// ['fireTower', 'fireTower', 'fireTower', 'fireTower'].forEach((name) => {
+		// 	this.spawnEntity(name, new Vector2(0, 0));
+		// });
+		['fireTower', 'windTower', 'earthTower', 'iceTower'].forEach((name) => {
+			this.spawnEntity(name, new Vector2(0, 0));
 		});
 	}
 

@@ -7,7 +7,7 @@ export class CollisionManager {
 	update() {
 		// Handle tower projectiles vs nearest enemies
 		this.handleProjectileCollisions(
-			entityManager.filterProjectiles('tower'),
+			[...entityManager.filterProjectiles('tower'), ...entityManager.filterProjectiles('throne')],
 			entityManager.livingEnemies
 		);
 
@@ -30,12 +30,12 @@ export class CollisionManager {
 				continue;
 			}
 
-			const nearestTarget = entityManager.findNearestEntity(projectile, targets);
-			if (!nearestTarget) continue;
-
-			if (this.checkCollision(projectile, nearestTarget)) {
-				projectile.onCollide(nearestTarget);
-				nearestTarget.onCollide(projectile);
+			// Check collision against all targets instead of just the nearest one
+			for (const target of targets) {
+				if (this.checkCollision(projectile, target)) {
+					projectile.onCollide(target);
+					target.onCollide(projectile);
+				}
 			}
 		}
 	}

@@ -1,7 +1,6 @@
 import { Sprite } from '$store/Sprite.svelte';
 import { Vector2 } from '$store/Vector2.svelte';
 import { StateMachine } from '$store/StateMachine.svelte';
-import { upgradeTower } from '$lib/config/upgrades';
 
 export class Entity {
 	static lastId = 0;
@@ -21,7 +20,11 @@ export class Entity {
 	scale = $state(1);
 	opacity = $state(1);
 	isInteractable = $state(true);
+
 	upgradeLevel = $state(0);
+	upgrades = $state([]);
+
+	isUpgradable = $derived(this.upgrades.length && this.upgradeLevel < this.upgrades.length);
 
 	constructor(
 		name,
@@ -38,6 +41,7 @@ export class Entity {
 			onCollide,
 			stats,
 			upgradeLevel,
+			upgrades,
 			effects
 		},
 		context
@@ -53,7 +57,7 @@ export class Entity {
 		this.velocity = new Vector2();
 		this.stats = { ...stats };
 		this.upgradeLevel = upgradeLevel || 0;
-
+		this.upgrades = upgrades || [];
 		// Entity has either effect or animations
 		this.effects = effects || [];
 
@@ -85,6 +89,7 @@ export class Entity {
 			center: this.position.clone().add(new Vector2(this.width / 2, this.height / 2))
 		};
 	}
+
 	update(deltaTime: number) {
 		if (this.isDestroyed) return;
 
@@ -112,13 +117,27 @@ export class Entity {
 		}
 	}
 
+	addEffect(effect: string) {
+		this.effects.push(effect);
+	}
+
+	removeEffect(effect: string) {
+		this.effects = this.effects.filter((e) => e !== effect);
+	}
+
+	cleanEffects() {
+		this.effects = [];
+	}
+
+	upgrade() {
+		if (this.isUpgradable) {
+			this.upgrades[this.upgradeLevel](this);
+
+			this.upgradeLevel += 1;
+		}
+	}
+
 	stopInteractions() {
 		this.isInteractable = false;
 	}
-
-	upgrade = () => {
-		if (this.type === 'tower') {
-			upgradeTower(this);
-		}
-	};
 }

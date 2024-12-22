@@ -11,11 +11,14 @@ export class Guard extends BaseState {
 	constructor(stateMachine) {
 		super(stateMachine);
 
-		this.cdId = gameLoop.setCD(900, true);
+		const atackSpeed = this.entity.stats.attackSpeed;
+
+		this.cdId = gameLoop.setCD(atackSpeed, true);
 	}
 
-	update(deltaTime, elapsedTime) {
+	update() {
 		const target = entityManager.findNearestEntity(this.entity, entityManager.livingEnemies);
+
 		if (gameLoop.isCDReady(this.cdId) && target) {
 			this.stateMachine.setState('Shoot', { spawner: this.entity, target });
 		}

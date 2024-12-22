@@ -41,7 +41,11 @@ export const projectileCollider = (projectile, other) => {
 		return;
 	}
 
-	projectile.state.setState('Hit');
+	const { type: spawnerType } = projectile.state.context.spawner;
+
+	if (spawnerType !== 'throne') {
+		projectile.state.setState('Hit');
+	}
 
 	return;
 };
@@ -61,7 +65,6 @@ export const lootCollider = (entity, other) => {
 
 	if (spawner.type === 'throne' && other.type === 'tower') {
 		entity.state.setState('Die');
-		other.upgrade();
 		return;
 	}
 

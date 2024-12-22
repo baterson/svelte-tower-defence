@@ -13,7 +13,22 @@ import {
 	throneCollider,
 	towerCollider
 } from './collisionHandlers';
-import { upgradeTower } from './upgrades';
+import {
+	earthTowerUpgrades,
+	fireTowerUpgrades,
+	iceTowerUpgrades,
+	windTowerUpgrades
+} from './upgradesConfig';
+
+type Stats = {
+	health?: number;
+	speed?: number;
+	damage?: number;
+	attackRange?: number;
+	attackSpeed?: number;
+	scale?: number;
+	projectileNumber?: number;
+};
 
 export interface EntityConfig {
 	type: 'enemy' | 'tower' | 'projectile' | 'throne' | 'loot';
@@ -24,14 +39,9 @@ export interface EntityConfig {
 	effects?: string[];
 	spriteSheet?: string;
 	sprites?: any[];
+	upgrades?: string[];
 	onCollide?: (entity: Entity, target: Entity) => void;
-	stats: {
-		health?: number;
-		speed?: number;
-		damage?: number;
-		attackRange?: number;
-		attackSpeed?: number;
-	};
+	stats: Stats;
 }
 
 const entities: Record<string, EntityConfig> = {
@@ -250,6 +260,23 @@ const entities: Record<string, EntityConfig> = {
 		},
 		onCollide: enemyCollider
 	},
+
+	thronePower: {
+		type: 'projectile',
+		width: 600,
+		height: 100,
+		initialState: 'Fly',
+		states: ['Fly', 'Die'],
+		effects: ['ThronePowerProjectile'],
+		stats: {
+			health: 1,
+			damage: 999,
+			speed: 0.2
+		},
+		onCollide: projectileCollider
+	},
+
+	// TOWERS
 	fireTower: {
 		type: 'tower',
 		width: 48,
@@ -261,13 +288,15 @@ const entities: Record<string, EntityConfig> = {
 		stats: {
 			health: 50,
 			attackRange: Infinity,
-			attackSpeed: 0.5,
-			damage: 20
+			attackSpeed: 1000,
+			damage: 20,
+			projectileNumber: 1,
+			scale: 1.2
 		},
-		scale: 1.2,
 		onCollide: towerCollider,
-		onUpgrade: upgradeTower
+		upgrades: fireTowerUpgrades
 	},
+
 	windTower: {
 		type: 'tower',
 		width: 48,
@@ -279,12 +308,53 @@ const entities: Record<string, EntityConfig> = {
 		stats: {
 			health: 50,
 			attackRange: Infinity,
-			attackSpeed: 0.5,
-			damage: 20
+			attackSpeed: 800,
+			damage: 20,
+			projectileNumber: 1,
+			scale: 1.2
 		},
-		scale: 1.2,
 		onCollide: towerCollider,
-		onUpgrade: upgradeTower
+		upgrades: windTowerUpgrades
+	},
+
+	earthTower: {
+		type: 'tower',
+		width: 48,
+		height: 48,
+		initialState: 'Guard',
+		states: ['Build', 'Guard', 'Shoot', 'NotBuilt'],
+		sprites: [sprites.moon],
+		effects: [],
+		stats: {
+			health: 50,
+			attackRange: Infinity,
+			attackSpeed: 800,
+			damage: 20,
+			projectileNumber: 1,
+			scale: 1.2
+		},
+		onCollide: towerCollider,
+		upgrades: earthTowerUpgrades
+	},
+
+	iceTower: {
+		type: 'tower',
+		width: 48,
+		height: 48,
+		initialState: 'Guard',
+		states: ['Build', 'Guard', 'Shoot', 'NotBuilt'],
+		sprites: [sprites.moon],
+		effects: [],
+		stats: {
+			health: 50,
+			attackRange: Infinity,
+			attackSpeed: 800,
+			damage: 20,
+			projectileNumber: 1,
+			scale: 1.2
+		},
+		onCollide: towerCollider,
+		upgrades: iceTowerUpgrades
 	}
 };
 

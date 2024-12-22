@@ -30,7 +30,7 @@
 	bind:this={node}
 	style:width={`${entity.width}px`}
 	style:height={`${entity.height}px`}
-	style:transform={`rotate(${entity.rotation}deg) scale(${entity.scale})`}
+	style:transform={`rotate(${entity.rotation}deg) scale(${entity.stats.scale})`}
 	style:transform-origin={'center'}
 	style={`${positionStyles}; ${bgStyles}`}
 >
