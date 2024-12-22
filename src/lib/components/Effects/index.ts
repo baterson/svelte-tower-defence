@@ -11,3 +11,5 @@ export { default as BlinkingStar } from './BlinkingStar.svelte';
 export { default as Effect4 } from './Effect4.svelte';
 export { default as Effect5 } from './Effect5.svelte';
 export { default as Effect6 } from './Effect6.svelte';
+export { default as EssenseLoot } from './EssenseLoot.svelte';
+export { default as TakeDamage } from './TakeDamage.svelte';

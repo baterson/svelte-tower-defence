@@ -13,11 +13,13 @@ export class Die extends BaseState {
 		stateMachine.owner.stopInteractions();
 	}
 
-	update(deltaTime: number) {
+	update(deltaTime: number, enemy: Entity) {
 		this.entity.rotation += 10;
 
 		if (this.entity.sprite.isAnimationComplete) {
 			entityManager.destroy(this.entity.id);
+
+			if (Math.random() > 0.5) entityManager.spawnLoot('loot', this.entity, entityManager.throne);
 
 			if (Math.random() > 0.5) {
 				entityManager.spawnLoot('loot', this.entity, entityManager.throne);

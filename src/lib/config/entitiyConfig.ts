@@ -40,7 +40,7 @@ const entities: Record<string, EntityConfig> = {
 		height: 40,
 		spriteSheet: '/1st_enemy_run.png',
 		initialState: 'Run',
-		states: ['Run', 'Shoot', 'Die'],
+		states: ['Run', 'Shoot', 'Die', 'Fly'],
 		animations: animations.enemy1,
 		stats: {
 			health: 1,
@@ -133,7 +133,7 @@ const entities: Record<string, EntityConfig> = {
 		height: 64,
 		spriteSheet: '/blueTower.png',
 		initialState: 'Guard',
-		states: ['Build', 'Guard', 'Shoot', 'NotBuilt'],
+		states: ['Build', 'Guard', 'Shoot', 'NotBuilt', 'TakeDamage'],
 		animations: animations.blueTower,
 		stats: {
 			health: 50,
@@ -151,7 +151,7 @@ const entities: Record<string, EntityConfig> = {
 		height: 48,
 		spriteSheet: '/Moon.sprite.png',
 		initialState: 'Guard',
-		states: ['Build', 'Guard', 'Shoot', 'NotBuilt'],
+		states: ['Build', 'Guard', 'Shoot', 'NotBuilt', 'TakeDamage'],
 		animations: animations.moon,
 		effects: [],
 		stats: {
@@ -213,7 +213,7 @@ const entities: Record<string, EntityConfig> = {
 		type: 'projectile',
 		width: 24,
 		height: 24,
-		effects: ['effect5'],
+		effects: ['Effect3'],
 
 		initialState: 'Fly',
 		states: ['Fly', 'Hit'],
@@ -246,7 +246,7 @@ const entities: Record<string, EntityConfig> = {
 	loot: {
 		type: 'loot',
 
-		effects: ['Effect4'],
+		effects: ['EssenseLoot'],
 
 		width: 15,
 		height: 15,
@@ -262,7 +262,7 @@ const entities: Record<string, EntityConfig> = {
 	upgradePoint: {
 		type: 'loot',
 
-		effects: ['Effect4'],
+		effects: ['Effect1'],
 
 		width: 15,
 		height: 15,
@@ -279,7 +279,7 @@ const entities: Record<string, EntityConfig> = {
 		type: 'enemy',
 		width: 30,
 		height: 40,
-		initialState: 'RunToPoint',
+		initialState: 'StunAllTowers',
 		effects: ['ParcticalEffect'],
 		states: ['RunToPoint', 'StunAllTowers'],
 		scale: 1.5,

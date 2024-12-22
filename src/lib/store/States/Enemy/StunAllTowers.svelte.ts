@@ -13,7 +13,7 @@ export class StunAllTowers extends BaseState {
 	constructor(stateMachine) {
 		super(stateMachine);
 
-		this.cdId = gameLoop.setCD(700, true);
+		this.cdId = gameLoop.setCD(2000, true);
 	}
 
 	update(deltaTime: number) {

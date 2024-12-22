@@ -73,6 +73,7 @@ export const animations = {
 			loop: true,
 			frameRate: 20
 		},
+
 		{
 			name: 'RunToPoint',
 			frames: [

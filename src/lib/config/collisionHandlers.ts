@@ -1,4 +1,5 @@
 import type { Entity } from '$store/Entity.svelte';
+import { gameLoop } from '$store/GameLoop.svelte';
 
 const checkSameTarget = (projectile, other) => {
 	const { type: spawnerType } = projectile.state.context.spawner;
@@ -15,6 +16,7 @@ export const enemyCollider = (entity: Entity, other: Entity) => {
 
 	if (entity.stats.health <= 0) {
 		entity.state.setState('Die');
+		entity.addEffect('ParcticalEffect');
 	}
 };
 
@@ -24,7 +26,7 @@ export const towerCollider = (tower, other) => {
 	}
 
 	tower.stats.health -= other.stats.damage;
-
+	tower.state.setState('TakeDamage');
 	if (tower.stats.health <= 0) {
 		tower.state.setState('Die');
 	}
@@ -52,7 +54,9 @@ export const throneCollider = (entity, other) => {
 	if (other.type === 'loot' && spawner.type === 'enemy') {
 		entity.scale += 0.1;
 		entity.health += 20;
+		entity.addEffect('TowerEffectMedium');
 	}
+
 	return;
 };
 

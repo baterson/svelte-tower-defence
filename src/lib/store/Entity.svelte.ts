@@ -14,7 +14,7 @@ export class Entity {
 	height = $state(0);
 	velocity = $state<Vector2>();
 	spriteSheet = $state('');
-	effects = $state([]);
+	effects = $state<string[]>([]);
 	sprite = $state<Sprite>();
 	position = $state<Vector2>();
 	state = $state<StateMachine>();
@@ -41,7 +41,7 @@ export class Entity {
 			onCollide,
 			stats,
 			upgradeLevel,
-			effects
+			effects = []
 		},
 		context
 	) {
@@ -92,6 +92,14 @@ export class Entity {
 
 	get center(): Vector2 {
 		return new Vector2(this.position.x + this.width / 2, this.position.y + this.height / 2);
+	}
+
+	addEffect(effect: string) {
+		if (this.effects.includes(effect)) return;
+		this.effects = [...this.effects, effect];
+	}
+	removeEffect(effect: string) {
+		this.effects = this.effects.filter((e) => e !== effect);
 	}
 
 	update(deltaTime: number) {
