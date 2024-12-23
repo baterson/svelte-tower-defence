@@ -8,6 +8,8 @@ import { angleToTarget, getDirectionFromAngle } from '$utils/math';
 
 // todo: Add new State AutoAimFly
 export class Fly extends BaseState {
+	direction;
+
 	constructor(stateMachine) {
 		super(stateMachine);
 

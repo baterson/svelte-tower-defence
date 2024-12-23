@@ -1,6 +1,9 @@
 <script>
 	import { devTools } from '$store/DevTools.svelte';
 
+	import { entityManager } from '$store/EntityManager.svelte';
+	import { spendThronePower } from '$store/gameActions.svelte';
+
 	import { handleScreenChange } from '$store/States/effects';
 	import Entity from '../Entity.svelte';
 	import { gameLoop } from '$store/GameLoop.svelte';
@@ -21,8 +24,8 @@
 
 <Entity
 	bind:node
+	onclick={() => spendThronePower()}
 	entity={throne}
-	onclick={() => devTools.inspectEntity(throne)}
 	oncontextmenu={() => devTools.inspectEntity(throne)}
 	isStatic={true}
 />

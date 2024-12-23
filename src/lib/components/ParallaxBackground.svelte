@@ -64,6 +64,7 @@
 		will-change: transform;
 		transition: transform 50ms linear;
 		z-index: 1;
+		opacity: 1;
 	}
 
 	.star-layer {
@@ -76,7 +77,7 @@
 		will-change: transform;
 		transition: transform 50ms linear;
 
-		opacity: 0.5;
+		opacity: 0.7;
 
 		z-index: 2;
 	}

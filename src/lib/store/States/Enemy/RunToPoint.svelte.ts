@@ -1,6 +1,6 @@
 import { BaseState } from '../BaseState.svelte';
 import { Vector2 } from '$store/Vector2.svelte';
-import { angleToTarget, checkPointInRect, getDirectionFromAngle } from '$utils/math';
+import { angleToTarget, getDirectionFromAngle } from '$utils/math';
 
 export class RunToPoint extends BaseState {
 	private direction: Vector2;
@@ -8,22 +8,22 @@ export class RunToPoint extends BaseState {
 	constructor(stateMachine, stateContext = {}) {
 		super(stateMachine, stateContext);
 
-		const { targetPosition } = this.stateMachine.context;
+		const { targetPoint } = this.stateMachine.context;
 
-		const angle = angleToTarget(this.entity.position, targetPosition);
+		const angle = angleToTarget(this.entity.position, targetPoint);
 		this.direction = getDirectionFromAngle(angle);
 	}
 
 	update(deltaTime: number) {
-		const { targetPosition } = this.stateMachine.context;
+		const { targetPoint } = this.stateMachine.context;
 
 		const speed = this.entity.stats.speed * deltaTime;
 
 		this.entity.velocity = this.direction.multiply(speed);
 		this.entity.position = this.entity.position.add(this.entity.velocity);
-		this.entity.rotation = angleToTarget(this.entity.position, targetPosition);
+		this.entity.rotation = angleToTarget(this.entity.position, targetPoint);
 
-		if (checkPointInRect(targetPosition, this.entity.boundingBox)) {
+		if (targetPoint.y <= this.entity.position.y) {
 			this.stateMachine.setState('StunAllTowers');
 		}
 	}

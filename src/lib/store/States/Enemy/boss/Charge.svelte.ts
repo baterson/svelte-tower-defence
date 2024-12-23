@@ -1,25 +1,28 @@
 import { BaseState } from '$lib/store/States/BaseState.svelte';
 import { entityManager } from '$store/EntityManager.svelte';
+
+const chargeSpeed = 1;
+
 export class Charge extends BaseState {
-	constructor(stateMachine, context) {
+	constructor(stateMachine) {
 		super(stateMachine);
-		this.chargeSpeed = 1;
 	}
-	update(deltaTime: number, enemy: Entity) {
-		const target = entityManager.getNearestTowerLiving(this.entity.position, 'towers');
+
+	update(deltaTime: number) {
+		const target = entityManager.findNearestEntity(this.entity, entityManager.livingTowers);
 		if (!target) return;
 
-		const distance = enemy.position.distance(target.position);
+		const distance = this.entity.position.distance(target.position);
 
 		if (distance <= 15) {
 			this.stateMachine.setState('MeleAttack');
 			return;
 		}
 
-		const direction = target.position.subtract(enemy.position).normalize();
-		enemy.position.x += direction.x * this.chargeSpeed * deltaTime;
-		enemy.position.y += direction.y * this.chargeSpeed * deltaTime;
+		const direction = target.position.subtract(this.entity.position).normalize();
+		this.entity.position.x += direction.x * chargeSpeed * deltaTime;
+		this.entity.position.y += direction.y * chargeSpeed * deltaTime;
 
-		enemy.rotation = Math.atan2(direction.y, direction.x);
+		this.entity.rotation = Math.atan2(direction.y, direction.x);
 	}
 }

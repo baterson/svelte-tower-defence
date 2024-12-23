@@ -1,8 +1,6 @@
-import { screen } from '$lib/store/Screen.svelte';
-
 export class Background {
 	base = $state('/background/BlueNebula/Blue_Nebula_01.png');
-	stars = $state('/background/Starfields/Starfield_01.png');
+	stars = $state('/Star_background.png');
 
 	baseLayer1Position = $state(0);
 	baseLayer2Position = $state(0);
@@ -15,7 +13,7 @@ export class Background {
 
 	constructor() {
 		this.setBase('/background/BlueNebula/Blue_Nebula_01.png');
-		this.setStars('/background/Starfields/Starfield_01.png');
+		this.setStars('/Star_background.png');
 		this.setSpeed(0.5);
 	}
 

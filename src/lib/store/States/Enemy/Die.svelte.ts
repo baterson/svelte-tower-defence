@@ -5,6 +5,7 @@
 
 import { BaseState } from '$lib/store/States/BaseState.svelte';
 import { entityManager } from '$store/EntityManager.svelte';
+import { stageManager } from '$store/StageManager.svelte';
 
 export class Die extends BaseState {
 	constructor(stateMachine) {
@@ -19,10 +20,11 @@ export class Die extends BaseState {
 		if (this.entity.sprite.isAnimationComplete) {
 			entityManager.destroy(this.entity.id);
 
-			if (Math.random() > 0.5) entityManager.spawnLoot('loot', this.entity, entityManager.throne);
-
-			if (Math.random() > 0.5) {
-				entityManager.spawnLoot('loot', this.entity, entityManager.throne);
+			if (1) {
+				stageManager.spawnEntity('loot', this.entity.position.clone(), {
+					target: entityManager.throne,
+					spawner: this.entity
+				});
 			}
 		}
 	}
