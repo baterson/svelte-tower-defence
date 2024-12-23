@@ -1,3 +1,5 @@
+import { uiManager } from './UIManager.svelte';
+
 const MS_PER_UPDATE = 16.666;
 
 export class GameLoop {
@@ -67,7 +69,7 @@ export class GameLoop {
 
 	isCDReady(cooldownId: string): boolean {
 		const cd = this.cooldowns[cooldownId];
-		if (!cd) return false;
+		if (!cd || this.pauseState) return false;
 
 		const elapsedCD = this.elapsedTime - cd.startTime;
 
@@ -89,7 +91,7 @@ export class GameLoop {
 
 	pause() {
 		if (!this.pauseState) {
-			this.pauseState = { pausedTime: performance.now() };
+			this.pauseState = { pausedTime: this.elapsedTime };
 		} else {
 			this.resume();
 		}
@@ -98,19 +100,9 @@ export class GameLoop {
 	resume() {
 		if (!this.pauseState) return;
 
-		const { pausedTime } = this.pauseState;
+		const currentTime = performance.now();
 
-		const pauseDuration = this.elapsedTime - pausedTime;
-		this.previousTime = performance.now();
-
-		Object.keys(this.cooldowns).forEach((id) => {
-			const cd = this.cooldowns[id];
-
-			this.cooldowns[id] = {
-				...cd,
-				startTime: cd.startTime + pauseDuration
-			};
-		});
+		this.previousTime = currentTime;
 
 		this.pauseState = null;
 	}

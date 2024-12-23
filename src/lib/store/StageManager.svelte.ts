@@ -1,20 +1,8 @@
+import { stages } from '$lib/config/stages';
 import { initEntity } from '$lib/store/entityFabric';
 import { entityManager } from './EntityManager.svelte';
 import { gameLoop } from './GameLoop.svelte';
 import { Vector2 } from './Vector2.svelte';
-
-const stageConfig = [
-	{
-		commonEnemies: ['enemy1', 'enemy3'],
-		eliteEnemies: ['stunner'],
-		time: 4000
-	},
-	{
-		commonEnemies: ['enemy5', 'enemy2'],
-		eliteEnemies: ['stunner'],
-		time: 10000
-	}
-];
 
 const spawnAreas = [70, 100, 130, 160, 190, 220, 250, 280, 310, 340];
 
@@ -28,13 +16,13 @@ const pickRandomEnemy = (enemies: string[]) => {
 
 export class StageManager {
 	stageNumber = $state(0);
-	stageConfig = $derived(stageConfig[this.stageNumber]);
+	stageConfig = $derived(stages[this.stageNumber]);
 	commonSpawnCd;
 	eliteSpawnCd;
 
 	constructor() {
 		this.commonSpawnCd = gameLoop.setCD(400, true);
-		this.eliteSpawnCd = gameLoop.setCD(1000, false);
+		this.eliteSpawnCd = gameLoop.setCD(2000, false);
 
 		this.spawnTowers();
 		this.spawnEntity('throne', new Vector2(200, 200));
@@ -84,7 +72,7 @@ export class StageManager {
 	}
 
 	nextStage() {
-		if (this.stageNumber < stageConfig.length - 1) {
+		if (this.stageNumber < stages.length - 1) {
 			this.stageNumber += 1;
 		}
 	}

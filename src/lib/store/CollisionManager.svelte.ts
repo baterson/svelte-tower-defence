@@ -7,12 +7,12 @@ export class CollisionManager {
 	update() {
 		// Handle tower projectiles vs nearest enemies
 		this.handleProjectileCollisions(
-			[...entityManager.filterProjectiles('tower'), ...entityManager.filterProjectiles('throne')],
+			[...entityManager.filterByOwnerType('tower'), ...entityManager.filterByOwnerType('throne')],
 			entityManager.livingEnemies
 		);
 
 		// Handle enemy projectiles vs towers and throne
-		this.handleProjectileCollisions(entityManager.filterProjectiles('enemy'), [
+		this.handleProjectileCollisions(entityManager.filterByOwnerType('enemy'), [
 			...entityManager.livingTowers,
 			entityManager.livingThrone
 		]);

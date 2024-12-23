@@ -1,4 +1,5 @@
 <script>
+	import { uiManager } from '$store/UIManager.svelte';
 	import Effect from './Effect.svelte';
 	// todo: pass in/out transitions
 	let {
@@ -28,6 +29,8 @@
 	{onclick}
 	{oncontextmenu}
 	bind:this={node}
+	class:highlighted={uiManager.highlightedEntity &&
+		uiManager.highlightedEntity?.name === entity.name}
 	style:width={`${entity.width}px`}
 	style:height={`${entity.height}px`}
 	style:transform={`rotate(${entity.rotation}deg) scale(${entity.stats.scale})`}
@@ -44,5 +47,27 @@
 		position: relative;
 		background-position: center;
 		z-index: 10;
+	}
+
+	.highlighted {
+		z-index: 1003;
+		animation: highlight 1.5s ease-in-out infinite;
+		outline: 3px solid #ffeb3b;
+		outline-offset: 2px;
+	}
+
+	@keyframes highlight {
+		0% {
+			outline-color: rgba(255, 235, 59, 0.8);
+			outline-offset: 2px;
+		}
+		50% {
+			outline-color: rgba(255, 235, 59, 0.3);
+			outline-offset: 4px;
+		}
+		100% {
+			outline-color: rgba(255, 235, 59, 0.8);
+			outline-offset: 2px;
+		}
 	}
 </style>

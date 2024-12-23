@@ -26,8 +26,17 @@ export class EntityManager {
 		this.entities.forEach((entity) => entity.update(deltaTime));
 	};
 
-	filterProjectiles(ownerType: string): Entity[] {
+	filterByOwnerType(ownerType: string): Entity[] {
 		return this.livingProjectiles.filter((p) => p.state?.context?.spawner?.type === ownerType);
+	}
+
+	filterByName(name: string | string[]): Entity[] {
+		return this.entities.filter((entity) => {
+			if (Array.isArray(name)) {
+				return name.includes(entity.name);
+			}
+			return entity.name === name;
+		});
 	}
 
 	findNearestEntity(source: Entity, targets: Entity[]): Entity | undefined {
@@ -46,6 +55,10 @@ export class EntityManager {
 
 	destroy = (entityId: number) => {
 		this.entities = this.entities.filter((entity) => entity.id !== entityId);
+	};
+
+	getByName = (name: string): Entity | undefined => {
+		return this.entities.find((entity) => entity.name === name);
 	};
 
 	getById = (entityId: number): Entity | undefined => {

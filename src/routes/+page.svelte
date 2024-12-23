@@ -6,6 +6,8 @@
 	import ParallaxBackground from '$components/ParallaxBackground.svelte';
 	import DevTools from '$components/DevTools.svelte';
 	import { stageManager } from '$store/StageManager.svelte';
+	import Dialog from '$components/Dialog.svelte';
+	import BackDrop from '$components/BackDrop.svelte';
 
 	onMount(() => {
 		const game = new Game();
@@ -18,6 +20,9 @@
 
 <DevTools />
 <ParallaxBackground />
+<Dialog />
+<BackDrop />
+
 <div class="wrapper">
 	<div class="time">Stage {stageManager.stageNumber + 1}</div>
 	<div
