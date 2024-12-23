@@ -28,6 +28,7 @@ type Stats = {
 	attackSpeed?: number;
 	scale?: number;
 	projectileNumber?: number;
+	projectileType?: string;
 };
 
 export interface EntityConfig {
@@ -141,7 +142,7 @@ const entities: Record<string, EntityConfig> = {
 		type: 'projectile',
 		width: 18,
 		height: 18,
-		effects: ['Effect1'],
+		effects: ['FireBall'],
 		initialState: 'Fly',
 		states: ['Fly', 'Hit'],
 		stats: {
@@ -155,7 +156,7 @@ const entities: Record<string, EntityConfig> = {
 		type: 'projectile',
 		width: 18,
 		height: 18,
-		effects: ['Effect2'],
+		effects: ['FrostBall'],
 		initialState: 'Fly',
 		states: ['Fly', 'Hit'],
 		stats: {
@@ -170,7 +171,23 @@ const entities: Record<string, EntityConfig> = {
 
 		width: 24,
 		height: 24,
-		effects: ['Effect6'],
+		effects: ['RockBall'],
+
+		initialState: 'Fly',
+		states: ['Fly', 'Hit'],
+		stats: {
+			health: 1,
+			speed: 0.5,
+			damage: 100
+		},
+		onCollide: projectileCollider
+	},
+	projectile4: {
+		type: 'projectile',
+
+		width: 24,
+		height: 24,
+		effects: ['WindBall'],
 
 		initialState: 'Fly',
 		states: ['Fly', 'Hit'],
@@ -187,7 +204,7 @@ const entities: Record<string, EntityConfig> = {
 		width: 24,
 		height: 24,
 
-		effects: ['Effect5'],
+		effects: ['Effect1'],
 
 		initialState: 'Fly',
 		states: ['Fly', 'Hit'],
@@ -251,7 +268,7 @@ const entities: Record<string, EntityConfig> = {
 		width: 30,
 		height: 40,
 		initialState: 'StunAllTowers',
-		effects: ['ParcticalEffect'],
+		effects: [],
 		states: ['RunToPoint', 'StunAllTowers'],
 		sprites: [sprites.enemy1],
 		context: {
@@ -296,7 +313,8 @@ const entities: Record<string, EntityConfig> = {
 			attackSpeed: 1000,
 			damage: 20,
 			projectileNumber: 1,
-			scale: 1.2
+			scale: 1.2,
+			projectileType: 'projectile1'
 		},
 		onCollide: towerCollider,
 		upgrades: fireTowerUpgrades
@@ -316,7 +334,8 @@ const entities: Record<string, EntityConfig> = {
 			attackSpeed: 800,
 			damage: 20,
 			projectileNumber: 1,
-			scale: 1.2
+			scale: 1.2,
+			projectileType: 'projectile4'
 		},
 		onCollide: towerCollider,
 		upgrades: windTowerUpgrades
@@ -336,7 +355,8 @@ const entities: Record<string, EntityConfig> = {
 			attackSpeed: 800,
 			damage: 20,
 			projectileNumber: 1,
-			scale: 1.2
+			scale: 1.2,
+			projectileType: 'projectile3'
 		},
 		onCollide: towerCollider,
 		upgrades: earthTowerUpgrades
@@ -356,7 +376,8 @@ const entities: Record<string, EntityConfig> = {
 			attackSpeed: 800,
 			damage: 20,
 			projectileNumber: 1,
-			scale: 1.2
+			scale: 1.2,
+			projectileType: 'projectile2'
 		},
 		onCollide: towerCollider,
 		upgrades: iceTowerUpgrades

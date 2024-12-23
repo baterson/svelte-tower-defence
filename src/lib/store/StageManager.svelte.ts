@@ -33,7 +33,7 @@ export class StageManager {
 	eliteSpawnCd;
 
 	constructor() {
-		this.commonSpawnCd = gameLoop.setCD(400, true);
+		this.commonSpawnCd = gameLoop.setCD(1000, true);
 		this.eliteSpawnCd = gameLoop.setCD(1000, false);
 
 		this.spawnTowers();

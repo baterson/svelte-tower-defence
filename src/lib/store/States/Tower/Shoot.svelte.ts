@@ -14,14 +14,14 @@ export class Shoot extends BaseState {
 
 	shoot() {
 		const { spawner, target } = this.stateMachine.context;
-
+		const projectileType = spawner.stats.projectileType;
 		for (let i = 0; i < this.entity.stats.projectileNumber; i++) {
 			let targetPoint;
 			if (i > 0) {
 				targetPoint = target.position.clone().add({ x: 100 * i, y: 100 * i });
 			}
 
-			stageManager.spawnEntity('projectile3', spawner.position.clone(), {
+			stageManager.spawnEntity(projectileType, spawner.position.clone(), {
 				spawner,
 				target,
 				targetPoint

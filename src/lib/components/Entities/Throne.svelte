@@ -13,13 +13,6 @@
 	let node = $state();
 
 	$effect(() => handleScreenChange(node, throne));
-
-	const cdEffectId = gameLoop.setCD(1000, true);
-	$effect(() => {
-		if (gameLoop.isCDReady(cdEffectId)) {
-			throne.removeEffect('TowerEffectMedium');
-		}
-	});
 </script>
 
 <Entity

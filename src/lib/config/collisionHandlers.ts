@@ -14,9 +14,25 @@ export const enemyCollider = (entity: Entity, other: Entity) => {
 
 	entity.stats.health -= other.stats.damage;
 
+	if (other.type === 'projectile') {
+		const projectileType = other.name;
+		switch (projectileType) {
+			case 'projectile1':
+				entity.addEffect('FireEffect');
+				break;
+			case 'projectile2':
+				entity.addEffect('IceEffect');
+				break;
+			case 'projectile3':
+				entity.addEffect('RockEffect');
+				break;
+			case 'projectile4':
+				entity.addEffect('WindEffect');
+				break;
+		}
+	}
 	if (entity.stats.health <= 0) {
 		entity.state.setState('Die');
-		entity.addEffect('ParcticalEffect');
 	}
 };
 
@@ -26,7 +42,7 @@ export const towerCollider = (tower, other) => {
 	}
 
 	tower.stats.health -= other.stats.damage;
-	tower.state.setState('TakeDamage');
+	tower.addEffect('TakeDamage');
 	if (tower.stats.health <= 0) {
 		tower.state.setState('Die');
 	}
