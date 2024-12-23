@@ -1,11 +1,12 @@
 <script>
-	import { fade } from 'svelte/transition';
 	const { entity } = $props();
 </script>
 
 <div
+	onanimationend={() => {
+		entity.removeEffect('TowerEffectRingHigh');
+	}}
 	class="planet-rings"
-	transition:fade
 	style:width={`${entity.width}px`}
 	style:height={`${entity.height}px`}
 	style:left={`-2px`}
@@ -29,7 +30,7 @@
 		height: 130%;
 		border-radius: 50%;
 		border: 2px solid transparent;
-		animation: rotateRing 8s linear infinite;
+		animation: rotateRing 0.3s linear;
 	}
 
 	.ring1 {

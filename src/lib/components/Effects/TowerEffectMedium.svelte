@@ -14,6 +14,14 @@
 </script>
 
 <div
+	ontransitionend={() => {
+		console.log('ANim end');
+	}}
+	onanimationend={() => {
+		console.log('REMOV....');
+
+		entity.removeEffect('TowerEffectMedium');
+	}}
 	class="lightning-corona"
 	transition:fade
 	style:width={`${entity.width}px`}
