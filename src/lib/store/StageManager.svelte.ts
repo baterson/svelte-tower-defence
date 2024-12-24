@@ -21,7 +21,7 @@ export class StageManager {
 	eliteSpawnCd;
 
 	constructor() {
-		this.commonSpawnCd = gameLoop.setCD(400, true);
+		this.commonSpawnCd = gameLoop.setCD(2000, true);
 		this.eliteSpawnCd = gameLoop.setCD(2000, false);
 
 		this.spawnTowers();
@@ -33,7 +33,7 @@ export class StageManager {
 			this.spawnCommonEnemy();
 		}
 		if (gameLoop.isCDReady(this.eliteSpawnCd)) {
-			this.spawnEliteEnemy();
+			// this.spawnEliteEnemy();
 		}
 
 		this.checkStageTime();

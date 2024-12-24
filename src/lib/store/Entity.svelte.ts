@@ -3,9 +3,7 @@ import { Vector2 } from '$store/Vector2.svelte';
 import { StateMachine } from '$store/StateMachine.svelte';
 
 export class Entity {
-	static lastId = 0;
-
-	id = $state(Entity.lastId++);
+	id;
 	name = $state('');
 	type = $state('');
 	width = $state(0);
@@ -47,6 +45,7 @@ export class Entity {
 		context
 	) {
 		// Entity stats
+		this.id = crypto.randomUUID();
 		this.name = name;
 		this.type = type;
 		this.width = width;

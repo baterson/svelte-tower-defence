@@ -1,14 +1,12 @@
 <script>
 	// Import the custom transition function
-	import { neonLightTransition } from '../transitions.js';
+	// import { neonLightTransition } from '../transitions.js';
 
 	const { entity } = $props();
 </script>
 
 <div
 	class="circle"
-	in:neonLightTransition={{ duration: 300 }}
-	out:neonLightTransition={{ duration: 300 }}
 	style:width={`${entity.width + 10}px`}
 	style:height={`${entity.height + 10}px`}
 	style:left={`20px`}

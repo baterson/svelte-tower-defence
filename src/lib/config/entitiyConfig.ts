@@ -52,7 +52,8 @@ const entities: Record<string, EntityConfig> = {
 		initialState: 'Run',
 
 		states: ['Run', 'Shoot', 'Die'],
-		sprites: [sprites.enemy1],
+		// sprites: [sprites.enemy1],
+		effects: ['EssenseLoot'],
 
 		stats: {
 			health: 1,
@@ -65,10 +66,10 @@ const entities: Record<string, EntityConfig> = {
 		type: 'enemy',
 		width: 30,
 		height: 40,
-		spriteSheet: '/2nd_enemy_run.png',
 		initialState: 'Run',
 		states: ['Run', 'Shoot', 'Die'],
-		sprites: [sprites.enemy2],
+		effects: ['EssenseLoot'],
+		// sprites: [sprites.enemy2],
 		stats: {
 			health: 1,
 			speed: 0.07,
@@ -80,10 +81,10 @@ const entities: Record<string, EntityConfig> = {
 		type: 'enemy',
 		width: 30,
 		height: 40,
-		spriteSheet: '/3rd_enemy_run.png',
 		initialState: 'Run',
 		states: ['Run', 'Shoot', 'Die'],
-		sprites: [sprites.enemy3],
+		effects: ['EssenseLoot'],
+		// sprites: [sprites.enemy3],
 		stats: {
 			health: 10,
 			speed: 0.09,
@@ -95,10 +96,10 @@ const entities: Record<string, EntityConfig> = {
 		type: 'enemy',
 		width: 30,
 		height: 64,
-		spriteSheet: '/4rd_flying_enemy.png',
 		initialState: 'Fly',
 		states: ['Fly', 'Shoot', 'Die'],
-		sprites: [sprites.enemy4],
+		effects: ['EssenseLoot'],
+		// sprites: [sprites.enemy4],
 		stats: {
 			health: 10,
 			speed: 0.09,
@@ -168,8 +169,8 @@ const entities: Record<string, EntityConfig> = {
 	projectile3: {
 		type: 'projectile',
 
-		width: 24,
-		height: 24,
+		width: 12,
+		height: 12,
 		effects: ['Effect6'],
 
 		initialState: 'Fly',
@@ -251,7 +252,7 @@ const entities: Record<string, EntityConfig> = {
 		width: 30,
 		height: 40,
 		initialState: 'StunAllTowers',
-		effects: ['ParcticalEffect'],
+		// effects: ['ParcticalEffect'],
 		states: ['RunToPoint', 'StunAllTowers'],
 		sprites: [sprites.enemy1],
 		context: {
@@ -295,7 +296,7 @@ const entities: Record<string, EntityConfig> = {
 			attackRange: Infinity,
 			attackSpeed: 1000,
 			damage: 20,
-			projectileNumber: 1,
+			projectileNumber: 3,
 			scale: 1.2
 		},
 		onCollide: towerCollider,
@@ -313,7 +314,7 @@ const entities: Record<string, EntityConfig> = {
 		stats: {
 			health: 50,
 			attackRange: Infinity,
-			attackSpeed: 800,
+			attackSpeed: 1000,
 			damage: 20,
 			projectileNumber: 1,
 			scale: 1.2
@@ -333,7 +334,7 @@ const entities: Record<string, EntityConfig> = {
 		stats: {
 			health: 50,
 			attackRange: Infinity,
-			attackSpeed: 800,
+			attackSpeed: 1000,
 			damage: 20,
 			projectileNumber: 1,
 			scale: 1.2
@@ -353,7 +354,7 @@ const entities: Record<string, EntityConfig> = {
 		stats: {
 			health: 50,
 			attackRange: Infinity,
-			attackSpeed: 800,
+			attackSpeed: 1000,
 			damage: 20,
 			projectileNumber: 1,
 			scale: 1.2

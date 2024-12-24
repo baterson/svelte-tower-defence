@@ -53,7 +53,7 @@ export const sprites = {
 					[-19, -15],
 					[-274, -15]
 				],
-				frameRate: 20
+				frameRate: 30
 			},
 			{
 				name: 'StunAllTowers',
@@ -126,7 +126,7 @@ export const sprites = {
 					[-19, -15],
 					[-274, -15]
 				],
-				frameRate: 20
+				frameRate: 30
 			}
 		]
 	},
@@ -169,7 +169,7 @@ export const sprites = {
 					[-19, -15],
 					[-274, -15]
 				],
-				frameRate: 10
+				frameRate: 30
 			}
 		]
 	},
@@ -212,7 +212,7 @@ export const sprites = {
 					[-19, -15],
 					[-274, -15]
 				],
-				frameRate: 20
+				frameRate: 30
 			}
 		]
 	},
@@ -255,7 +255,7 @@ export const sprites = {
 					[-19, -15],
 					[-274, -15]
 				],
-				frameRate: 20
+				frameRate: 30
 			}
 		]
 	},

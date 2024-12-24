@@ -16,7 +16,7 @@ export const enemyCollider = (entity: Entity, other: Entity) => {
 
 	if (entity.stats.health <= 0) {
 		entity.state.setState('Die');
-		entity.addEffect('ParcticalEffect');
+		// entity.addEffect('ParcticalEffect');
 	}
 };
 

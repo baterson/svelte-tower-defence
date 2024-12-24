@@ -2,26 +2,19 @@
 	import { uiManager } from '$store/UIManager.svelte';
 	import Effect from './Effect.svelte';
 	// todo: pass in/out transitions
-	let {
-		entity,
-		onclick,
-		oncontextmenu,
-		node = $bindable(),
-		isStatic = false,
-		placementStyles = ''
-	} = $props();
+	let { entity, onclick, oncontextmenu, node = $bindable(), isStatic = false } = $props();
 
-	const positionStyles = $derived(
-		isStatic
-			? placementStyles
-			: `position: absolute; left: ${entity.position.x}px; top: ${entity.position.y}px;`
-	);
+	// const positionStyles = $derived(
+	// 	isStatic
+	// 		? placementStyles
+	// 		: `position: absolute; left: ${entity.position.x}px; top: ${entity.position.y}px;`
+	// );
 
-	const bgStyles = $derived(
-		entity.sprite
-			? `background: url(${entity.sprite.spritesheet}) no-repeat ${entity.sprite.currentFrame[0]}px ${entity.sprite.currentFrame[1]}px;`
-			: ''
-	);
+	// const bgStyles = $derived(
+	// 	entity.sprite
+	// 		? `background: url(${entity.sprite.spritesheet}) no-repeat ${entity.sprite.currentFrame[0]}px ${entity.sprite.currentFrame[1]}px;`
+	// 		: ''
+	// );
 </script>
 
 <!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions (because of reasons) -->
@@ -35,7 +28,12 @@
 	style:height={`${entity.height}px`}
 	style:transform={`rotate(${entity.rotation}deg) scale(${entity.stats.scale})`}
 	style:transform-origin={'center'}
-	style={`${positionStyles}; ${bgStyles}`}
+	style:background={entity.sprite
+		? `url(${entity.sprite.spritesheet}) no-repeat ${entity.sprite.currentFrame[0]}px ${entity.sprite.currentFrame[1]}px`
+		: ''}
+	style:position={isStatic ? 'relative' : 'absolute'}
+	style:top={isStatic ? 'auto' : `${entity.position.y}px`}
+	style:left={isStatic ? 'auto' : `${entity.position.x}px`}
 >
 	{#each entity.effects as effect (effect)}
 		<Effect name={effect} {entity} />
@@ -44,9 +42,13 @@
 
 <style>
 	div {
-		position: relative;
 		background-position: center;
 		z-index: 10;
+
+		place-self: var(--place-self);
+		position: var(--position);
+		margin-left: var(--margin-left);
+		margin-right: var(--margin-right);
 	}
 
 	.highlighted {
