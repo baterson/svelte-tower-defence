@@ -19,11 +19,13 @@
 
 <svelte:window bind:innerWidth={screen.width} bind:innerHeight={screen.height} />
 
-<EffectsDevTool />
 <!-- <DevTools /> -->
-<!-- <ParallaxBackground />
+<!--
 <Dialog />
 <BackDrop /> -->
+<!-- <ParallaxBackground /> -->
+
+<EffectsDevTool />
 
 <div class="wrapper">
 	<div class="time">Stage {stageManager.stageNumber + 1}</div>

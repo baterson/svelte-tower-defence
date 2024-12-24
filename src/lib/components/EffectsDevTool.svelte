@@ -7,8 +7,10 @@
 	import { Vector2 } from '$store/Vector2.svelte';
 	import { Sprite } from '$store/Sprite.svelte';
 	import { stageManager } from '$store/StageManager.svelte';
+	import ParallaxBackground from './ParallaxBackground.svelte';
 
 	let debug = $derived(entityManager.entities.find((entity) => entity.type === 'debug'));
+	let parallaxBackground = $state(false);
 
 	const handleClick = (e) => {
 		debug.state.setState('RunToPoint', {
@@ -67,6 +69,9 @@
 				</option>
 			{/each}
 		</select>
+		<button onclick={() => (parallaxBackground = !parallaxBackground)}>
+			{parallaxBackground ? 'Hide background' : 'Show background'}
+		</button>
 	</div>
 	<div class="controls" onclick={(e) => e.stopPropagation()}>
 		<label>
@@ -123,6 +128,10 @@
 	{#if debug}
 		<Entity entity={debug} />
 	{/if}
+
+	{#if parallaxBackground}
+		<ParallaxBackground />
+	{/if}
 </div>
 
 <style>
@@ -161,7 +170,7 @@
 	}
 	div {
 		position: relative;
-		z-index: 1000;
+		z-index: 1;
 		width: 100dvw;
 		height: 100dvh;
 	}
