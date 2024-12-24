@@ -1,4 +1,3 @@
-export { default as BlinkingStar } from './BlinkingStar.svelte';
 export { default as Effect1 } from './Effect1.svelte';
 export { default as Effect2 } from './Effect2.svelte';
 export { default as Effect3 } from './Effect3.svelte';

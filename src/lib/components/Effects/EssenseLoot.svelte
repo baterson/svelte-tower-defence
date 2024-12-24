@@ -1,59 +1,52 @@
 <script>
-	import { entityManager } from '$store/EntityManager.svelte';
 	let { entity } = $props();
 
-	const { target } = entity.state.context;
+	function blobTransition(node, { duration = 2000, delay = 0 }) {
+		return {
+			delay,
+			duration,
+			css: (t) => {
+				const scale = 0.8 + Math.sin(t * Math.PI * 2) * 0.2;
+				return `
+					transform: scale(${scale});
+				`;
+			}
+		};
+	}
 </script>
 
-<!-- svelte-ignore element_invalid_self_closing_tag a11y_click_events_have_key_events, a11y_no_static_element_interactions (because of reasons) -->
 <div
-	class="essence css-essence"
-	style:--start-x="{entity.position.x}px"
-	style:--start-y="{entity.position.y}px"
-	style:--end-x="{entityManager.throne.position.x}px"
-	style:--end-y="{entityManager.throne.position.y}px"
+	class="essence"
+	style:left={0}
+	style:top={0}
+	style:width="{entity.width}px"
+	style:height="{entity.height}px"
+	transition:blobTransition
 />
 
 <style>
 	.essence {
 		position: absolute;
-		width: 20px;
-		height: 20px;
 		border-radius: 50%;
 		background: radial-gradient(
 			circle at 30% 30%,
 			rgba(255, 255, 255, 0.8),
-			rgba(123, 200, 255, 0.6) 40%,
-			rgba(80, 150, 255, 0.4) 70%
+			rgba(123, 200, 255, 0.9) 40%,
+			rgba(202, 0, 220) 70%
 		);
 		pointer-events: none;
-		filter: blur(1px);
+		filter: blur(2px);
 		box-shadow: 0 0 15px rgba(123, 200, 255, 0.4);
+		animation: blob 3s ease-in-out infinite;
 	}
 
-	.css-essence {
-		animation:
-			float ease-in-out infinite alternate,
-			move-to-target 1s ease-in-out forwards infinite;
-	}
-
-	@keyframes float {
-		from {
-			transform: translate(var(--start-x), var(--start-y)) scale(1);
-		}
-		to {
-			transform: translate(var(--start-x), calc(var(--start-y) - 10px)) scale(1.1);
-		}
-	}
-
-	@keyframes move-to-target {
-		0% {
-			transform: translate(var(--start-x), var(--start-y)) scale(1);
-			opacity: 1;
-		}
+	@keyframes blob {
+		0%,
 		100% {
-			transform: translate(var(--end-x), var(--end-y)) scale(0.2);
-			opacity: 0;
+			border-radius: 50%;
+		}
+		50% {
+			border-radius: 60% 40% 40% 60% / 50% 50% 50% 50%;
 		}
 	}
 </style>

@@ -14,18 +14,16 @@ export class Die extends BaseState {
 		stateMachine.owner.stopInteractions();
 	}
 
-	update(deltaTime: number, enemy: Entity) {
+	update() {
 		this.entity.rotation += 10;
 
 		if (this.entity.sprite.isAnimationComplete) {
 			entityManager.destroy(this.entity.id);
 
-			if (1) {
-				stageManager.spawnEntity('loot', this.entity.position.clone(), {
-					target: entityManager.throne,
-					spawner: this.entity
-				});
-			}
+			stageManager.spawnEntity('loot', this.entity.position.clone(), {
+				target: entityManager.throne,
+				spawner: this.entity
+			});
 		}
 	}
 }

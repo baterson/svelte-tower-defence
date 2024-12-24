@@ -21,11 +21,10 @@ export class StageManager {
 	eliteSpawnCd;
 
 	constructor() {
-		this.commonSpawnCd = gameLoop.setCD(2000, true);
-		this.eliteSpawnCd = gameLoop.setCD(2000, false);
-
-		this.spawnTowers();
-		this.spawnEntity('throne', new Vector2(200, 200));
+		// this.commonSpawnCd = gameLoop.setCD(2000, true);
+		// this.eliteSpawnCd = gameLoop.setCD(2000, false);
+		// this.spawnTowers();
+		// this.spawnEntity('throne', new Vector2(200, 200));
 	}
 
 	update = (deltaTime: number) => {

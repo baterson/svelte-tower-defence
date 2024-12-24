@@ -52,8 +52,7 @@ const entities: Record<string, EntityConfig> = {
 		initialState: 'Run',
 
 		states: ['Run', 'Shoot', 'Die'],
-		// sprites: [sprites.enemy1],
-		effects: ['EssenseLoot'],
+		sprites: [sprites.enemy1],
 
 		stats: {
 			health: 1,
@@ -68,8 +67,7 @@ const entities: Record<string, EntityConfig> = {
 		height: 40,
 		initialState: 'Run',
 		states: ['Run', 'Shoot', 'Die'],
-		effects: ['EssenseLoot'],
-		// sprites: [sprites.enemy2],
+		sprites: [sprites.enemy2],
 		stats: {
 			health: 1,
 			speed: 0.07,
@@ -83,8 +81,7 @@ const entities: Record<string, EntityConfig> = {
 		height: 40,
 		initialState: 'Run',
 		states: ['Run', 'Shoot', 'Die'],
-		effects: ['EssenseLoot'],
-		// sprites: [sprites.enemy3],
+		sprites: [sprites.enemy3],
 		stats: {
 			health: 10,
 			speed: 0.09,
@@ -98,8 +95,7 @@ const entities: Record<string, EntityConfig> = {
 		height: 64,
 		initialState: 'Fly',
 		states: ['Fly', 'Shoot', 'Die'],
-		effects: ['EssenseLoot'],
-		// sprites: [sprites.enemy4],
+		sprites: [sprites.enemy4],
 		stats: {
 			health: 10,
 			speed: 0.09,
@@ -208,7 +204,7 @@ const entities: Record<string, EntityConfig> = {
 		stats: {
 			health: 100,
 			damage: 999,
-			speed: 0
+			speed: 0.3
 		},
 		states: ['Idle'],
 		sprites: [sprites.enemy1],
@@ -361,6 +357,18 @@ const entities: Record<string, EntityConfig> = {
 		},
 		onCollide: towerCollider,
 		upgrades: iceTowerUpgrades
+	},
+	debug: {
+		type: 'debug',
+		width: 30,
+		height: 40,
+		states: ['Idle', 'RunToPoint'],
+		initialState: 'Idle',
+		stats: {
+			health: 9999,
+			damage: 2,
+			speed: 0.2
+		}
 	}
 };
 

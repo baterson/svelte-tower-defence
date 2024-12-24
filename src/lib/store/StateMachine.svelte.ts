@@ -20,8 +20,6 @@ export class StateMachine {
 	}
 
 	setState(name, stateContext = {}) {
-		if (name === this.currentState.name) return;
-
 		this.onEnter(name);
 		this.context = { ...this.context, ...stateContext };
 		this.currentState = initState(this, this.owner.type, name, stateContext);

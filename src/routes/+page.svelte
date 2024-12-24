@@ -5,6 +5,7 @@
 	import { screen } from '$lib/store/Screen.svelte';
 	import ParallaxBackground from '$components/ParallaxBackground.svelte';
 	import DevTools from '$components/DevTools.svelte';
+	import EffectsDevTool from '$components/EffectsDevTool.svelte';
 	import { stageManager } from '$store/StageManager.svelte';
 	import Dialog from '$components/Dialog.svelte';
 	import BackDrop from '$components/BackDrop.svelte';
@@ -18,10 +19,11 @@
 
 <svelte:window bind:innerWidth={screen.width} bind:innerHeight={screen.height} />
 
+<EffectsDevTool />
 <!-- <DevTools /> -->
-<ParallaxBackground />
+<!-- <ParallaxBackground />
 <Dialog />
-<BackDrop />
+<BackDrop /> -->
 
 <div class="wrapper">
 	<div class="time">Stage {stageManager.stageNumber + 1}</div>
@@ -31,7 +33,7 @@
 		class="game-container"
 		style:transform-origin="center"
 	>
-		<GameArea />
+		<!-- <GameArea /> -->
 	</div>
 </div>
 
