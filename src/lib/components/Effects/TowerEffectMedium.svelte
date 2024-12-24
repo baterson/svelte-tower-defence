@@ -8,18 +8,12 @@
 		const interval = setInterval(() => {
 			intensity = 0.6 + Math.random() * 0.4;
 		}, 50);
-
 		return () => clearInterval(interval);
 	});
 </script>
 
 <div
-	ontransitionend={() => {
-		console.log('ANim end');
-	}}
 	onanimationend={() => {
-		console.log('REMOV....');
-
 		entity.removeEffect('TowerEffectMedium');
 	}}
 	class="lightning-corona"
@@ -57,7 +51,7 @@
 			transparent 300deg
 		);
 		filter: blur(8px);
-		animation: rotateLightning 3s linear infinite;
+		animation: rotateLightning 1s linear;
 	}
 
 	.corona {

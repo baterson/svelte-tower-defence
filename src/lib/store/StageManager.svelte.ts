@@ -21,8 +21,8 @@ export class StageManager {
 	eliteSpawnCd;
 
 	constructor() {
-		this.commonSpawnCd = gameLoop.setCD(400, true);
-		this.eliteSpawnCd = gameLoop.setCD(2000, false);
+		this.commonSpawnCd = gameLoop.setCD(1000, true);
+		this.eliteSpawnCd = gameLoop.setCD(1000, false);
 
 		this.spawnTowers();
 		this.spawnEntity('throne', new Vector2(200, 200));

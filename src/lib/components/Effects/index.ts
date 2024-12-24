@@ -13,6 +13,15 @@ export { default as Effect5 } from './Effect5.svelte';
 export { default as Effect6 } from './Effect6.svelte';
 
 export { default as EssenseLoot } from './EssenseLoot.svelte';
-export { default as TakeDamage } from './TakeDamage.svelte';
 
 export { default as ThronePowerProjectile } from './ThronePowerProjectile.svelte';
+export { default as TakeDamage } from '../OneTimeEffects/TakeDamage.svelte';
+export { default as ShakeEffect } from '../OneTimeEffects/ShakeEffect.svelte';
+export { default as FireEffect } from './FireEffect.svelte';
+export { default as IceEffect } from './IceEffect.svelte';
+export { default as FireBall } from './FireBall.svelte';
+export { default as FrostBall } from './FrostBall.svelte';
+export { default as RockBall } from './RockBall.svelte';
+export { default as RockEffect } from './RockEffect.svelte';
+export { default as WindBall } from './WindBall.svelte';
+export { default as WindEffect } from './WindEffect.svelte';
