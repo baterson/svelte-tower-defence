@@ -15,3 +15,4 @@ export { default as EssenseLoot } from './EssenseLoot.svelte';
 export { default as TakeDamage } from './TakeDamage.svelte';
 
 export { default as ThronePowerProjectile } from './ThronePowerProjectile.svelte';
+export { default as TestEffect } from './TestEffect.svelte';

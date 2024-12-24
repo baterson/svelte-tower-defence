@@ -79,6 +79,7 @@ export class StageManager {
 	spawnEntity = (name: string, position: Vector2, context = {}) => {
 		const entity = initEntity(name, position, context);
 		entityManager.add(entity);
+		return entity;
 	};
 }
 

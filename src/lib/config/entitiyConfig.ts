@@ -363,7 +363,10 @@ const entities: Record<string, EntityConfig> = {
 		width: 30,
 		height: 40,
 		states: ['Idle', 'RunToPoint'],
-		initialState: 'Idle',
+		initialState: 'RunToPoint',
+		context: {
+			targetPoint: new Vector2(200, 200)
+		},
 		stats: {
 			health: 9999,
 			damage: 2,

@@ -9,36 +9,56 @@
 	import { stageManager } from '$store/StageManager.svelte';
 	import ParallaxBackground from './ParallaxBackground.svelte';
 
-	let debug = $derived(entityManager.entities.find((entity) => entity.type === 'debug'));
-	let parallaxBackground = $state(false);
+	let debugEntities = $derived(
+		entityManager.entities.filter((entity) => entity.type === 'debug') || []
+	);
+	let firstDebug = $derived(debugEntities[0]);
+	let parallaxBackground = $state(true);
+
+	let currentSprite = $state('None');
+	let currentEffect = $state('TestEffect');
 
 	const handleClick = (e) => {
-		debug.state.setState('RunToPoint', {
+		firstDebug.state.setState('RunToPoint', {
 			targetPoint: new Vector2(e.clientX, e.clientY)
 		});
 		console.log(e.clientX, e.clientY);
 	};
 
 	const handleEffectChange = (e) => {
-		debug.cleanEffects();
-		if (e.target.value === 'None') return;
+		currentEffect = e.target.value;
 
-		debug.addEffect(e.target.value);
+		if (!firstDebug) return;
+		firstDebug.cleanEffects();
+		if (currentEffect === 'None') return;
+
+		firstDebug.addEffect(currentEffect);
 	};
 
 	const handleSpriteChange = (e) => {
-		if (e.target.value === 'None') {
-			debug.sprite = null;
-		} else {
-			const spriteName = e.target.value;
-			const entitySprites = [sprites[spriteName]];
-			debug.setSprite('Idle', entitySprites);
+		currentSprite = e.target.value;
 
-			debug.state.onEnter = (stateName) => {
-				if (debug.sprite) {
-					debug.setSprite(stateName, entitySprites);
+		if (currentSprite === 'None') {
+			firstDebug.sprite = null;
+		} else {
+			const entitySprites = [sprites[currentSprite]];
+			firstDebug.setSprite('RunToPoint', entitySprites);
+			firstDebug.state.onEnter = (stateName) => {
+				if (firstDebug.sprite) {
+					firstDebug.setSprite(stateName, entitySprites);
 				}
 			};
+		}
+	};
+
+	const spawnProjectile = (e) => {
+		const projectile = stageManager.spawnEntity('debug', new Vector2(e.clientX, e.clientY), {
+			shouldDie: true,
+			targetPoint: new Vector2(300, 500)
+		});
+
+		if (currentEffect !== 'None') {
+			projectile.addEffect(currentEffect);
 		}
 	};
 
@@ -48,7 +68,7 @@
 		const debugEntity = entityManager.entities.find((entity) => entity.type === 'debug');
 
 		debugEntity.sprite = null;
-		debugEntity.addEffect(Object.keys(effects)[0]);
+		debugEntity.addEffect('TestEffect');
 	});
 </script>
 
@@ -72,6 +92,7 @@
 		<button onclick={() => (parallaxBackground = !parallaxBackground)}>
 			{parallaxBackground ? 'Hide background' : 'Show background'}
 		</button>
+		<button onclick={spawnProjectile}>Spawn projectile</button>
 	</div>
 	<div class="controls" onclick={(e) => e.stopPropagation()}>
 		<label>
@@ -80,10 +101,10 @@
 				type="range"
 				min="10"
 				max="200"
-				value={debug?.height || 40}
-				oninput={(e) => debug && (debug.height = Number(e.target.value))}
+				value={firstDebug?.height || 40}
+				oninput={(e) => firstDebug && (firstDebug.height = Number(e.target.value))}
 			/>
-			<span>{debug?.height || 40}px</span>
+			<span>{firstDebug?.height || 40}px</span>
 		</label>
 
 		<label>
@@ -92,10 +113,10 @@
 				type="range"
 				min="10"
 				max="200"
-				value={debug?.width || 30}
-				oninput={(e) => debug && (debug.width = Number(e.target.value))}
+				value={firstDebug?.width || 30}
+				oninput={(e) => firstDebug && (firstDebug.width = Number(e.target.value))}
 			/>
-			<span>{debug?.width || 30}px</span>
+			<span>{firstDebug?.width || 30}px</span>
 		</label>
 
 		<label>
@@ -105,10 +126,10 @@
 				min="0.1"
 				max="3"
 				step="0.1"
-				value={debug?.scale || 1}
-				oninput={(e) => debug && (debug.stats.scale = Number(e.target.value))}
+				value={firstDebug?.scale || 1}
+				oninput={(e) => firstDebug && (firstDebug.stats.scale = Number(e.target.value))}
 			/>
-			<span>{debug?.scale || 1}x</span>
+			<span>{firstDebug?.scale || 1}x</span>
 		</label>
 
 		<label>
@@ -118,16 +139,16 @@
 				min="0.05"
 				max="1"
 				step="0.05"
-				value={debug?.stats.speed || 0.2}
-				oninput={(e) => debug && (debug.stats.speed = Number(e.target.value))}
+				value={firstDebug?.stats.speed || 0.2}
+				oninput={(e) => firstDebug && (firstDebug.stats.speed = Number(e.target.value))}
 			/>
-			<span>{debug?.stats.speed || 0.2}</span>
+			<span>{firstDebug?.stats.speed || 0.2}</span>
 		</label>
 	</div>
 
-	{#if debug}
-		<Entity entity={debug} />
-	{/if}
+	{#each debugEntities as entity}
+		<Entity {entity} />
+	{/each}
 
 	{#if parallaxBackground}
 		<ParallaxBackground />

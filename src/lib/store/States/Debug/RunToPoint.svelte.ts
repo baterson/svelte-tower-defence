@@ -1,6 +1,7 @@
 import { BaseState } from '../BaseState.svelte';
 import { Vector2 } from '$store/Vector2.svelte';
 import { angleToTarget, getDirectionFromAngle } from '$utils/math';
+import { entityManager } from '$store/EntityManager.svelte';
 
 export class RunToPoint extends BaseState {
 	private direction: Vector2;
@@ -15,7 +16,7 @@ export class RunToPoint extends BaseState {
 	}
 
 	update(deltaTime: number) {
-		const { targetPoint } = this.stateMachine.context;
+		const { targetPoint, shouldDie } = this.stateMachine.context;
 
 		const speed = this.entity.stats.speed * deltaTime;
 
@@ -23,10 +24,15 @@ export class RunToPoint extends BaseState {
 		this.entity.position = this.entity.position.add(this.entity.velocity);
 		this.entity.rotation = angleToTarget(this.entity.position, targetPoint);
 
-		const distance = Math.abs(targetPoint.y - this.entity.position.y);
+		const distance = this.entity.position.distance(targetPoint);
+		console.log(distance);
 
 		if (distance < 30) {
-			this.stateMachine.setState('Idle');
+			if (shouldDie) {
+				entityManager.destroy(this.entity.id);
+			} else {
+				this.stateMachine.setState('Idle');
+			}
 		}
 	}
 }
