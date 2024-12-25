@@ -1,7 +1,7 @@
 <!-- NeonCircle.svelte -->
 <script>
 	// Import the custom transition function
-	import { neonLightTransition } from '../../transitions.js';
+	import { neonLightTransition } from '../transitions.js';
 
 	const { entity } = $props();
 </script>

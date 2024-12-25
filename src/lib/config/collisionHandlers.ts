@@ -61,7 +61,7 @@ export const projectileCollider = (projectile, other) => {
 	const { type: spawnerType } = projectile.state.context.spawner;
 
 	if (spawnerType !== 'throne') {
-		projectile.state.setState('Hit');
+		projectile.state.setState('Die');
 	}
 
 	return;

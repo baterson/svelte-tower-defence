@@ -25,7 +25,8 @@ export class Game {
 	};
 
 	start = () => {
-		managers.getManager('gameLoop').start(this.update);
+		const gameLoop = managers.getManager('gameLoop');
+		gameLoop.start(this.update);
 	};
 }
 

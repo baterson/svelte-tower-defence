@@ -1,5 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
+	import { Game } from '$store/Game.svelte';
 	import GameArea from '$lib/components/GameArea.svelte';
 	import { screen } from '$lib/store/Screen.svelte';
 	import ParallaxBackground from '$components/ParallaxBackground.svelte';
@@ -7,39 +8,25 @@
 	import { managers } from '$store/managers.svelte';
 	// import Dialog from '$components/Dialog.svelte';
 	// import BackDrop from '$components/BackDrop.svelte';
-	import { Game } from '$store/Game.svelte';
-	import Entity from '$components/Entity.svelte';
-	import Entity2 from '$components/Entity2.svelte';
-	// let stageManager = $derived(managers.getManager('stageManager'));
+
+	let game = $state(null);
 
 	onMount(() => {
-		const game = new Game();
+		game = new Game();
 		game.start();
 	});
-	// onMount(() => {
-	// 	game = new Game();
-	// 	game.start();
-	// });
 </script>
 
-<!-- <svelte:window bind:innerWidth={screen.width} bind:innerHeight={screen.height} /> -->
+<svelte:window bind:innerWidth={screen.width} bind:innerHeight={screen.height} />
 
 <DevTools />
-<!-- <ParallaxBackground /> -->
+<ParallaxBackground />
 <!-- <Dialog /> -->
 <!-- <BackDrop /> -->
-<!-- {#if managers.getManager('entityManager')}
-	<Entity2 entity={{ width: 100, height: 100, position: { x: 100, y: 300 } }} />
-{/if} -->
-{#if managers.getManager('entityManager')}
-	{#each managers.getManager('entityManager').entities as entity}
-		<Entity2 {entity} />
-	{/each}
-{/if}
 
-<!-- {#if game} -->
-<!-- <div class="wrapper">
-		<div class="time">Stage {stageManager.stageNumber + 1}</div>
+{#if game}
+	<div class="wrapper">
+		<div class="time">Stage {managers.getManager('stageManager').stageNumber + 1}</div>
 		<div
 			bind:offsetHeight={screen.gameAreaHeight}
 			bind:offsetWidth={screen.gameAreaWidth}
@@ -48,8 +35,8 @@
 		>
 			<GameArea />
 		</div>
-	</div> -->
-<!-- {/if} -->
+	</div>
+{/if}
 
 <style>
 	.time {

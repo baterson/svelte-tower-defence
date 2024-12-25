@@ -150,6 +150,20 @@ const entities: Record<string, EntityConfig> = {
 		},
 		onCollide: fireballCollider
 	},
+	p1: {
+		type: 'projectile',
+		width: 18,
+		height: 18,
+		vfx: ['Effect1'],
+		initialState: 'Fly',
+		states: ['Fly', 'Die'],
+		stats: {
+			health: 1,
+			speed: 0.5,
+			damage: 10
+		},
+		onCollide: projectileCollider
+	},
 	projectile2: {
 		type: 'projectile',
 		width: 18,

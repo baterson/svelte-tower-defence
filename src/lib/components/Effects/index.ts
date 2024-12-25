@@ -27,3 +27,4 @@
 
 export { default as FireBall } from './FireBall.svelte';
 export { default as OnFire } from './OnFire.svelte';
+export { default as Effect1 } from './Effect1.svelte';

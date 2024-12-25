@@ -28,6 +28,7 @@ export class GameLoop {
 
 	start(update) {
 		this.update = update;
+
 		requestAnimationFrame(this.loop);
 	}
 
