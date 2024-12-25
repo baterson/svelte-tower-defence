@@ -150,20 +150,6 @@ const entities: Record<string, EntityConfig> = {
 		},
 		onCollide: fireballCollider
 	},
-	p1: {
-		type: 'projectile',
-		width: 18,
-		height: 18,
-		vfx: ['Effect1'],
-		initialState: 'Fly',
-		states: ['Fly', 'Die'],
-		stats: {
-			health: 1,
-			speed: 0.5,
-			damage: 10
-		},
-		onCollide: projectileCollider
-	},
 	projectile2: {
 		type: 'projectile',
 		width: 18,
@@ -216,7 +202,7 @@ const entities: Record<string, EntityConfig> = {
 		width: 24,
 		height: 24,
 
-		effects: ['Effect1'],
+		effects: ['Fireball'],
 
 		initialState: 'Fly',
 		states: ['Fly', 'Die'],
@@ -263,7 +249,7 @@ const entities: Record<string, EntityConfig> = {
 	upgradePoint: {
 		type: 'loot',
 
-		effects: ['Effect1'],
+		effects: ['Fire'],
 
 		width: 15,
 		height: 15,
