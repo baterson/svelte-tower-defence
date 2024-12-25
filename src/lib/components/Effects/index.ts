@@ -16,3 +16,7 @@ export { default as TakeDamage } from './TakeDamage.svelte';
 
 export { default as ThronePowerProjectile } from './ThronePowerProjectile.svelte';
 export { default as TestEffect } from './TestEffect.svelte';
+export { default as TestSVGEffect } from './TestSVGEffect.svelte';
+
+export { default as Fireball } from './New/Fireball.svelte';
+export { default as OnFire } from './New/OnFire.svelte';

@@ -16,7 +16,7 @@
 	let parallaxBackground = $state(true);
 
 	let currentSprite = $state('None');
-	let currentEffect = $state('TestEffect');
+	let currentEffect = $state('OnFire');
 
 	const handleClick = (e) => {
 		firstDebug.state.setState('RunToPoint', {
@@ -68,7 +68,7 @@
 		const debugEntity = entityManager.entities.find((entity) => entity.type === 'debug');
 
 		debugEntity.sprite = null;
-		debugEntity.addEffect('TestEffect');
+		debugEntity.addEffect('OnFire');
 	});
 </script>
 
