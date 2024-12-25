@@ -1,10 +1,11 @@
-import { entityManager } from './EntityManager.svelte';
+import { managers } from './managers.svelte';
 import type { Entity } from './Entity.svelte';
 import { screen } from '$lib/store/Screen.svelte';
 import { checkRectCollision } from '$utils/math';
 
 export class CollisionManager {
 	update() {
+		const entityManager = managers.getManager('entityManager');
 		// Handle tower projectiles vs nearest enemies
 		this.handleProjectileCollisions(
 			[...entityManager.filterByOwnerType('tower'), ...entityManager.filterByOwnerType('throne')],
@@ -41,6 +42,7 @@ export class CollisionManager {
 	}
 
 	private handleEnemyCollisions(): void {
+		const entityManager = managers.getManager('entityManager');
 		const targets = [...entityManager.livingTowers, entityManager.livingThrone].filter(Boolean);
 
 		for (const enemy of entityManager.livingEnemies) {
@@ -55,6 +57,7 @@ export class CollisionManager {
 	}
 
 	handleLootCollisions(): void {
+		const entityManager = managers.getManager('entityManager');
 		const throne = entityManager.livingThrone;
 
 		for (const loot of entityManager.livingLoot) {
@@ -81,8 +84,6 @@ export class CollisionManager {
 	}
 
 	checkGameBounds(entity: Entity): boolean {
-		return checkRectCollision(entity.boundingBox, screen.gameBounds);
+		return checkRectCollision(entity.boundingBox, screen.gameBoundingBox);
 	}
 }
-
-export const collisionManager = new CollisionManager();

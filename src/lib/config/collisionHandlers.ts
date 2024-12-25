@@ -1,5 +1,6 @@
 import type { Entity } from '$store/Entity.svelte';
-import { gameLoop } from '$store/GameLoop.svelte';
+import { managers } from '$store/managers.svelte';
+import { onFire } from './effects';
 
 const checkSameTarget = (projectile, other) => {
 	const { type: spawnerType } = projectile.state.context.spawner;
@@ -7,33 +8,23 @@ const checkSameTarget = (projectile, other) => {
 	return spawnerType === targetType;
 };
 
+const checkBounds = (entity, other) => {
+	const entityManager = managers.getManager('entityManager');
+
+	if (other === 'OUT_OF_BOUNDS') {
+		entityManager.destroy(entity.id);
+		return true;
+	}
+
+	return false;
+};
+
 export const enemyCollider = (entity: Entity, other: Entity) => {
 	if ((other.type === 'projectile' && checkSameTarget(other, entity)) || other.type === 'enemy') {
 		return;
 	}
 
-	entity.stats.health -= other.stats.damage;
-
-	if (other.type === 'projectile') {
-		const projectileType = other.name;
-		switch (projectileType) {
-			case 'projectile1':
-				entity.addEffect('FireEffect');
-				break;
-			case 'projectile2':
-				entity.addEffect('IceEffect');
-				break;
-			case 'projectile3':
-				entity.addEffect('RockEffect');
-				break;
-			case 'projectile4':
-				entity.addEffect('WindEffect');
-				break;
-		}
-	}
-	if (entity.stats.health <= 0) {
-		entity.state.setState('Die');
-	}
+	entity.takeDamage(other.stats.damage);
 };
 
 export const towerCollider = (tower, other) => {
@@ -48,6 +39,14 @@ export const towerCollider = (tower, other) => {
 	}
 
 	return;
+};
+
+export const fireballCollider = (fireball, other) => {
+	if (checkBounds(fireball, other)) return;
+	if (checkSameTarget(fireball, other)) return;
+
+	other.addVFX('OnFire');
+	other.addEffect(onFire);
 };
 
 export const projectileCollider = (projectile, other) => {

@@ -3,15 +3,15 @@ import { Vector2 } from '$store/Vector2.svelte';
 import { StateMachine } from '$store/StateMachine.svelte';
 
 export class Entity {
-	static lastId = 0;
-
-	id = $state(Entity.lastId++);
+	id;
 	name = $state('');
 	type = $state('');
 	width = $state(0);
 	height = $state(0);
 	velocity = $state<Vector2>();
 	effects = $state([]);
+
+	vfx = $state([]);
 	sprite = $state<Sprite>();
 	position = $state<Vector2>();
 	state = $state<StateMachine>();
@@ -42,11 +42,13 @@ export class Entity {
 			stats,
 			upgradeLevel,
 			upgrades,
+			vfx,
 			effects
 		},
 		context
 	) {
 		// Entity stats
+		this.id = crypto.randomUUID();
 		this.name = name;
 		this.type = type;
 		this.width = width;
@@ -59,6 +61,7 @@ export class Entity {
 		this.upgradeLevel = upgradeLevel || 0;
 		this.upgrades = upgrades || [];
 		// Entity has either effect or animations
+		this.vfx = vfx || [];
 		this.effects = effects || [];
 
 		// Handle collisions
@@ -93,6 +96,7 @@ export class Entity {
 	update(deltaTime: number) {
 		if (this.isDestroyed) return;
 
+		this.effects.forEach((effectFn) => effectFn(this));
 		this.state.update(deltaTime);
 
 		if (this.sprite) {
@@ -117,18 +121,32 @@ export class Entity {
 		}
 	}
 
-	addEffect(effect: string) {
-		if (!this.effects.includes(effect)) {
-			this.effects = [...this.effects, effect];
+	addEffect(effectFn: (entity: Entity) => void) {
+		if (!this.effects.includes(effectFn)) {
+			this.effects = [...this.effects, effectFn];
 		}
 	}
 
-	removeEffect(effect: string) {
-		this.effects = this.effects.filter((e) => e !== effect);
+	removeEffect(effectFn: (entity: Entity) => void) {
+		this.effects = this.effects.filter((e) => e !== effectFn);
 	}
 
 	cleanEffects() {
 		this.effects = [];
+	}
+
+	addVFX(effect: string) {
+		if (!this.vfx.includes(effect)) {
+			this.vfx = [...this.vfx, effect];
+		}
+	}
+
+	removeVFX(effect: string) {
+		this.vfx = this.vfx.filter((e) => e !== effect);
+	}
+
+	cleanVFX() {
+		this.vfx = [];
 	}
 
 	upgrade() {
@@ -136,6 +154,14 @@ export class Entity {
 			this.upgrades[this.upgradeLevel](this);
 
 			this.upgradeLevel += 1;
+		}
+	}
+
+	takeDamage(damage: number) {
+		this.stats.health -= damage;
+
+		if (this.stats.health <= 0) {
+			this.state.setState('Die');
 		}
 	}
 

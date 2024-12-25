@@ -1,5 +1,3 @@
-import { uiManager } from './UIManager.svelte';
-
 const MS_PER_UPDATE = 16.666;
 
 export class GameLoop {
@@ -107,5 +105,3 @@ export class GameLoop {
 		this.pauseState = null;
 	}
 }
-
-export const gameLoop = new GameLoop();

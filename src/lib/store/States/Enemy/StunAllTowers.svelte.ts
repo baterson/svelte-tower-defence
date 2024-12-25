@@ -4,9 +4,7 @@
  */
 
 import { BaseState } from '$lib/store/States/BaseState.svelte';
-import { entityManager } from '$store/EntityManager.svelte';
-import { gameLoop } from '$store/GameLoop.svelte';
-import { stageManager } from '$store/StageManager.svelte';
+import { managers } from '$store/managers.svelte';
 
 export class StunAllTowers extends BaseState {
 	cdId;
@@ -14,10 +12,15 @@ export class StunAllTowers extends BaseState {
 	constructor(stateMachine) {
 		super(stateMachine);
 
+		const gameLoop = managers.getManager('gameLoop');
 		this.cdId = gameLoop.setCD(2000, true);
 	}
 
 	update(deltaTime: number) {
+		const entityManager = managers.getManager('entityManager');
+		const stageManager = managers.getManager('stageManager');
+		const gameLoop = managers.getManager('gameLoop');
+
 		this.entity.scale += 0.003;
 
 		if (gameLoop.isCDReady(this.cdId)) {

@@ -1,6 +1,5 @@
 import { BaseState } from '$lib/store/States/BaseState.svelte';
-import { entityManager } from '$store/EntityManager.svelte';
-
+import { managers } from '$store/managers.svelte';
 const chargeSpeed = 1;
 
 export class Charge extends BaseState {
@@ -9,6 +8,8 @@ export class Charge extends BaseState {
 	}
 
 	update(deltaTime: number) {
+		const entityManager = managers.getManager('entityManager');
+
 		const target = entityManager.findNearestEntity(this.entity, entityManager.livingTowers);
 		if (!target) return;
 

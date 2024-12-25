@@ -1,24 +1,41 @@
-import { background } from './Background.svelte';
-import { collisionManager } from './CollisionManager.svelte';
-import { entityManager } from './EntityManager.svelte';
-import { gameLoop } from './GameLoop.svelte';
-import { stageManager } from './StageManager.svelte';
-import { uiManager } from './UIManager.svelte';
+import { Background } from './Background.svelte';
+import { CollisionManager } from './CollisionManager.svelte';
+import { EntityManager } from './EntityManager.svelte';
+import { StageManager } from './StageManager.svelte';
+import { UIManager } from './UIManager.svelte';
+import { GameLoop } from './GameLoop.svelte';
+import { managers } from './managers.svelte';
 
 export class Game {
+	constructor() {
+		managers.init(initManagers());
+
+		const stageManager = managers.getManager('stageManager');
+		stageManager.init();
+	}
+
 	update = (deltaTime, elapsedTime) => {
-		uiManager.update();
-		if (uiManager.currentDialog) return;
-
-		entityManager.update(deltaTime, elapsedTime);
-		collisionManager.update();
-
-		stageManager.update(deltaTime);
-
-		background.update(deltaTime);
+		// uiManager.update();
+		// if (uiManager.currentDialog) return;
+		// entityManager.update(deltaTime, elapsedTime);
+		// collisionManager.update();
+		// stageManager.update(deltaTime);
+		// background.update(deltaTime);
+		managers.update(deltaTime);
 	};
 
 	start = () => {
-		gameLoop.start(this.update);
+		managers.getManager('gameLoop').start(this.update);
 	};
 }
+
+const initManagers = () => {
+	managers.background = new Background();
+	managers.collisionManager = new CollisionManager();
+	managers.entityManager = new EntityManager();
+	managers.stageManager = new StageManager();
+	managers.uiManager = new UIManager();
+	managers.gameLoop = new GameLoop();
+
+	return managers;
+};

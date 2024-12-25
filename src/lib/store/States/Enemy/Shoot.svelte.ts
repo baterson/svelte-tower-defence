@@ -5,11 +5,13 @@
 
 import { BaseState } from '$lib/store/States/BaseState.svelte';
 import type { Enemy } from '$store/Entities/Enemy.svelte';
-import type { EntityManager } from '$store/EntityManager.svelte';
-import { stageManager } from '$store/StageManager.svelte';
+import { managers } from '$store/managers.svelte';
 
 export class Shoot extends BaseState {
-	update(deltaTime: number, enemy: Enemy, entityManager: EntityManager) {
+	update(deltaTime: number, enemy: Enemy) {
+		const entityManager = managers.getManager('entityManager');
+		const stageManager = managers.getManager('stageManager');
+
 		const towers = entityManager.livingTowers;
 
 		const nearestTower = towers.length
@@ -22,7 +24,7 @@ export class Shoot extends BaseState {
 
 		// Attack the tower
 		if (nearestTower) {
-			stageManager.spawnEntity('projectile1', enemy.position.clone(), {
+			stageManager.spawnEntity('fireball', enemy.position.clone(), {
 				spawner: enemy,
 				target: nearestTower
 			});

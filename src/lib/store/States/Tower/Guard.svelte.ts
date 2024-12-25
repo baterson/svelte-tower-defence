@@ -4,12 +4,12 @@
  */
 
 import { BaseState } from '$lib/store/States/BaseState.svelte';
-import { entityManager } from '$store/EntityManager.svelte';
-import { gameLoop } from '$store/GameLoop.svelte';
-
+import { managers } from '$store/managers.svelte';
 export class Guard extends BaseState {
 	constructor(stateMachine) {
 		super(stateMachine);
+
+		const gameLoop = managers.getManager('gameLoop');
 
 		const atackSpeed = this.entity.stats.attackSpeed;
 
@@ -17,6 +17,9 @@ export class Guard extends BaseState {
 	}
 
 	update() {
+		const entityManager = managers.getManager('entityManager');
+		const gameLoop = managers.getManager('gameLoop');
+
 		const target = entityManager.findNearestEntity(this.entity, entityManager.livingEnemies);
 
 		if (gameLoop.isCDReady(this.cdId) && target) {

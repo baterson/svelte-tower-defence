@@ -7,10 +7,6 @@
 
 	const { tower, placement } = $props();
 
-	const placementStyles = $derived(
-		`position: relative; place-self: ${placement}; margin-left: ${placement === 'start' ? '20px' : 'auto'}; margin-right: ${placement === 'end' ? '20px' : 'auto'}`
-	);
-
 	$effect(() => handleScreenChange(node, tower));
 </script>
 
@@ -20,9 +16,11 @@
 			spendUpgradePoints(tower);
 		}
 	}}
-	oncontextmenu={() => devTools.inspectEntity(tower)}
 	bind:node
 	entity={tower}
-	{placementStyles}
 	isStatic={true}
+	--place-self={placement}
+	--position="relative"
+	--margin-left={placement === 'start' ? '20px' : 'auto'}
+	--margin-right={placement === 'end' ? '20px' : 'auto'}
 />

@@ -1,10 +1,14 @@
 <script>
-	import { background } from '$lib/store/Background.svelte';
 	import { screen } from '$lib/store/Screen.svelte';
+	import { managers } from '$store/managers.svelte';
 	import { fade } from 'svelte/transition';
 
+	const background = $derived(managers.getManager('background'));
+
 	$effect(() => {
-		background.updateDimensions(screen.width, screen.height);
+		if (background) {
+			background.updateDimensions(screen.width, screen.height);
+		}
 	});
 </script>
 
@@ -52,6 +56,7 @@
 		overflow: hidden;
 		width: 100vw;
 		height: 100dvh;
+		z-index: 2;
 	}
 
 	.base-layer {

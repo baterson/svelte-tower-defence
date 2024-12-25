@@ -70,5 +70,3 @@ export class Background {
 		this.baseSpeed = speed * 0.2; // Base moves at 20% of star speed
 	}
 }
-
-export const background = new Background();

@@ -1,15 +1,19 @@
 import { BaseState } from '$lib/store/States/BaseState.svelte';
-import { entityManager } from '$store/EntityManager.svelte';
-import { gameLoop } from '$store/GameLoop.svelte';
-import { stageManager } from '$store/StageManager.svelte';
-
+import { managers } from '$store/managers.svelte';
 export class MeleAttack extends BaseState {
+	cdId: number;
+
 	constructor(stateMachine) {
 		super(stateMachine);
-		this.cdShootIdBoss = gameLoop.setCD(1000, true);
+		const gameLoop = managers.getManager('gameLoop');
+		this.cdId = gameLoop.setCD(1000, true);
 	}
 
 	update(deltaTime: number) {
+		const entityManager = managers.getManager('entityManager');
+		const stageManager = managers.getManager('stageManager');
+		const gameLoop = managers.getManager('gameLoop');
+
 		const target = entityManager.findNearestEntity(this.entity, entityManager.livingTowers);
 
 		if (!target?.isInteractable) {

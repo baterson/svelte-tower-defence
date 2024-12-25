@@ -8,6 +8,7 @@ import { Vector2 } from '$store/Vector2.svelte';
 import { sprites } from './sprites';
 import {
 	enemyCollider,
+	fireballCollider,
 	lootCollider,
 	projectileCollider,
 	throneCollider,
@@ -19,6 +20,7 @@ import {
 	iceTowerUpgrades,
 	windTowerUpgrades
 } from './upgradesConfig';
+import { onFire } from './effects';
 
 type Stats = {
 	health?: number;
@@ -56,7 +58,7 @@ const entities: Record<string, EntityConfig> = {
 		sprites: [sprites.enemy1],
 
 		stats: {
-			health: 1,
+			health: 600,
 			speed: 0.06,
 			damage: 10
 		},
@@ -66,7 +68,6 @@ const entities: Record<string, EntityConfig> = {
 		type: 'enemy',
 		width: 30,
 		height: 40,
-		spriteSheet: '/2nd_enemy_run.png',
 		initialState: 'Run',
 		states: ['Run', 'Shoot', 'Die'],
 		sprites: [sprites.enemy2],
@@ -81,7 +82,6 @@ const entities: Record<string, EntityConfig> = {
 		type: 'enemy',
 		width: 30,
 		height: 40,
-		spriteSheet: '/3rd_enemy_run.png',
 		initialState: 'Run',
 		states: ['Run', 'Shoot', 'Die'],
 		sprites: [sprites.enemy3],
@@ -96,7 +96,6 @@ const entities: Record<string, EntityConfig> = {
 		type: 'enemy',
 		width: 30,
 		height: 64,
-		spriteSheet: '/4rd_flying_enemy.png',
 		initialState: 'Fly',
 		states: ['Fly', 'Shoot', 'Die'],
 		sprites: [sprites.enemy4],
@@ -111,7 +110,6 @@ const entities: Record<string, EntityConfig> = {
 		type: 'enemy',
 		width: 30,
 		height: 64,
-		spriteSheet: '/5rd_сar_enemy.png',
 		initialState: 'Run',
 		states: ['Run', 'Shoot', 'Die'],
 		sprites: [sprites.enemy5],
@@ -138,27 +136,27 @@ const entities: Record<string, EntityConfig> = {
 	// 	onCollide: enemyCollider
 	// },
 
-	projectile1: {
+	fireball: {
 		type: 'projectile',
 		width: 18,
 		height: 18,
-		effects: ['FireBall'],
+		vfx: ['FireBall'],
 		initialState: 'Fly',
-		states: ['Fly', 'Hit'],
+		states: ['Fly', 'Die'],
 		stats: {
 			health: 1,
 			speed: 0.5,
-			damage: 100
+			damage: 10
 		},
-		onCollide: projectileCollider
+		onCollide: fireballCollider
 	},
 	projectile2: {
 		type: 'projectile',
 		width: 18,
 		height: 18,
-		effects: ['FrostBall'],
+		vfx: ['FrostBall'],
 		initialState: 'Fly',
-		states: ['Fly', 'Hit'],
+		states: ['Fly', 'Die'],
 		stats: {
 			health: 1,
 			speed: 0.5,
@@ -171,10 +169,10 @@ const entities: Record<string, EntityConfig> = {
 
 		width: 24,
 		height: 24,
-		effects: ['RockBall'],
+		vfx: ['RockBall'],
 
 		initialState: 'Fly',
-		states: ['Fly', 'Hit'],
+		states: ['Fly', 'Die'],
 		stats: {
 			health: 1,
 			speed: 0.5,
@@ -187,10 +185,10 @@ const entities: Record<string, EntityConfig> = {
 
 		width: 24,
 		height: 24,
-		effects: ['WindBall'],
+		vfx: ['WindBall'],
 
 		initialState: 'Fly',
-		states: ['Fly', 'Hit'],
+		states: ['Fly', 'Die'],
 		stats: {
 			health: 1,
 			speed: 0.5,
@@ -207,7 +205,7 @@ const entities: Record<string, EntityConfig> = {
 		effects: ['Effect1'],
 
 		initialState: 'Fly',
-		states: ['Fly', 'Hit'],
+		states: ['Fly', 'Die'],
 		stats: {
 			health: 1,
 			speed: 0.5,
@@ -224,7 +222,8 @@ const entities: Record<string, EntityConfig> = {
 		stats: {
 			health: 100,
 			damage: 999,
-			speed: 0
+			speed: 0,
+			scale: 2
 		},
 		states: ['Idle'],
 		sprites: [sprites.enemy1],
@@ -310,11 +309,11 @@ const entities: Record<string, EntityConfig> = {
 		stats: {
 			health: 50,
 			attackRange: Infinity,
-			attackSpeed: 1000,
+			attackSpeed: 300,
 			damage: 20,
 			projectileNumber: 1,
 			scale: 1.2,
-			projectileType: 'projectile1'
+			projectileType: 'fireball'
 		},
 		onCollide: towerCollider,
 		upgrades: fireTowerUpgrades

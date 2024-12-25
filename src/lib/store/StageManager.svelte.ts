@@ -1,7 +1,6 @@
 import { stages } from '$lib/config/stages';
 import { initEntity } from '$lib/store/entityFabric';
-import { entityManager } from './EntityManager.svelte';
-import { gameLoop } from './GameLoop.svelte';
+import { managers } from './managers.svelte';
 import { Vector2 } from './Vector2.svelte';
 
 const spawnAreas = [70, 100, 130, 160, 190, 220, 250, 280, 310, 340];
@@ -20,20 +19,22 @@ export class StageManager {
 	commonSpawnCd;
 	eliteSpawnCd;
 
-	constructor() {
-		this.commonSpawnCd = gameLoop.setCD(1000, true);
+	init = () => {
+		const gameLoop = managers.getManager('gameLoop');
+		this.commonSpawnCd = gameLoop.setCD(200, true);
 		this.eliteSpawnCd = gameLoop.setCD(1000, false);
-
 		this.spawnTowers();
 		this.spawnEntity('throne', new Vector2(200, 200));
-	}
+	};
 
 	update = (deltaTime: number) => {
+		const gameLoop = managers.getManager('gameLoop');
+
 		if (gameLoop.isCDReady(this.commonSpawnCd)) {
 			this.spawnCommonEnemy();
 		}
 		if (gameLoop.isCDReady(this.eliteSpawnCd)) {
-			this.spawnEliteEnemy();
+			// this.spawnEliteEnemy();
 		}
 
 		this.checkStageTime();
@@ -43,12 +44,12 @@ export class StageManager {
 		// ['fireTower'].forEach((name) => {
 		// 	this.spawnEntity(name, new Vector2(0, 0));
 		// });
-		// ['fireTower', 'fireTower', 'fireTower', 'fireTower'].forEach((name) => {
-		// 	this.spawnEntity(name, new Vector2(0, 0));
-		// });
-		['fireTower', 'windTower', 'earthTower', 'iceTower'].forEach((name) => {
+		['fireTower', 'fireTower', 'fireTower', 'fireTower'].forEach((name) => {
 			this.spawnEntity(name, new Vector2(0, 0));
 		});
+		// ['fireTower', 'windTower', 'earthTower', 'iceTower'].forEach((name) => {
+		// 	this.spawnEntity(name, new Vector2(0, 0));
+		// });
 	}
 
 	spawnCommonEnemy() {
@@ -66,6 +67,7 @@ export class StageManager {
 	}
 
 	checkStageTime() {
+		const gameLoop = managers.getManager('gameLoop');
 		if (gameLoop.elapsedTime > this.stageConfig.time) {
 			this.nextStage();
 		}
@@ -78,9 +80,9 @@ export class StageManager {
 	}
 
 	spawnEntity = (name: string, position: Vector2, context = {}) => {
+		const entityManager = managers.getManager('entityManager');
 		const entity = initEntity(name, position, context);
 		entityManager.add(entity);
+		return entity;
 	};
 }
-
-export const stageManager = new StageManager();

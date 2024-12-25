@@ -499,7 +499,7 @@ export const sprites = {
 				loop: true
 			},
 			{
-				name: 'Hit',
+				name: 'Die',
 				frames: [
 					[-19, -15],
 					[-402, -15],
@@ -526,7 +526,7 @@ export const sprites = {
 				loop: true
 			},
 			{
-				name: 'Hit',
+				name: 'Die',
 				frames: [
 					[-19, -15],
 					[-402, -15],

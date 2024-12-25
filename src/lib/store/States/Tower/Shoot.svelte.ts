@@ -1,6 +1,5 @@
 import { BaseState } from '$lib/store/States/BaseState.svelte';
-import { stageManager } from '$store/StageManager.svelte';
-
+import { managers } from '$store/managers.svelte';
 export class Shoot extends BaseState {
 	constructor(stateMachine) {
 		super(stateMachine);
@@ -13,8 +12,10 @@ export class Shoot extends BaseState {
 	}
 
 	shoot() {
+		const stageManager = managers.getManager('stageManager');
 		const { spawner, target } = this.stateMachine.context;
 		const projectileType = spawner.stats.projectileType;
+
 		for (let i = 0; i < this.entity.stats.projectileNumber; i++) {
 			let targetPoint;
 			if (i > 0) {

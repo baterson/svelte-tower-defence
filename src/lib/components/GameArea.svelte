@@ -1,10 +1,12 @@
 <script>
-	import { entityManager } from '$lib/store/EntityManager.svelte';
+	import { managers } from '$store/managers.svelte';
 	import Loot from './Entities/Loot.svelte';
 	import Enemy from './Entities/Enemy.svelte';
 	import Tower from './Entities/Tower.svelte';
 	import Throne from './Entities/Throne.svelte';
 	import Projectile from './Entities/Projectile.svelte';
+
+	const entityManager = $derived(managers.getManager('entityManager'));
 </script>
 
 <section>
@@ -42,6 +44,7 @@
 		width: 100%;
 		height: 100%;
 		will-change: transform;
+		z-index: 4;
 	}
 
 	.towers {
@@ -53,6 +56,7 @@
 	}
 
 	.throne {
+		font-size: 94px;
 		width: 100%;
 		display: flex;
 		justify-content: center;

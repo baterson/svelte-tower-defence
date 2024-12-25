@@ -1,37 +1,67 @@
-<!-- FireBallClassic.svelte -->
 <script>
+	import { onMount } from 'svelte';
+
 	const { entity } = $props();
 </script>
 
-<div class="fireball classic" style:width={`${entity.width}px`} style:height={`${entity.height}px`}>
-	<div class="core" />
-</div>
+<!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions (because of reasons) -->
+{#if entity}
+	<div class="effect-container">
+		<!-- Main Fireball -->
+		<svg class="fireball" width="100%" height="100%" viewBox="0 0 100 100">
+			<defs>
+				<radialGradient id="fireGradient" cx="50%" cy="50%" r="50%">
+					<stop offset="0%" stop-color="#ffffff" />
+					<stop offset="30%" stop-color="#ffdd00" />
+					<stop offset="60%" stop-color="#ff4500" />
+					<stop offset="100%" stop-color="#ff000000" />
+				</radialGradient>
+
+				<filter id="fireGlow">
+					<feGaussianBlur stdDeviation="3" result="blur" />
+					<feComposite in="SourceGraphic" in2="blur" operator="over" />
+				</filter>
+			</defs>
+
+			<!-- Main fireball centered in the container -->
+			<circle cx="50" cy="50" r="35" fill="url(#fireGradient)" filter="url(#fireGlow)" />
+		</svg>
+	</div>
+{/if}
 
 <style>
-	.fireball {
+	.effect-container {
 		position: absolute;
-		z-index: 99;
-		animation: rotate 1s infinite linear;
-	}
-
-	.core {
-		position: absolute;
+		top: 0;
+		left: 0;
 		width: 100%;
 		height: 100%;
-		border-radius: 50%;
-		background: linear-gradient(90deg, #ff4500, #ffa500);
-		box-shadow:
-			0 0 10px #ff4500,
-			0 0 20px #ffa500,
-			0 0 30px #ff4500;
+		pointer-events: none;
 	}
-
-	@keyframes rotate {
-		from {
-			transform: rotate(0deg);
+	.fireball {
+		position: absolute;
+		inset: 0;
+		animation: pulse 1.2s ease-in-out infinite;
+	}
+	@keyframes pulse {
+		0%,
+		100% {
+			transform: scale(1);
+			filter: brightness(1);
 		}
-		to {
-			transform: rotate(360deg);
+		50% {
+			transform: scale(1.1);
+			filter: brightness(1.2);
+		}
+	}
+	@keyframes particleFade {
+		0% {
+			transform: translate(0, 0);
+			opacity: 1;
+		}
+		100% {
+			transform: translate(-20px, 0);
+			opacity: 0;
 		}
 	}
 </style>

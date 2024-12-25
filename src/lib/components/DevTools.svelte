@@ -2,9 +2,11 @@
 	import { devTools } from '$lib/store/DevTools.svelte';
 	import { browser } from '$app/environment';
 	import { onMount } from 'svelte';
-	import { entityManager } from '$lib/store/EntityManager.svelte';
-	import { gameLoop } from '$store/GameLoop.svelte';
-	import { background } from '$store/Background.svelte';
+	import { managers } from '$store/managers.svelte';
+
+	const entityManager = $derived(managers.getManager('entityManager'));
+	const gameLoop = $derived(managers.getManager('gameLoop'));
+	const background = $derived(managers.getManager('background'));
 
 	// Background options
 	const baseOptions = [

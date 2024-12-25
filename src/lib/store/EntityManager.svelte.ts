@@ -65,5 +65,3 @@ export class EntityManager {
 		return this.entities.find((entity) => entity.id === entityId);
 	};
 }
-
-export const entityManager = new EntityManager();

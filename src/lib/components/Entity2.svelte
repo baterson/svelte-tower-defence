@@ -1,38 +1,25 @@
 <script>
 	import { managers } from '$store/managers.svelte';
-	import Effect from './Effect.svelte';
+	// import Effect from './Effect.svelte';
 	// todo: pass in/out transitions
-	let { entity, onclick, node = $bindable(), isStatic = false } = $props();
+	let { entity, onclick, oncontextmenu, node = $bindable(), isStatic = false } = $props();
 
 	const uiManager = $derived(managers.getManager('uiManager'));
 </script>
 
 <!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions (because of reasons) -->
 <div
-	{onclick}
-	bind:this={node}
-	class:highlighted={uiManager.highlightedEntity &&
-		uiManager.highlightedEntity?.name === entity.name}
 	style:width={`${entity.width}px`}
 	style:height={`${entity.height}px`}
-	style:transform={`rotate(${entity.rotation}deg) scale(${entity.stats.scale})`}
-	style:transform-origin={'center'}
-	style:background={entity.sprite
-		? `url(${entity.sprite.spritesheet}) no-repeat ${entity.sprite.currentFrame[0]}px ${entity.sprite.currentFrame[1]}px`
-		: ''}
-	style:position={isStatic ? 'relative' : 'absolute'}
-	style:top={isStatic ? 'auto' : `${entity.position.y}px`}
-	style:left={isStatic ? 'auto' : `${entity.position.x}px`}
->
-	{#each entity.vfx as vfx (vfx)}
-		<Effect name={vfx} {entity} />
-	{/each}
-</div>
+	style:top={`${entity.position.y}px`}
+	style:left={`${entity.position.x}px`}
+></div>
 
 <style>
 	div {
 		background-position: center;
 		z-index: 10;
+		background-color: red;
 
 		place-self: var(--place-self);
 		position: var(--position);

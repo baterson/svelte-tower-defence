@@ -4,9 +4,7 @@
  */
 
 import { BaseState } from '$lib/store/States/BaseState.svelte';
-import { entityManager } from '$store/EntityManager.svelte';
-import { stageManager } from '$store/StageManager.svelte';
-
+import { managers } from '$store/managers.svelte';
 export class Die extends BaseState {
 	constructor(stateMachine) {
 		super(stateMachine);
@@ -14,17 +12,20 @@ export class Die extends BaseState {
 		stateMachine.owner.stopInteractions();
 	}
 
-	update(deltaTime: number, enemy: Entity) {
+	update() {
 		this.entity.rotation += 10;
 
 		if (this.entity.sprite.isAnimationComplete) {
+			const entityManager = managers.getManager('entityManager');
+			const stageManager = managers.getManager('stageManager');
+
 			entityManager.destroy(this.entity.id);
 
 			if (1) {
-				stageManager.spawnEntity('loot', this.entity.position.clone(), {
-					target: entityManager.throne,
-					spawner: this.entity
-				});
+				// stageManager.spawnEntity('loot', this.entity.position.clone(), {
+				// 	target: entityManager.throne,
+				// 	spawner: this.entity
+				// });
 			}
 		}
 	}

@@ -1,7 +1,6 @@
 import { stageDialogs, enemyDescriptions } from '$lib/config/tutorials';
+import { managers } from './managers.svelte';
 import type { Entity } from './Entity.svelte';
-import { entityManager } from './EntityManager.svelte';
-import { stageManager } from './StageManager.svelte';
 
 const strongEnemies = Object.keys(enemyDescriptions);
 
@@ -22,6 +21,8 @@ export class UIManager {
 	checkHighlightedEntity() {
 		if (this.currentDialog) return;
 
+		const entityManager = managers.getManager('entityManager');
+
 		const entities = entityManager.filterByName(this.nextToHighlightEntity);
 		const nextToHiglight = entities[0];
 
@@ -36,6 +37,8 @@ export class UIManager {
 	checkStageDialog() {
 		if (this.currentDialog) return;
 
+		const stageManager = managers.getManager('stageManager');
+
 		if (!this.showedStageDialogs.includes(stageManager.stageNumber)) {
 			this.currentDialog = stageDialogs[stageManager.stageNumber].start;
 			this.showedStageDialogs.push(stageManager.stageNumber);
@@ -47,5 +50,3 @@ export class UIManager {
 		this.highlightedEntity = null;
 	}
 }
-
-export const uiManager = new UIManager();
