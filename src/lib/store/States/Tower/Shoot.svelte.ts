@@ -12,7 +12,7 @@ export class Shoot extends BaseState {
 	}
 
 	shoot() {
-		const stageManager = managers.getManager('stageManager');
+		const stageManager = managers.get('stageManager');
 		const { spawner, target } = this.stateMachine.context;
 		const projectileType = spawner.stats.projectileType;
 

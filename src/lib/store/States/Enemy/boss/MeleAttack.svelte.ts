@@ -10,9 +10,11 @@ export class MeleAttack extends BaseState {
 	}
 
 	update(deltaTime: number) {
-		const entityManager = managers.getManager('entityManager');
-		const stageManager = managers.getManager('stageManager');
-		const gameLoop = managers.getManager('gameLoop');
+		const { entityManager, stageManager, gameLoop } = managers.get([
+			'entityManager',
+			'stageManager',
+			'gameLoop'
+		]);
 
 		const target = entityManager.findNearestEntity(this.entity, entityManager.livingTowers);
 

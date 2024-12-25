@@ -4,9 +4,9 @@
 	import { onMount } from 'svelte';
 	import { managers } from '$store/managers.svelte';
 
-	const entityManager = $derived(managers.getManager('entityManager'));
-	const gameLoop = $derived(managers.getManager('gameLoop'));
-	const background = $derived(managers.getManager('background'));
+	const entityManager = $derived(managers.get('entityManager'));
+	const gameLoop = $derived(managers.get('gameLoop'));
+	const background = $derived(managers.get('background'));
 
 	// Background options
 	const baseOptions = [

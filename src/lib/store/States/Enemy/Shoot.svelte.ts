@@ -9,8 +9,7 @@ import { managers } from '$store/managers.svelte';
 
 export class Shoot extends BaseState {
 	update(deltaTime: number, enemy: Enemy) {
-		const entityManager = managers.getManager('entityManager');
-		const stageManager = managers.getManager('stageManager');
+		const { entityManager, stageManager } = managers.get(['entityManager', 'stageManager']);
 
 		const towers = entityManager.livingTowers;
 

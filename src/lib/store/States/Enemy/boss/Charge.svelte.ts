@@ -8,7 +8,7 @@ export class Charge extends BaseState {
 	}
 
 	update(deltaTime: number) {
-		const entityManager = managers.getManager('entityManager');
+		const entityManager = managers.get('entityManager');
 
 		const target = entityManager.findNearestEntity(this.entity, entityManager.livingTowers);
 		if (!target) return;

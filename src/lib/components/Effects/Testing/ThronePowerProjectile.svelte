@@ -1,7 +1,7 @@
 <script>
 	import { managers } from '$store/managers.svelte';
 
-	const entityManager = $derived(managers.getManager('entityManager'));
+	const entityManager = $derived(managers.get('entityManager'));
 
 	const { entity } = $props();
 

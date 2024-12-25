@@ -1,8 +1,8 @@
 <script>
 	import { managers } from '$store/managers.svelte';
 
-	const uiManager = $derived(managers.getManager('uiManager'));
-	const gameLoop = $derived(managers.getManager('gameLoop'));
+	const uiManager = $derived(managers.get('uiManager'));
+	const gameLoop = $derived(managers.get('gameLoop'));
 
 	$effect(() => {
 		if (uiManager.currentDialog && !gameLoop.pauseState) {

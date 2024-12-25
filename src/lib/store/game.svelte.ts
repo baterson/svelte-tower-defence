@@ -10,22 +10,16 @@ export class Game {
 	constructor() {
 		managers.init(initManagers());
 
-		const stageManager = managers.getManager('stageManager');
+		const stageManager = managers.get('stageManager');
 		stageManager.init();
 	}
 
-	update = (deltaTime, elapsedTime) => {
-		// uiManager.update();
-		// if (uiManager.currentDialog) return;
-		// entityManager.update(deltaTime, elapsedTime);
-		// collisionManager.update();
-		// stageManager.update(deltaTime);
-		// background.update(deltaTime);
+	update = (deltaTime) => {
 		managers.update(deltaTime);
 	};
 
 	start = () => {
-		const gameLoop = managers.getManager('gameLoop');
+		const gameLoop = managers.get('gameLoop');
 		gameLoop.start(this.update);
 	};
 }

@@ -3,7 +3,7 @@
 	import { managers } from '$store/managers.svelte';
 	import { fade } from 'svelte/transition';
 
-	const background = $derived(managers.getManager('background'));
+	const background = $derived(managers.get('background'));
 
 	$effect(() => {
 		if (background) {

@@ -97,7 +97,9 @@ export class Entity {
 	update(deltaTime: number) {
 		if (this.isDestroyed) return;
 
-		this.effects.forEach((effectFn) => effectFn(this));
+		this.effects.forEach((effectFn) => {
+			effectFn(this);
+		});
 		this.state.update(deltaTime);
 
 		if (this.sprite) {

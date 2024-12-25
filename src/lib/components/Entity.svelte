@@ -4,7 +4,7 @@
 	// todo: pass in/out transitions
 	let { entity, onclick, node = $bindable(), isStatic = false } = $props();
 
-	const uiManager = $derived(managers.getManager('uiManager'));
+	const uiManager = $derived(managers.get('uiManager'));
 </script>
 
 <!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions (because of reasons) -->
@@ -15,7 +15,7 @@
 		uiManager.highlightedEntity?.name === entity.name}
 	style:width={`${entity.width}px`}
 	style:height={`${entity.height}px`}
-	style:transform={`rotate(${entity.rotation}deg) scale(${entity.stats.scale})`}
+	style:transform={`rotate(${entity.rotation}deg) scale(${entity.stats.scale}) `}
 	style:transform-origin={'center'}
 	style:background={entity.sprite
 		? `url(${entity.sprite.spritesheet}) no-repeat ${entity.sprite.currentFrame[0]}px ${entity.sprite.currentFrame[1]}px`

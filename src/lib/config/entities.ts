@@ -19,8 +19,7 @@ import {
 	fireTowerUpgrades,
 	iceTowerUpgrades,
 	windTowerUpgrades
-} from './upgradesConfig';
-import { onFire } from './effects';
+} from './upgrades';
 
 type Stats = {
 	health?: number;
@@ -202,7 +201,7 @@ const entities: Record<string, EntityConfig> = {
 		width: 24,
 		height: 24,
 
-		effects: ['Fireball'],
+		vfx: ['Fireball'],
 
 		initialState: 'Fly',
 		states: ['Fly', 'Die'],
@@ -233,7 +232,7 @@ const entities: Record<string, EntityConfig> = {
 	loot: {
 		type: 'loot',
 
-		effects: ['EssenseLoot'],
+		vfx: ['FireBall'],
 
 		width: 15,
 		height: 15,

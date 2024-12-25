@@ -21,7 +21,7 @@ export class UIManager {
 	checkHighlightedEntity() {
 		if (this.currentDialog) return;
 
-		const entityManager = managers.getManager('entityManager');
+		const entityManager = managers.get('entityManager');
 
 		const entities = entityManager.filterByName(this.nextToHighlightEntity);
 		const nextToHiglight = entities[0];
@@ -37,7 +37,7 @@ export class UIManager {
 	checkStageDialog() {
 		if (this.currentDialog) return;
 
-		const stageManager = managers.getManager('stageManager');
+		const stageManager = managers.get('stageManager');
 
 		if (!this.showedStageDialogs.includes(stageManager.stageNumber)) {
 			this.currentDialog = stageDialogs[stageManager.stageNumber].start;

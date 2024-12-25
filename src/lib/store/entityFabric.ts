@@ -1,4 +1,4 @@
-import { getConfig } from '$lib/config/entitiyConfig';
+import { getConfig } from '$lib/config/entities';
 import { Entity } from './Entity.svelte';
 
 export const initEntity = (name, position, stateContext = {}) => {

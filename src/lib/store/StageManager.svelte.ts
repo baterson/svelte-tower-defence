@@ -20,7 +20,7 @@ export class StageManager {
 	eliteSpawnCd;
 
 	init = () => {
-		const gameLoop = managers.getManager('gameLoop');
+		const gameLoop = managers.get('gameLoop');
 		this.commonSpawnCd = gameLoop.setCD(200, true);
 		this.eliteSpawnCd = gameLoop.setCD(1000, false);
 		this.spawnTowers();
@@ -28,7 +28,7 @@ export class StageManager {
 	};
 
 	update = (deltaTime: number) => {
-		const gameLoop = managers.getManager('gameLoop');
+		const gameLoop = managers.get('gameLoop');
 
 		if (gameLoop.isCDReady(this.commonSpawnCd)) {
 			this.spawnCommonEnemy();
@@ -67,7 +67,7 @@ export class StageManager {
 	}
 
 	checkStageTime() {
-		const gameLoop = managers.getManager('gameLoop');
+		const gameLoop = managers.get('gameLoop');
 		if (gameLoop.elapsedTime > this.stageConfig.time) {
 			this.nextStage();
 		}
@@ -80,7 +80,7 @@ export class StageManager {
 	}
 
 	spawnEntity = (name: string, position: Vector2, context = {}) => {
-		const entityManager = managers.getManager('entityManager');
+		const entityManager = managers.get('entityManager');
 		const entity = initEntity(name, position, context);
 		entityManager.add(entity);
 		return entity;

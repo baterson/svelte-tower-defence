@@ -26,7 +26,7 @@
 
 {#if game}
 	<div class="wrapper">
-		<div class="time">Stage {managers.getManager('stageManager').stageNumber + 1}</div>
+		<div class="time">Stage {managers.get('stageManager').stageNumber + 1}</div>
 		<div
 			bind:offsetHeight={screen.gameAreaHeight}
 			bind:offsetWidth={screen.gameAreaWidth}
@@ -55,7 +55,6 @@
 		height: 100dvh;
 		display: flex;
 		justify-content: center;
-		/* align-items: center; */
 		overflow: hidden;
 	}
 
@@ -67,7 +66,6 @@
 		padding-top: 100px;
 	}
 
-	/* Mobile styles - game takes full screen */
 	@media (max-width: 768px) {
 		.wrapper {
 			align-items: flex-end;

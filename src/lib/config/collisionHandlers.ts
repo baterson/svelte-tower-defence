@@ -9,7 +9,7 @@ const checkSameTarget = (projectile, other) => {
 };
 
 const checkBounds = (entity, other) => {
-	const entityManager = managers.getManager('entityManager');
+	const entityManager = managers.get('entityManager');
 
 	if (other === 'OUT_OF_BOUNDS') {
 		entityManager.destroy(entity.id);
@@ -33,7 +33,6 @@ export const towerCollider = (tower, other) => {
 	}
 
 	tower.stats.health -= other.stats.damage;
-	tower.addEffect('TakeDamage');
 	if (tower.stats.health <= 0) {
 		tower.state.setState('Die');
 	}
@@ -73,7 +72,7 @@ export const throneCollider = (entity, other) => {
 	if (other.type === 'loot' && spawner.type === 'enemy') {
 		// entity.scale += 0.1;
 		entity.health += 20;
-		entity.addEffect('TowerEffectMedium');
+		// add vfx
 	}
 
 	return;

@@ -12,12 +12,12 @@ export class ChargeShoot extends BaseState {
 
 	constructor(stateMachine) {
 		super(stateMachine);
-		const gameLoop = managers.getManager('gameLoop');
+		const gameLoop = managers.get('gameLoop');
 		this.cdId = gameLoop.setCD(CHARGE_CD, false);
 	}
 
 	update(deltaTime: number, enemy) {
-		const gameLoop = managers.getManager('gameLoop');
+		const gameLoop = managers.get('gameLoop');
 
 		enemy.rotation += deltaTime * 20;
 

@@ -5,7 +5,7 @@ import { checkRectCollision } from '$utils/math';
 
 export class CollisionManager {
 	update() {
-		const entityManager = managers.getManager('entityManager');
+		const entityManager = managers.get('entityManager');
 		// Handle tower projectiles vs nearest enemies
 		this.handleProjectileCollisions(
 			[...entityManager.filterByOwnerType('tower'), ...entityManager.filterByOwnerType('throne')],
@@ -42,7 +42,7 @@ export class CollisionManager {
 	}
 
 	private handleEnemyCollisions(): void {
-		const entityManager = managers.getManager('entityManager');
+		const entityManager = managers.get('entityManager');
 		const targets = [...entityManager.livingTowers, entityManager.livingThrone].filter(Boolean);
 
 		for (const enemy of entityManager.livingEnemies) {
@@ -57,7 +57,7 @@ export class CollisionManager {
 	}
 
 	handleLootCollisions(): void {
-		const entityManager = managers.getManager('entityManager');
+		const entityManager = managers.get('entityManager');
 		const throne = entityManager.livingThrone;
 
 		for (const loot of entityManager.livingLoot) {

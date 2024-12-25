@@ -16,16 +16,15 @@ export class Die extends BaseState {
 		this.entity.rotation += 10;
 
 		if (this.entity.sprite.isAnimationComplete) {
-			const entityManager = managers.getManager('entityManager');
-			const stageManager = managers.getManager('stageManager');
+			const { entityManager, stageManager } = managers.get(['entityManager', 'stageManager']);
 
 			entityManager.destroy(this.entity.id);
 
 			if (1) {
-				// stageManager.spawnEntity('loot', this.entity.position.clone(), {
-				// 	target: entityManager.throne,
-				// 	spawner: this.entity
-				// });
+				stageManager.spawnEntity('loot', this.entity.position.clone(), {
+					target: entityManager.throne,
+					spawner: this.entity
+				});
 			}
 		}
 	}

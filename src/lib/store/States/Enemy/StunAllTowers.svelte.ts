@@ -12,14 +12,16 @@ export class StunAllTowers extends BaseState {
 	constructor(stateMachine) {
 		super(stateMachine);
 
-		const gameLoop = managers.getManager('gameLoop');
+		const gameLoop = managers.get('gameLoop');
 		this.cdId = gameLoop.setCD(2000, true);
 	}
 
 	update(deltaTime: number) {
-		const entityManager = managers.getManager('entityManager');
-		const stageManager = managers.getManager('stageManager');
-		const gameLoop = managers.getManager('gameLoop');
+		const { entityManager, stageManager, gameLoop } = managers.get([
+			'entityManager',
+			'stageManager',
+			'gameLoop'
+		]);
 
 		this.entity.scale += 0.003;
 

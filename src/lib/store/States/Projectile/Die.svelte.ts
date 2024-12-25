@@ -9,7 +9,7 @@ import { managers } from '$store/managers.svelte';
 export class Die extends BaseState {
 	constructor(stateMachine) {
 		super(stateMachine);
-		const entityManager = managers.getManager('entityManager');
+		const entityManager = managers.get('entityManager');
 		entityManager.destroy(this.entity.id);
 	}
 }

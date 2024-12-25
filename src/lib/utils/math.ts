@@ -1,11 +1,4 @@
-/**
- * Math utilities for game calculations
- * @module math
- */
-
 import { Vector2 } from '$lib/store/Vector2.svelte';
-// import type { Rect2D } from '$lib/types/collision';
-// type Rect2D = {}
 
 export interface Rect2D {
 	x1: number;

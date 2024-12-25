@@ -6,7 +6,7 @@
 	import Throne from './Entities/Throne.svelte';
 	import Projectile from './Entities/Projectile.svelte';
 
-	const entityManager = $derived(managers.getManager('entityManager'));
+	const entityManager = $derived(managers.get('entityManager'));
 </script>
 
 <section>
