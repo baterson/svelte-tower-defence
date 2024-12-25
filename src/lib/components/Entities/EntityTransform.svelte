@@ -1,10 +1,19 @@
 <script>
 	import { managers } from '$store/managers.svelte';
-	import Effect from './Effect.svelte';
+	import Effect from '../Effect.svelte';
 	// todo: pass in/out transitions
 	let { entity, onclick, node = $bindable(), isStatic = false } = $props();
 
 	const uiManager = $derived(managers.get('uiManager'));
+
+	// Add a derived transform style that combines rotation, scale, and translation
+	const transformStyle = $derived(
+		isStatic
+			? `rotate(${entity.rotation}deg) scale(${entity.stats.scale})`
+			: `translate(${entity.position.x}px, ${entity.position.y}px) `
+	);
+
+	// rotate(${entity.rotation}deg) scale(${entity.stats.scale})
 </script>
 
 <!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions (because of reasons) -->
@@ -15,14 +24,13 @@
 		uiManager.highlightedEntity?.name === entity.name}
 	style:width={`${entity.width}px`}
 	style:height={`${entity.height}px`}
-	style:transform={`rotate(${entity.rotation}deg) scale(${entity.stats.scale}) `}
-	style:transform-origin={'center'}
+	style:transform={transformStyle}
 	style:background={entity.sprite
 		? `url(${entity.sprite.spritesheet}) no-repeat ${entity.sprite.currentFrame[0]}px ${entity.sprite.currentFrame[1]}px`
 		: ''}
+	style:left={0}
+	style:top={0}
 	style:position={isStatic ? 'relative' : 'absolute'}
-	style:top={isStatic ? 'auto' : `${entity.position.y}px`}
-	style:left={isStatic ? 'auto' : `${entity.position.x}px`}
 >
 	{#each entity.vfx as vfx (vfx)}
 		<Effect name={vfx} {entity} />
@@ -34,8 +42,11 @@
 		background-position: center;
 		z-index: 10;
 
+		/* left: 0;
+		top: 0; */
+
 		place-self: var(--place-self);
-		position: var(--position);
+		/* position: var(--position); */
 		margin-left: var(--margin-left);
 		margin-right: var(--margin-right);
 	}

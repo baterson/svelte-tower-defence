@@ -54,7 +54,7 @@ const entities: Record<string, EntityConfig> = {
 		initialState: 'Run',
 
 		states: ['Run', 'Shoot', 'Die'],
-		sprites: [sprites.enemy1],
+		sprites: [sprites.enemy2],
 
 		stats: {
 			health: 600,
