@@ -37,14 +37,14 @@ export class Entity {
 			rotation,
 			type,
 			states,
-			sprites,
 			initialState,
 			onCollide,
 			stats,
 			upgradeLevel,
 			upgrades,
 			vfx,
-			effects
+			effects,
+			stateToSprite
 		},
 		context
 	) {
@@ -61,17 +61,17 @@ export class Entity {
 		this.stats = { ...stats };
 		this.upgradeLevel = upgradeLevel || 0;
 		this.upgrades = upgrades || [];
-		// Entity has either effect or animations
 		this.vfx = vfx || [];
 		this.effects = effects || [];
+		this.stateToSprite = stateToSprite || {};
 
 		// Handle collisions
 		this.onCollide = (other) => onCollide(this, other);
 
 		// Sync sprite with state
 		const onStateEnter = (stateName) => {
-			if (sprites) {
-				this.setSprite(stateName, sprites);
+			if (this.stateToSprite[stateName]) {
+				this.setSprite(stateName);
 			}
 		};
 
@@ -111,17 +111,10 @@ export class Entity {
 		this.position = position;
 	};
 
-	setSprite(name: string, sprites) {
-		let sprite;
+	setSprite(name: string) {
+		const { animation, spritesheet } = this.stateToSprite[name];
 
-		for (const entry of sprites) {
-			const { animations, spritesheet } = entry;
-
-			sprite = animations.find((sprite) => sprite.name === name);
-			if (sprite) {
-				this.sprite = new Sprite({ ...sprite, spritesheet });
-			}
-		}
+		this.sprite = new Sprite({ ...animation, spritesheet });
 	}
 
 	addEffect(effectFn: (entity: Entity) => void) {

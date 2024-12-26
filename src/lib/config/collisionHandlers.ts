@@ -1,5 +1,6 @@
 import type { Entity } from '$store/Entity.svelte';
 import { managers } from '$store/managers.svelte';
+import { Vector2 } from '$store/Vector2.svelte';
 import { onFire } from './effects';
 
 const checkSameTarget = (projectile, other) => {
@@ -70,7 +71,7 @@ export const throneCollider = (entity, other) => {
 	const { spawner } = other.state.context;
 
 	if (other.type === 'loot' && spawner.type === 'enemy') {
-		// entity.scale += 0.1;
+		entity.scale += 0.1;
 		entity.health += 20;
 		// add vfx
 	}
@@ -81,17 +82,7 @@ export const throneCollider = (entity, other) => {
 export const lootCollider = (entity, other) => {
 	const { spawner } = entity.state.context;
 
-	if (spawner.type === 'throne' && other.type === 'tower') {
-		entity.state.setState('Die');
-		return;
-	}
-
 	if (spawner.type === 'enemy' && other.type === 'throne') {
-		entity.state.setState('Die');
-		return;
-	}
-
-	if (spawner.type === 'throne' && other.type === 'tower') {
 		entity.state.setState('Die');
 		return;
 	}

@@ -1,9 +1,8 @@
 export const sprites = {
 	enemy1: {
-		spritesheet: '/1st_enemy_run.png',
-		animations: [
-			{
-				name: 'Idle',
+		spritesheet: '/2nd_enemy_run.png',
+		animations: {
+			Idle: {
 				frames: [
 					[-19, -15],
 					[-82, -15],
@@ -17,8 +16,7 @@ export const sprites = {
 				frameRate: 10,
 				loop: true
 			},
-			{
-				name: 'Run',
+			Follow: {
 				frames: [
 					[-19, -5],
 					[-82, -5],
@@ -32,8 +30,7 @@ export const sprites = {
 				frameRate: 10,
 				loop: true
 			},
-			{
-				name: 'Shoot',
+			Shoot: {
 				frames: [
 					[-12, -170],
 					[-60, -170],
@@ -41,8 +38,7 @@ export const sprites = {
 				],
 				frameRate: 10
 			},
-			{
-				name: 'Die',
+			Die: {
 				frames: [
 					[-19, -15],
 					[-19, -15],
@@ -55,8 +51,7 @@ export const sprites = {
 				],
 				frameRate: 20
 			},
-			{
-				name: 'StunAllTowers',
+			StunAllTowers: {
 				frames: [
 					[-19, -15],
 					[-19, -15],
@@ -66,32 +61,16 @@ export const sprites = {
 					[-274, -15],
 					[-19, -15],
 					[-274, -15]
-				],
-				loop: true,
-				frameRate: 20
-			},
-			{
-				name: 'RunToPoint',
-				frames: [
-					[-19, -5],
-					[-82, -5],
-					[-145, -5],
-					[-210, -5],
-					[-274, -5],
-					[-338, -5],
-					[-402, -5],
-					[-466, -5]
 				],
 				loop: true,
 				frameRate: 20
 			}
-		]
+		}
 	},
 	enemy2: {
-		spritesheet: '/2nd_enemy_run.png',
-		animations: [
-			{
-				name: 'Run',
+		spritesheet: '/1st_enemy_run.png',
+		animations: {
+			Idle: {
 				frames: [
 					[-19, -15],
 					[-82, -15],
@@ -105,79 +84,7 @@ export const sprites = {
 				frameRate: 10,
 				loop: true
 			},
-			{
-				name: 'Shoot',
-				frames: [
-					[-12, -170],
-					[-60, -170],
-					[-167, -12]
-				],
-				frameRate: 10
-			},
-			{
-				name: 'Die',
-				frames: [
-					[-19, -15],
-					[-19, -15],
-					[-19, -15],
-					[-274, -15],
-					[-274, -15],
-					[-274, -15],
-					[-19, -15],
-					[-274, -15]
-				],
-				frameRate: 20
-			}
-		]
-	},
-	enemy3: {
-		spritesheet: '/3rd_enemy_run.png',
-		animations: [
-			{
-				name: 'Run',
-				frames: [
-					[-19, -15],
-					[-82, -15],
-					[-145, -15],
-					[-210, -15],
-					[-274, -15],
-					[-338, -15],
-					[-402, -15],
-					[-466, -15]
-				],
-				frameRate: 10,
-				loop: true
-			},
-			{
-				name: 'Shoot',
-				frames: [
-					[-12, -170],
-					[-60, -170],
-					[-167, -12]
-				],
-				frameRate: 10
-			},
-			{
-				name: 'Die',
-				frames: [
-					[-19, -15],
-					[-19, -15],
-					[-19, -15],
-					[-274, -15],
-					[-274, -15],
-					[-274, -15],
-					[-19, -15],
-					[-274, -15]
-				],
-				frameRate: 10
-			}
-		]
-	},
-	enemy4: {
-		spritesheet: '/4rd_flying_enemy.png',
-		animations: [
-			{
-				name: 'Fly',
+			Follow: {
 				frames: [
 					[-19, -5],
 					[-82, -5],
@@ -191,8 +98,7 @@ export const sprites = {
 				frameRate: 10,
 				loop: true
 			},
-			{
-				name: 'Shoot',
+			Shoot: {
 				frames: [
 					[-12, -170],
 					[-60, -170],
@@ -200,8 +106,7 @@ export const sprites = {
 				],
 				frameRate: 10
 			},
-			{
-				name: 'Die',
+			Die: {
 				frames: [
 					[-19, -15],
 					[-19, -15],
@@ -213,38 +118,8 @@ export const sprites = {
 					[-274, -15]
 				],
 				frameRate: 20
-			}
-		]
-	},
-	enemy5: {
-		spritesheet: '/5rd_сar_enemy.png',
-		animations: [
-			{
-				name: 'Run',
-				frames: [
-					[-19, -15],
-					[-82, -15],
-					[-145, -15],
-					[-210, -15],
-					[-274, -15],
-					[-338, -15],
-					[-402, -15],
-					[-466, -15]
-				],
-				frameRate: 10,
-				loop: true
 			},
-			{
-				name: 'Shoot',
-				frames: [
-					[-12, -170],
-					[-60, -170],
-					[-167, -12]
-				],
-				frameRate: 10
-			},
-			{
-				name: 'Die',
+			StunAllTowers: {
 				frames: [
 					[-19, -15],
 					[-19, -15],
@@ -255,98 +130,16 @@ export const sprites = {
 					[-19, -15],
 					[-274, -15]
 				],
+				loop: true,
 				frameRate: 20
 			}
-		]
+		}
 	},
 
-	blueTower: {
-		spritesheet: '/blueTower.png',
-		animations: [
-			{
-				name: 'Build',
-				frames: [
-					[-19, -8],
-					[-83, -8],
-					[-147, -8],
-					[-211, -8],
-					[-275, -8],
-					[-339, -8],
-					[-403, -8],
-					[-467, -8],
-					[-531, -8],
-					[-595, -8],
-					[-659, -8],
-					[-723, -8],
-					[-787, -8],
-					[-851, -8],
-					[-915, -8],
-					[-979, -8],
-					[-1043, -8],
-					[-1107, -8],
-					[-1171, -8]
-				],
-				frameRate: 10
-			},
-			{
-				name: 'Shoot',
-				frames: [
-					[-19, -77],
-					[-83, -77],
-					[-147, -77],
-					[-211, -77]
-				],
-				frameRate: 40
-			},
-			{
-				name: 'Guard',
-				frames: [
-					[-19, -147],
-					[-83, -147],
-					[-147, -147],
-					[-211, -147]
-				],
-				loop: true,
-				frameRate: 5
-			},
-			{
-				name: 'NotBuilt',
-				frames: [[-19, -8]],
-				loop: true,
-				frameRate: 1
-			},
-			{
-				name: 'Die',
-				frames: [
-					[-1171, -8],
-					[-1107, -8],
-					[-1043, -8],
-					[-979, -8],
-					[-915, -8],
-					[-851, -8],
-					[-787, -8],
-					[-723, -8],
-					[-659, -8],
-					[-595, -8],
-					[-531, -8],
-					[-467, -8],
-					[-403, -8],
-					[-339, -8],
-					[-275, -8],
-					[-211, -8],
-					[-147, -8],
-					[-83, -8]
-				],
-				loop: false,
-				frameRate: 30
-			}
-		]
-	},
 	moon: {
 		spritesheet: '/Moon.sprite.png',
-		animations: [
-			{
-				name: 'Guard',
+		animations: {
+			Guard: {
 				frames: [
 					[-5, -5],
 					[-5, -58],
@@ -412,8 +205,7 @@ export const sprites = {
 				frameRate: 30,
 				loop: true
 			},
-			{
-				name: 'Die',
+			Die: {
 				frames: [
 					[-5, -3132],
 					[-5, -3079],
@@ -479,61 +271,6 @@ export const sprites = {
 				frameRate: 20,
 				loop: false
 			}
-		]
-	},
-
-	// PROJECTILES
-	projectile: {
-		spritesheet: '/projectile.png',
-		animations: [
-			{
-				name: 'Fly',
-				frames: [
-					[-19, -15],
-					[-82, -15],
-					[-145, -15],
-					[-210, -15],
-					[-274, -15]
-				],
-				frameRate: 10,
-				loop: true
-			},
-			{
-				name: 'Die',
-				frames: [
-					[-19, -15],
-					[-402, -15],
-					[-466, -15]
-				],
-				frameRate: 10
-			}
-		]
-	},
-
-	laser: {
-		spritesheet: '/laser.png',
-		animations: [
-			{
-				name: 'Fly',
-				frames: [
-					[-19, -15],
-					[-82, -15],
-					[-145, -15],
-					[-210, -15],
-					[-274, -15]
-				],
-				frameRate: 10,
-				loop: true
-			},
-			{
-				name: 'Die',
-				frames: [
-					[-19, -15],
-					[-402, -15],
-					[-466, -15]
-				],
-				frameRate: 10
-			}
-		]
+		}
 	}
 };

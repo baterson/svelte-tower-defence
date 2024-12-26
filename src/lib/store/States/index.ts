@@ -1,24 +1,20 @@
 import * as EnemyStates from './Enemy/';
 import * as TowerStates from './Tower/';
-import * as ProjectileStates from './Projectile';
-import * as ThroneStates from './Throne/';
-import * as LootStates from './Loot/';
 import * as BossStates from './Enemy/boss/';
-
+import * as CommonStates from './Common/';
+import * as ProjectileStates from './Projectiles/';
 export const initState = (stateMachine, entityType, name, stateContext = {}) => {
-	let State;
+	let States = CommonStates;
 
 	if (entityType === 'enemy') {
-		State = { ...EnemyStates, ...BossStates }[name];
+		States = { ...CommonStates, ...EnemyStates, ...BossStates };
 	} else if (entityType === 'tower') {
-		State = TowerStates[name];
+		States = { ...CommonStates, ...TowerStates };
 	} else if (entityType === 'projectile') {
-		State = ProjectileStates[name];
-	} else if (entityType === 'throne') {
-		State = ThroneStates[name];
-	} else if (entityType === 'loot') {
-		State = LootStates[name];
+		States = { ...CommonStates, ...ProjectileStates };
 	}
+
+	const State = States[name];
 
 	if (!State) {
 		throw new Error(`Invalid entity type: ${entityType} with name ${name}`);
