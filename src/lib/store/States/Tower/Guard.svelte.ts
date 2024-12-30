@@ -22,7 +22,6 @@ export class Guard extends BaseState {
 		const target = entityManager.findNearestEntity(this.entity, entityManager.livingEnemies);
 
 		if (gameLoop.isCDReady(this.cdId) && target) {
-			this.entity.addVFX('TowerShoot');
 			this.stateMachine.setState('Shoot', { spawner: this.entity, target });
 		}
 	}

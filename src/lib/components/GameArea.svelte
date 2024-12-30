@@ -23,15 +23,11 @@
 		<Loot {loot} />
 	{/each}
 
-	<div class="towers">
-		{#each entityManager.towers as tower, index (tower.id)}
-			<Tower {tower} placement={index % 2 !== 0 ? 'end' : 'start'} />
-		{/each}
-	</div>
+	{#each entityManager.towers as tower, index (tower.id)}
+		<Tower {tower} {index} />
+	{/each}
 
-	<div class="throne">
-		<Throne throne={entityManager.throne} />
-	</div>
+	<Throne throne={entityManager.throne} />
 </section>
 
 <style>
@@ -46,22 +42,6 @@
 		height: 100%;
 		will-change: transform;
 		z-index: 4;
-	}
-
-	.towers {
-		width: 100%;
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: 60px;
-		padding: 0 20px 0 20px;
-	}
-
-	.throne {
-		font-size: 94px;
-		width: 100%;
-		display: flex;
-		justify-content: center;
-		align-items: center;
 	}
 
 	@media (max-width: 768px) {

@@ -1,13 +1,34 @@
 <script>
 	import { spendUpgradePoints } from '$store/gameActions.svelte';
-	import { handleScreenChange } from '$store/States/effects';
+	import { screen } from '$store/Screen.svelte';
+	import { Vector2 } from '$store/Vector2.svelte';
 	import Entity from './Entity.svelte';
 
 	let node = $state();
+	const { tower, index } = $props();
 
-	const { tower, placement } = $props();
+	$effect(() => {
+		// Left side: index 0 (top) and 2 (bottom)
+		// Right side: index 1 (top) and 3 (bottom)
+		const sideMargin = screen.isMobile ? 30 : 100;
+		const bottomMargin = screen.isMobile ? 150 : 200;
 
-	$effect(() => handleScreenChange(node, tower));
+		const isLeftSide = index === 0 || index === 2;
+		const isTopRow = index === 0 || index === 1;
+
+		const width = isLeftSide ? sideMargin : screen.gameAreaWidth - tower.width - sideMargin + 10;
+
+		const height = isTopRow
+			? screen.gameAreaHeight - bottomMargin * 2
+			: screen.gameAreaHeight - bottomMargin;
+
+		tower.position = new Vector2(width, height);
+
+		// const width = isLeftSide ? 100 : screen.width - 100;
+		// const height = isTopRow ? screen.height - 400 : screen.height - 200;
+
+		// tower.position = new Vector2(width, height);
+	});
 </script>
 
 <Entity
@@ -18,9 +39,5 @@
 	}}
 	bind:node
 	entity={tower}
-	isStatic={true}
-	--place-self={placement}
-	--position="relative"
-	--margin-left={placement === 'start' ? '20px' : 'auto'}
-	--margin-right={placement === 'end' ? '20px' : 'auto'}
+	--z-index={10}
 />

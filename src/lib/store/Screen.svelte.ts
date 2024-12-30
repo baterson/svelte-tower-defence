@@ -5,6 +5,7 @@ export class Screen {
 	gameAreaHeight = $state(0);
 	gameXOffset = $state(0);
 	gameYOffset = $state(0);
+	isMobile = $derived(this.width < 768);
 
 	get screenBounds() {
 		return {

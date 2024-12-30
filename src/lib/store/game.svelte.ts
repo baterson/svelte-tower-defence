@@ -5,6 +5,7 @@ import { StageManager } from './StageManager.svelte';
 import { UIManager } from './UIManager.svelte';
 import { GameLoop } from './GameLoop.svelte';
 import { managers } from './managers.svelte';
+import { tick } from 'svelte';
 
 export class Game {
 	constructor() {
@@ -14,7 +15,7 @@ export class Game {
 		stageManager.init();
 	}
 
-	update = (deltaTime) => {
+	update = async (deltaTime) => {
 		managers.update(deltaTime);
 	};
 

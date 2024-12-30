@@ -19,7 +19,7 @@
 
 <svelte:window bind:innerWidth={screen.width} bind:innerHeight={screen.height} />
 
-<!-- <DevTools /> -->
+<DevTools />
 <!-- <Dialog /> -->
 <!-- <BackDrop /> -->
 
@@ -50,11 +50,11 @@
 	.wrapper {
 		background-color: rgb(236, 209, 218);
 		z-index: 3;
-		position: absolute;
-		width: 100vw;
-		height: 100dvh;
+		position: relative;
 		display: flex;
 		justify-content: center;
+		width: 100vw;
+		height: 100dvh;
 		overflow: hidden;
 	}
 
@@ -63,19 +63,15 @@
 		width: 520px;
 		height: 100dvh;
 		will-change: transform;
-		padding-top: 100px;
 	}
 
 	@media (max-width: 768px) {
 		.wrapper {
-			align-items: flex-end;
+			display: block;
 		}
-
 		.game-container {
 			width: 100vw;
 			height: 100dvh;
-			padding-top: 0;
-			padding-bottom: 40px;
 		}
 	}
 </style>

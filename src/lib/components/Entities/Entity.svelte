@@ -20,9 +20,8 @@
 	style:height={`${entity.height}px`}
 	style:transform={`rotate(${entity.rotation}deg) scale(${entity.stats.scale}) `}
 	style:transform-origin={'center'}
-	style:position={isStatic ? 'relative' : 'absolute'}
-	style:top={isStatic ? 'auto' : `${entity.position.y}px`}
-	style:left={isStatic ? 'auto' : `${entity.position.x}px`}
+	style:top={`${entity.position.y}px`}
+	style:left={`${entity.position.x}px`}
 >
 	{#if Animation}
 		<Animation name={entity.animation.name} {entity} />
@@ -35,12 +34,12 @@
 
 <style>
 	div {
-		z-index: 10;
-
-		place-self: var(--place-self);
-		position: var(--position);
+		position: absolute;
+		z-index: var(--z-index);
+		/* place-self: var(--place-self); */
+		/* position: var(--position);
 		margin-left: var(--margin-left);
-		margin-right: var(--margin-right);
+		margin-right: var(--margin-right); */
 	}
 
 	.highlighted {

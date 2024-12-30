@@ -1,6 +1,8 @@
 <script>
 	import { managers } from '$store/managers.svelte';
 	import Effect from '../Effect.svelte';
+	import Animation from '$components/Animation.svelte';
+
 	// todo: pass in/out transitions
 	let { entity, onclick, node = $bindable(), isStatic = false } = $props();
 
@@ -18,23 +20,20 @@
 
 <!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions (because of reasons) -->
 <div
-	{onclick}
-	bind:this={node}
-	class:highlighted={uiManager.highlightedEntity &&
-		uiManager.highlightedEntity?.name === entity.name}
 	style:width={`${entity.width}px`}
 	style:height={`${entity.height}px`}
 	style:transform={transformStyle}
-	style:background={entity.sprite
-		? `url(${entity.sprite.spritesheet}) no-repeat ${entity.sprite.currentFrame[0]}px ${entity.sprite.currentFrame[1]}px`
-		: ''}
 	style:left={0}
 	style:top={0}
 	style:position={isStatic ? 'relative' : 'absolute'}
 >
-	{#each entity.vfx as vfx (vfx)}
+	{#if Animation}
+		<Animation name={entity.animation.name} {entity} />
+	{/if}
+
+	<!-- {#each entity.vfx as vfx (vfx)}
 		<Effect name={vfx} {entity} />
-	{/each}
+	{/each} -->
 </div>
 
 <style>
