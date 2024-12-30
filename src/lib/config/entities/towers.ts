@@ -10,32 +10,32 @@ import {
 export const towers = {
 	throne: {
 		type: 'throne',
-		width: 10,
-		height: 16,
+		width: 64,
+		height: 100,
 		stats: {
 			health: 100,
 			damage: 999,
 			speed: 0,
-			scale: 8
+			scale: 1.5
 		},
 		states: ['Idle'],
 		stateToAnimation: {
-			Idle: animations.Fireball
+			Idle: animations.TowerIdle
 		},
 		initialState: 'Idle',
 		onCollide: throneCollider
 	},
 	fireTower: {
 		type: 'tower',
-		width: 10,
-		height: 16,
+		width: 60,
+		height: 96,
 		initialState: 'Guard',
 		states: ['Build', 'Guard', 'Shoot', 'NotBuilt'],
 		stateToAnimation: {
-			Build: animations.Fireball,
-			Guard: animations.Fireball,
-			Shoot: animations.Fireball,
-			NotBuilt: animations.Fireball
+			Build: animations.TowerBuild,
+			Guard: animations.TowerIdle,
+			Shoot: animations.TowerShoot,
+			NotBuilt: animations.TowerBase
 		},
 		effects: [],
 		stats: {
@@ -44,7 +44,7 @@ export const towers = {
 			attackSpeed: 1000,
 			damage: 20,
 			projectileNumber: 1,
-			scale: 4,
+			scale: 1,
 			projectileType: 'fireball'
 		},
 		onCollide: towerCollider,

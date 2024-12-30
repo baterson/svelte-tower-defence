@@ -1,14 +1,11 @@
 import { BaseState } from '$lib/store/States/BaseState.svelte';
 import { managers } from '$store/managers.svelte';
 export class Shoot extends BaseState {
-	constructor(stateMachine) {
-		super(stateMachine);
-
-		this.shoot();
-	}
-
 	update() {
-		this.entity.state.setState('Guard');
+		if (this.entity.animation.isComplete) {
+			this.shoot();
+			this.entity.state.setState('Guard');
+		}
 	}
 
 	shoot() {
