@@ -9,7 +9,7 @@ export class Die extends BaseState {
 	}
 
 	update() {
-		if (!this.entity.sprite || (this.entity.sprite && this.entity.sprite.isAnimationComplete)) {
+		if (!this.entity.animation || (this.entity.animation && this.entity.animation.isComplete)) {
 			const entityManager = managers.get('entityManager');
 
 			entityManager.destroy(this.entity.id);

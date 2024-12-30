@@ -1,6 +1,6 @@
-import { Sprite } from '$store/Sprite.svelte';
 import { Vector2 } from '$store/Vector2.svelte';
 import { StateMachine } from '$store/StateMachine.svelte';
+import { Animation } from '$store/Animation.svelte';
 
 export class Entity {
 	static lastId = 0;
@@ -13,7 +13,7 @@ export class Entity {
 	effects = $state([]);
 
 	vfx = $state([]);
-	sprite = $state<Sprite>();
+	animation = $state<Animation>();
 	position = $state<Vector2>();
 	state = $state<StateMachine>();
 	stats = $state({});
@@ -44,7 +44,7 @@ export class Entity {
 			upgrades,
 			vfx,
 			effects,
-			stateToSprite
+			stateToAnimation
 		},
 		context
 	) {
@@ -63,15 +63,15 @@ export class Entity {
 		this.upgrades = upgrades || [];
 		this.vfx = vfx || [];
 		this.effects = effects || [];
-		this.stateToSprite = stateToSprite || {};
+		this.stateToAnimation = stateToAnimation || {};
 
 		// Handle collisions
 		this.onCollide = (other) => onCollide(this, other);
 
 		// Sync sprite with state
 		const onStateEnter = (stateName) => {
-			if (this.stateToSprite[stateName]) {
-				this.setSprite(stateName);
+			if (this.stateToAnimation[stateName]) {
+				this.setAnimation(stateName);
 			}
 		};
 
@@ -102,8 +102,8 @@ export class Entity {
 		});
 		this.state.update(deltaTime);
 
-		if (this.sprite) {
-			this.sprite.update(deltaTime);
+		if (this.animation) {
+			this.animation.update(deltaTime);
 		}
 	}
 
@@ -111,10 +111,10 @@ export class Entity {
 		this.position = position;
 	};
 
-	setSprite(name: string) {
-		const { animation, spritesheet } = this.stateToSprite[name];
+	setAnimation(state: string) {
+		const animation = this.stateToAnimation[state];
 
-		this.sprite = new Sprite({ ...animation, spritesheet });
+		this.animation = new Animation({ ...animation });
 	}
 
 	addEffect(effectFn: (entity: Entity) => void) {

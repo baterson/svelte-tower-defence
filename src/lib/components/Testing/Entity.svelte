@@ -1,10 +1,8 @@
 <script>
 	import { managers } from '$store/managers.svelte';
 	import Effect from '../Effect.svelte';
-	import Animation from '$components/Animation.svelte';
-	import { fade } from 'svelte/transition';
 	// todo: pass in/out transitions
-	let { entity, onclick, onout, node = $bindable(), isStatic = false } = $props();
+	let { entity, onclick, node = $bindable(), isStatic = false } = $props();
 
 	const uiManager = $derived(managers.get('uiManager'));
 </script>
@@ -12,7 +10,6 @@
 <!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions (because of reasons) -->
 <div
 	{onclick}
-	out:fade={{ duration: 100 }}
 	bind:this={node}
 	class:highlighted={uiManager.highlightedEntity &&
 		uiManager.highlightedEntity?.name === entity.name}
@@ -24,17 +21,14 @@
 	style:top={isStatic ? 'auto' : `${entity.position.y}px`}
 	style:left={isStatic ? 'auto' : `${entity.position.x}px`}
 >
-	{#if Animation}
-		<Animation name={entity.animation.name} {entity} />
-	{/if}
-
-	<!-- {#each entity.vfx as vfx (vfx)}
+	{#each entity.vfx as vfx (vfx)}
 		<Effect name={vfx} {entity} />
-	{/each} -->
+	{/each}
 </div>
 
 <style>
 	div {
+		background-position: center;
 		z-index: 10;
 
 		place-self: var(--place-self);

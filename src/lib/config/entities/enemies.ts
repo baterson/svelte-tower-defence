@@ -4,9 +4,8 @@
  */
 
 import type { Entity } from '$store/Entity.svelte';
-import { sprites } from '../sprites';
+import { animations } from '../animations';
 import { enemyCollider } from '../collisionHandlers';
-import { Vector2 } from '$store/Vector2.svelte';
 
 type Stats = {
 	health?: number;
@@ -36,75 +35,20 @@ export interface EntityConfig {
 export const enemies: Record<string, EntityConfig> = {
 	enemy1: {
 		type: 'enemy',
-		width: 30,
-		height: 40,
+		width: 88,
+		height: 58,
 		initialState: 'FollowTarget',
 
 		states: ['FollowTarget', 'Die'],
-		stateToSprite: {
-			FollowTarget: {
-				spritesheet: sprites.enemy1.spritesheet,
-				animation: sprites.enemy1.animations.Follow
-			},
-			Die: { spritesheet: sprites.enemy1.spritesheet, animation: sprites.enemy1.animations.Die }
+		stateToAnimation: {
+			FollowTarget: animations.BarigaFollow,
+			Die: animations.BarigaDie
 		},
-
 		stats: {
-			health: 300,
+			scale: 1,
+			health: 200,
 			speed: 0.06,
 			damage: 10
-		},
-		onCollide: enemyCollider
-	},
-	enemy2: {
-		type: 'enemy',
-		width: 30,
-		height: 40,
-		initialState: 'FollowTarget',
-		states: ['FollowTarget', 'Die'],
-		stateToSprite: {
-			FollowTarget: {
-				spritesheet: sprites.enemy2.spritesheet,
-				animation: sprites.enemy2.animations.Follow
-			},
-			Die: {
-				spritesheet: sprites.enemy2.spritesheet,
-				animation: sprites.enemy2.animations.Die
-			}
-		},
-		stats: {
-			health: 1,
-			speed: 0.07,
-			damage: 10
-		},
-		onCollide: enemyCollider
-	},
-	stunner: {
-		type: 'enemy',
-		width: 30,
-		height: 40,
-		initialState: 'FollowPoint',
-		effects: [],
-		states: ['FollowPoint', 'StunAllTowers', 'Die'],
-		stateToSprite: {
-			FollowPoint: {
-				spritesheet: sprites.enemy1.spritesheet,
-				animation: sprites.enemy1.animations.Follow
-			},
-			StunAllTowers: {
-				spritesheet: sprites.enemy1.spritesheet,
-				animation: sprites.enemy1.animations.StunAllTowers
-			},
-			Die: { spritesheet: sprites.enemy1.spritesheet, animation: sprites.enemy1.animations.Die }
-		},
-		context: {
-			targetPoint: new Vector2(200, 200)
-		},
-
-		stats: {
-			health: 9999,
-			damage: 2,
-			speed: 0.05
 		},
 		onCollide: enemyCollider
 	}

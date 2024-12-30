@@ -1,5 +1,5 @@
+import { animations } from '../animations';
 import { throneCollider, towerCollider } from '../collisionHandlers';
-import { sprites } from '../sprites';
 import {
 	earthTowerUpgrades,
 	fireTowerUpgrades,
@@ -10,38 +10,41 @@ import {
 export const towers = {
 	throne: {
 		type: 'throne',
-		width: 30,
-		height: 40,
+		width: 10,
+		height: 16,
 		stats: {
 			health: 100,
 			damage: 999,
 			speed: 0,
-			scale: 2
+			scale: 8
 		},
 		states: ['Idle'],
-		stateToSprite: {
-			Idle: { spritesheet: sprites.moon.spritesheet, animation: sprites.moon.animations.Guard }
+		stateToAnimation: {
+			Idle: animations.Fireball
 		},
 		initialState: 'Idle',
 		onCollide: throneCollider
 	},
 	fireTower: {
 		type: 'tower',
-		width: 48,
-		height: 48,
+		width: 10,
+		height: 16,
 		initialState: 'Guard',
 		states: ['Build', 'Guard', 'Shoot', 'NotBuilt'],
-		stateToSprite: {
-			Guard: { spritesheet: sprites.moon.spritesheet, animation: sprites.moon.animations.Guard }
+		stateToAnimation: {
+			Build: animations.Fireball,
+			Guard: animations.Fireball,
+			Shoot: animations.Fireball,
+			NotBuilt: animations.Fireball
 		},
 		effects: [],
 		stats: {
 			health: 50,
 			attackRange: Infinity,
-			attackSpeed: 500,
+			attackSpeed: 1000,
 			damage: 20,
 			projectileNumber: 1,
-			scale: 1.2,
+			scale: 4,
 			projectileType: 'fireball'
 		},
 		onCollide: towerCollider,
@@ -54,8 +57,11 @@ export const towers = {
 		height: 48,
 		initialState: 'Guard',
 		states: ['Build', 'Guard', 'Shoot', 'NotBuilt'],
-		stateToSprite: {
-			Guard: { spritesheet: sprites.moon.spritesheet, animation: sprites.moon.animations.Guard }
+		stateToAnimation: {
+			Build: animations.Boba,
+			Guard: animations.Boba,
+			Shoot: animations.Boba,
+			NotBuilt: animations.Boba
 		},
 		effects: [],
 		stats: {
@@ -77,8 +83,11 @@ export const towers = {
 		height: 48,
 		initialState: 'Guard',
 		states: ['Build', 'Guard', 'Shoot', 'NotBuilt'],
-		stateToSprite: {
-			Guard: { spritesheet: sprites.moon.spritesheet, animation: sprites.moon.animations.Guard }
+		stateToAnimation: {
+			Build: animations.Boba,
+			Guard: animations.Boba,
+			Shoot: animations.Boba,
+			NotBuilt: animations.Boba
 		},
 		effects: [],
 		stats: {
@@ -100,8 +109,11 @@ export const towers = {
 		height: 48,
 		initialState: 'Guard',
 		states: ['Build', 'Guard', 'Shoot', 'NotBuilt'],
-		stateToSprite: {
-			Guard: { spritesheet: sprites.moon.spritesheet, animation: sprites.moon.animations.Guard }
+		stateToAnimation: {
+			Build: animations.Boba,
+			Guard: animations.Boba,
+			Shoot: animations.Boba,
+			NotBuilt: animations.Boba
 		},
 		effects: [],
 		stats: {

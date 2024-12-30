@@ -13,14 +13,6 @@ export class FollowTarget extends BaseState {
 		const direction = getDirectionFromAngle(this.lastAngle);
 		const speed = this.entity.stats.speed * deltaTime;
 
-		// Continue moving in the last direction if no target is found
-		// if (!target.isInteractable) {
-		// 	this.entity.velocity = direction.multiply(speed);
-		// 	this.entity.position = this.entity.position.add(this.entity.velocity);
-		// 	debugger;
-		// 	return;
-		// }
-
 		this.lastAngle = angleToTarget(this.entity.position, target.position);
 
 		this.entity.velocity = direction.multiply(speed);

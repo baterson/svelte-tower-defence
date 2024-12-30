@@ -4,6 +4,7 @@
 	import Enemy from './Entities/Enemy.svelte';
 	import Tower from './Entities/Tower.svelte';
 	import Throne from './Entities/Throne.svelte';
+	import Entity from './Entities/Entity.svelte';
 	import Projectile from './Entities/Projectile.svelte';
 
 	const entityManager = $derived(managers.get('entityManager'));

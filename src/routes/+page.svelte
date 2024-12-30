@@ -19,8 +19,7 @@
 
 <svelte:window bind:innerWidth={screen.width} bind:innerHeight={screen.height} />
 
-<DevTools />
-<ParallaxBackground />
+<!-- <DevTools /> -->
 <!-- <Dialog /> -->
 <!-- <BackDrop /> -->
 
@@ -49,6 +48,7 @@
 	}
 
 	.wrapper {
+		background-color: rgb(236, 209, 218);
 		z-index: 3;
 		position: absolute;
 		width: 100vw;

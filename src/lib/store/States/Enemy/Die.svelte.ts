@@ -9,13 +9,13 @@ export class Die extends BaseState {
 	}
 
 	update() {
-		if (this.entity.sprite && this.entity.sprite.isAnimationComplete) {
+		if (this.entity.animation && this.entity.animation.isComplete) {
 			const { entityManager, stageManager } = managers.get(['entityManager', 'stageManager']);
 
-			stageManager.spawnEntity('loot', this.entity.position.clone(), {
-				target: entityManager.throne,
-				spawner: this.entity
-			});
+			// stageManager.spawnEntity('loot', this.entity.position.clone(), {
+			// 	target: entityManager.throne,
+			// 	spawner: this.entity
+			// });
 			entityManager.destroy(this.entity.id);
 		}
 	}

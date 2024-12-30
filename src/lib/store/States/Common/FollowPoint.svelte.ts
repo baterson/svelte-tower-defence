@@ -15,6 +15,7 @@ export class FollowPoint extends BaseState {
 
 		this.entity.velocity = direction.multiply(speed);
 		this.entity.position = this.entity.position.add(this.entity.velocity);
-		this.entity.rotation = angle;
+
+		this.entity.rotation = (angle * 180) / Math.PI + 90;
 	}
 }

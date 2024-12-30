@@ -26,6 +26,7 @@ export class FollowThroughTarget extends BaseState {
 
 		this.entity.velocity = direction.multiply(speed);
 		this.entity.position = this.entity.position.add(this.entity.velocity);
-		this.entity.rotation = this.lastAngle;
+
+		this.entity.rotation = (this.lastAngle * 180) / Math.PI + 90;
 	}
 }
