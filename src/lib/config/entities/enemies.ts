@@ -38,8 +38,8 @@ export const enemies: Record<string, EntityConfig> = {
 		width: 88,
 		height: 58,
 		initialState: 'FollowTarget',
-
 		states: ['FollowTarget', 'Die'],
+		vfx: [],
 		stateToAnimation: {
 			FollowTarget: animations.BarigaFollow,
 			Die: animations.BarigaDie

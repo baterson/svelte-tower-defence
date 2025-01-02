@@ -27,9 +27,9 @@
 		<Animation name={entity.animation.name} {entity} />
 	{/if}
 
-	<!-- {#each entity.vfx as vfx (vfx)}
+	{#each entity.vfx as vfx (vfx)}
 		<Effect name={vfx} {entity} />
-	{/each} -->
+	{/each}
 </div>
 
 <style>

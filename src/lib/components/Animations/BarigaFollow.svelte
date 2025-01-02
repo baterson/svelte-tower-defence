@@ -10,6 +10,7 @@
 				fill="url(#paint0_linear_2229_2018)"
 				stroke="#350F42"
 				stroke-width="2"
+				id="frame_0"
 			/>
 			<g filter="url(#filter0_d_2229_2018)">
 				<circle cx="32.7958" cy="22.4462" r="5.95593" fill="url(#paint1_linear_2229_2018)" />
@@ -137,6 +138,7 @@
 				fill="url(#paint0_linear_2229_2015)"
 				stroke="#350F42"
 				stroke-width="2"
+				id="frame_1"
 			/>
 			<g filter="url(#filter0_d_2229_2015)">
 				<ellipse
@@ -315,6 +317,7 @@
 				fill="url(#paint0_linear_2229_2016)"
 				stroke="#350F42"
 				stroke-width="2"
+				id="frame_2"
 			/>
 			<g filter="url(#filter0_d_2229_2016)">
 				<circle cx="35.0943" cy="22.8501" r="6.17239" fill="url(#paint1_linear_2229_2016)" />
