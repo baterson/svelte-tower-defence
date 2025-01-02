@@ -17,6 +17,26 @@ export const projectiles = {
 			Die: animations.Fireball
 		},
 		stats: {
+			scale: 3,
+			health: 1,
+			speed: 0.3,
+			damage: 10
+		},
+		onCollide: fireballCollider
+	},
+	iceball: {
+		type: 'projectile',
+		width: 10,
+		height: 27,
+		vfx: [],
+		initialState: 'FollowThroughTarget',
+		states: ['FollowThroughTarget', 'Die', 'FollowPoint'],
+		stateToAnimation: {
+			FollowThroughTarget: animations.Iceball,
+			FollowPoint: animations.Iceball,
+			Die: animations.Iceball
+		},
+		stats: {
 			scale: 2,
 			health: 1,
 			speed: 0.3,
@@ -24,23 +44,45 @@ export const projectiles = {
 		},
 		onCollide: fireballCollider
 	},
-	projectile2: {
+	poisonball: {
 		type: 'projectile',
-		width: 18,
-		height: 18,
+		width: 17,
+		height: 16,
 		vfx: [],
-		initialState: 'FollowTarget',
+		initialState: 'FollowThroughTarget',
+		states: ['FollowThroughTarget', 'Die', 'FollowPoint'],
 		stateToAnimation: {
-			FollowTarget: animations.Fireball,
-			FollowPoint: animations.Fireball,
-			Die: animations.Fireball
+			FollowThroughTarget: animations.Poisonball,
+			FollowPoint: animations.Poisonball,
+			Die: animations.Poisonball
 		},
 		stats: {
+			scale: 2,
 			health: 1,
-			speed: 0.03,
-			damage: 1
+			speed: 0.3,
+			damage: 10
 		},
-		onCollide: projectileCollider
+		onCollide: fireballCollider
+	},
+	windball: {
+		type: 'projectile',
+		width: 19,
+		height: 27,
+		vfx: [],
+		initialState: 'FollowThroughTarget',
+		states: ['FollowThroughTarget', 'Die', 'FollowPoint'],
+		stateToAnimation: {
+			FollowThroughTarget: animations.Windball,
+			FollowPoint: animations.Windball,
+			Die: animations.Windball
+		},
+		stats: {
+			scale: 2,
+			health: 1,
+			speed: 0.3,
+			damage: 10
+		},
+		onCollide: fireballCollider
 	},
 
 	loot: {

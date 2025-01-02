@@ -44,12 +44,13 @@ export class StageManager {
 		// ['fireTower'].forEach((name) => {
 		// 	this.spawnEntity(name, new Vector2(0, 0));
 		// });
-		['fireTower', 'fireTower', 'fireTower', 'fireTower'].forEach((name) => {
-			this.spawnEntity(name, new Vector2(0, 0));
-		});
-		// ['fireTower', 'windTower', 'earthTower', 'iceTower'].forEach((name) => {
+		// ['fireTower', 'fireTower', 'fireTower', 'fireTower'].forEach((name) => {
 		// 	this.spawnEntity(name, new Vector2(0, 0));
 		// });
+
+		['fireTower', 'windTower', 'poisonTower', 'iceTower'].forEach((name) => {
+			this.spawnEntity(name, new Vector2(0, 0));
+		});
 	}
 
 	spawnCommonEnemy() {

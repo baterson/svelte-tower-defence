@@ -29,10 +29,6 @@ export class Animation {
 	update(deltaTime: number) {
 		if (this.frameRate === 0) return;
 
-		if (this.name === 'TowerShoot') {
-			// debugger;
-		}
-
 		this.currentFrameTime += deltaTime;
 
 		if (this.currentFrameTime >= 1000 / this.frameRate) {
@@ -42,9 +38,10 @@ export class Animation {
 	}
 
 	nextFrame() {
+		// 2
 		this.currentFrame += 1;
 
-		if (this.currentFrame >= this.framesAmount) {
+		if (this.currentFrame >= this.framesAmount - 1) {
 			if (this.loop) {
 				this.currentFrame = 0;
 			} else {

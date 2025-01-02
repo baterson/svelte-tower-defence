@@ -23,7 +23,7 @@ export class Shoot extends BaseState {
 
 		// Attack the tower
 		if (nearestTower) {
-			stageManager.spawnEntity('fireball', enemy.position.clone(), {
+			stageManager.spawnEntity(enemy.entity.stats.projectileType, enemy.position.clone(), {
 				spawner: enemy,
 				target: nearestTower
 			});

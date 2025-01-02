@@ -10,31 +10,31 @@ import {
 export const towers = {
 	throne: {
 		type: 'throne',
-		width: 64,
-		height: 100,
+		width: 256,
+		height: 212,
 		stats: {
 			health: 100,
 			damage: 999,
 			speed: 0,
-			scale: 1.5
+			scale: 0.3
 		},
 		states: ['Idle'],
 		stateToAnimation: {
-			Idle: animations.TowerIdle
+			Idle: animations.Base
 		},
 		initialState: 'Idle',
 		onCollide: throneCollider
 	},
 	fireTower: {
 		type: 'tower',
-		width: 60,
-		height: 96,
-		initialState: 'Guard',
+		width: 68,
+		height: 107,
+		initialState: 'NotBuilt',
 		states: ['Build', 'Guard', 'Shoot', 'NotBuilt'],
 		stateToAnimation: {
-			Build: animations.TowerBuild,
-			Guard: animations.TowerIdle,
-			Shoot: animations.TowerShoot,
+			Build: animations.FireTower,
+			Guard: animations.FireTower,
+			Shoot: animations.FireTower,
 			NotBuilt: animations.TowerBase
 		},
 		effects: [],
@@ -53,15 +53,15 @@ export const towers = {
 
 	windTower: {
 		type: 'tower',
-		width: 48,
-		height: 48,
-		initialState: 'Guard',
+		width: 68,
+		height: 107,
+		initialState: 'NotBuilt',
 		states: ['Build', 'Guard', 'Shoot', 'NotBuilt'],
 		stateToAnimation: {
-			Build: animations.Boba,
-			Guard: animations.Boba,
-			Shoot: animations.Boba,
-			NotBuilt: animations.Boba
+			Build: animations.WindTower,
+			Guard: animations.WindTower,
+			Shoot: animations.WindTower,
+			NotBuilt: animations.TowerBase
 		},
 		effects: [],
 		stats: {
@@ -70,24 +70,24 @@ export const towers = {
 			attackSpeed: 800,
 			damage: 20,
 			projectileNumber: 1,
-			scale: 1.2,
-			projectileType: 'projectile4'
+			scale: 1,
+			projectileType: 'windball'
 		},
 		onCollide: towerCollider,
 		upgrades: windTowerUpgrades
 	},
 
-	earthTower: {
+	poisonTower: {
 		type: 'tower',
-		width: 48,
-		height: 48,
-		initialState: 'Guard',
+		width: 68,
+		height: 107,
+		initialState: 'NotBuilt',
 		states: ['Build', 'Guard', 'Shoot', 'NotBuilt'],
 		stateToAnimation: {
-			Build: animations.Boba,
-			Guard: animations.Boba,
-			Shoot: animations.Boba,
-			NotBuilt: animations.Boba
+			Build: animations.PoisonTower,
+			Guard: animations.PoisonTower,
+			Shoot: animations.PoisonTower,
+			NotBuilt: animations.TowerBase
 		},
 		effects: [],
 		stats: {
@@ -96,8 +96,8 @@ export const towers = {
 			attackSpeed: 800,
 			damage: 20,
 			projectileNumber: 1,
-			scale: 1.2,
-			projectileType: 'projectile3'
+			scale: 1,
+			projectileType: 'poisonball'
 		},
 		onCollide: towerCollider,
 		upgrades: earthTowerUpgrades
@@ -105,15 +105,15 @@ export const towers = {
 
 	iceTower: {
 		type: 'tower',
-		width: 48,
-		height: 48,
-		initialState: 'Guard',
+		width: 68,
+		height: 107,
+		initialState: 'NotBuilt',
 		states: ['Build', 'Guard', 'Shoot', 'NotBuilt'],
 		stateToAnimation: {
-			Build: animations.Boba,
-			Guard: animations.Boba,
-			Shoot: animations.Boba,
-			NotBuilt: animations.Boba
+			Build: animations.IceTower,
+			Guard: animations.IceTower,
+			Shoot: animations.IceTower,
+			NotBuilt: animations.TowerBase
 		},
 		effects: [],
 		stats: {
@@ -122,8 +122,8 @@ export const towers = {
 			attackSpeed: 800,
 			damage: 20,
 			projectileNumber: 1,
-			scale: 1.2,
-			projectileType: 'projectile2'
+			scale: 1,
+			projectileType: 'iceball'
 		},
 		onCollide: towerCollider,
 		upgrades: iceTowerUpgrades

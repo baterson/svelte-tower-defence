@@ -6,6 +6,9 @@
 
 	let node = $state();
 	const { tower, index } = $props();
+	const onclick = () => {
+		tower.state.setState('Guard');
+	};
 
 	$effect(() => {
 		// Left side: index 0 (top) and 2 (bottom)
@@ -31,13 +34,4 @@
 	});
 </script>
 
-<Entity
-	onclick={() => {
-		if (tower.isUpgradable) {
-			spendUpgradePoints(tower);
-		}
-	}}
-	bind:node
-	entity={tower}
-	--z-index={10}
-/>
+<Entity {onclick} bind:node entity={tower} --z-index={10} />
