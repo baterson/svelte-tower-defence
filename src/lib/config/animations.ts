@@ -1,10 +1,72 @@
 export const animations = {
+	// Projectiles
 	Fireball: {
 		name: 'Fireball',
+		framesAmount: 4,
+		frameRate: 10,
+		loop: true
+	},
+	Iceball: {
+		name: 'Iceball',
+		framesAmount: 2,
+		frameRate: 10,
+		loop: true
+	},
+	Poisonball: {
+		name: 'Poisonball',
 		framesAmount: 3,
 		frameRate: 10,
 		loop: true
 	},
+	Windball: {
+		name: 'Windball',
+		framesAmount: 3,
+		frameRate: 10,
+		loop: true
+	},
+	// Towers
+	FireTower: {
+		name: 'FireTower',
+		framesAmount: 1,
+		frameRate: 10,
+		loop: true
+	},
+	IceTower: {
+		name: 'IceTower',
+		framesAmount: 1,
+		frameRate: 0,
+		loop: true
+	},
+
+	PoisonTower: {
+		name: 'PoisonTower',
+		framesAmount: 1,
+		frameRate: 0,
+		loop: true
+	},
+
+	WindTower: {
+		name: 'WindTower',
+		framesAmount: 1,
+		frameRate: 0,
+		loop: true
+	},
+
+	TowerBase: {
+		name: 'TowerBase',
+		framesAmount: 1,
+		frameRate: 0,
+		loop: true
+	},
+
+	Base: {
+		name: 'Base',
+		framesAmount: 1,
+		frameRate: 0,
+		loop: true
+	},
+
+	// Enemies
 	BarigaFollow: {
 		name: 'BarigaFollow',
 		framesAmount: 3,
@@ -16,12 +78,6 @@ export const animations = {
 		framesAmount: 3,
 		frameRate: 10,
 		loop: false
-	},
-	TowerBase: {
-		name: 'TowerBase',
-		framesAmount: 3,
-		frameRate: 10,
-		loop: true
 	},
 	TowerBuild: {
 		name: 'TowerBuild',
