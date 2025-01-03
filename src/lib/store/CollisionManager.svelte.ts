@@ -34,7 +34,6 @@ export class CollisionManager {
 			// Check collision against all targets instead of just the nearest one
 			for (const target of targets) {
 				if (this.checkCollision(projectile, target)) {
-					// debugger;
 					projectile.onCollide(target);
 					target.onCollide(projectile);
 				}

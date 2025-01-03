@@ -1,13 +1,13 @@
 export const stages = [
 	{
-		commonEnemies: ['enemy1'],
+		commonEnemies: ['PurpleBlobEnemy'],
 		// eliteEnemies: ['stunner'],
 		eliteEnemies: [],
 		time: 25000
 	},
 	{
-		commonEnemies: ['enemy1'],
-		eliteEnemies: ['enemy1'],
+		commonEnemies: ['PurpleBlobEnemy'],
+		eliteEnemies: ['PurpleBlobEnemy'],
 		time: 10000
 	}
 ];

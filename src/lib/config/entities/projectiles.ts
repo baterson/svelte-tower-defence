@@ -1,20 +1,19 @@
-import { animations } from '../animations';
 import { fireballCollider, lootCollider } from '../collisionHandlers';
 
 import { projectileCollider } from '../collisionHandlers';
 
 export const projectiles = {
-	fireball: {
+	Fireball: {
 		type: 'projectile',
-		width: 10,
-		height: 16,
+		width: 12,
+		height: 19,
 		vfx: [],
 		initialState: 'FollowThroughTarget',
 		states: ['FollowThroughTarget', 'Die', 'FollowPoint'],
 		stateToAnimation: {
-			FollowThroughTarget: animations.Fireball,
-			FollowPoint: animations.Fireball,
-			Die: animations.Fireball
+			FollowThroughTarget: 'Fireball',
+			FollowPoint: 'Fireball',
+			Die: 'Firebal'
 		},
 		scale: 3,
 		stats: {
@@ -24,7 +23,7 @@ export const projectiles = {
 		},
 		onCollide: fireballCollider
 	},
-	iceball: {
+	Icebolt: {
 		type: 'projectile',
 		width: 10,
 		height: 27,
@@ -32,9 +31,9 @@ export const projectiles = {
 		initialState: 'FollowThroughTarget',
 		states: ['FollowThroughTarget', 'Die', 'FollowPoint'],
 		stateToAnimation: {
-			FollowThroughTarget: animations.Iceball,
-			FollowPoint: animations.Iceball,
-			Die: animations.Iceball
+			FollowThroughTarget: 'Icebolt',
+			FollowPoint: 'Icebolt',
+			Die: 'Icebolt'
 		},
 		scale: 2,
 		stats: {
@@ -44,7 +43,7 @@ export const projectiles = {
 		},
 		onCollide: fireballCollider
 	},
-	poisonball: {
+	Poisonball: {
 		type: 'projectile',
 		width: 17,
 		height: 16,
@@ -52,9 +51,9 @@ export const projectiles = {
 		initialState: 'FollowThroughTarget',
 		states: ['FollowThroughTarget', 'Die', 'FollowPoint'],
 		stateToAnimation: {
-			FollowThroughTarget: animations.Poisonball,
-			FollowPoint: animations.Poisonball,
-			Die: animations.Poisonball
+			FollowThroughTarget: 'Poisonball',
+			FollowPoint: 'Poisonball',
+			Die: 'Poisonball'
 		},
 		scale: 2,
 		stats: {
@@ -64,17 +63,17 @@ export const projectiles = {
 		},
 		onCollide: fireballCollider
 	},
-	windball: {
+	Thunderbolt: {
 		type: 'projectile',
-		width: 19,
-		height: 27,
+		width: 17,
+		height: 31,
 		vfx: [],
 		initialState: 'FollowThroughTarget',
 		states: ['FollowThroughTarget', 'Die', 'FollowPoint'],
 		stateToAnimation: {
-			FollowThroughTarget: animations.Windball,
-			FollowPoint: animations.Windball,
-			Die: animations.Windball
+			FollowThroughTarget: 'Thunderbolt',
+			FollowPoint: 'Thunderbolt',
+			Die: 'Thunderbolt'
 		},
 		scale: 2,
 		stats: {
@@ -94,9 +93,9 @@ export const projectiles = {
 		height: 15,
 		initialState: 'FollowTarget',
 		stateToAnimation: {
-			FollowTarget: animations.Fireball,
-			FollowPoint: animations.Fireball,
-			Die: animations.Fireball
+			FollowTarget: 'Fireball',
+			FollowPoint: 'Fireball',
+			Die: 'Fireball'
 		},
 		stats: {
 			health: 1,
@@ -104,23 +103,5 @@ export const projectiles = {
 			speed: 0.2
 		},
 		onCollide: lootCollider
-	},
-	thronePower: {
-		type: 'projectile',
-		width: 600,
-		height: 100,
-		initialState: 'FollowTarget',
-		stateToAnimation: {
-			FollowTarget: animations.Fireball,
-			FollowPoint: animations.Fireball,
-			Die: animations.Fireball
-		},
-		effects: ['ThronePowerProjectile'],
-		stats: {
-			health: 1,
-			damage: 999,
-			speed: 0.2
-		},
-		onCollide: projectileCollider
 	}
 };

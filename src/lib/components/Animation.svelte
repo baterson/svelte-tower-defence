@@ -1,14 +1,25 @@
 <script>
-	import * as Animations from './Animations';
+	import { getAnimation } from '$lib/config/animations';
 
-	const { name, entity } = $props();
+	const { entity } = $props();
 
-	// let AnimationComponent = $derived(Animations[name]);
-	let AnimationComponent = $derived(Animations[name]);
+	let animation = $derived(getAnimation(entity.animation.name));
 
-	if (!AnimationComponent) {
-		throw new Error(`Animation with name ${name} not found for entity ${entity.name}`);
-	}
+	let frame = $derived(animation.frames[entity.animation.currentFrame]);
+	// $effect(() => {
+	// 	if (entity.type === 'projectile') {
+	// 		console.log('effect:   ', entity.animation.currentFrame);
+	// 	}
+	// });
 </script>
 
-<AnimationComponent {entity} />
+<svg fill="none" xmlns="http://www.w3.org/2000/svg">
+	{@html frame}
+</svg>
+
+<style>
+	svg {
+		height: 100%;
+		width: 100%;
+	}
+</style>

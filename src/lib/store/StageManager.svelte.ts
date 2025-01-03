@@ -24,7 +24,7 @@ export class StageManager {
 		this.commonSpawnCd = gameLoop.setCD(300, true);
 		this.eliteSpawnCd = gameLoop.setCD(500, false);
 		this.spawnTowers();
-		this.spawnEntity('throne', new Vector2(200, 200));
+		this.spawnEntity('Throne', new Vector2(200, 200));
 		this.spawnCommonEnemy();
 	};
 
@@ -42,14 +42,14 @@ export class StageManager {
 	};
 
 	spawnTowers() {
-		// ['fireTower'].forEach((name) => {
+		// ['FireTower'].forEach((name) => {
 		// 	this.spawnEntity(name, new Vector2(0, 0));
 		// });
 		// ['fireTower', 'fireTower', 'fireTower', 'fireTower'].forEach((name) => {
 		// 	this.spawnEntity(name, new Vector2(0, 0));
 		// });
 
-		['fireTower', 'windTower', 'poisonTower', 'iceTower'].forEach((name) => {
+		['FireTower', 'ThunderTower', 'PoisonTower', 'IceTower'].forEach((name) => {
 			this.spawnEntity(name, new Vector2(0, 0));
 		});
 	}

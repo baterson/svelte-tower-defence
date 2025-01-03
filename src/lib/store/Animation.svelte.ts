@@ -38,15 +38,14 @@ export class Animation {
 	}
 
 	nextFrame() {
-		// 2
-		this.currentFrame += 1;
-
 		if (this.currentFrame >= this.framesAmount - 1) {
 			if (this.loop) {
 				this.currentFrame = 0;
 			} else {
 				this.currentFrame = this.framesAmount - 1;
 			}
+		} else {
+			this.currentFrame += 1;
 		}
 	}
 

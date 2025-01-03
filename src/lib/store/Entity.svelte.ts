@@ -1,6 +1,7 @@
 import { Vector2 } from '$store/Vector2.svelte';
 import { StateMachine } from '$store/StateMachine.svelte';
 import { Animation } from '$store/Animation.svelte';
+import { getAnimation } from '$lib/config/animations';
 
 export class Entity {
 	static lastId = 0;
@@ -118,9 +119,10 @@ export class Entity {
 	};
 
 	setAnimation(state: string) {
-		const animation = this.stateToAnimation[state];
+		const name = this.stateToAnimation[state];
+		const animationConfig = getAnimation(name);
 
-		this.animation = new Animation({ ...animation });
+		this.animation = new Animation({ ...animationConfig, name });
 	}
 
 	addEffect(effectFn: (entity: Entity) => void) {

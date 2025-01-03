@@ -12,7 +12,6 @@
 <!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions (because of reasons) -->
 <div
 	{onclick}
-	out:fade={{ duration: 100 }}
 	bind:this={node}
 	class:highlighted={uiManager.highlightedEntity &&
 		uiManager.highlightedEntity?.name === entity.name}

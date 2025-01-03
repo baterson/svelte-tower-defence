@@ -4,7 +4,6 @@
  */
 
 import type { Entity } from '$store/Entity.svelte';
-import { animations } from '../animations';
 import { enemyCollider } from '../collisionHandlers';
 
 type Stats = {
@@ -33,7 +32,7 @@ export interface EntityConfig {
 }
 
 export const enemies: Record<string, EntityConfig> = {
-	enemy1: {
+	PurpleBlobEnemy: {
 		type: 'enemy',
 		width: 88,
 		height: 58,
@@ -42,8 +41,8 @@ export const enemies: Record<string, EntityConfig> = {
 		vfx: [],
 		scale: 1,
 		stateToAnimation: {
-			FollowTarget: animations.BarigaFollow,
-			Die: animations.BarigaDie
+			FollowTarget: 'PurpleBlobEnemyFollow',
+			Die: 'PurpleBlobEnemyDie'
 		},
 		stats: {
 			health: 200,
