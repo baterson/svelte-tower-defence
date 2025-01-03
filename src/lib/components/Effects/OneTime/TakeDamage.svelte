@@ -1,60 +1,55 @@
 <script>
 	const { entity } = $props();
-	let currentFrameId = $derived(`frame_${entity.animation.currentFrame}`);
+	// Используем id для уникального clip-path
+	const clipId = `clip-${entity.id}`;
 </script>
 
 {#if entity.isInteractable}
-	<div class="overlay">
-		<svg width="100%" height="100%">
+	<div class="damage-clip-container">
+		<svg width="0" height="0">
 			<defs>
-				<mask id="flashMask">
-					<use href={`#${currentFrameId}`} fill="white" />
-				</mask>
+				<clipPath id={clipId}>
+					<use href={`#frame_${entity.animation.currentFrame}`} />
+				</clipPath>
 			</defs>
-
-			<rect
-				width="100%"
-				height="100%"
-				fill="red"
-				opacity="0.6"
-				mask="url(#flashMask)"
-				class="flash"
-				onanimationend={() => {
-					entity.removeVFX('TakeDamage');
-				}}
-			/>
 		</svg>
+
+		<div
+			class="damage-flash"
+			style:clip-path={`url(#${clipId})`}
+			onanimationend={() => {
+				entity.removeVFX('TakeDamage');
+			}}
+		/>
 	</div>
 {/if}
 
 <style>
-	.overlay {
+	.damage-clip-container {
 		position: absolute;
 		inset: 0;
+		pointer-events: none;
 		z-index: 100;
-		pointer-events: none;
 	}
 
-	svg {
-		width: 100%;
-		height: 100%;
-		pointer-events: none;
-		mix-blend-mode: overlay;
+	.damage-flash {
+		position: absolute;
+		inset: 0;
+		background: rgba(255, 0, 0, 0.8);
+		filter: blur(2px);
+		mix-blend-mode: screen;
+		animation: flash 0.3s ease-out;
 	}
 
-	.flash {
-		animation: damage-flash 0.3s ease-out;
-	}
-
-	@keyframes damage-flash {
+	@keyframes flash {
 		0% {
-			opacity: 1;
+			opacity: 0.8;
 		}
 		50% {
-			opacity: 0.6;
+			opacity: 0.4;
 		}
 		100% {
-			opacity: 0.2;
+			opacity: 0;
 		}
 	}
 </style>

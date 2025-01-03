@@ -45,8 +45,8 @@ export const fireballCollider = (fireball, other) => {
 	if (checkBounds(fireball, other)) return;
 	if (checkSameTarget(fireball, other)) return;
 
-	// other.addVFX('FireEffect');
-	other.addVFX('FrezeEffect');
+	other.addVFX('FireEffect');
+	// other.addVFX('FrezeEffect');
 };
 
 export const projectileCollider = (projectile, other) => {

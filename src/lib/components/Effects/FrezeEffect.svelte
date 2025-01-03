@@ -19,40 +19,6 @@
 			</feSpecularLighting>
 			<feComposite in="light" in2="SourceGraphic" operator="in" />
 		</filter>
-		<!-- mask 2 -->
-		<!-- <filter id="frostPattern" x="-50%" y="-50%" width="200%" height="200%">
-			<feTurbulence
-				type="fractalNoise"
-				baseFrequency="0.08"
-				numOctaves="2"
-				seed="2"
-				result="noise"
-			/>
-			<feDisplacementMap
-				in="SourceGraphic"
-				in2="noise"
-				scale="10"
-				xChannelSelector="R"
-				yChannelSelector="G"
-			/>
-			<feComposite in2="SourceGraphic" operator="in" />
-		</filter> -->
-		<!-- mask 3 -->
-		<!-- <filter id="frostGlow" x="0" y="0" width="100%" height="100%">
-			<feGaussianBlur stdDeviation="10" in="SourceAlpha" result="blur" />
-			<feSpecularLighting
-				in="blur"
-				surfaceScale="5"
-				specularConstant="1"
-				specularExponent="20"
-				lighting-color="#00fff0"
-				result="specOut"
-			>
-				<fePointLight x="50%" y="50%" z="200" />
-			</feSpecularLighting>
-
-			<feComposite in="specOut" in2="SourceGraphic" operator="in" />
-		</filter> -->
 
 		<filter id="iceGlow" x="-50%" y="-50%" width="200%" height="200%">
 			<feMorphology operator="dilate" radius="1" in="SourceAlpha" result="thick" />
