@@ -13,7 +13,7 @@
 	$effect(() => {
 		const bottomMargin = screen.isMobile ? 200 : 300;
 
-		const width = Number(screen.gameAreaWidth / 2 - 10);
+		const width = Number(screen.gameAreaWidth / 2 - throne.width / 2);
 		const height = Number(screen.gameAreaHeight - bottomMargin);
 
 		throne.position = new Vector2(width, height);

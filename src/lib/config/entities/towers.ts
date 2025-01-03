@@ -15,9 +15,9 @@ export const towers = {
 		stats: {
 			health: 100,
 			damage: 999,
-			speed: 0,
-			scale: 0.3
+			speed: 0
 		},
+		scale: 0.5,
 		states: ['Idle'],
 		stateToAnimation: {
 			Idle: animations.Base
@@ -29,7 +29,7 @@ export const towers = {
 		type: 'tower',
 		width: 68,
 		height: 107,
-		initialState: 'NotBuilt',
+		initialState: 'Guard',
 		states: ['Build', 'Guard', 'Shoot', 'NotBuilt'],
 		stateToAnimation: {
 			Build: animations.FireTower,
@@ -44,9 +44,9 @@ export const towers = {
 			attackSpeed: 1000,
 			damage: 20,
 			projectileNumber: 1,
-			scale: 1,
 			projectileType: 'fireball'
 		},
+		scale: 1,
 		onCollide: towerCollider,
 		upgrades: fireTowerUpgrades
 	},
@@ -70,9 +70,9 @@ export const towers = {
 			attackSpeed: 800,
 			damage: 20,
 			projectileNumber: 1,
-			scale: 1,
 			projectileType: 'windball'
 		},
+		scale: 1,
 		onCollide: towerCollider,
 		upgrades: windTowerUpgrades
 	},
@@ -96,9 +96,9 @@ export const towers = {
 			attackSpeed: 800,
 			damage: 20,
 			projectileNumber: 1,
-			scale: 1,
 			projectileType: 'poisonball'
 		},
+		scale: 1,
 		onCollide: towerCollider,
 		upgrades: earthTowerUpgrades
 	},
@@ -122,9 +122,9 @@ export const towers = {
 			attackSpeed: 800,
 			damage: 20,
 			projectileNumber: 1,
-			scale: 1,
 			projectileType: 'iceball'
 		},
+		scale: 1,
 		onCollide: towerCollider,
 		upgrades: iceTowerUpgrades
 	}

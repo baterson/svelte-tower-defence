@@ -18,7 +18,7 @@
 		uiManager.highlightedEntity?.name === entity.name}
 	style:width={`${entity.width}px`}
 	style:height={`${entity.height}px`}
-	style:transform={`rotate(${entity.rotation}deg) scale(${entity.stats.scale}) `}
+	style:transform={`rotate(${entity.rotation}deg) scale(${entity.scale}) `}
 	style:transform-origin={'center'}
 	style:top={`${entity.position.y}px`}
 	style:left={`${entity.position.x}px`}

@@ -16,8 +16,8 @@ export const projectiles = {
 			FollowPoint: animations.Fireball,
 			Die: animations.Fireball
 		},
+		scale: 3,
 		stats: {
-			scale: 3,
 			health: 1,
 			speed: 0.3,
 			damage: 10
@@ -36,8 +36,8 @@ export const projectiles = {
 			FollowPoint: animations.Iceball,
 			Die: animations.Iceball
 		},
+		scale: 2,
 		stats: {
-			scale: 2,
 			health: 1,
 			speed: 0.3,
 			damage: 10
@@ -56,8 +56,8 @@ export const projectiles = {
 			FollowPoint: animations.Poisonball,
 			Die: animations.Poisonball
 		},
+		scale: 2,
 		stats: {
-			scale: 2,
 			health: 1,
 			speed: 0.3,
 			damage: 10
@@ -76,8 +76,8 @@ export const projectiles = {
 			FollowPoint: animations.Windball,
 			Die: animations.Windball
 		},
+		scale: 2,
 		stats: {
-			scale: 2,
 			health: 1,
 			speed: 0.3,
 			damage: 10

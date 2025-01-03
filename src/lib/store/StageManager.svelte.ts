@@ -22,9 +22,10 @@ export class StageManager {
 	init = () => {
 		const gameLoop = managers.get('gameLoop');
 		this.commonSpawnCd = gameLoop.setCD(300, true);
-		this.eliteSpawnCd = gameLoop.setCD(1000, false);
+		this.eliteSpawnCd = gameLoop.setCD(500, false);
 		this.spawnTowers();
 		this.spawnEntity('throne', new Vector2(200, 200));
+		this.spawnCommonEnemy();
 	};
 
 	update = (deltaTime: number) => {

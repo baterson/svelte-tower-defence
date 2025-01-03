@@ -1,7 +1,7 @@
 import { managers } from './managers.svelte';
 import type { Entity } from './Entity.svelte';
 import { screen } from '$lib/store/Screen.svelte';
-import { checkRectCollision } from '$utils/math';
+import { checkRectCollision, checkRotatedRectIntersection } from '$utils/math';
 
 export class CollisionManager {
 	update() {
@@ -34,6 +34,7 @@ export class CollisionManager {
 			// Check collision against all targets instead of just the nearest one
 			for (const target of targets) {
 				if (this.checkCollision(projectile, target)) {
+					// debugger;
 					projectile.onCollide(target);
 					target.onCollide(projectile);
 				}
@@ -76,7 +77,16 @@ export class CollisionManager {
 	}
 
 	checkCollision(entity1: Entity, entity2: Entity): boolean {
-		return checkRectCollision(entity1.boundingBox, entity2.boundingBox);
+		if (entity1.rotation === 0 && entity2.rotation === 0) {
+			return checkRectCollision(entity1.boundingBox, entity2.boundingBox);
+		}
+
+		return checkRotatedRectIntersection(
+			entity1.boundingBox,
+			entity1.rotation,
+			entity2.boundingBox,
+			entity2.rotation
+		);
 	}
 
 	checkScreenBounds(entity: Entity): boolean {

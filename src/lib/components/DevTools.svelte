@@ -29,8 +29,10 @@
 	let selectedStars = $state(starOptions[0]);
 	let value = $state(0);
 
-	onMount(() => {
-		window.em = entityManager;
+	$effect(() => {
+		// window.c = 10;
+		const e = managers.get('entityManager');
+		window.e = e;
 	});
 
 	const pause = () => {

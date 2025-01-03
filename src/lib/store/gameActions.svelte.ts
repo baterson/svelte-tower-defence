@@ -17,7 +17,7 @@ export const spendThronePower = () => {
 	const { entityManager, stageManager } = managers.get(['entityManager', 'stageManager']);
 
 	entityManager.throne.stats.health -= 50;
-	entityManager.throne.stats.scale = 3;
+	entityManager.throne.scale = 3;
 
 	stageManager.spawnEntity(
 		'thronePower',
@@ -30,6 +30,6 @@ export const spendThronePower = () => {
 	// it's temporary don't do like this
 	setTimeout(() => {
 		entityManager.throne.cleanEffects();
-		entityManager.throne.stats.scale = 1;
+		entityManager.throne.scale = 1;
 	}, 2000);
 };

@@ -3,21 +3,21 @@ export const fireTowerUpgrades = [
 		tower.stats.damage += 50;
 		tower.stats.attackSpeed -= 100;
 		tower.stats.attackRange += 50;
-		tower.stats.scale += 0.1;
+		tower.scale += 0.1;
 		tower.stats.projectileNumber += 1;
 	},
 	(tower) => {
 		tower.stats.damage += 50;
 		tower.stats.attackSpeed -= 100;
 		tower.stats.attackRange += 50;
-		tower.stats.scale += 0.1;
+		tower.scale += 0.1;
 		tower.stats.projectileNumber += 1;
 	},
 	(tower) => {
 		tower.stats.damage += 50;
 		tower.stats.attackSpeed -= 100;
 		tower.stats.attackRange += 50;
-		tower.stats.scale += 0.3;
+		tower.scale += 0.3;
 		tower.stats.projectileNumber += 3;
 	}
 ];

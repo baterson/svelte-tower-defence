@@ -44,7 +44,6 @@ export const towerCollider = (tower, other) => {
 export const fireballCollider = (fireball, other) => {
 	if (checkBounds(fireball, other)) return;
 	if (checkSameTarget(fireball, other)) return;
-
 	// other.addVFX('OnFire');
 	// other.addEffect(onFire);
 };
@@ -71,7 +70,7 @@ export const throneCollider = (entity, other) => {
 	const { spawner } = other.state.context;
 
 	if (other.type === 'loot' && spawner.type === 'enemy') {
-		entity.stats.scale += 0.1;
+		entity.scale += 0.1;
 		entity.stats.health += 20;
 		// add vfx
 	}

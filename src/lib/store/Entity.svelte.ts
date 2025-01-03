@@ -85,12 +85,18 @@ export class Entity {
 	}
 
 	get boundingBox() {
+		const scaledWidth = this.width * this.scale;
+		const scaledHeight = this.height * this.scale;
+
+		const offsetX = (scaledWidth - this.width) / 2;
+		const offsetY = (scaledHeight - this.height) / 2;
+
 		return {
-			x1: this.position.x,
-			y1: this.position.y,
-			x2: this.position.x + this.width,
-			y2: this.position.y + this.height,
-			center: this.position.clone().add(new Vector2(this.width / 2, this.height / 2))
+			x1: this.position.x - offsetX,
+			y1: this.position.y - offsetY,
+			x2: this.position.x - offsetX + scaledWidth,
+			y2: this.position.y - offsetY + scaledHeight,
+			center: new Vector2(this.position.x + scaledWidth / 2, this.position.y + scaledHeight / 2)
 		};
 	}
 

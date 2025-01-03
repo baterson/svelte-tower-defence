@@ -40,12 +40,12 @@ export const enemies: Record<string, EntityConfig> = {
 		initialState: 'FollowTarget',
 		states: ['FollowTarget', 'Die'],
 		vfx: [],
+		scale: 1,
 		stateToAnimation: {
 			FollowTarget: animations.BarigaFollow,
 			Die: animations.BarigaDie
 		},
 		stats: {
-			scale: 1,
 			health: 200,
 			speed: 0.06,
 			damage: 10

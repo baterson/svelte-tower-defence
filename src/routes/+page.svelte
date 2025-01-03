@@ -3,16 +3,11 @@
 	import { Game } from '$store/Game.svelte';
 	import GameArea from '$lib/components/GameArea.svelte';
 	import { screen } from '$lib/store/Screen.svelte';
-	import ParallaxBackground from '$components/ParallaxBackground.svelte';
 	import DevTools from '$components/DevTools.svelte';
 	import { managers } from '$store/managers.svelte';
 	// import Dialog from '$components/Dialog.svelte';
 	// import BackDrop from '$components/BackDrop.svelte';
 	import Bg1 from '$components/Bg1.svelte';
-	import Bg2 from '$components/Bg2.svelte';
-	import Bg3 from '$components/Bg3.svelte';
-	import Bg4 from '$components/Bg4.svelte';
-	import Bg5 from '$components/Bg5.svelte';
 	let game = $state(null);
 
 	onMount(() => {
@@ -30,10 +25,6 @@
 {#if game}
 	<div class="wrapper">
 		<Bg1 />
-		<!-- <Bg2 /> -->
-		<!-- <Bg3 /> -->
-		<!-- <Bg4 /> -->
-		<!-- <Bg5 /> -->
 		<div class="time">Stage {managers.get('stageManager').stageNumber + 1}</div>
 		<div
 			bind:offsetHeight={screen.gameAreaHeight}
@@ -69,7 +60,7 @@
 
 	.game-container {
 		position: relative;
-		width: 520px;
+		width: 680px;
 		height: 100dvh;
 		will-change: transform;
 	}
