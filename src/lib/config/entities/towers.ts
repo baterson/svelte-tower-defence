@@ -107,7 +107,7 @@ export const towers = {
 		type: 'tower',
 		width: 68,
 		height: 107,
-		initialState: 'NotBuilt',
+		initialState: 'Guard',
 		states: ['Build', 'Guard', 'Shoot', 'NotBuilt'],
 		stateToAnimation: {
 			Build: animations.IceTower,

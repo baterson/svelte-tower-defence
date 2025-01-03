@@ -1,7 +1,7 @@
 import type { Entity } from '$store/Entity.svelte';
 import { managers } from '$store/managers.svelte';
 import { Vector2 } from '$store/Vector2.svelte';
-import { onFire } from './effects';
+// import { onFire } from './effects';
 
 const checkSameTarget = (projectile, other) => {
 	const { type: spawnerType } = projectile.state.context.spawner;
