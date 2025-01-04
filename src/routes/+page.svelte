@@ -1,9 +1,9 @@
 <script>
 	import { onMount } from 'svelte';
-	import { Game } from '$lib/store/Game.svelte';
 	import GameArea from '$lib/components/GameArea.svelte';
 	import { screen } from '$lib/store/Screen.svelte';
 	import DevTools from '$lib/components/DevTools.svelte';
+	import { Game } from '$lib/store/Game.svelte';
 	import { managers } from '$lib/store/managers.svelte';
 	// import Dialog from '$components/Dialog.svelte';
 	// import BackDrop from '$components/BackDrop.svelte';
