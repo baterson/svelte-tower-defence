@@ -31,14 +31,14 @@ export const towers = {
 		initialState: 'Guard',
 		states: ['Build', 'Guard', 'Shoot', 'NotBuilt'],
 		stateToAnimation: {
-			Build: 'FireTower',
+			Build: 'Build',
 			Guard: 'FireTower',
 			Shoot: 'FireTower',
-			NotBuilt: 'FireTower'
+			NotBuilt: 'NotBuilt'
 		},
 		effects: [],
 		stats: {
-			health: 50,
+			health: 1000,
 			attackRange: Infinity,
 			attackSpeed: 1000,
 			damage: 20,
@@ -54,17 +54,17 @@ export const towers = {
 		type: 'tower',
 		width: 68,
 		height: 107,
-		initialState: 'Guard',
+		initialState: 'NotBuilt',
 		states: ['Build', 'Guard', 'Shoot', 'NotBuilt'],
 		stateToAnimation: {
-			Build: 'ThunderTower',
+			Build: 'Build',
 			Guard: 'ThunderTower',
 			Shoot: 'ThunderTower',
-			NotBuilt: 'ThunderTower'
+			NotBuilt: 'NotBuilt'
 		},
 		effects: [],
 		stats: {
-			health: 50,
+			health: 1000,
 			attackRange: Infinity,
 			attackSpeed: 800,
 			damage: 20,
@@ -80,17 +80,17 @@ export const towers = {
 		type: 'tower',
 		width: 68,
 		height: 107,
-		initialState: 'Guard',
+		initialState: 'NotBuilt',
 		states: ['Build', 'Guard', 'Shoot', 'NotBuilt'],
 		stateToAnimation: {
-			Build: 'PoisonTower',
+			Build: 'Build',
 			Guard: 'PoisonTower',
 			Shoot: 'PoisonTower',
-			NotBuilt: 'PoisonTower'
+			NotBuilt: 'NotBuilt'
 		},
 		effects: [],
 		stats: {
-			health: 50,
+			health: 1000,
 			attackRange: Infinity,
 			attackSpeed: 800,
 			damage: 20,
@@ -109,14 +109,16 @@ export const towers = {
 		initialState: 'Guard',
 		states: ['Build', 'Guard', 'Shoot', 'NotBuilt'],
 		stateToAnimation: {
-			Build: 'IceTower',
-			Guard: 'IceTower',
-			Shoot: 'IceTower',
-			NotBuilt: 'IceTower'
+			Build: 'Build',
+			Guard: 'IceTowerBase',
+			Shoot: 'IceTowerBase',
+			NotBuilt: 'NotBuilt',
+			UpgradeOne: 'IceTowerUpgradeOne',
+			UpgradeTwo: 'IceTowerUpgradeTwo'
 		},
 		effects: [],
 		stats: {
-			health: 50,
+			health: 1000,
 			attackRange: Infinity,
 			attackSpeed: 800,
 			damage: 20,

@@ -8,6 +8,9 @@
 	const { tower, index } = $props();
 	const onclick = () => {
 		tower.state.setState('Guard');
+		if (tower.isUpgradable) {
+			spendUpgradePoints(tower);
+		}
 	};
 
 	$effect(() => {
