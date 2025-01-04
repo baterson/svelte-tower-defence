@@ -1,5 +1,4 @@
 <script>
-	import { onMount } from 'svelte';
 	import GameArea from '$lib/components/GameArea.svelte';
 	import { screen } from '$lib/store/Screen.svelte';
 	import DevTools from '$lib/components/DevTools.svelte';
