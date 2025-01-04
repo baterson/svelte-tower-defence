@@ -1,14 +1,14 @@
 <script>
 	import { onMount } from 'svelte';
-	import { Game } from '$store/Game.svelte';
+	import { Game } from '$lib/store/Game.svelte';
 	import GameArea from '$lib/components/GameArea.svelte';
 	import { screen } from '$lib/store/Screen.svelte';
-	import DevTools from '$components/DevTools.svelte';
-	import { managers } from '$store/managers.svelte';
+	import DevTools from '$lib/components/DevTools.svelte';
+	import { managers } from '$lib/store/managers.svelte';
 	// import Dialog from '$components/Dialog.svelte';
 	// import BackDrop from '$components/BackDrop.svelte';
-	import Bg1 from '$components/Bg1.svelte';
-	import { handleGameClick } from '$store/gameActions.svelte';
+	import Bg1 from '$lib/components/Bg1.svelte';
+	import { handleGameClick } from '$lib/store/gameActions.svelte';
 	let game = $state(null);
 	let isGameStarted = $state(false);
 
