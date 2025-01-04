@@ -6,7 +6,6 @@ import { UIManager } from './UIManager.svelte';
 import { GameLoop } from './GameLoop.svelte';
 import { managers } from './managers.svelte';
 import { SoundManager } from './SoundManager.svelte';
-import { tick } from 'svelte';
 
 export class Game {
 	constructor() {
