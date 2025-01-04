@@ -1,4 +1,4 @@
-import adapter from '@sveltejs/adapter-auto';
+import adapter from '@sveltejs/adapter-vercel';
 // import path from 'path';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
@@ -13,14 +13,13 @@ const config = {
 		// adapter-auto only supports some environments, see https://kit.svelte.dev/docs/adapter-auto for a list.
 		// If your environment is not supported, or you settled on a specific environment, switch out the adapter.
 		// See https://kit.svelte.dev/docs/adapters for more information about adapters.
-		adapter: adapter(),
+		adapter: adapter({
+			runtime: 'nodejs23.x'
+		}),
 		alias: {
 			$store: 'src/lib/store',
 			$components: 'src/lib/components',
 			$utils: 'src/lib/utils'
-			// $store: path.resolve('./src/lib/store'),
-			// $components: path.resolve('./src/lib/components'),
-			// $utils: path.resolve('./src/lib/utils')
 		}
 	},
 	onwarn: (warning, handler) => {
