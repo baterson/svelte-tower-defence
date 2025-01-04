@@ -1,10 +1,10 @@
-import { Fireball } from './Fireball';
-import { Poisonball } from './Poisonball';
-import { Icebolt } from './Icebolt';
-import { Thunderbolt } from './Thunderbolt';
+import { Fireball } from './Projectiles/Fireball';
+import { Poisonball } from './Projectiles/Poisonball';
+import { Icebolt } from './Projectiles/Icebolt';
+import { Thunderbolt } from './Projectiles/Thunderbolt';
 import { Base } from './Base';
 import { FireTower } from './Towers/FireTower';
-import { PoisonTower } from './PoisonTower';
+import { PoisonTower } from './Towers/PoisonTower';
 import { ThunderTower } from './Towers/ThunderTower';
 import { NotBuilt } from './Towers/NotBuilt';
 import { Bulid } from './Towers/Bulid';
