@@ -1,4 +1,4 @@
-import { boundingBoxFromPoint, checkRectCollision } from '$utils/math';
+import { boundingBoxFromPoint, checkRectCollision } from '$lib/utils/math';
 import type { Entity } from './Entity.svelte';
 import type { Vector2 } from './Vector2.svelte';
 

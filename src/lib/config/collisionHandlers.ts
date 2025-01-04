@@ -1,6 +1,6 @@
-import type { Entity } from '$store/Entity.svelte';
-import { managers } from '$store/managers.svelte';
-import { Vector2 } from '$store/Vector2.svelte';
+import type { Entity } from '$lib/store/Entity.svelte';
+import { managers } from '$lib/store/managers.svelte';
+import { Vector2 } from '$lib/store/Vector2.svelte';
 // import { onFire } from './effects';
 
 const checkSameTarget = (projectile, other) => {

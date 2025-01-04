@@ -1,4 +1,4 @@
-import { boundingBoxFromPoint } from '$utils/math';
+import { boundingBoxFromPoint } from '$lib/utils/math';
 import type { Entity } from './Entity.svelte';
 import { Vector2 } from './Vector2.svelte';
 import { managers } from './managers.svelte';

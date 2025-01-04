@@ -1,5 +1,5 @@
 <script>
-	import { uiManager } from '$store/UIManager.svelte';
+	import { uiManager } from '$lib/store/UIManager.svelte';
 </script>
 
 {#if uiManager.currentDialog}

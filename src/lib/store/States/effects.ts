@@ -1,4 +1,4 @@
-import { Vector2 } from '$store/Vector2.svelte';
+import { Vector2 } from '$lib/store/Vector2.svelte';
 
 // todo: find a better place for this
 export const handleScreenChange = (node, entity) => {

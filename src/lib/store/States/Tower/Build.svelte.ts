@@ -4,8 +4,8 @@
  */
 
 import { BaseState } from '$lib/store/States/BaseState.svelte';
-import { managers } from '$store/managers.svelte';
-import { screen } from '$store/Screen.svelte';
+import { managers } from '$lib/store/managers.svelte';
+import { screen } from '$lib/store/Screen.svelte';
 
 export class Build extends BaseState {
 	constructor(stateMachine) {

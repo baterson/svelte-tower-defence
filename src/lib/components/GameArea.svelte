@@ -1,12 +1,12 @@
 <script>
-	import { managers } from '$store/managers.svelte';
+	import { managers } from '$lib/store/managers.svelte';
 	import Loot from './Entities/Loot.svelte';
 	import Enemy from './Entities/Enemy.svelte';
 	import Tower from './Entities/Tower.svelte';
 	import Throne from './Entities/Throne.svelte';
 	import Entity from './Entities/Entity.svelte';
 	import Projectile from './Entities/Projectile.svelte';
-	import { handleGameClick } from '$store/gameActions.svelte';
+	import { handleGameClick } from '$lib/store/gameActions.svelte';
 
 	const entityManager = $derived(managers.get('entityManager'));
 </script>

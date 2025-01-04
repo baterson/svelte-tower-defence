@@ -1,5 +1,5 @@
 <script>
-	import { devTools } from '$store/DevTools.svelte';
+	import { devTools } from '$lib/store/DevTools.svelte';
 	import Entity from './Entity.svelte';
 
 	const { loot } = $props();

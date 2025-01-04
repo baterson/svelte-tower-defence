@@ -1,8 +1,7 @@
 <script>
 	import { devTools } from '$lib/store/DevTools.svelte';
 	import { browser } from '$app/environment';
-	import { onMount } from 'svelte';
-	import { managers } from '$store/managers.svelte';
+	import { managers } from '$lib/store/managers.svelte';
 
 	const entityManager = $derived(managers.get('entityManager'));
 	const gameLoop = $derived(managers.get('gameLoop'));

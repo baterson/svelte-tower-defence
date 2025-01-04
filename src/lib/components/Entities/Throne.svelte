@@ -1,10 +1,10 @@
 <script>
-	import { devTools } from '$store/DevTools.svelte';
-	import { spendThronePower } from '$store/gameActions.svelte';
-	import { screen } from '$store/Screen.svelte';
-	import { handleScreenChange } from '$store/States/effects';
+	import { devTools } from '$lib/store/DevTools.svelte';
+	import { spendThronePower } from '$lib/store/gameActions.svelte';
+	import { screen } from '$lib/store/Screen.svelte';
+	import { handleScreenChange } from '$lib/store/States/effects';
 	import Entity from './Entity.svelte';
-	import { Vector2 } from '$store/Vector2.svelte';
+	import { Vector2 } from '$lib/store/Vector2.svelte';
 
 	const { throne } = $props();
 

@@ -1,5 +1,5 @@
 import { BaseState } from '$lib/store/States/BaseState.svelte';
-import { managers } from '$store/managers.svelte';
+import { managers } from '$lib/store/managers.svelte';
 
 export class Explode extends BaseState {
 	constructor(stateMachine) {

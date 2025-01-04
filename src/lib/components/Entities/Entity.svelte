@@ -1,7 +1,7 @@
 <script>
-	import { managers } from '$store/managers.svelte';
+	import { managers } from '$lib/store/managers.svelte';
 	import Effect from '../Effect.svelte';
-	import Animation from '$components/Animation.svelte';
+	import Animation from '$lib/components/Animation.svelte';
 	import { fade } from 'svelte/transition';
 	// todo: pass in/out transitions
 	let { entity, onout, onclick, node = $bindable(), isStatic = false } = $props();

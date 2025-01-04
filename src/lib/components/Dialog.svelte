@@ -1,5 +1,5 @@
 <script>
-	import { managers } from '$store/managers.svelte';
+	import { managers } from '$lib/store/managers.svelte';
 
 	const uiManager = $derived(managers.get('uiManager'));
 	const gameLoop = $derived(managers.get('gameLoop'));

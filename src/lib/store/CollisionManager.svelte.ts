@@ -1,7 +1,7 @@
 import { managers } from './managers.svelte';
 import type { Entity } from './Entity.svelte';
 import { screen } from '$lib/store/Screen.svelte';
-import { checkRectCollision, checkRotatedRectIntersection, type Rect2D } from '$utils/math';
+import { checkRectCollision, checkRotatedRectIntersection, type Rect2D } from '$lib/utils/math';
 
 export class CollisionManager {
 	update() {

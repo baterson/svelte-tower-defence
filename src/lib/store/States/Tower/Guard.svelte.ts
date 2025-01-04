@@ -4,7 +4,7 @@
  */
 
 import { BaseState } from '$lib/store/States/BaseState.svelte';
-import { managers } from '$store/managers.svelte';
+import { managers } from '$lib/store/managers.svelte';
 export class Guard extends BaseState {
 	constructor(stateMachine) {
 		super(stateMachine);

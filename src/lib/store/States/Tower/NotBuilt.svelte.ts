@@ -1,5 +1,5 @@
 import { BaseState } from '$lib/store/States/BaseState.svelte';
-import { screen } from '$store/Screen.svelte';
+import { screen } from '$lib/store/Screen.svelte';
 
 export class NotBuilt extends BaseState {
 	isSetup = false;

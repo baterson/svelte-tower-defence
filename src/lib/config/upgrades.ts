@@ -1,4 +1,5 @@
-import { managers } from '$store/managers.svelte';
+import { managers } from '$lib/store/managers.svelte';
+
 export const fireTowerUpgrades = [
 	(tower) => {
 		tower.stats.damage += 50;

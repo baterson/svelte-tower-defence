@@ -1,6 +1,6 @@
 import { BaseState } from '$lib/store/States/BaseState.svelte';
-import { managers } from '$store/managers.svelte';
-import { Vector2 } from '$store/Vector2.svelte';
+import { managers } from '$lib/store/managers.svelte';
+import { Vector2 } from '$lib/store/Vector2.svelte';
 
 export class Shoot extends BaseState {
 	update() {

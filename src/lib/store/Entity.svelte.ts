@@ -1,6 +1,6 @@
-import { Vector2 } from '$store/Vector2.svelte';
-import { StateMachine } from '$store/StateMachine.svelte';
-import { Animation } from '$store/Animation.svelte';
+import { Vector2 } from '$lib/store/Vector2.svelte';
+import { StateMachine } from '$lib/store/StateMachine.svelte';
+import { Animation } from '$lib/store/Animation.svelte';
 import { getAnimation } from '$lib/config/animations';
 
 export class Entity {

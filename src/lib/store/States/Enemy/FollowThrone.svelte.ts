@@ -1,5 +1,5 @@
 import { BaseState } from '$lib/store/States/BaseState.svelte';
-import { angleToTarget, getDirectionFromAngle } from '$utils/math';
+import { angleToTarget, getDirectionFromAngle } from '$lib/utils/math';
 
 export class FollowThrone extends BaseState {
 	lastAngle = 0;
