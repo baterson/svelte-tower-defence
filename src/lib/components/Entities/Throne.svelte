@@ -11,6 +11,14 @@
 	let node = $state();
 
 	$effect(() => {
+		if (screen.isMobile) {
+			throne.scale = 0.3;
+		} else {
+			throne.scale = 0.5;
+		}
+	});
+
+	$effect(() => {
 		const bottomMargin = screen.isMobile ? 250 : 300;
 
 		const width = Number(screen.gameAreaWidth / 2 - throne.width / 2);

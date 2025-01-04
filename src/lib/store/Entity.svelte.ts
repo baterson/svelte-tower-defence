@@ -172,4 +172,8 @@ export class Entity {
 	stopInteractions() {
 		this.isInteractable = false;
 	}
+
+	removeCollider() {
+		this.onCollide = () => {};
+	}
 }

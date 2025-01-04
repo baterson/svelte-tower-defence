@@ -1,5 +1,5 @@
+import { BaseState } from '$lib/store/States/BaseState.svelte';
 import { managers } from '$store/managers.svelte';
-import { BaseState } from '../BaseState.svelte';
 
 export class Die extends BaseState {
 	constructor(stateMachine) {
@@ -9,15 +9,9 @@ export class Die extends BaseState {
 	}
 
 	update() {
-		if (this.entity.animation && this.entity.animation.isComplete) {
-			// debugger;
-			const { entityManager, stageManager } = managers.get(['entityManager', 'stageManager']);
+		if (!this.entity.animation || (this.entity.animation && this.entity.animation.isComplete)) {
+			const entityManager = managers.get('entityManager');
 			entityManager.destroy(this.entity.id);
-
-			// stageManager.spawnEntity('loot', this.entity.position.clone(), {
-			// 	target: entityManager.throne,
-			// 	spawner: this.entity
-			// });
 		}
 	}
 }

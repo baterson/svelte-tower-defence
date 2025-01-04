@@ -44,6 +44,8 @@ export const towerCollider = (tower, other) => {
 export const fireballCollider = (fireball, other) => {
 	if (checkBounds(fireball, other)) return;
 	if (checkSameTarget(fireball, other)) return;
+
+	fireball.state.setState('Explode');
 	// other.addVFX('OnFire');
 	// other.addEffect(onFire);
 };

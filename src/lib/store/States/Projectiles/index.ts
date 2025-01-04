@@ -1,1 +1,3 @@
-export { FollowThroughTarget } from './FollowThroughTarget.svelte';
+export { FollowAngle } from './FollowAngle.svelte';
+export { FollowTarget } from './FollowTarget.svelte';
+export { Explode } from './Explode.svelte';

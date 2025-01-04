@@ -2,6 +2,7 @@
 	import { spendUpgradePoints } from '$store/gameActions.svelte';
 	import { screen } from '$store/Screen.svelte';
 	import { Vector2 } from '$store/Vector2.svelte';
+	import { onMount } from 'svelte';
 	import Entity from './Entity.svelte';
 
 	let node = $state();
@@ -9,13 +10,22 @@
 	const onclick = (e) => {
 		e.stopPropagation();
 
-		tower.state.setState('Guard');
+		tower.state.setState('Build');
 		if (tower.isUpgradable) {
 			spendUpgradePoints(tower);
 		}
 	};
 
 	$effect(() => {
+		if (screen.isMobile) {
+			tower.scale = 0.7;
+		} else {
+			tower.scale = 1;
+		}
+	});
+
+	$effect(() => {
+		// Tower positioning
 		// Left side: index 0 (top) and 2 (bottom)
 		// Right side: index 1 (top) and 3 (bottom)
 		const sideMargin = screen.isMobile ? 30 : 100;
@@ -31,11 +41,6 @@
 			: screen.gameAreaHeight - bottomMargin;
 
 		tower.position = new Vector2(width, height);
-
-		// const width = isLeftSide ? 100 : screen.width - 100;
-		// const height = isTopRow ? screen.height - 400 : screen.height - 200;
-
-		// tower.position = new Vector2(width, height);
 	});
 </script>
 

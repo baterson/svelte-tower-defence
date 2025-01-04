@@ -1,13 +1,11 @@
 import { BaseState } from '$lib/store/States/BaseState.svelte';
 import { managers } from '$store/managers.svelte';
 import { Vector2 } from '$store/Vector2.svelte';
+
 export class Shoot extends BaseState {
 	update() {
-		// if (this.entity.animation.isComplete) {
-		// 	this.shoot();
-		// 	this.entity.state.setState('Guard');
-		// }
 		this.shoot();
+		this.entity.addVFX('TowerShoot');
 		this.entity.state.setState('Guard');
 	}
 
@@ -15,31 +13,32 @@ export class Shoot extends BaseState {
 		const stageManager = managers.get('stageManager');
 		const { spawner, target } = this.stateMachine.context;
 		const projectileType = spawner.stats.projectileType;
+		const towerShootPoint = spawner.boundingBox.center.subtract(new Vector2(0, 50));
+
+		// Calculate base angle to target
+		const baseAngle = Math.atan2(
+			target.position.y - spawner.position.y,
+			target.position.x - spawner.position.x
+		);
+
+		// Spread for multiple projectiles
+		const angleSpread = Math.PI / 10;
 
 		for (let i = 0; i < this.entity.stats.projectileNumber; i++) {
-			const towerShootPoint = spawner.boundingBox.center.subtract(new Vector2(0, 50));
+			let projectileAngle;
 
-			if (i === 0) {
+			if (this.entity.stats.projectileNumber === 1) {
 				stageManager.spawnEntity(projectileType, towerShootPoint, {
-					initialState: 'FollowThroughTarget',
 					spawner,
 					target
 				});
 			} else {
-				const angle = Math.atan2(
-					target.position.y - spawner.position.y,
-					target.position.x - spawner.position.x
-				);
-				const distance = 2000;
-				const targetPoint = towerShootPoint.add({
-					x: Math.cos(angle) * distance + 300 * i,
-					y: Math.sin(angle) * distance + 300 * i
-				});
+				projectileAngle = baseAngle + (i - 1) * angleSpread;
 
 				stageManager.spawnEntity(projectileType, towerShootPoint, {
-					initialState: 'FollowPoint',
+					initialState: 'FollowAngle',
 					spawner,
-					targetPoint
+					angle: projectileAngle
 				});
 			}
 		}

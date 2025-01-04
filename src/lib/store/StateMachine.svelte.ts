@@ -1,13 +1,11 @@
 import { initState } from '$lib/store/States';
 
 export class StateMachine {
-	states = $state([]);
 	currentState = $state();
 	context = $state();
 
-	constructor({ owner, states, initialState, onEnter, context = {} }) {
+	constructor({ owner, initialState, onEnter, context = {} }) {
 		this.owner = owner;
-		this.states = states;
 		this.onEnter = onEnter;
 		this.context = context;
 

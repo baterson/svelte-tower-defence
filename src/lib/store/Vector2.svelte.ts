@@ -11,6 +11,10 @@ export class Vector2 {
 		return new Vector2(this.x, this.y);
 	}
 
+	isEqual(vector: Vector2): boolean {
+		return this.x === vector.x && this.y === vector.y;
+	}
+
 	add(vector: Vector2): Vector2 {
 		return new Vector2(this.x + vector.x, this.y + vector.y);
 	}

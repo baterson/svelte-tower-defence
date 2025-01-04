@@ -17,7 +17,6 @@ export const towers = {
 			speed: 0
 		},
 		scale: 0.5,
-		states: ['Idle'],
 		stateToAnimation: {
 			Idle: 'Base'
 		},
@@ -29,7 +28,6 @@ export const towers = {
 		width: 68,
 		height: 107,
 		initialState: 'Guard',
-		states: ['Build', 'Guard', 'Shoot', 'NotBuilt'],
 		stateToAnimation: {
 			Build: 'Build',
 			Guard: 'FireTower',
@@ -42,7 +40,7 @@ export const towers = {
 			attackRange: Infinity,
 			attackSpeed: 1000,
 			damage: 20,
-			projectileNumber: 1,
+			projectileNumber: 3,
 			projectileType: 'Fireball'
 		},
 		scale: 1,
@@ -55,7 +53,6 @@ export const towers = {
 		width: 68,
 		height: 107,
 		initialState: 'NotBuilt',
-		states: ['Build', 'Guard', 'Shoot', 'NotBuilt'],
 		stateToAnimation: {
 			Build: 'Build',
 			Guard: 'ThunderTower',
@@ -66,7 +63,7 @@ export const towers = {
 		stats: {
 			health: 1000,
 			attackRange: Infinity,
-			attackSpeed: 2000,
+			attackSpeed: 800,
 			damage: 20,
 			projectileNumber: 1,
 			projectileType: 'Thunderbolt'
@@ -81,7 +78,6 @@ export const towers = {
 		width: 68,
 		height: 107,
 		initialState: 'NotBuilt',
-		states: ['Build', 'Guard', 'Shoot', 'NotBuilt'],
 		stateToAnimation: {
 			Build: 'Build',
 			Guard: 'PoisonTower',
@@ -107,7 +103,6 @@ export const towers = {
 		width: 68,
 		height: 107,
 		initialState: 'Guard',
-		states: ['Build', 'Guard', 'Shoot', 'NotBuilt'],
 		stateToAnimation: {
 			Build: 'Build',
 			Guard: 'IceTowerBase',

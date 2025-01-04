@@ -8,18 +8,17 @@ export const projectiles = {
 		width: 14,
 		height: 19,
 		vfx: [],
-		initialState: 'FollowThroughTarget',
-		states: ['FollowThroughTarget', 'Die', 'FollowPoint'],
+		initialState: 'FollowTarget',
 		stateToAnimation: {
-			FollowThroughTarget: 'Fireball',
-			FollowPoint: 'Fireball',
-			Die: 'Firebal'
+			FollowTarget: 'Fireball',
+			FollowAngle: 'Fireball',
+			Explode: 'FireballDie'
 		},
 		scale: 3,
 		stats: {
 			health: 1,
-			speed: 0.3,
-			damage: 10
+			speed: 0.5,
+			damage: 1000
 		},
 		onCollide: fireballCollider
 	},
@@ -28,12 +27,11 @@ export const projectiles = {
 		width: 10,
 		height: 27,
 		vfx: [],
-		initialState: 'FollowThroughTarget',
-		states: ['FollowThroughTarget', 'Die', 'FollowPoint'],
+		initialState: 'FollowTarget',
 		stateToAnimation: {
-			FollowThroughTarget: 'Icebolt',
-			FollowPoint: 'Icebolt',
-			Die: 'Icebolt'
+			FollowTarget: 'Icebolt',
+			FollowAngle: 'Icebolt',
+			Explode: 'IceboltDie'
 		},
 		scale: 2,
 		stats: {
@@ -48,12 +46,11 @@ export const projectiles = {
 		width: 17,
 		height: 16,
 		vfx: [],
-		initialState: 'FollowThroughTarget',
-		states: ['FollowThroughTarget', 'Die', 'FollowPoint'],
+		initialState: 'FollowTarget',
 		stateToAnimation: {
-			FollowThroughTarget: 'Poisonball',
-			FollowPoint: 'Poisonball',
-			Die: 'Poisonball'
+			FollowTarget: 'Poisonball',
+			FollowAngle: 'Poisonball',
+			Explode: 'PoisonballDie'
 		},
 		scale: 2,
 		stats: {
@@ -68,12 +65,11 @@ export const projectiles = {
 		width: 17,
 		height: 31,
 		vfx: [],
-		initialState: 'FollowThroughTarget',
-		states: ['FollowThroughTarget', 'Die', 'FollowPoint'],
+		initialState: 'FollowTarget',
 		stateToAnimation: {
-			FollowThroughTarget: 'Thunderbolt',
-			FollowPoint: 'Thunderbolt',
-			Die: 'Thunderbolt'
+			FollowTarget: 'Thunderbolt',
+			FollowAngle: 'Thunderbolt',
+			Explode: 'ThunderboltDie'
 		},
 		scale: 2,
 		stats: {
@@ -94,8 +90,8 @@ export const projectiles = {
 		initialState: 'FollowTarget',
 		stateToAnimation: {
 			FollowTarget: 'Fireball',
-			FollowPoint: 'Fireball',
-			Die: 'Fireball'
+			FollowAngle: 'Fireball',
+			Explode: 'FireballDie'
 		},
 		stats: {
 			health: 1,

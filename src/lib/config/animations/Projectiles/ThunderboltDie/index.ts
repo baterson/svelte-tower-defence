@@ -4,7 +4,7 @@ import Frame2 from './2.svg?raw';
 
 const frames = [Frame0, Frame1, Frame2];
 
-export const ThundeboltDie = {
+export const ThunderboltDie = {
 	name: 'ThundeboltDie',
 	frames,
 	framesAmount: frames.length,

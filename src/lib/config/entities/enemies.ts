@@ -23,7 +23,6 @@ export interface EntityConfig {
 	width: number;
 	height: number;
 	initialState: string;
-	states: string[];
 	effects?: string[];
 	spriteSheet?: string;
 	sprites?: any[];
@@ -37,17 +36,16 @@ export const enemies: Record<string, EntityConfig> = {
 		type: 'enemy',
 		width: 88,
 		height: 58,
-		initialState: 'FollowTarget',
-		states: ['FollowTarget', 'Die'],
+		initialState: 'FollowThrone',
 		vfx: [],
 		scale: 0.6,
 		stateToAnimation: {
-			FollowTarget: 'PurpleBlobEnemyFollow',
+			FollowThrone: 'PurpleBlobEnemyFollow',
 			Die: 'PurpleBlobEnemyDie'
 		},
 		stats: {
 			health: 200,
-			speed: 0.06,
+			speed: 0.02,
 			damage: 10
 		},
 		onCollide: enemyCollider
@@ -56,17 +54,16 @@ export const enemies: Record<string, EntityConfig> = {
 		type: 'enemy',
 		width: 162,
 		height: 172,
-		initialState: 'FollowTarget',
-		states: ['FollowTarget', 'Die'],
+		initialState: 'FollowThrone',
 		vfx: [],
 		scale: 1,
 		stateToAnimation: {
-			FollowTarget: 'GreenFlatEnemyFollow',
+			FollowThrone: 'GreenFlatEnemyFollow',
 			Die: 'GreenFlatEnemyDie'
 		},
 		stats: {
 			health: 2000,
-			speed: 0.06,
+			speed: 0.02,
 			damage: 10
 		},
 		onCollide: enemyCollider
@@ -75,17 +72,16 @@ export const enemies: Record<string, EntityConfig> = {
 		type: 'enemy',
 		width: 120,
 		height: 180,
-		initialState: 'FollowTarget',
-		states: ['FollowTarget', 'Die'],
+		initialState: 'FollowThrone',
 		vfx: [],
 		scale: 0.5,
 		stateToAnimation: {
-			FollowTarget: 'RedBlobEnemyFollow',
+			FollowThrone: 'RedBlobEnemyFollow',
 			Die: 'RedBlobEnemyDie'
 		},
 		stats: {
 			health: 200,
-			speed: 0.1,
+			speed: 0.02,
 			damage: 10
 		},
 		onCollide: enemyCollider
@@ -94,17 +90,16 @@ export const enemies: Record<string, EntityConfig> = {
 		type: 'enemy',
 		width: 100,
 		height: 160,
-		initialState: 'FollowTarget',
-		states: ['FollowTarget', 'Die'],
+		initialState: 'FollowThrone',
 		vfx: [],
 		scale: 0.6,
 		stateToAnimation: {
-			FollowTarget: 'GreyBlobEnemyFollow',
+			FollowThrone: 'GreyBlobEnemyFollow',
 			Die: 'GreyBlobEnemyDie'
 		},
 		stats: {
 			health: 200,
-			speed: 0.1,
+			speed: 0.02,
 			damage: 10
 		},
 		onCollide: enemyCollider

@@ -19,7 +19,10 @@
 
 <style>
 	svg {
-		height: 100%;
+		position: absolute;
+		bottom: 0; /* This will position it at the bottom of parent div */
+		left: 0;
 		width: 100%;
+		height: 100%;
 	}
 </style>

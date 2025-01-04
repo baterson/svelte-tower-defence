@@ -1,17 +1,19 @@
 import * as EnemyStates from './Enemy/';
 import * as TowerStates from './Tower/';
-import * as BossStates from './Enemy/boss/';
-import * as CommonStates from './Common/';
 import * as ProjectileStates from './Projectiles/';
+import * as ThroneStates from './Throne/';
+
 export const initState = (stateMachine, entityType, name, stateContext = {}) => {
-	let States = CommonStates;
+	let States = {};
 
 	if (entityType === 'enemy') {
-		States = { ...CommonStates, ...EnemyStates, ...BossStates };
+		States = EnemyStates;
 	} else if (entityType === 'tower') {
-		States = { ...CommonStates, ...TowerStates };
+		States = TowerStates;
 	} else if (entityType === 'projectile') {
-		States = { ...CommonStates, ...ProjectileStates };
+		States = ProjectileStates;
+	} else if (entityType === 'throne') {
+		States = ThroneStates;
 	}
 
 	const State = States[name];

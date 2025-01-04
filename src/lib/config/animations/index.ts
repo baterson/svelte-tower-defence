@@ -7,8 +7,12 @@ import { FireTower } from './Towers/FireTower';
 import { PoisonTower } from './Towers/PoisonTower';
 import { ThunderTower } from './Towers/ThunderTower';
 import { NotBuilt } from './Towers/NotBuilt';
-import { Bulid } from './Towers/Bulid';
+import { Build } from './Towers/Build';
 import { IceTower } from './Towers/IceTower';
+import { FireballDie } from './Projectiles/FireballDie';
+import { IceboltDie } from './Projectiles/IceboltDie';
+import { PoisonballDie } from './Projectiles/PoisonballDie';
+import { ThunderboltDie } from './Projectiles/ThunderboltDie';
 
 import { PurpleBlobEnemy } from './Enemy/PurpleBlobEnemy';
 import { GreenFlatEnemy } from './Enemy/GreenFlatEnemy';
@@ -25,7 +29,11 @@ export const animations = {
 	Icebolt,
 	Thunderbolt,
 	NotBuilt,
-	Bulid,
+	Build,
+	FireballDie,
+	IceboltDie,
+	PoisonballDie,
+	ThunderboltDie,
 
 	...PurpleBlobEnemy,
 	...GreenFlatEnemy,
@@ -37,7 +45,6 @@ export const animations = {
 export const getAnimation = (name: string) => {
 	if (!animations[name]) throw new Error(`Animation config not found for: ${name}`);
 	const animation = animations[name];
-	// animation.frames.map((frame) => frame.default || frame);
 
 	return animation;
 };
