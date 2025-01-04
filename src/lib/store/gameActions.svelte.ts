@@ -20,10 +20,10 @@ export const spendUpgradePoints = (tower: Entity) => {
 	const { entityManager, stageManager } = managers.get(['entityManager', 'stageManager']);
 
 	entityManager.throne.stats.health -= 20;
-	stageManager.spawnEntity('upgradePoint', entityManager.throne.position.clone(), {
-		target: tower,
-		spawner: entityManager.throne
-	});
+	// stageManager.spawnEntity('upgradePoint', entityManager.throne.position.clone(), {
+	// 	target: tower,
+	// 	spawner: entityManager.throne
+	// });
 	tower.upgrade();
 };
 

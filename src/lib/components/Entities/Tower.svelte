@@ -10,6 +10,9 @@
 		e.stopPropagation();
 
 		tower.state.setState('Guard');
+		if (tower.isUpgradable) {
+			spendUpgradePoints(tower);
+		}
 	};
 
 	$effect(() => {
