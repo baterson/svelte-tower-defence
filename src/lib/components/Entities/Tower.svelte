@@ -3,11 +3,13 @@
 	import { screen } from '$store/Screen.svelte';
 	import { Vector2 } from '$store/Vector2.svelte';
 	import Entity from './Entity.svelte';
+	import { managers } from '$store/managers.svelte';
 
 	let node = $state();
 	const { tower, index } = $props();
 	const onclick = () => {
 		tower.state.setState('Guard');
+		managers.get('soundManager').play('lvlUp');
 		if (tower.isUpgradable) {
 			spendUpgradePoints(tower);
 		}

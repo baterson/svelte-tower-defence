@@ -14,7 +14,7 @@ export class Shoot extends BaseState {
 		const stageManager = managers.get('stageManager');
 		const { spawner, target } = this.stateMachine.context;
 		const projectileType = spawner.stats.projectileType;
-
+		managers.get('soundManager').play('pickUp');
 		for (let i = 0; i < this.entity.stats.projectileNumber; i++) {
 			let targetPoint;
 			if (i === 0) {

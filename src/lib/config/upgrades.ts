@@ -1,3 +1,4 @@
+import { managers } from '$store/managers.svelte';
 export const fireTowerUpgrades = [
 	(tower) => {
 		tower.stats.damage += 50;
@@ -70,6 +71,7 @@ export const iceTowerUpgrades = [
 		tower.stats.attackSpeed -= 220;
 		tower.stats.attackRange += 50;
 		// tower.scale += 0.3;
+		managers.get('soundManager').play('lvlUp');
 	},
 	(tower) => {
 		tower.stats.damage += 10;
@@ -78,6 +80,7 @@ export const iceTowerUpgrades = [
 		// tower.scale += 0.2;
 		tower.stateToAnimation.Guard = 'IceTowerUpgradeOne';
 		tower.setAnimation(tower.state.currentState.name);
+		managers.get('soundManager').play('lvlUp');
 	},
 	(tower) => {
 		tower.stats.damage += 10;
@@ -86,5 +89,6 @@ export const iceTowerUpgrades = [
 		// tower.scale = 0.2;
 		tower.stateToAnimation.Guard = 'IceTowerUpgradeTwo';
 		tower.setAnimation(tower.state.currentState.name);
+		managers.get('soundManager').play('lvlUp');
 	}
 ];

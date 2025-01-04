@@ -4,6 +4,7 @@
  */
 
 import { BaseState } from '$lib/store/States/BaseState.svelte';
+import { managers } from '$store/managers.svelte';
 
 export class Build extends BaseState {
 	update(deltaTime) {

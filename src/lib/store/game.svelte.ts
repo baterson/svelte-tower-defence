@@ -5,6 +5,7 @@ import { StageManager } from './StageManager.svelte';
 import { UIManager } from './UIManager.svelte';
 import { GameLoop } from './GameLoop.svelte';
 import { managers } from './managers.svelte';
+import { SoundManager } from './SoundManager.svelte';
 import { tick } from 'svelte';
 
 export class Game {
@@ -22,6 +23,9 @@ export class Game {
 	start = () => {
 		const gameLoop = managers.get('gameLoop');
 		gameLoop.start(this.update);
+		const soundManager = managers.get('soundManager');
+		soundManager.init();
+		soundManager.play('bgSound');
 	};
 }
 
@@ -32,6 +36,7 @@ const initManagers = () => {
 	managers.stageManager = new StageManager();
 	managers.uiManager = new UIManager();
 	managers.gameLoop = new GameLoop();
+	managers.soundManager = new SoundManager();
 
 	return managers;
 };
