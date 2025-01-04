@@ -1,4 +1,6 @@
+import { boundingBoxFromPoint, checkRectCollision } from '$utils/math';
 import type { Entity } from './Entity.svelte';
+import type { Vector2 } from './Vector2.svelte';
 
 export class EntityManager {
 	entities = $state<Entity[]>([]);
@@ -47,6 +49,12 @@ export class EntityManager {
 		const index = distances.indexOf(minDistance);
 
 		return targets[index];
+	}
+
+	findByPosition(position: Vector2): Entity[] | [] {
+		const boundingBox = boundingBoxFromPoint(position, 100, 100);
+
+		return this.entities.filter((entity) => checkRectCollision(entity.boundingBox, boundingBox));
 	}
 
 	add = (entity: Entity | Entity[]) => {

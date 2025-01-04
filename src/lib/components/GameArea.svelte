@@ -6,11 +6,12 @@
 	import Throne from './Entities/Throne.svelte';
 	import Entity from './Entities/Entity.svelte';
 	import Projectile from './Entities/Projectile.svelte';
+	import { handleGameClick } from '$store/gameActions.svelte';
 
 	const entityManager = $derived(managers.get('entityManager'));
 </script>
 
-<section>
+<section onclick={handleGameClick}>
 	{#each entityManager.enemies as enemy (enemy.id)}
 		<Enemy {enemy} />
 	{/each}

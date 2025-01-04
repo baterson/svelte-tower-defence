@@ -1,5 +1,6 @@
 import { BaseState } from '$lib/store/States/BaseState.svelte';
 import { managers } from '$store/managers.svelte';
+import { Vector2 } from '$store/Vector2.svelte';
 export class Shoot extends BaseState {
 	update() {
 		// if (this.entity.animation.isComplete) {
@@ -16,9 +17,10 @@ export class Shoot extends BaseState {
 		const projectileType = spawner.stats.projectileType;
 
 		for (let i = 0; i < this.entity.stats.projectileNumber; i++) {
-			let targetPoint;
+			const towerShootPoint = spawner.boundingBox.center.subtract(new Vector2(0, 50));
+
 			if (i === 0) {
-				stageManager.spawnEntity(projectileType, spawner.position.clone(), {
+				stageManager.spawnEntity(projectileType, towerShootPoint, {
 					initialState: 'FollowThroughTarget',
 					spawner,
 					target
@@ -29,12 +31,12 @@ export class Shoot extends BaseState {
 					target.position.x - spawner.position.x
 				);
 				const distance = 2000;
-				targetPoint = spawner.position.clone().add({
+				const targetPoint = towerShootPoint.add({
 					x: Math.cos(angle) * distance + 300 * i,
 					y: Math.sin(angle) * distance + 300 * i
 				});
 
-				stageManager.spawnEntity(projectileType, spawner.position.clone(), {
+				stageManager.spawnEntity(projectileType, towerShootPoint, {
 					initialState: 'FollowPoint',
 					spawner,
 					targetPoint

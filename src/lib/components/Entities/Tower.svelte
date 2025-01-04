@@ -6,7 +6,9 @@
 
 	let node = $state();
 	const { tower, index } = $props();
-	const onclick = () => {
+	const onclick = (e) => {
+		e.stopPropagation();
+
 		tower.state.setState('Guard');
 	};
 
@@ -34,4 +36,4 @@
 	});
 </script>
 
-<Entity {onclick} bind:node entity={tower} --z-index={10} />
+<Entity {onclick} bind:node entity={tower} --z-index={10} --pointer-events={'auto'} />

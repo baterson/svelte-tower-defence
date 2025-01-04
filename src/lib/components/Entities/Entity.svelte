@@ -4,7 +4,7 @@
 	import Animation from '$components/Animation.svelte';
 	import { fade } from 'svelte/transition';
 	// todo: pass in/out transitions
-	let { entity, onclick, onout, node = $bindable(), isStatic = false } = $props();
+	let { entity, onout, onclick, node = $bindable(), isStatic = false } = $props();
 
 	const uiManager = $derived(managers.get('uiManager'));
 </script>
@@ -34,7 +34,8 @@
 <style>
 	div {
 		position: absolute;
-		z-index: var(--z-index);
+		pointer-events: var(--pointer-events, none);
+		z-index: var(--z-index, 3);
 		/* place-self: var(--place-self); */
 		/* position: var(--position);
 		margin-left: var(--margin-left);
@@ -42,7 +43,7 @@
 	}
 
 	.highlighted {
-		z-index: 1003;
+		/* z-index: 1003; */
 		animation: highlight 1.5s ease-in-out infinite;
 		outline: 3px solid #ffeb3b;
 		outline-offset: 2px;

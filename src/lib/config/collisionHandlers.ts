@@ -70,9 +70,10 @@ export const throneCollider = (entity, other) => {
 	const { spawner } = other.state.context;
 
 	if (other.type === 'loot' && spawner.type === 'enemy') {
-		entity.scale += 0.1;
 		entity.stats.health += 20;
 		// add vfx
+	} else if (other.type === 'enemy') {
+		entity.takeDamage(other.stats.damage);
 	}
 
 	return;

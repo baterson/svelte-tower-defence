@@ -1,7 +1,7 @@
 import { managers } from './managers.svelte';
 import type { Entity } from './Entity.svelte';
 import { screen } from '$lib/store/Screen.svelte';
-import { checkRectCollision, checkRotatedRectIntersection } from '$utils/math';
+import { checkRectCollision, checkRotatedRectIntersection, type Rect2D } from '$utils/math';
 
 export class CollisionManager {
 	update() {
@@ -41,7 +41,7 @@ export class CollisionManager {
 		}
 	}
 
-	private handleEnemyCollisions(): void {
+	handleEnemyCollisions(): void {
 		const entityManager = managers.get('entityManager');
 		const targets = [...entityManager.livingTowers, entityManager.livingThrone].filter(Boolean);
 
@@ -86,6 +86,18 @@ export class CollisionManager {
 			entity2.boundingBox,
 			entity2.rotation
 		);
+	}
+
+	filterEntitiesByBounds = (bounds) => {
+		const entityManager = managers.get('entityManager');
+
+		return entityManager.entities.filter((entity) =>
+			checkRectCollision(entity.boundingBox, bounds)
+		);
+	};
+
+	checkBounds(entity: Entity, boundsRect: Rect2D): boolean {
+		return checkRectCollision(entity.boundingBox, boundsRect);
 	}
 
 	checkScreenBounds(entity: Entity): boolean {

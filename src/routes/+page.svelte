@@ -8,6 +8,7 @@
 	// import Dialog from '$components/Dialog.svelte';
 	// import BackDrop from '$components/BackDrop.svelte';
 	import Bg1 from '$components/Bg1.svelte';
+	import { handleGameClick } from '$store/gameActions.svelte';
 	let game = $state(null);
 
 	onMount(() => {
@@ -27,6 +28,7 @@
 		<Bg1 />
 		<div class="time">Stage {managers.get('stageManager').stageNumber + 1}</div>
 		<div
+			onclick={handleGameClick}
 			bind:offsetHeight={screen.gameAreaHeight}
 			bind:offsetWidth={screen.gameAreaWidth}
 			class="game-container"
@@ -62,6 +64,7 @@
 		position: relative;
 		width: 680px;
 		height: 100dvh;
+		z-index: 330;
 		will-change: transform;
 	}
 

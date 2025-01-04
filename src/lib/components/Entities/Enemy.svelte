@@ -7,4 +7,4 @@
 	const { enemy } = $props();
 </script>
 
-<Entity entity={enemy} onclick={() => devTools.inspectEntity(enemy)} --z-index={10} />
+<Entity entity={enemy} />

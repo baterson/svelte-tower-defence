@@ -10,7 +10,7 @@ export const towers = {
 	Throne: {
 		type: 'throne',
 		width: 256,
-		height: 212,
+		height: 252,
 		stats: {
 			health: 100,
 			damage: 999,
@@ -66,7 +66,7 @@ export const towers = {
 		stats: {
 			health: 50,
 			attackRange: Infinity,
-			attackSpeed: 800,
+			attackSpeed: 2000,
 			damage: 20,
 			projectileNumber: 1,
 			projectileType: 'Thunderbolt'

@@ -1,6 +1,20 @@
+import { boundingBoxFromPoint } from '$utils/math';
 import type { Entity } from './Entity.svelte';
 import { Vector2 } from './Vector2.svelte';
 import { managers } from './managers.svelte';
+
+export const handleGameClick = (e) => {
+	const { entityManager, collisionManager } = managers.get(['entityManager', 'collisionManager']);
+	const position = new Vector2(e.offsetX, e.offsetY);
+	const boundingBox = boundingBoxFromPoint(position, 20, 20);
+	const en = collisionManager.filterEntitiesByBounds(boundingBox);
+
+	en.forEach((entity) => {
+		if (entity.type === 'enemy') {
+			entity.state.setState('Die');
+		}
+	});
+};
 
 export const spendUpgradePoints = (tower: Entity) => {
 	const { entityManager, stageManager } = managers.get(['entityManager', 'stageManager']);

@@ -163,7 +163,7 @@ export class Entity {
 
 	takeDamage(damage: number) {
 		this.stats.health -= damage;
-		this.addVFX('TakeDamage');
+		// this.addVFX('TakeDamage');
 		if (this.stats.health <= 0) {
 			this.state.setState('Die');
 		}

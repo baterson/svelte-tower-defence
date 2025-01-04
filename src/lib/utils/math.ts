@@ -133,3 +133,12 @@ export function checkRotatedRectIntersection(
 
 	return true;
 }
+
+export const boundingBoxFromPoint = (point: Vector2, width: number, height: number): Rect2D => {
+	return {
+		x1: point.x - width / 2,
+		y1: point.y - height / 2,
+		x2: point.x + width / 2,
+		y2: point.y + height / 2
+	};
+};

@@ -10,10 +10,12 @@ export class FollowTarget extends BaseState {
 
 	follow(deltaTime: number) {
 		const { target } = this.stateMachine.context;
-		const direction = getDirectionFromAngle(this.lastAngle);
-		const speed = this.entity.stats.speed * deltaTime;
+		const targetCenter = target.boundingBox.center;
 
-		this.lastAngle = angleToTarget(this.entity.position, target.position);
+		this.lastAngle = angleToTarget(this.entity.position, targetCenter);
+		const direction = getDirectionFromAngle(this.lastAngle);
+
+		const speed = this.entity.stats.speed * deltaTime;
 
 		this.entity.velocity = direction.multiply(speed);
 		this.entity.position = this.entity.position.add(this.entity.velocity);

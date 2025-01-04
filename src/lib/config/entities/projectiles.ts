@@ -5,7 +5,7 @@ import { projectileCollider } from '../collisionHandlers';
 export const projectiles = {
 	Fireball: {
 		type: 'projectile',
-		width: 12,
+		width: 14,
 		height: 19,
 		vfx: [],
 		initialState: 'FollowThroughTarget',
