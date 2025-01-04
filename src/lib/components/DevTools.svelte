@@ -7,6 +7,7 @@
 	const entityManager = $derived(managers.get('entityManager'));
 	const gameLoop = $derived(managers.get('gameLoop'));
 	const background = $derived(managers.get('background'));
+	const soundManager = $derived(managers.get('soundManager'));
 
 	// Background options
 	const baseOptions = [
@@ -38,8 +39,10 @@
 	const pause = () => {
 		if (gameLoop.pauseState) {
 			gameLoop.resume();
+			soundManager.play('bgSound');
 		} else {
 			gameLoop.pause();
+			soundManager.pause('bgSound');
 		}
 	};
 

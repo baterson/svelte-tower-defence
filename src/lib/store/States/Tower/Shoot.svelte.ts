@@ -42,5 +42,7 @@ export class Shoot extends BaseState {
 				});
 			}
 		}
+
+		managers.get('soundManager').play('pickUp');
 	}
 }

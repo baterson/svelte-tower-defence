@@ -4,6 +4,7 @@
 	import { Vector2 } from '$store/Vector2.svelte';
 	import { onMount } from 'svelte';
 	import Entity from './Entity.svelte';
+	import { managers } from '$store/managers.svelte';
 
 	let node = $state();
 	const { tower, index } = $props();
@@ -11,9 +12,7 @@
 		e.stopPropagation();
 
 		tower.state.setState('Build');
-		if (tower.isUpgradable) {
-			spendUpgradePoints(tower);
-		}
+		managers.get('soundManager').play('lvlUp');
 	};
 
 	$effect(() => {

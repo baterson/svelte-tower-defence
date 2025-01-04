@@ -10,11 +10,18 @@
 	import Bg1 from '$components/Bg1.svelte';
 	import { handleGameClick } from '$store/gameActions.svelte';
 	let game = $state(null);
+	let isGameStarted = $state(false);
 
-	onMount(() => {
+	// onMount(() => {
+	// 	game = new Game();
+	// 	game.start();
+	// });
+	const startGame = () => {
 		game = new Game();
+		managers.get('soundManager').init();
 		game.start();
-	});
+		isGameStarted = true;
+	};
 </script>
 
 <svelte:window bind:innerWidth={screen.width} bind:innerHeight={screen.height} />
@@ -23,7 +30,11 @@
 <!-- <Dialog /> -->
 <!-- <BackDrop /> -->
 
-{#if game}
+{#if !isGameStarted}
+	<div class="overlay-for-music">
+		<button onclick={startGame} class="btn-start">Start game</button>
+	</div>
+{:else if game}
 	<div class="wrapper">
 		<Bg1 />
 		<div class="time">Stage {managers.get('stageManager').stageNumber + 1}</div>
@@ -40,6 +51,23 @@
 {/if}
 
 <style>
+	.btn-start {
+		background-color: mediumpurple;
+		border: none;
+		padding: 10px 20px;
+		font-size: 16px;
+		cursor: pointer;
+		margin-bottom: 10px;
+	}
+	.overlay-for-music {
+		width: 100vw;
+		height: 100dvh;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background-color: rgba(0, 0, 0, 0.7);
+		z-index: 10;
+	}
 	.time {
 		position: absolute;
 		top: 0;
