@@ -5,9 +5,9 @@ export default defineConfig({
 	plugins: [sveltekit()],
 	resolve: {
 		alias: {
-			$store: 'src/lib/store',
-			$components: 'src/lib/components',
-			$utils: 'src/lib/utils'
+			$store: '/src/lib/store',
+			$components: '/src/lib/components',
+			$utils: '/src/lib/utils'
 		}
 	}
 });
