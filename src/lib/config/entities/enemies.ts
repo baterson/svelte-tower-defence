@@ -4,6 +4,7 @@
  */
 
 import type { Entity } from '$lib/store/Entity.svelte';
+import { GreyCircleEnemy } from '../animations/Enemy/GreyCircleEnemy';
 
 import { enemyCollider } from '../collisionHandlers';
 
@@ -96,6 +97,60 @@ export const enemies: Record<string, EntityConfig> = {
 		stateToAnimation: {
 			FollowThrone: 'GreyBlobEnemyFollow',
 			Die: 'GreyBlobEnemyDie'
+		},
+		stats: {
+			health: 200,
+			speed: 0.02,
+			damage: 10
+		},
+		onCollide: enemyCollider
+	},
+	YellowBlobEnemy: {
+		type: 'enemy',
+		width: 70,
+		height: 62,
+		initialState: 'FollowThrone',
+		vfx: [],
+		scale: 1,
+		stateToAnimation: {
+			FollowThrone: 'YellowBlobEnemyFollow',
+			Die: 'YellowBlobEnemyDie'
+		},
+		stats: {
+			health: 200,
+			speed: 0.02,
+			damage: 10
+		},
+		onCollide: enemyCollider
+	},
+	BlueBlobEnemy: {
+		type: 'enemy',
+		width: 95,
+		height: 75,
+		initialState: 'FollowThrone',
+		vfx: [],
+		scale: 0.5,
+		stateToAnimation: {
+			FollowThrone: 'BlueBlobEnemyFollow',
+			Die: 'BlueBlobEnemyDie'
+		},
+		stats: {
+			health: 200,
+			speed: 0.02,
+			damage: 10
+		},
+		onCollide: enemyCollider
+	},
+	GreyCircleEnemy: {
+		type: 'enemy',
+		width: 150,
+		height: 160,
+		initialState: 'FollowThrone',
+		vfx: [],
+		scale: 1,
+		stateToAnimation: {
+			FollowThrone: 'GreyCircleEnemyFollow',
+			Die: 'GreyCircleEnemyDie'
 		},
 		stats: {
 			health: 200,

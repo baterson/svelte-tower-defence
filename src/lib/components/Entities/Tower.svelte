@@ -10,7 +10,7 @@
 	const { tower, index } = $props();
 	const onclick = (e) => {
 		e.stopPropagation();
-
+		spendUpgradePoints(tower);
 		tower.state.setState('Build');
 		managers.get('soundManager').play('lvlUp');
 	};
