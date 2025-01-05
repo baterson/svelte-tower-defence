@@ -2,7 +2,6 @@ import { stages } from '$lib/config/stages';
 import { initEntity } from '$lib/store/entityFabric';
 import { managers } from './managers.svelte';
 import { Vector2 } from './Vector2.svelte';
-import { screen } from '$lib/store/Screen.svelte';
 
 const spawnAreas = [70, 100, 130, 160, 190, 220, 250, 280, 310, 340];
 
@@ -17,27 +16,35 @@ const pickRandomEnemy = (enemies: string[]) => {
 export class StageManager {
 	stageNumber = $state(0);
 	stageConfig = $derived(stages[this.stageNumber]);
-	commonSpawnCd;
-	eliteSpawnCd;
+	commonGroupsSpawnCDs = $state([]);
+	eliteSpawnCDs = $state([]);
 
 	init = () => {
 		const gameLoop = managers.get('gameLoop');
-		this.commonSpawnCd = gameLoop.setCD(300, true);
-		this.eliteSpawnCd = gameLoop.setCD(100, false);
+
+		this.commonGroupsSpawnCDs = this.stageConfig.commonGroups.map((group) =>
+			gameLoop.setCD(group.spawnInterval, true)
+		);
+
+		this.eliteSpawnCDs = this.stageConfig.eliteSpawns.map((spawn) =>
+			gameLoop.setCD(spawn.spawnInterval, true)
+		);
 		this.spawnTowers();
 		this.spawnEntity('Throne', new Vector2(200, 200));
-		this.spawnCommonEnemy();
 	};
 
 	update = (deltaTime: number) => {
 		const gameLoop = managers.get('gameLoop');
-
-		if (gameLoop.isCDReady(this.commonSpawnCd)) {
-			this.spawnCommonEnemy();
-		}
-		if (gameLoop.isCDReady(this.eliteSpawnCd)) {
-			// this.spawnEliteEnemy();
-		}
+		this.commonGroupsSpawnCDs.forEach((cd, index) => {
+			if (gameLoop.isCDReady(cd)) {
+				this.spawnCommonGroups(index);
+			}
+		});
+		this.eliteSpawnCDs.forEach((cd, index) => {
+			if (gameLoop.isCDReady(cd)) {
+				this.spawnEliteEnemy(index);
+			}
+		});
 
 		this.checkStageTime();
 	};
@@ -68,36 +75,53 @@ export class StageManager {
 	// }
 
 	spawnTowers() {
-		// ['FireTower'].forEach((name) => {
-		// 	this.spawnEntity(name, new Vector2(0, 0));
-		// });
-		// ['fireTower', 'fireTower', 'fireTower', 'fireTower'].forEach((name) => {
-		// 	this.spawnEntity(name, new Vector2(0, 0));
-		// });
-
 		['FireTower', 'ThunderTower', 'PoisonTower', 'IceTower'].forEach((name) => {
 			this.spawnEntity(name, new Vector2(0, 0));
 		});
 	}
 
-	spawnCommonEnemy() {
+	// spawnCommonEnemy() {
+	// 	const entityManager = managers.get('entityManager');
+
+	// 	const commonEnemies = this.stageConfig.commonEnemies;
+	// 	const enemy = pickRandomEnemy(commonEnemies);
+	// 	const position = new Vector2(getRandomSpawnArea(), 20);
+
+	// 	this.spawnEntity(enemy, position, { throne: entityManager.throne });
+	// }
+
+	// spawnEliteEnemy() {
+	// 	const entityManager = managers.get('entityManager');
+
+	// 	const eliteEnemies = this.stageConfig.eliteEnemies;
+	// 	const enemy = pickRandomEnemy(eliteEnemies);
+	// 	const position = new Vector2(getRandomSpawnArea(), 20);
+
+	// 	this.spawnEntity(enemy, position, { throne: entityManager.throne });
+	// }
+
+	spawnCommonGroups(groupIndex: number) {
 		const entityManager = managers.get('entityManager');
+		const group = this.stageConfig.commonGroups[groupIndex];
 
-		const commonEnemies = this.stageConfig.commonEnemies;
-		const enemy = pickRandomEnemy(commonEnemies);
-		const position = new Vector2(getRandomSpawnArea(), 20);
+		for (let i = 0; i < group.count; i++) {
+			const randomType = group.types[Math.floor(Math.random() * group.types.length)];
+			const position = new Vector2(group.spawnPosition[i], 20);
 
-		this.spawnEntity(enemy, position, { throne: entityManager.throne });
+			this.spawnEntity(randomType, position, { throne: entityManager.throne });
+		}
 	}
 
-	spawnEliteEnemy() {
+	spawnEliteEnemy(spawnIndex: number) {
+		debugger;
 		const entityManager = managers.get('entityManager');
-
-		const eliteEnemies = this.stageConfig.eliteEnemies;
-		const enemy = pickRandomEnemy(eliteEnemies);
-		const position = new Vector2(getRandomSpawnArea(), 20);
-
-		this.spawnEntity(enemy, position, { throne: entityManager.throne });
+		const eliteSpawnEnemies = this.stageConfig.eliteSpawns[spawnIndex];
+		const randomType =
+			eliteSpawnEnemies.types[Math.floor(Math.random() * eliteSpawnEnemies.types.length)];
+		const spawnPoints = [70, 180, 230];
+		const randomPoint = spawnPoints[Math.floor(Math.random() * spawnPoints.length)];
+		const position = new Vector2(randomPoint, 20);
+		this.spawnEntity(randomType, position, { target: entityManager.throne });
 	}
 
 	checkStageTime() {
@@ -111,6 +135,14 @@ export class StageManager {
 		if (this.stageNumber < stages.length - 1) {
 			this.stageNumber += 1;
 		}
+		const gameLoop = managers.get('gameLoop');
+		this.commonGroupsSpawnCDs = this.stageConfig.commonGroups.map((group) =>
+			gameLoop.setCD(group.spawnInterval, true)
+		);
+
+		this.eliteSpawnCDs = this.stageConfig.eliteSpawns.map((spawn) =>
+			gameLoop.setCD(spawn.spawnInterval, true)
+		);
 	}
 
 	spawnEntity = (name: string, position: Vector2, context = {}) => {
