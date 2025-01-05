@@ -8,6 +8,7 @@
 	// import BackDrop from '$components/BackDrop.svelte';
 	import Bg1 from '$lib/components/Bg1.svelte';
 	import { handleGameClick } from '$lib/store/gameActions.svelte';
+
 	let game = $state(null);
 	let isGameStarted = $state(false);
 
