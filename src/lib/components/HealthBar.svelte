@@ -1,4 +1,6 @@
 <script>
+	import { managers } from '$lib/store/managers.svelte';
+
 	const { entity } = $props();
 
 	const maxHealth = 500;
@@ -11,10 +13,23 @@
 
 	// Generate array of segment markers
 	const segmentMarkers = Array.from({ length: segments - 1 }, (_, i) => (i + 1) * (100 / segments));
+
+	// First segment width (20% of total)
+	const firstSegmentWidth = 100 / segments;
+
+	let manager = managers.get('uiManager');
+	let hightlightHealth = $derived(manager.hightlightHealth);
 </script>
 
 <div class="health-bar-container">
 	<div class="health-bar-background">
+		{#if hightlightHealth}
+			<div
+				class="first-segment-highlight"
+				style:width="{firstSegmentWidth}%"
+				onanimationend={() => manager.hightlightThroneHealth(false)}
+			/>
+		{/if}
 		{#each segmentMarkers as marker}
 			<div class="segment-marker" style:left="{marker}%" />
 		{/each}
@@ -84,10 +99,28 @@
 		box-shadow: 0 0 10px #44ff44;
 	}
 
-	.health-text {
-		color: white;
-		font-size: 20px;
-		text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
-		font-weight: bold;
+	.first-segment-highlight {
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 100%;
+		background-color: rgba(195, 116, 20, 0.8);
+		z-index: 2;
+		animation: flashOnce 1s ease-out forwards;
+	}
+
+	@keyframes flashOnce {
+		0% {
+			transform: scale(0);
+			opacity: 0;
+		}
+		50% {
+			transform: scale(1.2);
+			opacity: 0.8;
+		}
+		100% {
+			transform: scale(0);
+			opacity: 0;
+		}
 	}
 </style>

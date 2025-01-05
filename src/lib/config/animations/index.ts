@@ -8,7 +8,6 @@ import { PoisonballDie } from './Projectiles/PoisonballDie';
 import { ThunderboltDie } from './Projectiles/ThunderboltDie';
 
 import { NotBuilt } from './Towers/NotBuilt';
-import { Build } from './Towers/Build';
 import { Base } from './Base';
 import { IceTower } from './Towers/IceTower';
 import { FireTower } from './Towers/FireTower';
@@ -33,7 +32,6 @@ export const animations = {
 	Icebolt,
 	Thunderbolt,
 	NotBuilt,
-	Build,
 	FireballDie,
 	IceboltDie,
 	PoisonballDie,

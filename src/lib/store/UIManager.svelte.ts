@@ -12,6 +12,7 @@ export class UIManager {
 	);
 	showedStageDialogs = $state([]);
 	currentDialog = $state('');
+	hightlightHealth = $state(false);
 
 	update = (deltaTime: number) => {
 		this.checkStageDialog();
@@ -48,5 +49,9 @@ export class UIManager {
 	clear() {
 		this.currentDialog = '';
 		this.highlightedEntity = null;
+	}
+
+	hightlightThroneHealth(isHightlight = true) {
+		this.hightlightHealth = isHightlight;
 	}
 }

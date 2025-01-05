@@ -23,7 +23,9 @@ export class Entity {
 	opacity = $state(1);
 	isInteractable = $state(true);
 
-	upgradeLevel = $state(0);
+	stateToAnimation = $state({});
+
+	upgradeLevel = $state(-1);
 	upgrades = $state([]);
 
 	isUpgradable = $derived(this.upgrades.length && this.upgradeLevel < this.upgrades.length);
@@ -60,7 +62,7 @@ export class Entity {
 		this.position = position;
 		this.velocity = new Vector2();
 		this.stats = { ...stats };
-		this.upgradeLevel = upgradeLevel || 0;
+		this.upgradeLevel = upgradeLevel || -1;
 		this.upgrades = upgrades || [];
 		this.vfx = vfx || [];
 		this.effects = effects || [];
@@ -155,9 +157,7 @@ export class Entity {
 
 	upgrade() {
 		if (this.isUpgradable) {
-			this.upgrades[this.upgradeLevel](this);
-
-			this.upgradeLevel += 1;
+			this.state.setState('Upgrade');
 		}
 	}
 
