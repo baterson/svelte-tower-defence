@@ -8,5 +8,6 @@ export const GreenFlatEnemyDie = {
 	name: 'GreenFlatEnemyDie',
 	frames,
 	framesAmount: frames.length,
-	frameRate: 10
+	frameRate: 10,
+	loop: false
 } as const;

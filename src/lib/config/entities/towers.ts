@@ -25,9 +25,11 @@ export const towers = {
 		initialState: 'Guard',
 		stateToAnimation: {
 			Build: 'Build',
-			Guard: 'FireTower',
-			Shoot: 'FireTower',
-			NotBuilt: 'NotBuilt'
+			Guard: 'FireTowerBase',
+			Shoot: 'FireTowerBase',
+			NotBuilt: 'NotBuilt',
+			UpgradeOne: 'FireTowerUpgradeOne',
+			UpgradeTwo: 'FireTowerUpgradeTwo'
 		},
 		effects: [],
 		stats: {
@@ -50,9 +52,11 @@ export const towers = {
 		initialState: 'NotBuilt',
 		stateToAnimation: {
 			Build: 'Build',
-			Guard: 'ThunderTower',
-			Shoot: 'ThunderTower',
-			NotBuilt: 'NotBuilt'
+			Guard: 'ThunderTowerBase',
+			Shoot: 'ThunderTowerBase',
+			NotBuilt: 'NotBuilt',
+			UpgradeOne: 'ThunderTowerUpgradeOne',
+			UpgradeTwo: 'ThunderTowerUpgradeTwo'
 		},
 		effects: [],
 		stats: {
@@ -75,9 +79,11 @@ export const towers = {
 		initialState: 'NotBuilt',
 		stateToAnimation: {
 			Build: 'Build',
-			Guard: 'PoisonTower',
-			Shoot: 'PoisonTower',
-			NotBuilt: 'NotBuilt'
+			Guard: 'PoisonTowerBase',
+			Shoot: 'PoisonTowerBase',
+			NotBuilt: 'NotBuilt',
+			UpgradeOne: 'PoisonTowerUpgradeOne',
+			UpgradeTwo: 'PoisonTowerUpgradeTwo'
 		},
 		effects: [],
 		stats: {

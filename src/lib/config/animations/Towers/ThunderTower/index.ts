@@ -1,11 +1,9 @@
-import Frame0 from './0.svg?raw';
-
-const frames = [Frame0];
+import { ThunderTowerBase } from './Base';
+import { ThunderTowerUpgradeOne } from './UpgradeOne';
+import { ThunderTowerUpgradeTwo } from './UpgradeTwo';
 
 export const ThunderTower = {
-	name: 'ThunderTower',
-	frames,
-	framesAmount: 1,
-	frameRate: 0,
-	loop: true
+	ThunderTowerBase,
+	ThunderTowerUpgradeOne,
+	ThunderTowerUpgradeTwo
 };

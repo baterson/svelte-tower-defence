@@ -1,11 +1,9 @@
-import Frame0 from './0.svg?raw';
-
-const frames = [Frame0];
+import { PoisonTowerBase } from './Base';
+import { PoisonTowerUpgradeOne } from './UpgradeOne';
+import { PoisonTowerUpgradeTwo } from './UpgradeTwo';
 
 export const PoisonTower = {
-	name: 'PoisonTower',
-	frames,
-	framesAmount: 1,
-	frameRate: 0,
-	loop: true
+	PoisonTowerBase,
+	PoisonTowerUpgradeOne,
+	PoisonTowerUpgradeTwo
 };
