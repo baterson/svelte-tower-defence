@@ -4,7 +4,7 @@
 	import Animation from '$lib/components/Animation.svelte';
 	import { fade } from 'svelte/transition';
 	// todo: pass in/out transitions
-	let { entity, onout, onclick, node = $bindable(), isStatic = false } = $props();
+	let { entity, onout, onclick, children, node = $bindable(), isStatic = false } = $props();
 
 	const uiManager = $derived(managers.get('uiManager'));
 </script>
@@ -29,6 +29,10 @@
 	{#each entity.vfx as vfx (vfx)}
 		<Effect name={vfx} {entity} />
 	{/each}
+
+	{#if children}
+		{@render children(entity)}
+	{/if}
 </div>
 
 <style>

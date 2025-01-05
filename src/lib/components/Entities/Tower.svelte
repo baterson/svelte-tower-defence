@@ -1,5 +1,5 @@
 <script>
-	import { spendUpgradePoints } from '$lib/store/gameActions.svelte';
+	import { spendThroneHealth } from '$lib/store/gameActions.svelte';
 	import { screen } from '$lib/store/Screen.svelte';
 	import { Vector2 } from '$lib/store/Vector2.svelte';
 	import { onMount } from 'svelte';
@@ -8,10 +8,17 @@
 
 	let node = $state();
 	const { tower, index } = $props();
+
 	const onclick = (e) => {
 		e.stopPropagation();
+		if (tower.state.currentState.name === 'NotBuilt') {
+			tower.state.setState('Build');
+			spendThroneHealth('towerBuild');
+		} else {
+			tower.upgrade();
+			spendThroneHealth('upgrade');
+		}
 
-		tower.state.setState('Build');
 		managers.get('soundManager').play('lvlUp');
 	};
 

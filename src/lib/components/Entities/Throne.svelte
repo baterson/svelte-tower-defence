@@ -1,10 +1,8 @@
 <script>
-	import { devTools } from '$lib/store/DevTools.svelte';
-	import { spendThronePower } from '$lib/store/gameActions.svelte';
 	import { screen } from '$lib/store/Screen.svelte';
-	import { handleScreenChange } from '$lib/store/States/effects';
 	import Entity from './Entity.svelte';
 	import { Vector2 } from '$lib/store/Vector2.svelte';
+	import HealthBar from '$lib/components/HealthBar.svelte';
 
 	const { throne } = $props();
 
@@ -28,4 +26,6 @@
 	});
 </script>
 
-<Entity bind:node onclick={() => spendThronePower()} entity={throne} --z-index={10} />
+<Entity bind:node entity={throne} --z-index={10}>
+	<HealthBar entity={throne} />
+</Entity>

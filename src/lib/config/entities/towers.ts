@@ -1,10 +1,5 @@
 import { throneCollider, towerCollider } from '../collisionHandlers';
-import {
-	earthTowerUpgrades,
-	fireTowerUpgrades,
-	iceTowerUpgrades,
-	windTowerUpgrades
-} from '../upgrades';
+import * as upgrades from '../upgrades';
 
 export const towers = {
 	Throne: {
@@ -45,7 +40,7 @@ export const towers = {
 		},
 		scale: 1,
 		onCollide: towerCollider,
-		upgrades: fireTowerUpgrades
+		upgrades: upgrades.FireTower
 	},
 
 	ThunderTower: {
@@ -70,7 +65,7 @@ export const towers = {
 		},
 		scale: 1,
 		onCollide: towerCollider,
-		upgrades: windTowerUpgrades
+		upgrades: upgrades.ThunderTower
 	},
 
 	PoisonTower: {
@@ -95,7 +90,7 @@ export const towers = {
 		},
 		scale: 1,
 		onCollide: towerCollider,
-		upgrades: earthTowerUpgrades
+		upgrades: upgrades.PoisonTower
 	},
 
 	IceTower: {
@@ -122,6 +117,6 @@ export const towers = {
 		},
 		scale: 1,
 		onCollide: towerCollider,
-		upgrades: iceTowerUpgrades
+		upgrades: upgrades.IceTower
 	}
 };

@@ -80,23 +80,20 @@ export const projectiles = {
 		onCollide: fireballCollider
 	},
 
-	loot: {
+	Loot: {
 		type: 'loot',
-
 		vfx: [],
-
-		width: 15,
-		height: 15,
+		width: 14,
+		height: 19,
 		initialState: 'FollowTarget',
 		stateToAnimation: {
-			FollowTarget: 'Fireball',
-			FollowAngle: 'Fireball',
-			Explode: 'FireballDie'
+			FollowTarget: 'Fireball'
 		},
+		scale: 1,
 		stats: {
 			health: 1,
 			damage: 0,
-			speed: 0.2
+			speed: 0.5
 		},
 		onCollide: lootCollider
 	}

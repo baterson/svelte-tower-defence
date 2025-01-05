@@ -8,25 +8,28 @@
 	// import BackDrop from '$components/BackDrop.svelte';
 	import Bg1 from '$lib/components/Bg1.svelte';
 	import { handleGameClick } from '$lib/store/gameActions.svelte';
+	import { onMount } from 'svelte';
 
 	let game = $state(null);
 	let isGameStarted = $state(false);
 
-	// onMount(() => {
-	// 	game = new Game();
-	// 	game.start();
-	// });
 	const startGame = () => {
 		game = new Game();
 		managers.get('soundManager').init();
 		game.start();
 		isGameStarted = true;
 	};
+
+	onMount(() => {
+		startGame();
+		// game = new Game();
+		// game.start();
+	});
 </script>
 
 <svelte:window bind:innerWidth={screen.width} bind:innerHeight={screen.height} />
 
-<!-- <DevTools /> -->
+<DevTools />
 <!-- <Dialog /> -->
 <!-- <BackDrop /> -->
 

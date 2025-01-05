@@ -10,7 +10,7 @@ export const initState = (stateMachine, entityType, name, stateContext = {}) => 
 		States = EnemyStates;
 	} else if (entityType === 'tower') {
 		States = TowerStates;
-	} else if (entityType === 'projectile') {
+	} else if (['projectile', 'loot'].includes(entityType)) {
 		States = ProjectileStates;
 	} else if (entityType === 'throne') {
 		States = ThroneStates;

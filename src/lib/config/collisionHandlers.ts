@@ -71,8 +71,10 @@ export const projectileCollider = (projectile, other) => {
 export const throneCollider = (entity, other) => {
 	const { spawner } = other.state.context;
 
-	if (other.type === 'loot' && spawner.type === 'enemy') {
-		entity.stats.health += 20;
+	if (other.type === 'loot') {
+		entity.stats.health = Math.min(entity.stats.health + 5, 500);
+		managers.get('entityManager').destroy(other.id);
+
 		// add vfx
 	} else if (other.type === 'enemy') {
 		entity.takeDamage(other.stats.damage);
@@ -82,10 +84,11 @@ export const throneCollider = (entity, other) => {
 };
 
 export const lootCollider = (entity, other) => {
-	const { spawner } = entity.state.context;
+	// console.log('COLLIDE///', entity.id);
+	entity.stopInteractions();
+	managers.get('entityManager').destroy(entity.id);
 
-	if (spawner.type === 'enemy' && other.type === 'throne') {
-		entity.state.setState('Die');
-		return;
-	}
+	// if (other.type === 'throne') {
+	// 	managers.get('entityManager').destroy(entity.id);
+	// }
 };

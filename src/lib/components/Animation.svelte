@@ -13,9 +13,11 @@
 	// });
 </script>
 
-<svg fill="none" xmlns="http://www.w3.org/2000/svg">
-	{@html frame}
-</svg>
+{#if entity}
+	<svg fill="none" xmlns="http://www.w3.org/2000/svg">
+		{@html frame}
+	</svg>
+{/if}
 
 <style>
 	svg {

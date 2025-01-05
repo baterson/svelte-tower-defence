@@ -42,36 +42,8 @@ export class StageManager {
 		this.checkStageTime();
 	};
 
-	// calculateTowerPosition(tower, index) {
-	// 	const sideMargin = screen.isMobile ? 30 : 100;
-	// 	const bottomMargin = screen.isMobile ? 150 : 200;
-
-	// 	const isLeftSide = index === 0 || index === 2;
-	// 	const isTopRow = index === 0 || index === 1;
-
-	// 	const x = isLeftSide ? sideMargin : screen.gameAreaWidth - tower.width - sideMargin + 10;
-
-	// 	const y = isTopRow
-	// 		? screen.gameAreaHeight - bottomMargin * 2
-	// 		: screen.gameAreaHeight - bottomMargin;
-
-	// 	return new Vector2(x, y);
-	// }
-
-	// spawnTowers() {
-	// 	const towerTypes = ['FireTower', 'ThunderTower', 'PoisonTower', 'IceTower'];
-
-	// 	towerTypes.forEach((name, index) => {
-	// 		const tower = this.spawnEntity(name, new Vector2(0, 0));
-	// 		tower.position = this.calculateTowerPosition(tower, index);
-	// 	});
-	// }
-
 	spawnTowers() {
-		// ['FireTower'].forEach((name) => {
-		// 	this.spawnEntity(name, new Vector2(0, 0));
-		// });
-		// ['fireTower', 'fireTower', 'fireTower', 'fireTower'].forEach((name) => {
+		// ['IceTower'].forEach((name) => {
 		// 	this.spawnEntity(name, new Vector2(0, 0));
 		// });
 
@@ -98,6 +70,15 @@ export class StageManager {
 		const position = new Vector2(getRandomSpawnArea(), 20);
 
 		this.spawnEntity(enemy, position, { throne: entityManager.throne });
+	}
+
+	spawnLoot(enemy) {
+		const entityManager = managers.get('entityManager');
+		const throne = entityManager.throne;
+
+		this.spawnEntity('Loot', enemy.boundingBox.center.clone(), {
+			target: throne
+		});
 	}
 
 	checkStageTime() {

@@ -5,4 +5,4 @@
 	const { loot } = $props();
 </script>
 
-<Entity entity={loot} onclick={() => devTools.inspectEntity(loot)} --z-index={10} />
+<Entity entity={loot} --z-index={10} />
