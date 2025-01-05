@@ -19,8 +19,8 @@ export const FireTower = [
 		tower.stats.projectileNumber += 1;
 	},
 	(tower) => {
-		tower.width = 93;
-		tower.height = 140;
+		tower.width = 122;
+		tower.height = 176;
 
 		tower.stats.damage += 50;
 		tower.stats.attackSpeed -= 100;
@@ -42,12 +42,16 @@ export const PoisonTower = [
 		tower.stats.attackSpeed -= 220;
 		tower.stats.attackRange += 50;
 		// tower.scale += 0.2;
+		tower.width = 93;
+		tower.height = 140;
 	},
 	(tower) => {
 		tower.stats.damage += 10;
 		tower.stats.attackSpeed -= 220;
 		tower.stats.attackRange += 50;
 		// tower.scale += 0.2;
+		tower.width = 122;
+		tower.height = 176;
 	}
 ];
 
@@ -63,12 +67,16 @@ export const ThunderTower = [
 		tower.stats.attackSpeed -= 220;
 		tower.stats.attackRange += 50;
 		// tower.scale += 0.2;
+		tower.width = 93;
+		tower.height = 140;
 	},
 	(tower) => {
 		tower.stats.damage += 10;
 		tower.stats.attackSpeed -= 220;
 		tower.stats.attackRange += 50;
 		// tower.scale += 0.2;
+		tower.width = 122;
+		tower.height = 176;
 	}
 ];
 

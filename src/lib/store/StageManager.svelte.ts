@@ -47,7 +47,7 @@ export class StageManager {
 		// 	this.spawnEntity(name, new Vector2(0, 0));
 		// });
 
-		['IceTower', 'IceTower', 'IceTower', 'IceTower'].forEach((name) => {
+		['PoisonTower', 'FireTower', 'IceTower', 'ThunderTower'].forEach((name) => {
 			this.spawnEntity(name, new Vector2(0, 0));
 		});
 

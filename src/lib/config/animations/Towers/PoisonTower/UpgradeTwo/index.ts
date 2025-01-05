@@ -8,6 +8,6 @@ export const PoisonTowerUpgradeTwo = {
 	name: 'PoisonTowerUpgradeTwo',
 	frames,
 	framesAmount: frames.length,
-	frameRate: 10,
+	frameRate: 5,
 	loop: false
 };

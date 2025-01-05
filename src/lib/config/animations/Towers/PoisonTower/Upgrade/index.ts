@@ -4,10 +4,10 @@ import Frame2 from './2.svg?raw';
 
 const frames = [Frame0, Frame1, Frame2];
 
-export const ThunderTowerUpgradeTwo = {
-	name: 'ThunderTowerUpgradeTwo',
+export const PoisonTowerUpgrade = {
+	name: 'PoisonTowerUpgradeOne',
 	frames,
 	framesAmount: frames.length,
-	frameRate: 5,
+	frameRate: 10,
 	loop: false
 };

@@ -8,6 +8,6 @@ export const FireTowerUpgradeTwo = {
 	name: 'FireTowerUpgradeTwo',
 	frames,
 	framesAmount: frames.length,
-	frameRate: 10,
+	frameRate: 5,
 	loop: false
 };

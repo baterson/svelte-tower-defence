@@ -8,6 +8,6 @@ export const ThunderTowerUpgradeOne = {
 	name: 'ThunderTowerUpgradeOne',
 	frames,
 	framesAmount: frames.length,
-	frameRate: 10,
+	frameRate: 5,
 	loop: false
 };

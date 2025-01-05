@@ -27,7 +27,7 @@ export const towers = {
 			Guard: 'FireTowerBase',
 			Shoot: 'FireTowerBase',
 			NotBuilt: 'NotBuilt',
-			Upgrade: 'FireTowerUpgradeOne'
+			Upgrade: 'FireTowerUpgrade'
 		},
 		effects: [],
 		stats: {
@@ -52,7 +52,7 @@ export const towers = {
 			Guard: 'ThunderTowerBase',
 			Shoot: 'ThunderTowerBase',
 			NotBuilt: 'NotBuilt',
-			Upgrade: 'ThunderTowerUpgradeOne'
+			Upgrade: 'ThunderTowerUpgrade'
 		},
 		effects: [],
 		stats: {
@@ -77,7 +77,7 @@ export const towers = {
 			Guard: 'PoisonTowerBase',
 			Shoot: 'PoisonTowerBase',
 			NotBuilt: 'NotBuilt',
-			Upgrade: 'PoisonTowerUpgradeOne'
+			Upgrade: 'PoisonTowerUpgrade'
 		},
 		effects: [],
 		stats: {
