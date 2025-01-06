@@ -5,8 +5,8 @@ import { projectileCollider } from '../collisionHandlers';
 export const projectiles = {
 	Fireball: {
 		type: 'projectile',
-		width: 14,
-		height: 19,
+		width: 20,
+		height: 22,
 		vfx: [],
 		initialState: 'FollowTarget',
 		stateToAnimation: {
@@ -14,7 +14,7 @@ export const projectiles = {
 			FollowAngle: 'Fireball',
 			Explode: 'FireballDie'
 		},
-		scale: 3,
+		scale: 2,
 		stats: {
 			health: 1,
 			speed: 0.5,

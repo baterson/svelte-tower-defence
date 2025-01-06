@@ -9,5 +9,5 @@ export const BlueBlobEnemyFollow = {
 	frames,
 	framesAmount: frames.length,
 	frameRate: 10,
-	loop: false
+	loop: true
 };

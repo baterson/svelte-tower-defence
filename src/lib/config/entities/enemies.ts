@@ -4,7 +4,6 @@
  */
 
 import type { Entity } from '$lib/store/Entity.svelte';
-import { GreyCircleEnemy } from '../animations/Enemy/GreyCircleEnemy';
 
 import { enemyCollider } from '../collisionHandlers';
 
@@ -54,7 +53,7 @@ export const enemies: Record<string, EntityConfig> = {
 	GreenFlatEnemy: {
 		type: 'enemy',
 		width: 162,
-		height: 172,
+		height: 230,
 		initialState: 'FollowThrone',
 		vfx: [],
 		scale: 1,

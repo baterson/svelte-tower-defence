@@ -9,5 +9,6 @@ export const YellowBlobEnemyFollow = {
 	name: 'YellowBlobEnemyFollow',
 	frames,
 	framesAmount: frames.length,
-	frameRate: 10
+	frameRate: 10,
+	loop: true
 } as const;
