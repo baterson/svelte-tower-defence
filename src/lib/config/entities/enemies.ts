@@ -44,9 +44,9 @@ export const enemies: Record<string, EntityConfig> = {
 			Die: 'PurpleBlobEnemyDie'
 		},
 		stats: {
-			health: 1,
+			health: 10,
 			speed: 0.02,
-			damage: 10
+			damage: 5
 		},
 		onCollide: enemyCollider
 	},
@@ -62,9 +62,9 @@ export const enemies: Record<string, EntityConfig> = {
 			Die: 'GreenFlatEnemyDie'
 		},
 		stats: {
-			health: 1,
-			speed: 0.02,
-			damage: 10
+			health: 40,
+			speed: 0.01,
+			damage: 15
 		},
 		onCollide: enemyCollider
 	},
@@ -74,14 +74,14 @@ export const enemies: Record<string, EntityConfig> = {
 		height: 180,
 		initialState: 'FollowThrone',
 		vfx: [],
-		scale: 0.5,
+		scale: 0.8,
 		stateToAnimation: {
 			FollowThrone: 'RedBlobEnemyFollow',
 			Die: 'RedBlobEnemyDie'
 		},
 		stats: {
-			health: 1,
-			speed: 0.02,
+			health: 30,
+			speed: 0.015,
 			damage: 10
 		},
 		onCollide: enemyCollider
@@ -92,15 +92,15 @@ export const enemies: Record<string, EntityConfig> = {
 		height: 160,
 		initialState: 'FollowThrone',
 		vfx: [],
-		scale: 0.9,
+		scale: 1,
 		stateToAnimation: {
 			FollowThrone: 'GreyBlobEnemyFollow',
 			Die: 'GreyBlobEnemyDie'
 		},
 		stats: {
-			health: 1,
-			speed: 0.02,
-			damage: 10
+			health: 5,
+			speed: 0.04,
+			damage: 8
 		},
 		onCollide: enemyCollider
 	},
@@ -110,15 +110,15 @@ export const enemies: Record<string, EntityConfig> = {
 		height: 62,
 		initialState: 'FollowThrone',
 		vfx: [],
-		scale: 1,
+		scale: 0.8,
 		stateToAnimation: {
 			FollowThrone: 'YellowBlobEnemyFollow',
 			Die: 'YellowBlobEnemyDie'
 		},
 		stats: {
-			health: 1,
+			health: 8,
 			speed: 0.02,
-			damage: 10
+			damage: 5
 		},
 		onCollide: enemyCollider
 	},
@@ -128,13 +128,13 @@ export const enemies: Record<string, EntityConfig> = {
 		height: 75,
 		initialState: 'FollowThrone',
 		vfx: [],
-		scale: 0.5,
+		scale: 0.7,
 		stateToAnimation: {
 			FollowThrone: 'BlueBlobEnemyFollow',
 			Die: 'BlueBlobEnemyDie'
 		},
 		stats: {
-			health: 1,
+			health: 15,
 			speed: 0.02,
 			damage: 10
 		},
@@ -152,7 +152,7 @@ export const enemies: Record<string, EntityConfig> = {
 			Die: 'GreyCircleEnemyDie'
 		},
 		stats: {
-			health: 1,
+			health: 20,
 			speed: 0.02,
 			damage: 10
 		},

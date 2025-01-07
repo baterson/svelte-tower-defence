@@ -32,9 +32,9 @@ export const towers = {
 		effects: [],
 		stats: {
 			health: 1000,
-			attackRange: Infinity,
-			attackSpeed: 1000,
-			damage: 20,
+			attackRange: 650,
+			attackSpeed: 500,
+			damage: 15,
 			projectileNumber: 1,
 			projectileType: 'Fireball'
 		},
@@ -56,9 +56,9 @@ export const towers = {
 		effects: [],
 		stats: {
 			health: 1000,
-			attackRange: Infinity,
-			attackSpeed: 800,
-			damage: 20,
+			attackRange: 700,
+			attackSpeed: 950,
+			damage: 15,
 			projectileNumber: 1,
 			projectileType: 'Thunderbolt'
 		},
@@ -80,9 +80,9 @@ export const towers = {
 		effects: [],
 		stats: {
 			health: 1000,
-			attackRange: Infinity,
-			attackSpeed: 800,
-			damage: 20,
+			attackRange: 650,
+			attackSpeed: 750,
+			damage: 15,
 			projectileNumber: 1,
 			projectileType: 'Poisonball'
 		},
@@ -104,9 +104,9 @@ export const towers = {
 		effects: [],
 		stats: {
 			health: 1000,
-			attackRange: Infinity,
-			attackSpeed: 800,
-			damage: 20,
+			attackRange: 650,
+			attackSpeed: 850,
+			damage: 15,
 			projectileNumber: 1,
 			projectileType: 'Icebolt'
 		},
