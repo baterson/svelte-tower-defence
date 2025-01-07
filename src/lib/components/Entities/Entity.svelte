@@ -47,11 +47,10 @@
 		-webkit-backface-visibility: hidden;
 		perspective: 1000;
 		-webkit-perspective: 1000;
+	}
 
-		/* place-self: var(--place-self); */
-		/* position: var(--position);
-		margin-left: var(--margin-left);
-		margin-right: var(--margin-right); */
+	div:hover {
+		cursor: var(--cursor, 'url(/cursor-pointer.svg), auto');
 	}
 
 	.highlighted {

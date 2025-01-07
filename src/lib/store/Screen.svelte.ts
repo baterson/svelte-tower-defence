@@ -1,3 +1,5 @@
+import type { Entity } from './Entity.svelte';
+
 export class Screen {
 	width = $state(0);
 	height = $state(0);
@@ -23,6 +25,18 @@ export class Screen {
 			x2: this.width,
 			y2: this.height
 		};
+	}
+
+	isEntityInScreen(entity: Entity): boolean {
+		const { x1, y1, x2, y2 } = this.screenBounds;
+		const { x, y } = entity.position;
+
+		return (
+			x + entity.width / 2 > x1 &&
+			x - entity.width / 2 < x2 &&
+			y + entity.height > y1 &&
+			y - entity.height < y2
+		);
 	}
 }
 

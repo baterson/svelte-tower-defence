@@ -26,11 +26,13 @@ export class LootTracker {
 
 			this.playAnimation('TowerUpgrade');
 		} else if (action.type === 'click') {
-			const collisionManager = managers.get('collisionManager');
+			const { collisionManager, stageManager } = managers.get(['collisionManager', 'stageManager']);
 			const { offset } = action.payload;
 			// spawn projectile in explossion
 			const boundingBox = boundingBoxFromPoint(offset, 20, 20);
 			const enemies = collisionManager.filterEnemiesByBounds(boundingBox);
+
+			stageManager.spawnEntity('ClickExplode', offset);
 
 			enemies.forEach((enemy) => {
 				enemy.state.setState('Die');

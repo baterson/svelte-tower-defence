@@ -6,10 +6,11 @@ export class Explode extends BaseState {
 		super(stateMachine);
 
 		this.entity.removeCollider();
-		this.entity.width = 40;
-		this.entity.height = 40;
-		// todo scale with explossion
-		this.entity.scale += 1;
+		this.entity.width = 30;
+		this.entity.height = 30;
+		this.entity.animation.onFrameChange = (frame) => {
+			this.entity.scale += 0.5;
+		};
 
 		stateMachine.owner.stopInteractions();
 	}
@@ -18,6 +19,8 @@ export class Explode extends BaseState {
 		if (!this.entity.animation || (this.entity.animation && this.entity.animation.isComplete)) {
 			const entityManager = managers.get('entityManager');
 			entityManager.destroy(this.entity.id);
+
+			this.entity.animation.onFrameChange = () => {};
 		}
 	}
 }

@@ -1,4 +1,5 @@
 import { boundingBoxFromPoint, checkRectCollision } from '$lib/utils/math';
+import { screen } from '$lib/store/Screen.svelte';
 import type { Entity } from './Entity.svelte';
 import type { Vector2 } from './Vector2.svelte';
 
@@ -24,16 +25,29 @@ export class EntityManager {
 		});
 	}
 
+	// findNearestEntity(source: Entity, targets: Entity[]): Entity | undefined {
+	// 	const distances = targets
+	// 		.filter((target) => target.isInteractable)
+	// 		.map((target) => {
+	// 			return source.position.distance(target.position);
+	// 		});
+	// 	const minDistance = Math.min(...distances);
+	// 	const index = distances.indexOf(minDistance);
+
+	// 	return targets[index];
+	// }
 	findNearestEntity(source: Entity, targets: Entity[]): Entity | undefined {
-		const distances = targets
-			.filter((target) => target.isInteractable)
-			.map((target) => {
-				return source.position.distance(target.position);
-			});
+		const validTargets = targets.filter(
+			(target) => target.isInteractable && screen.isEntityInScreen(target)
+		);
+
+		if (validTargets.length === 0) return undefined;
+
+		const distances = validTargets.map((target) => source.position.distance(target.position));
 		const minDistance = Math.min(...distances);
 		const index = distances.indexOf(minDistance);
 
-		return targets[index];
+		return validTargets[index];
 	}
 
 	findByPosition(position: Vector2): Entity[] | [] {

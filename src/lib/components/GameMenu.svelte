@@ -104,7 +104,6 @@
 		background: #3b005f;
 		border: 2px solid #ac82d4;
 		border-radius: 10px;
-		cursor: pointer;
 		transition:
 			background 0.3s ease,
 			transform 0.3s ease;
