@@ -4,10 +4,40 @@ import { managers } from './managers.svelte';
 import { Vector2 } from './Vector2.svelte';
 import { screen } from '$lib/store/Screen.svelte';
 
-const spawnAreas = [70, 100, 130, 160, 190, 220, 250, 280, 310, 340];
+const spawnZones = $derived({
+	top: [
+		{ x: screen.gameAreaWidth * 0.1, y: 20 },
+		{ x: screen.gameAreaWidth * 0.3, y: 20 },
+		{ x: screen.gameAreaWidth * 0.5, y: 20 },
+		{ x: screen.gameAreaWidth * 0.7, y: 20 },
+		{ x: screen.gameAreaWidth * 0.9, y: 20 }
+	],
+	left: [
+		{ x: -20, y: 50 },
+		{ x: -20, y: 80 },
+		{ x: -20, y: 110 },
+		{ x: -20, y: 140 }
+	],
+	right: [
+		{ x: screen.gameAreaWidth + 20, y: 50 },
+		{ x: screen.gameAreaWidth + 20, y: 80 },
+		{ x: screen.gameAreaWidth + 20, y: 110 },
+		{ x: screen.gameAreaWidth + 20, y: 140 }
+	]
+});
 
-const getRandomSpawnArea = () => {
-	return spawnAreas[Math.floor(Math.random() * spawnAreas.length)];
+const getRandomSpawnPoint = () => {
+	const rand = Math.floor(Math.random() * 100);
+
+	let selectedZone;
+	if (rand < 20) {
+		selectedZone = spawnZones.left;
+	} else if (rand < 40) {
+		selectedZone = spawnZones.right;
+	} else {
+		selectedZone = spawnZones.top;
+	}
+	return selectedZone[Math.floor(Math.random() * selectedZone.length)];
 };
 
 const pickRandomEnemy = (enemies: string[]) => {
@@ -22,8 +52,8 @@ export class StageManager {
 
 	init = () => {
 		const gameLoop = managers.get('gameLoop');
-		this.commonSpawnCd = gameLoop.setCD(400, true);
-		this.eliteSpawnCd = gameLoop.setCD(1000, false);
+		this.commonSpawnCd = gameLoop.setCD(this.stageConfig.spawnDelays.common, true);
+		this.eliteSpawnCd = gameLoop.setCD(this.stageConfig.spawnDelays.elite, false);
 		this.spawnTowers();
 		this.spawnEntity('Throne', new Vector2(200, 200));
 		this.spawnCommonEnemy();
@@ -62,7 +92,8 @@ export class StageManager {
 
 		const commonEnemies = this.stageConfig.commonEnemies;
 		const enemy = pickRandomEnemy(commonEnemies);
-		const position = new Vector2(getRandomSpawnArea(), 20);
+		const spawnPoint = getRandomSpawnPoint();
+		const position = new Vector2(spawnPoint.x, spawnPoint.y);
 
 		this.spawnEntity(enemy, position, { throne: entityManager.throne });
 	}
@@ -72,8 +103,8 @@ export class StageManager {
 
 		const eliteEnemies = this.stageConfig.eliteEnemies;
 		const enemy = pickRandomEnemy(eliteEnemies);
-		const position = new Vector2(getRandomSpawnArea(), 20);
-
+		const spawnPoint = getRandomSpawnPoint();
+		const position = new Vector2(spawnPoint.x, spawnPoint.y);
 		this.spawnEntity(enemy, position, { throne: entityManager.throne });
 	}
 
@@ -97,6 +128,9 @@ export class StageManager {
 		if (this.stageNumber < stages.length - 1) {
 			this.stageNumber += 1;
 		}
+		const gameLoop = managers.get('gameLoop');
+		this.commonSpawnCd = gameLoop.setCD(this.stageConfig.spawnDelays.common, true);
+		this.eliteSpawnCd = gameLoop.setCD(this.stageConfig.spawnDelays.elite, false);
 	}
 
 	spawnEntity = (name: string, position: Vector2, context = {}) => {

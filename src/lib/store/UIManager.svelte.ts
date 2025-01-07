@@ -41,7 +41,7 @@ export class UIManager {
 		const stageManager = managers.get('stageManager');
 
 		if (!this.showedStageDialogs.includes(stageManager.stageNumber)) {
-			this.currentDialog = stageDialogs[stageManager.stageNumber].start;
+			this.currentDialog = stageDialogs[stageManager.stageNumber];
 			this.showedStageDialogs.push(stageManager.stageNumber);
 		}
 	}

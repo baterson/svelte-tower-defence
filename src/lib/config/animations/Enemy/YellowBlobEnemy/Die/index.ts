@@ -8,5 +8,6 @@ export const YellowBlobEnemyDie = {
 	name: 'YellowBlobEnemyDie',
 	frames,
 	framesAmount: frames.length,
-	frameRate: 10
+	frameRate: 10,
+	loop: false
 } as const;
