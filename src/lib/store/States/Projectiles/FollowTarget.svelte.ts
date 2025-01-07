@@ -42,8 +42,8 @@ export class FollowTarget extends BaseState {
 		// Update the entity position
 		this.entity.position = this.entity.position.add(velocity);
 
-		if (this.entity.type === 'loot') {
-			console.log('		this.entity.position', velocity.x, velocity.y);
-		}
+		// if (this.entity.type === 'loot') {
+		// 	console.log('		this.entity.position', velocity.x, velocity.y);
+		// }
 	}
 }

@@ -8,14 +8,17 @@
 	// import BackDrop from '$components/BackDrop.svelte';
 	import Bg1 from '$lib/components/Bg1.svelte';
 	import { handleGameClick } from '$lib/store/gameActions.svelte';
-	import { onMount } from 'svelte';
 	import GameMenu from '$lib/components/GameMenu.svelte';
 	import PauseIcon from '$lib/components/PauseIcon.svelte';
-	const gameLoop = $derived(managers.get('gameLoop'));
-	const soundManager = $derived(managers.get('soundManager'));
+	import BackgroundContainer from '$lib/components/BackgroundContainer.svelte';
+
 	let game = $state(null);
 	let isGameStarted = $state(false);
 	let isPaused = $state(false);
+
+	const gameLoop = $derived(managers.get('gameLoop'));
+	const soundManager = $derived(managers.get('soundManager'));
+	const stageManager = $derived(managers.get('stageManager'));
 
 	const startGame = () => {
 		game = new Game();
@@ -40,7 +43,7 @@
 
 <svelte:window bind:innerWidth={screen.width} bind:innerHeight={screen.height} />
 
-<DevTools />
+<!-- <DevTools /> -->
 <!-- <Dialog /> -->
 <!-- <BackDrop /> -->
 
@@ -48,7 +51,7 @@
 	<GameMenu onStart={startGame} />
 {:else if game}
 	<div class="wrapper">
-		<Bg1 />
+		<BackgroundContainer stageNumber={stageManager.stageNumber} />
 		<div class="time">Stage {managers.get('stageManager').stageNumber + 1}</div>
 		<button class="btn-pause" onclick={pauseGame}><PauseIcon /></button>
 		<div
