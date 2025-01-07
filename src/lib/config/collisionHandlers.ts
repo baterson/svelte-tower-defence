@@ -20,47 +20,18 @@ const checkBounds = (entity, other) => {
 };
 
 export const enemyCollider = (entity: Entity, other: Entity) => {
-	if ((other.type === 'projectile' && checkSameTarget(other, entity)) || other.type === 'enemy') {
-		return;
-	}
-
 	entity.takeDamage(other.stats.damage);
 };
 
-export const towerCollider = (tower, other) => {
-	if (other.type === 'projectile' && checkSameTarget(other, tower)) {
-		return;
-	}
-
-	tower.stats.health -= other.stats.damage;
-	if (tower.stats.health <= 0) {
-		tower.state.setState('Die');
-	}
-
-	return;
-};
-
 export const fireballCollider = (fireball, other) => {
-	if (checkBounds(fireball, other)) return;
-	if (checkSameTarget(fireball, other)) return;
-
 	fireball.state.setState('Explode');
-	// other.addVFX('OnFire');
-	// other.addEffect(onFire);
 };
 
 export const projectileCollider = (projectile, other) => {
 	if (other === 'OUT_OF_BOUNDS') {
 		projectile.stopInteractions();
-	}
-
-	if (checkSameTarget(projectile, other)) {
-		return;
-	}
-
-	const { type: spawnerType } = projectile.state.context.spawner;
-
-	if (spawnerType !== 'throne') {
+		managers.get('entityManager').destroy(entity.id);
+	} else {
 		projectile.state.setState('Die');
 	}
 
@@ -68,8 +39,6 @@ export const projectileCollider = (projectile, other) => {
 };
 
 export const throneCollider = (entity, other) => {
-	const { spawner } = other.state.context;
-
 	if (other.type === 'loot') {
 		entity.stats.health = Math.min(entity.stats.health + 5, 500);
 		managers.get('entityManager').destroy(other.id);

@@ -30,14 +30,14 @@ export class SoundManager {
 	}
 
 	play(name: string) {
-		const sound = this.sounds[name];
-		if (sound.type === 'effect') {
-			const effectAudio = new Audio(sound.audio.src);
-			effectAudio.volume = this.sfxVolume;
-			effectAudio.play();
-		} else {
-			sound.audio.play();
-		}
+		// const sound = this.sounds[name];
+		// if (sound.type === 'effect') {
+		// 	const effectAudio = new Audio(sound.audio.src);
+		// 	effectAudio.volume = this.sfxVolume;
+		// 	effectAudio.play();
+		// } else {
+		// 	sound.audio.play();
+		// }
 	}
 
 	pause(name: string) {

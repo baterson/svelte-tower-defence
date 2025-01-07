@@ -1,7 +1,5 @@
 import { fireballCollider, lootCollider } from '../collisionHandlers';
 
-import { projectileCollider } from '../collisionHandlers';
-
 export const projectiles = {
 	Fireball: {
 		type: 'projectile',

@@ -6,66 +6,35 @@ import { checkRectCollision, checkRotatedRectIntersection, type Rect2D } from '$
 export class CollisionManager {
 	update() {
 		const entityManager = managers.get('entityManager');
-		// Handle tower projectiles vs nearest enemies
-		this.handleProjectileCollisions(
-			[...entityManager.filterByOwnerType('tower'), ...entityManager.filterByOwnerType('throne')],
-			entityManager.livingEnemies
-		);
 
-		// Handle enemy projectiles vs towers and throne
-		this.handleProjectileCollisions(entityManager.filterByOwnerType('enemy'), [
-			...entityManager.livingTowers,
-			entityManager.livingThrone
-		]);
+		this.handleProjectileCollisions(entityManager.projectiles, entityManager.enemies);
 
-		// Handle enemy collisions
-		this.handleEnemyCollisions();
-		this.handleLootCollisions();
+		this.handleLootCollisions(entityManager.loot, entityManager.throne);
 	}
 
-	handleProjectileCollisions(projectiles: Entity[], targets: Entity[]): void {
+	handleProjectileCollisions(projectiles: Entity[], enemies: Entity[]): void {
 		for (const projectile of projectiles) {
-			// Check if outside screen first
 			if (!this.checkScreenBounds(projectile)) {
 				projectile.onCollide('OUT_OF_BOUNDS');
 				continue;
 			}
 
-			// Check collision against all targets instead of just the nearest one
-			for (const target of targets) {
-				if (this.checkCollision(projectile, target)) {
-					projectile.onCollide(target);
-					target.onCollide(projectile);
+			for (const enemy of enemies) {
+				if (this.checkCollision(projectile, enemy)) {
+					projectile.onCollide(enemy);
+					enemy.onCollide(projectile);
 				}
 			}
 		}
 	}
 
-	handleEnemyCollisions(): void {
-		const entityManager = managers.get('entityManager');
-		const targets = [...entityManager.livingTowers, entityManager.livingThrone].filter(Boolean);
-
-		for (const enemy of entityManager.livingEnemies) {
-			const nearestTarget = entityManager.findNearestEntity(enemy, targets);
-			if (!nearestTarget) continue;
-
-			if (this.checkCollision(enemy, nearestTarget)) {
-				enemy.onCollide(nearestTarget);
-				nearestTarget.onCollide(enemy);
-			}
-		}
-	}
-
-	handleLootCollisions(): void {
-		const entityManager = managers.get('entityManager');
-		const throne = entityManager.livingThrone;
-
-		for (const loot of entityManager.loot) {
+	handleLootCollisions(lootEntities, throne): void {
+		lootEntities.forEach((loot) => {
 			if (this.checkCollision(loot, throne)) {
 				loot.onCollide(throne);
 				throne.onCollide(loot);
 			}
-		}
+		});
 	}
 
 	checkCollision(entity1: Entity, entity2: Entity): boolean {

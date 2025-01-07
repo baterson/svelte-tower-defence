@@ -19,7 +19,7 @@ export class Guard extends BaseState {
 	update() {
 		const { entityManager, gameLoop } = managers.get(['entityManager', 'gameLoop']);
 
-		const target = entityManager.findNearestEntity(this.entity, entityManager.livingEnemies);
+		const target = entityManager.findNearestEntity(this.entity, entityManager.enemies);
 
 		if (gameLoop.isCDReady(this.cdId) && target) {
 			this.stateMachine.setState('Shoot', { spawner: this.entity, target });

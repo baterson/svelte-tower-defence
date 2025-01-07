@@ -22,8 +22,6 @@
 			isSuccess = spendThroneHealth('upgrade');
 		}
 
-		console.log('tower.upgradeLevel', tower.upgradeLevel);
-
 		if (isSuccess) {
 			tower.state.setState('Upgrade');
 			managers.get('soundManager').play('lvlUp');

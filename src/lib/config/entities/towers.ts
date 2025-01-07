@@ -1,4 +1,4 @@
-import { throneCollider, towerCollider } from '../collisionHandlers';
+import { throneCollider } from '../collisionHandlers';
 import * as upgrades from '../upgrades';
 
 export const towers = {
@@ -39,7 +39,6 @@ export const towers = {
 			projectileType: 'Fireball'
 		},
 		scale: 0.5,
-		onCollide: towerCollider,
 		upgrades: upgrades.FireTower
 	},
 
@@ -64,7 +63,6 @@ export const towers = {
 			projectileType: 'Thunderbolt'
 		},
 		scale: 1,
-		onCollide: towerCollider,
 		upgrades: upgrades.ThunderTower
 	},
 
@@ -89,7 +87,6 @@ export const towers = {
 			projectileType: 'Poisonball'
 		},
 		scale: 1,
-		onCollide: towerCollider,
 		upgrades: upgrades.PoisonTower
 	},
 
@@ -114,7 +111,6 @@ export const towers = {
 			projectileType: 'Icebolt'
 		},
 		scale: 1,
-		onCollide: towerCollider,
 		upgrades: upgrades.IceTower
 	}
 };

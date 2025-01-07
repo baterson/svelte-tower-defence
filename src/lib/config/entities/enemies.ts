@@ -44,7 +44,7 @@ export const enemies: Record<string, EntityConfig> = {
 			Die: 'PurpleBlobEnemyDie'
 		},
 		stats: {
-			health: 200,
+			health: 1,
 			speed: 0.02,
 			damage: 10
 		},
@@ -62,7 +62,7 @@ export const enemies: Record<string, EntityConfig> = {
 			Die: 'GreenFlatEnemyDie'
 		},
 		stats: {
-			health: 2000,
+			health: 1,
 			speed: 0.02,
 			damage: 10
 		},
@@ -80,7 +80,7 @@ export const enemies: Record<string, EntityConfig> = {
 			Die: 'RedBlobEnemyDie'
 		},
 		stats: {
-			health: 200,
+			health: 1,
 			speed: 0.02,
 			damage: 10
 		},
@@ -98,7 +98,7 @@ export const enemies: Record<string, EntityConfig> = {
 			Die: 'GreyBlobEnemyDie'
 		},
 		stats: {
-			health: 200,
+			health: 1,
 			speed: 0.02,
 			damage: 10
 		},
@@ -116,7 +116,7 @@ export const enemies: Record<string, EntityConfig> = {
 			Die: 'YellowBlobEnemyDie'
 		},
 		stats: {
-			health: 200,
+			health: 1,
 			speed: 0.02,
 			damage: 10
 		},
@@ -134,7 +134,7 @@ export const enemies: Record<string, EntityConfig> = {
 			Die: 'BlueBlobEnemyDie'
 		},
 		stats: {
-			health: 200,
+			health: 1,
 			speed: 0.02,
 			damage: 10
 		},
@@ -152,7 +152,7 @@ export const enemies: Record<string, EntityConfig> = {
 			Die: 'GreyCircleEnemyDie'
 		},
 		stats: {
-			health: 200,
+			health: 1,
 			speed: 0.02,
 			damage: 10
 		},

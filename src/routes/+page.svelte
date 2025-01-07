@@ -11,6 +11,7 @@
 	import { onMount } from 'svelte';
 	import GameMenu from '$lib/components/GameMenu.svelte';
 	import PauseIcon from '$lib/components/PauseIcon.svelte';
+	import { dev } from '$app/environment';
 	const gameLoop = $derived(managers.get('gameLoop'));
 	const soundManager = $derived(managers.get('soundManager'));
 	let game = $state(null);
@@ -40,7 +41,9 @@
 
 <svelte:window bind:innerWidth={screen.width} bind:innerHeight={screen.height} />
 
-<DevTools />
+{#if dev}
+	<DevTools />
+{/if}
 <!-- <Dialog /> -->
 <!-- <BackDrop /> -->
 
