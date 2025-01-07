@@ -60,17 +60,10 @@ export class CollisionManager {
 		const entityManager = managers.get('entityManager');
 		const throne = entityManager.livingThrone;
 
-		for (const loot of entityManager.livingLoot) {
+		for (const loot of entityManager.loot) {
 			if (this.checkCollision(loot, throne)) {
 				loot.onCollide(throne);
 				throne.onCollide(loot);
-			}
-
-			for (const tower of entityManager.livingTowers) {
-				if (this.checkCollision(loot, tower)) {
-					loot.onCollide(tower);
-					tower.onCollide(loot);
-				}
 			}
 		}
 	}

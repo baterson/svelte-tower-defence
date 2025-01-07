@@ -43,17 +43,18 @@ export class StageManager {
 	};
 
 	spawnTowers() {
-		// ['IceTower'].forEach((name) => {
+		// ['FireTower'].forEach((name) => {
 		// 	this.spawnEntity(name, new Vector2(0, 0));
 		// });
 
-		['PoisonTower', 'FireTower', 'IceTower', 'ThunderTower'].forEach((name) => {
-			this.spawnEntity(name, new Vector2(0, 0));
+		// ['PoisonTower', 'FireTower', 'IceTower', 'ThunderTower'].forEach((name) => {
+		// 	this.spawnEntity(name, new Vector2(0, 0));
+		// });
+
+		['FireTower', 'ThunderTower', 'PoisonTower', 'IceTower'].forEach((name, index) => {
+			const tower = this.spawnEntity(name, new Vector2(0, 0));
+			tower.staticSlot = index;
 		});
-
-		// ['FireTower', 'ThunderTower', 'PoisonTower', 'IceTower'].forEach((name) => {
-		// 	this.spawnEntity(name, new Vector2(0, 0));
-		// });
 	}
 
 	spawnCommonEnemy() {
@@ -80,7 +81,7 @@ export class StageManager {
 		const entityManager = managers.get('entityManager');
 		const throne = entityManager.throne;
 
-		this.spawnEntity('Loot', enemy.boundingBox.center.clone(), {
+		this.spawnEntity('Loot', enemy.boundingBox.center, {
 			target: throne
 		});
 	}

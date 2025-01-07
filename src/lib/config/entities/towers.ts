@@ -21,7 +21,7 @@ export const towers = {
 	FireTower: {
 		type: 'tower',
 		width: 68,
-		height: 107,
+		height: 72,
 		initialState: 'NotBuilt',
 		stateToAnimation: {
 			Guard: 'FireTowerBase',
@@ -35,10 +35,10 @@ export const towers = {
 			attackRange: Infinity,
 			attackSpeed: 1000,
 			damage: 20,
-			projectileNumber: 3,
+			projectileNumber: 1,
 			projectileType: 'Fireball'
 		},
-		scale: 1,
+		scale: 0.5,
 		onCollide: towerCollider,
 		upgrades: upgrades.FireTower
 	},
@@ -46,7 +46,7 @@ export const towers = {
 	ThunderTower: {
 		type: 'tower',
 		width: 68,
-		height: 107,
+		height: 72,
 		initialState: 'NotBuilt',
 		stateToAnimation: {
 			Guard: 'ThunderTowerBase',
@@ -71,7 +71,7 @@ export const towers = {
 	PoisonTower: {
 		type: 'tower',
 		width: 68,
-		height: 107,
+		height: 72,
 		initialState: 'NotBuilt',
 		stateToAnimation: {
 			Guard: 'PoisonTowerBase',
@@ -96,7 +96,7 @@ export const towers = {
 	IceTower: {
 		type: 'tower',
 		width: 68,
-		height: 107,
+		height: 72,
 		initialState: 'NotBuilt',
 		stateToAnimation: {
 			Guard: 'IceTowerBase',

@@ -1,7 +1,6 @@
 import type { Entity } from '$lib/store/Entity.svelte';
 import { managers } from '$lib/store/managers.svelte';
 import { Vector2 } from '$lib/store/Vector2.svelte';
-// import { onFire } from './effects';
 
 const checkSameTarget = (projectile, other) => {
 	const { type: spawnerType } = projectile.state.context.spawner;
@@ -84,11 +83,6 @@ export const throneCollider = (entity, other) => {
 };
 
 export const lootCollider = (entity, other) => {
-	// console.log('COLLIDE///', entity.id);
 	entity.stopInteractions();
 	managers.get('entityManager').destroy(entity.id);
-
-	// if (other.type === 'throne') {
-	// 	managers.get('entityManager').destroy(entity.id);
-	// }
 };

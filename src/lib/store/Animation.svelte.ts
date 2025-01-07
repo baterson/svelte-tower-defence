@@ -18,6 +18,7 @@ export class Animation {
 	currentFrame = $state(0);
 	currentFrameTime = $state(0);
 	isComplete = $derived(this.getIsAnimationComplete());
+	onFrameChange = $state(() => {});
 
 	constructor({ name, framesAmount, frameRate, loop = false }: AnimationConfig) {
 		this.name = name;
@@ -38,6 +39,8 @@ export class Animation {
 	}
 
 	nextFrame() {
+		this.onFrameChange(this.currentFrame);
+
 		if (this.currentFrame >= this.framesAmount - 1) {
 			if (this.loop) {
 				this.currentFrame = 0;

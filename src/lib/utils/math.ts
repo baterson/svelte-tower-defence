@@ -139,6 +139,8 @@ export const boundingBoxFromPoint = (point: Vector2, width: number, height: numb
 		x1: point.x - width / 2,
 		y1: point.y - height / 2,
 		x2: point.x + width / 2,
-		y2: point.y + height / 2
+		y2: point.y + height / 2,
+		center: new Vector2(point.x, point.y),
+		topMiddle: new Vector2(point.x + width / 2, point.y)
 	};
 };

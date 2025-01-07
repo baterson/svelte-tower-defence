@@ -4,7 +4,15 @@
 	import Animation from '$lib/components/Animation.svelte';
 	import { fade } from 'svelte/transition';
 	// todo: pass in/out transitions
-	let { entity, onout, onclick, children, node = $bindable(), isStatic = false } = $props();
+	let {
+		entity,
+		position,
+		onout,
+		onclick,
+		children,
+		node = $bindable(),
+		isStatic = false
+	} = $props();
 
 	const uiManager = $derived(managers.get('uiManager'));
 </script>
@@ -19,8 +27,8 @@
 	style:height={`${entity.height}px`}
 	style:transform={`rotate(${entity.rotation}deg) scale(${entity.scale}) `}
 	style:transform-origin={'center'}
-	style:top={`${entity.position.y}px`}
-	style:left={`${entity.position.x}px`}
+	style:top={`${position ? position.y : entity.positionWithOffset.y}px`}
+	style:left={`${position ? position.x : entity.positionWithOffset.x}px`}
 >
 	{#if Animation}
 		<Animation name={entity.animation.name} {entity} />

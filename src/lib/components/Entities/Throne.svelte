@@ -10,7 +10,7 @@
 
 	$effect(() => {
 		if (screen.isMobile) {
-			throne.scale = 0.3;
+			throne.scale = 0.4;
 		} else {
 			throne.scale = 0.5;
 		}

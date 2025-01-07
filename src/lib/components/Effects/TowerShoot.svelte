@@ -19,6 +19,18 @@
 	};
 
 	let color = $derived(getColor());
+
+	const getEffectOffset = () => {
+		if (entity.upgradeLevel === 0) {
+			return { x: entity.width / 2, y: 22 };
+		} else if (entity.upgradeLevel === 1) {
+			return { x: entity.width / 2, y: 23 };
+		} else {
+			return { x: entity.width / 2, y: 24 };
+		}
+	};
+
+	let offset = $derived(getEffectOffset());
 </script>
 
 <div
@@ -28,15 +40,15 @@
 	}}
 	class="shoot-effect"
 	style:--effect-color={color}
+	style:left={`${offset.x}px`}
+	style:top={`${offset.y}px`}
 ></div>
 
 <style>
 	.shoot-effect {
 		z-index: 100;
 		position: absolute;
-		top: 22px;
-		left: 35px;
-		transform: translate(-50%, -50%);
+		/* transform: translate(-50%, -50%); */
 		width: 16px;
 		height: 16px;
 		border-radius: 50%;

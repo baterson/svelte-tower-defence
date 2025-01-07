@@ -29,7 +29,7 @@
 
 <svelte:window bind:innerWidth={screen.width} bind:innerHeight={screen.height} />
 
-<!-- <DevTools /> -->
+<DevTools />
 <!-- <Dialog /> -->
 <!-- <BackDrop /> -->
 

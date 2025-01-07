@@ -1,6 +1,7 @@
 import { BaseState } from '$lib/store/States/BaseState.svelte';
 import { managers } from '$lib/store/managers.svelte';
 import { Vector2 } from '$lib/store/Vector2.svelte';
+import { boundingBoxFromPoint } from '$lib/utils/math';
 
 export class Shoot extends BaseState {
 	update() {
@@ -13,13 +14,21 @@ export class Shoot extends BaseState {
 		const stageManager = managers.get('stageManager');
 		const { spawner, target } = this.stateMachine.context;
 		const projectileType = spawner.stats.projectileType;
-		const towerShootPoint = spawner.boundingBox.center.subtract(new Vector2(0, 50));
+		const towerShootPoint = boundingBoxFromPoint(
+			spawner.staticPosition,
+			spawner.width,
+			spawner.height
+		).topMiddle;
 
 		// Calculate base angle to target
 		const baseAngle = Math.atan2(
-			target.position.y - spawner.position.y,
-			target.position.x - spawner.position.x
+			target.position.y - towerShootPoint.y,
+			target.position.x - towerShootPoint.x
 		);
+		// const baseAngle = Math.atan2(
+		// 	target.position.y - spawner.position.y,
+		// 	target.position.x - spawner.position.x
+		// );
 
 		// Spread for multiple projectiles
 		const angleSpread = Math.PI / 10;
