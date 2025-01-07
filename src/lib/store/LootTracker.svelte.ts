@@ -7,7 +7,7 @@ const LOOT_MAP = {
 };
 
 export class LootTracker {
-	collectedLoot = $state(0);
+	collectedLoot = $state(100);
 	playLowLootAnimation = $state(false);
 	playTowerUpgradeAnimation = $state(false);
 	playEnemyClickAnimation = $state(false);
@@ -44,15 +44,18 @@ export class LootTracker {
 		this.collectedLoot += loot;
 	}
 
+	getAnimation(name) {
+		return `play${name}Animation`;
+	}
+
 	playAnimation(name) {
-		const animationName = `Play${name}Animation`;
-		this[animationName] = true;
-		debugger;
+		const animation = this.getAnimation(name);
+		this[animation] = true;
 	}
 
 	unsetAnimation(name) {
-		const animationName = `Play${name}Animation`;
-		this[animationName] = false;
+		const animation = this.getAnimation(name);
+		this[animation] = false;
 	}
 }
 

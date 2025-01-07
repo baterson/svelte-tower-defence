@@ -1,11 +1,13 @@
 <script>
 	import { lootTracker } from '$lib/store/LootTracker.svelte';
+
+	let isAnimated = $derived(lootTracker.playLowLootAnimation);
 </script>
 
 <div
 	class="loot"
-	class:isAnimated={lootTracker.playLowLootAnimation}
-	onanimationend={() => {
+	class:isAnimated
+	onanimationend={(e) => {
 		lootTracker.unsetAnimation('LowLoot');
 	}}
 >
@@ -18,7 +20,8 @@
 		top: 60px;
 		left: 0;
 		color: white;
-		font-size: 48px;
+		font-size: 34px;
+		z-index: 20;
 	}
 
 	.isAnimated {
@@ -31,7 +34,7 @@
 			transform: scale(1);
 		}
 		50% {
-			transform: scale(1.3);
+			transform: scale(3);
 		}
 	}
 </style>

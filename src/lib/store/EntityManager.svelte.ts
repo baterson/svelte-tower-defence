@@ -25,11 +25,14 @@ export class EntityManager {
 	}
 
 	findNearestEntity(source: Entity, targets: Entity[]): Entity | undefined {
-		const distances = targets.map((target) => {
-			return source.position.distance(target.position);
-		});
+		const distances = targets
+			.filter((target) => target.isInteractable)
+			.map((target) => {
+				return source.position.distance(target.position);
+			});
 		const minDistance = Math.min(...distances);
 		const index = distances.indexOf(minDistance);
+		console.log('index:', index);
 
 		return targets[index];
 	}
