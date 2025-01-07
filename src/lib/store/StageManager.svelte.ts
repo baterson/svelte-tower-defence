@@ -56,56 +56,48 @@ export class StageManager {
 		this.eliteSpawnCd = gameLoop.setCD(this.stageConfig.spawnDelays.elite, false);
 		this.spawnTowers();
 		this.spawnEntity('Throne', new Vector2(200, 200));
-		this.spawnCommonEnemy();
+		this.spawnEnemy('common');
 	};
 
 	update = (deltaTime: number) => {
 		const gameLoop = managers.get('gameLoop');
 
 		if (gameLoop.isCDReady(this.commonSpawnCd)) {
-			this.spawnCommonEnemy();
+			this.spawnEnemy('common');
 		}
 		if (gameLoop.isCDReady(this.eliteSpawnCd)) {
-			this.spawnEliteEnemy();
+			this.spawnEnemy('elite');
 		}
 
 		this.checkStageTime();
 	};
 
 	spawnTowers() {
-		// ['FireTower'].forEach((name) => {
-		// 	this.spawnEntity(name, new Vector2(0, 0));
-		// });
-
-		// ['PoisonTower', 'FireTower', 'IceTower', 'ThunderTower'].forEach((name) => {
-		// 	this.spawnEntity(name, new Vector2(0, 0));
-		// });
-
 		['FireTower', 'ThunderTower', 'PoisonTower', 'IceTower'].forEach((name, index) => {
 			const tower = this.spawnEntity(name, new Vector2(0, 0));
 			tower.staticSlot = index;
 		});
 	}
 
-	spawnCommonEnemy() {
-		const entityManager = managers.get('entityManager');
-
-		const commonEnemies = this.stageConfig.commonEnemies;
-		const enemy = pickRandomEnemy(commonEnemies);
-		const spawnPoint = getRandomSpawnPoint();
-		const position = new Vector2(spawnPoint.x, spawnPoint.y);
-
-		this.spawnEntity(enemy, position, { throne: entityManager.throne });
+	apllyAmlify(entity: Entity) {
+		const { statsAmplify } = this.stageConfig;
+		entity.stats.health *= statsAmplify.health;
+		entity.stats.damage *= statsAmplify.damage;
+		entity.stats.speed *= statsAmplify.speed;
 	}
 
-	spawnEliteEnemy() {
+	spawnEnemy(type: 'common' | 'elite') {
 		const entityManager = managers.get('entityManager');
 
-		const eliteEnemies = this.stageConfig.eliteEnemies;
-		const enemy = pickRandomEnemy(eliteEnemies);
+		const enemies =
+			type === 'common' ? this.stageConfig.commonEnemies : this.stageConfig.eliteEnemies;
+		const enemy = pickRandomEnemy(enemies);
 		const spawnPoint = getRandomSpawnPoint();
 		const position = new Vector2(spawnPoint.x, spawnPoint.y);
-		this.spawnEntity(enemy, position, { throne: entityManager.throne });
+
+		const entity = this.spawnEntity(enemy, position, { throne: entityManager.throne });
+		this.apllyAmlify(entity);
+		return entity;
 	}
 
 	spawnLoot(enemy) {

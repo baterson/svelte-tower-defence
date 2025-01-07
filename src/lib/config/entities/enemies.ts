@@ -92,7 +92,7 @@ export const enemies: Record<string, EntityConfig> = {
 		height: 160,
 		initialState: 'FollowThrone',
 		vfx: [],
-		scale: 0.6,
+		scale: 0.9,
 		stateToAnimation: {
 			FollowThrone: 'GreyBlobEnemyFollow',
 			Die: 'GreyBlobEnemyDie'

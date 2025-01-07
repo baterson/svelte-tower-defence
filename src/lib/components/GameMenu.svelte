@@ -1,9 +1,11 @@
 <script>
 	const { onStart, onResume, isPaused, onRestart } = $props();
-	import { managers } from '$lib/store/managers.svelte';
-	const soundManager = $derived(managers.get('soundManager'));
-	const stageManager = $derived(managers.get('stageManager'));
 	import GitHubIcon from './GitHubIcon.svelte';
+	import { managers } from '$lib/store/managers.svelte';
+	import { fade } from 'svelte/transition';
+
+	const stageManager = $derived(managers.get('stageManager'));
+	const soundManager = $derived(managers.get('soundManager'));
 
 	const toggleMute = () => {
 		soundManager.toggleMute();
@@ -11,7 +13,7 @@
 </script>
 
 <div class="menu-container">
-	<div class="menu-content">
+	<div class="menu-content" in:fade={{ duration: 300 }}>
 		{#if isPaused}
 			<div class="header">
 				<div class="stage">Stage {stageManager.stageNumber + 1}</div>
@@ -59,7 +61,6 @@
 		text-align: center;
 		padding: 2rem;
 		border-radius: 20px;
-		animation: fadeIn 0.5s ease-out;
 		width: 100%;
 		height: 80%;
 		display: flex;
@@ -117,17 +118,6 @@
 	.btn:hover {
 		background: #270139;
 		transform: translateY(-2px);
-	}
-
-	@keyframes fadeIn {
-		from {
-			opacity: 0;
-			transform: translateY(-20px);
-		}
-		to {
-			opacity: 1;
-			transform: translateY(0);
-		}
 	}
 
 	@media (max-width: 768px) {
