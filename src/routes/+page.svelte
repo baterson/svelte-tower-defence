@@ -9,22 +9,33 @@
 	import Bg1 from '$lib/components/Bg1.svelte';
 	import { handleGameClick } from '$lib/store/gameActions.svelte';
 	import { onMount } from 'svelte';
-
+	import GameMenu from '$lib/components/GameMenu.svelte';
+	import PauseIcon from '$lib/components/PauseIcon.svelte';
+	const gameLoop = $derived(managers.get('gameLoop'));
+	const soundManager = $derived(managers.get('soundManager'));
 	let game = $state(null);
 	let isGameStarted = $state(false);
+	let isPaused = $state(false);
 
 	const startGame = () => {
 		game = new Game();
-		managers.get('soundManager').init();
+		soundManager.init();
 		game.start();
 		isGameStarted = true;
 	};
-
-	onMount(() => {
-		startGame();
-		// game = new Game();
-		// game.start();
-	});
+	const pauseGame = () => {
+		gameLoop.pause();
+		isPaused = true;
+	};
+	const resumeGame = () => {
+		gameLoop.resume();
+		isPaused = false;
+	};
+	const restartGame = () => {
+		game.restart();
+		gameLoop.resume();
+		isPaused = false;
+	};
 </script>
 
 <svelte:window bind:innerWidth={screen.width} bind:innerHeight={screen.height} />
@@ -34,13 +45,12 @@
 <!-- <BackDrop /> -->
 
 {#if !isGameStarted}
-	<div class="overlay-for-music">
-		<button onclick={startGame} class="btn-start">Start game</button>
-	</div>
+	<GameMenu onStart={startGame} />
 {:else if game}
 	<div class="wrapper">
 		<Bg1 />
 		<div class="time">Stage {managers.get('stageManager').stageNumber + 1}</div>
+		<button class="btn-pause" onclick={pauseGame}><PauseIcon /></button>
 		<div
 			onclick={handleGameClick}
 			bind:offsetHeight={screen.gameAreaHeight}
@@ -50,26 +60,25 @@
 		>
 			<GameArea />
 		</div>
+		{#if isPaused}
+			<GameMenu onResume={resumeGame} isPaused={true} onRestart={restartGame} />
+		{/if}
 	</div>
 {/if}
 
 <style>
-	.btn-start {
-		background-color: mediumpurple;
+	.btn-pause {
+		position: absolute;
+		top: 20px;
+		right: 20px;
 		border: none;
-		padding: 10px 20px;
 		font-size: 16px;
 		cursor: pointer;
-		margin-bottom: 10px;
-	}
-	.overlay-for-music {
-		width: 100vw;
-		height: 100dvh;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		background-color: rgba(0, 0, 0, 0.7);
-		z-index: 10;
+		background: none;
+		z-index: 1000;
+		-webkit-tap-highlight-color: transparent;
+		user-select: none;
+		-webkit-touch-callout: none;
 	}
 	.time {
 		position: absolute;

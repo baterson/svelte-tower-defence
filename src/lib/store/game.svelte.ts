@@ -26,6 +26,20 @@ export class Game {
 		soundManager.init();
 		soundManager.play('bgSound');
 	};
+
+	restart = () => {
+		const entityManager = managers.get('entityManager');
+		const stageManager = managers.get('stageManager');
+		const soundManager = managers.get('soundManager');
+
+		entityManager.entities = [];
+		stageManager.stageNumber = 0;
+		stageManager.init();
+
+		if (!soundManager.isMuted) {
+			soundManager.play('bgSound');
+		}
+	};
 }
 
 const initManagers = () => {
