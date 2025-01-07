@@ -1,11 +1,11 @@
 export const stages = [
 	{
-		commonEnemies: ['PurpleBlobEnemy', 'RedBlobEnemy'],
-		time: 30000,
-		eliteEnemies: ['YellowBlobEnemy'],
+		commonEnemies: ['PurpleBlobEnemy'],
+		time: 60000,
+		eliteEnemies: ['RedBlobEnemy'],
 		spawnDelays: {
-			common: 2000,
-			elite: 2300
+			common: 1000,
+			elite: 1500
 		},
 		statsAmplify: {
 			health: 1,
@@ -14,51 +14,45 @@ export const stages = [
 		}
 	},
 	{
-		commonEnemies: ['PurpleBlobEnemy', 'RedBlobEnemy', 'YellowBlobEnemy', 'BlueBlobEnemy'],
-		eliteEnemies: ['GreyCircleEnemy'],
-		time: 45000,
+		commonEnemies: ['YellowBlobEnemy', 'BlueBlobEnemy'],
+		eliteEnemies: ['GreyCircleEnemy', 'RedBlobEnemy'],
+		time: 120000,
 		spawnDelays: {
-			common: 1200,
-			elite: 2000
+			common: 800,
+			elite: 1300
 		},
 		statsAmplify: {
-			health: 1.5,
+			health: 1.4,
 			speed: 1.2,
-			damage: 1.3
+			damage: 1.2
 		}
 	},
 	{
-		commonEnemies: ['PurpleBlobEnemy', 'RedBlobEnemy', 'YellowBlobEnemy', 'BlueBlobEnemy'],
-		eliteEnemies: ['GreenFlatEnemy', 'GreyCircleEnemy'],
-		time: 60000,
+		commonEnemies: ['PurpleBlobEnemy', 'YellowBlobEnemy', 'BlueBlobEnemy'],
+		eliteEnemies: ['GreenFlatEnemy', 'GreyCircleEnemy', 'RedBlobEnemy'],
+		time: 150000,
 		spawnDelays: {
-			common: 1000,
-			elite: 1700
+			common: 600,
+			elite: 1100
 		},
 		statsAmplify: {
-			health: 1.7,
+			health: 1.8,
 			speed: 1.4,
 			damage: 1.5
 		}
 	},
 	{
-		commonEnemies: [
-			'PurpleBlobEnemy',
-			'RedBlobEnemy',
-			'GreenFlatEnemy',
-			'YellowBlobEnemy',
-			'BlueBlobEnemy'
-		],
-		eliteEnemies: ['GreenFlatEnemy', 'GreyCircleEnemy', 'GreyBlobEnemy'],
-		time: 90000,
+		commonEnemies: ['PurpleBlobEnemy', 'YellowBlobEnemy', 'BlueBlobEnemy'],
+		eliteEnemies: ['GreenFlatEnemy', 'GreyCircleEnemy', 'GreyBlobEnemy', 'RedBlobEnemy'],
+		time: 240000,
 		spawnDelays: {
-			common: 800,
-			elite: 1400
+			common: 400,
+			elite: 800
 		},
 		statsAmplify: {
-			health: 1.9,
+			health: 2.2,
 			speed: 1.6,
-			damage: 1.7
+			damage: 1.8
 		}
 	}
 ];
