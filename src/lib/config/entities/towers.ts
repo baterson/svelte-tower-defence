@@ -7,7 +7,7 @@ export const towers = {
 		width: 256,
 		height: 252,
 		stats: {
-			health: 100,
+			health: 500,
 			damage: 999,
 			speed: 0
 		},

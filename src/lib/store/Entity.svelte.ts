@@ -173,12 +173,6 @@ export class Entity {
 		this.vfx = [];
 	}
 
-	upgrade() {
-		if (this.isUpgradable) {
-			this.state.setState('Upgrade');
-		}
-	}
-
 	takeDamage(damage: number) {
 		this.stats.health -= damage;
 		// this.addVFX('TakeDamage');

@@ -52,12 +52,10 @@ export class CollisionManager {
 		);
 	}
 
-	filterEntitiesByBounds = (bounds) => {
+	filterEnemiesByBounds = (bounds) => {
 		const entityManager = managers.get('entityManager');
 
-		return entityManager.entities.filter((entity) =>
-			checkRectCollision(entity.boundingBox, bounds)
-		);
+		return entityManager.enemies.filter((entity) => checkRectCollision(entity.boundingBox, bounds));
 	};
 
 	checkBounds(entity: Entity, boundsRect: Rect2D): boolean {
