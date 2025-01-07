@@ -1,17 +1,19 @@
 <script>
 	import GameArea from '$lib/components/GameArea.svelte';
 	import { screen } from '$lib/store/Screen.svelte';
-	import DevTools from '$lib/components/DevTools.svelte';
+	import { Vector2 } from '$lib/store/Vector2.svelte';
+
 	import { Game } from '$lib/store/Game.svelte';
 	import { managers } from '$lib/store/managers.svelte';
 	// import Dialog from '$components/Dialog.svelte';
 	// import BackDrop from '$components/BackDrop.svelte';
 	import Bg1 from '$lib/components/Bg1.svelte';
-	import { handleGameClick } from '$lib/store/gameActions.svelte';
 	import { onMount } from 'svelte';
 	import GameMenu from '$lib/components/GameMenu.svelte';
 	import PauseIcon from '$lib/components/PauseIcon.svelte';
 	import { dev } from '$app/environment';
+	import { lootTracker } from '$lib/store/LootTracker.svelte';
+	import Loot from '$lib/components/Loot.svelte';
 	const gameLoop = $derived(managers.get('gameLoop'));
 	const soundManager = $derived(managers.get('soundManager'));
 	let game = $state(null);
@@ -37,6 +39,13 @@
 		gameLoop.resume();
 		isPaused = false;
 	};
+
+	const handleGameClick = (e) => {
+		lootTracker.spendLoot({
+			type: 'click',
+			payload: { offset: new Vector2(e.offsetX, e.offsetY) }
+		});
+	};
 </script>
 
 <svelte:window bind:innerWidth={screen.width} bind:innerHeight={screen.height} />
@@ -53,6 +62,7 @@
 	<div class="wrapper">
 		<Bg1 />
 		<div class="time">Stage {managers.get('stageManager').stageNumber + 1}</div>
+		<Loot />
 		<button class="btn-pause" onclick={pauseGame}><PauseIcon /></button>
 		<div
 			onclick={handleGameClick}

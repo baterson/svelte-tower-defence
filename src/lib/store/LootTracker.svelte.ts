@@ -1,0 +1,59 @@
+import { boundingBoxFromPoint } from '$lib/utils/math';
+import { managers } from './managers.svelte';
+
+const LOOT_MAP = {
+	click: 5,
+	upgrade: 50
+};
+
+export class LootTracker {
+	collectedLoot = $state(0);
+	playLowLootAnimation = $state(false);
+	playTowerUpgradeAnimation = $state(false);
+	playEnemyClickAnimation = $state(false);
+
+	spendLoot(action) {
+		const toSpend = LOOT_MAP[action.type];
+
+		if (this.collectedLoot < toSpend) {
+			this.playAnimation('LowLoot');
+			return;
+		}
+
+		if (action.type === 'upgrade') {
+			const { tower } = action.payload;
+			tower.state.setState('Upgrade');
+
+			this.playAnimation('TowerUpgrade');
+		} else if (action.type === 'click') {
+			const collisionManager = managers.get('collisionManager');
+			const { offset } = action.payload;
+			// spawn projectile in explossion
+			const boundingBox = boundingBoxFromPoint(offset, 20, 20);
+			const enemies = collisionManager.filterEnemiesByBounds(boundingBox);
+
+			enemies.forEach((enemy) => {
+				enemy.state.setState('Die');
+			});
+		}
+
+		this.collectedLoot -= toSpend;
+	}
+
+	receiveLoot(loot) {
+		this.collectedLoot += loot;
+	}
+
+	playAnimation(name) {
+		const animationName = `Play${name}Animation`;
+		this[animationName] = true;
+		debugger;
+	}
+
+	unsetAnimation(name) {
+		const animationName = `Play${name}Animation`;
+		this[animationName] = false;
+	}
+}
+
+export const lootTracker = new LootTracker();
