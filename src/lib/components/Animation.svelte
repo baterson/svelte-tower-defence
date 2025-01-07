@@ -1,23 +1,21 @@
 <script>
 	import { getAnimation } from '$lib/config/animations';
 
-	const { entity } = $props();
+	const { name, currentFrame } = $props();
 
-	let animation = $derived(getAnimation(entity.animation.name));
+	let animation = $derived(getAnimation(name));
 
-	let frame = $derived(animation.frames[entity.animation.currentFrame]);
-	// $effect(() => {
-	// 	if (entity.type === 'projectile') {
-	// 		console.log('effect:   ', entity.animation.currentFrame);
-	// 	}
-	// });
+	let frame = $derived(animation.frames[currentFrame]);
 </script>
 
-{#if entity}
-	<svg fill="none" xmlns="http://www.w3.org/2000/svg">
-		{@html frame}
-	</svg>
-{/if}
+<svg
+	fill="none"
+	xmlns="http://www.w3.org/2000/svg"
+	shape-rendering="optimizeSpeed"
+	style:transform="translate3d(0,0,0)"
+>
+	{@html frame}
+</svg>
 
 <style>
 	svg {

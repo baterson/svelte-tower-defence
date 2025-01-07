@@ -2,36 +2,30 @@
 	import { managers } from '$lib/store/managers.svelte';
 	import Effect from '../Effect.svelte';
 	import Animation from '$lib/components/Animation.svelte';
-	import { fade } from 'svelte/transition';
-	// todo: pass in/out transitions
-	let {
-		entity,
-		position,
-		onout,
-		onclick,
-		children,
-		node = $bindable(),
-		isStatic = false
-	} = $props();
+
+	let { entity, position, onclick, children } = $props();
 
 	const uiManager = $derived(managers.get('uiManager'));
+
+	// style:transform={`rotate(${entity.rotation}deg) scale(${entity.scale}) translate(${position ? position.x : entity.positionWithOffset.x}px, ${position ? position.y : entity.positionWithOffset.y}px)`}
+	// style:transform={`translate(${position ? position.x : entity.positionWithOffset.x}px, ${position ? position.y : entity.positionWithOffset.y}px) rotate(${entity.rotation}deg) scale(${entity.scale})`}
 </script>
 
 <!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions (because of reasons) -->
 <div
 	{onclick}
-	bind:this={node}
 	class:highlighted={uiManager.highlightedEntity &&
 		uiManager.highlightedEntity?.name === entity.name}
 	style:width={`${entity.width}px`}
 	style:height={`${entity.height}px`}
-	style:transform={`rotate(${entity.rotation}deg) scale(${entity.scale}) `}
+	style:-transform={`rotate(${entity.rotation}deg) scale(${entity.scale}) translateZ(0)`}
+	style:-webkit-transform={`rotate(${entity.rotation}deg) scale(${entity.scale}) translateZ(0)`}
 	style:transform-origin={'center'}
 	style:top={`${position ? position.y : entity.positionWithOffset.y}px`}
 	style:left={`${position ? position.x : entity.positionWithOffset.x}px`}
 >
 	{#if Animation}
-		<Animation name={entity.animation.name} {entity} />
+		<Animation name={entity.animation.name} currentFrame={entity.animation.currentFrame} />
 	{/if}
 
 	{#each entity.vfx as vfx (vfx)}
@@ -48,6 +42,12 @@
 		position: absolute;
 		pointer-events: var(--pointer-events, none);
 		z-index: var(--z-index, 3);
+
+		backface-visibility: hidden;
+		-webkit-backface-visibility: hidden;
+		perspective: 1000;
+		-webkit-perspective: 1000;
+
 		/* place-self: var(--place-self); */
 		/* position: var(--position);
 		margin-left: var(--margin-left);

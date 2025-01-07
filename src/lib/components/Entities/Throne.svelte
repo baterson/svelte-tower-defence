@@ -6,8 +6,6 @@
 
 	const { throne } = $props();
 
-	let node = $state();
-
 	$effect(() => {
 		if (screen.isMobile) {
 			throne.scale = 0.4;
@@ -26,6 +24,6 @@
 	});
 </script>
 
-<Entity bind:node entity={throne} --z-index={10}>
+<Entity entity={throne} --z-index={10}>
 	<HealthBar entity={throne} />
 </Entity>

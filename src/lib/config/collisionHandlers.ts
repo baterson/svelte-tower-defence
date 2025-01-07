@@ -32,7 +32,7 @@ export const projectileCollider = (projectile, other) => {
 		projectile.stopInteractions();
 		managers.get('entityManager').destroy(entity.id);
 	} else {
-		projectile.state.setState('Die');
+		projectile.state.setState('Explode');
 	}
 
 	return;

@@ -72,6 +72,7 @@ export class Entity {
 		this.position = position;
 		this.offsetPosition = offsetPosition || null;
 		this.staticSlot = staticSlot || null;
+		// this.animation = null;
 
 		this.velocity = new Vector2();
 		this.stats = { ...stats };
@@ -122,10 +123,11 @@ export class Entity {
 	update(deltaTime: number) {
 		if (this.isDestroyed) return;
 
+		this.state.update(deltaTime);
+
 		this.effects.forEach((effectFn) => {
 			effectFn(this);
 		});
-		this.state.update(deltaTime);
 
 		if (this.animation) {
 			this.animation.update(deltaTime);
@@ -194,18 +196,14 @@ export class Entity {
 	}
 
 	getStaticPosition() {
-		// const sideMargin = screen.isMobile ? 50 : 50;
-		const sideMargin = 50;
-		const gap = 50;
-		const bottomMargin = screen.isMobile ? 150 : 200;
+		const sideMargin = screen.isMobile ? 10 : 50;
+		const bottomMargin = screen.isMobile ? 130 : 200;
+		const gap = screen.isMobile ? 20 : 50;
 
 		const isLeftSide = this.staticSlot === 0 || this.staticSlot === 2;
 		const isTopRow = this.staticSlot === 0 || this.staticSlot === 1;
 
 		const position = this.positionWithOffset;
-
-		const height = this.height * this.scale;
-		const width = this.width * this.scale;
 
 		if (isLeftSide) {
 			if (isTopRow) {
@@ -234,45 +232,3 @@ export class Entity {
 		}
 	}
 }
-
-// 	getStaticPosition() {
-// 		// const sideMargin = screen.isMobile ? 50 : 50;
-// 		const sideMargin = 50;
-// 		const gap = 50;
-// 		const bottomMargin = screen.isMobile ? 150 : 200;
-
-// 		const isLeftSide = this.staticSlot === 0 || this.staticSlot === 2;
-// 		const isTopRow = this.staticSlot === 0 || this.staticSlot === 1;
-
-// 		const position = this.positionWithOffset;
-
-//         const height = this.height * this.scale;
-//         const width = this.width * this.scale;
-
-// 		if (isLeftSide) {
-// 			if (isTopRow) {
-// 				return new Vector2(
-// 					position.x + sideMargin,
-// 					position.y + screen.gameAreaHeight - this.height - bottomMargin * 2 - gap
-// 				);
-// 			} else {
-// 				return new Vector2(
-// 					position.x + sideMargin,
-// 					position.y + screen.gameAreaHeight - this.height - bottomMargin
-// 				);
-// 			}
-// 		} else {
-// 			if (isTopRow) {
-// 				return new Vector2(
-// 					position.x + screen.gameAreaWidth - sideMargin - this.width,
-// 					position.y + screen.gameAreaHeight - this.height - bottomMargin * 2 - gap
-// 				);
-// 			} else {
-// 				return new Vector2(
-// 					position.x + screen.gameAreaWidth - sideMargin - this.width,
-// 					position.y + screen.gameAreaHeight - this.height - bottomMargin
-// 				);
-// 			}
-// 		}
-// 	}
-// }

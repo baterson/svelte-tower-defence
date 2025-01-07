@@ -5,13 +5,11 @@ import type { Vector2 } from './Vector2.svelte';
 export class EntityManager {
 	entities = $state<Entity[]>([]);
 
-	// Derived states from entities which  interactive
-	livingEntities = $derived(this.entities.filter((entity) => entity.isInteractable));
-	enemies = $derived(this.livingEntities.filter((entity) => entity.type === 'enemy'));
-	towers = $derived(this.livingEntities.filter((entity) => entity.type === 'tower'));
-	projectiles = $derived(this.livingEntities.filter((entity) => entity.type === 'projectile'));
-	throne = $derived(this.livingEntities.find((entity) => entity.type === 'throne'));
-	loot = $derived(this.livingEntities.filter((entity) => entity.type === 'loot'));
+	enemies = $derived(this.entities.filter((entity) => entity.type === 'enemy'));
+	towers = $derived(this.entities.filter((entity) => entity.type === 'tower'));
+	projectiles = $derived(this.entities.filter((entity) => entity.type === 'projectile'));
+	throne = $derived(this.entities.find((entity) => entity.type === 'throne'));
+	loot = $derived(this.entities.filter((entity) => entity.type === 'loot'));
 
 	update = (deltaTime: number) => {
 		this.entities.forEach((entity) => entity.update(deltaTime));

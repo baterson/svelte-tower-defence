@@ -13,13 +13,13 @@ export class CollisionManager {
 	}
 
 	handleProjectileCollisions(projectiles: Entity[], enemies: Entity[]): void {
-		for (const projectile of projectiles) {
+		for (const projectile of projectiles.filter((p) => p.isInteractable)) {
 			if (!this.checkScreenBounds(projectile)) {
 				projectile.onCollide('OUT_OF_BOUNDS');
 				continue;
 			}
 
-			for (const enemy of enemies) {
+			for (const enemy of enemies.filter((e) => e.isInteractable)) {
 				if (this.checkCollision(projectile, enemy)) {
 					projectile.onCollide(enemy);
 					enemy.onCollide(projectile);
@@ -29,12 +29,14 @@ export class CollisionManager {
 	}
 
 	handleLootCollisions(lootEntities, throne): void {
-		lootEntities.forEach((loot) => {
-			if (this.checkCollision(loot, throne)) {
-				loot.onCollide(throne);
-				throne.onCollide(loot);
-			}
-		});
+		lootEntities
+			.filter((e) => e.isInteractable)
+			.forEach((loot) => {
+				if (this.checkCollision(loot, throne)) {
+					loot.onCollide(throne);
+					throne.onCollide(loot);
+				}
+			});
 	}
 
 	checkCollision(entity1: Entity, entity2: Entity): boolean {

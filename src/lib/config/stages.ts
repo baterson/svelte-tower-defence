@@ -4,10 +4,8 @@ export const stages = [
 		time: 30000,
 		eliteEnemies: ['YellowBlobEnemy'],
 		spawnDelays: {
-			common: 600,
-			elite: 1000
-			// common: 2000,
-			// elite: 2300
+			common: 400,
+			elite: 600
 		}
 	},
 	{
