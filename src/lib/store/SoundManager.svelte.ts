@@ -16,6 +16,13 @@ export class SoundManager {
 		const bgSound = this.sounds['bgSound'];
 		bgSound.audio.volume = volume;
 	}
+	restartBgMusic() {
+		const bgSound = this.sounds['bgSound'];
+		if (bgSound && !this.isMuted) {
+			bgSound.audio.currentTime = 0;
+			bgSound.audio.play();
+		}
+	}
 
 	loadSounds() {
 		this.addSound('bgSound', sounds.bgSound, 'music');
