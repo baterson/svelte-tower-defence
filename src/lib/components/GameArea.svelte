@@ -1,13 +1,5 @@
 <script>
 	import { managers } from '$lib/store/managers.svelte';
-	import Loot from './Entities/Loot.svelte';
-	import Enemy from './Entities/Enemy.svelte';
-	import Tower from './Entities/Tower.svelte';
-	import Throne from './Entities/Throne.svelte';
-	import Entity from './Entities/Entity.svelte';
-	import Projectile from './Entities/Projectile.svelte';
-	import AnimationImage from './AnimationImage.svelte';
-	import AnimationImageNew from './AnimationImageNew.svelte';
 	import DynamicEntity from './Entities/DynamicEntity.svelte';
 	import StaticEntity from './Entities/StaticEntity.svelte';
 	import { lootTracker } from '$lib/store/LootTracker.svelte';
@@ -26,57 +18,49 @@
 </script>
 
 <section>
-	<!-- <div class="towers">
-		{#each entityManager.towers as tower, index (tower.id)}
-			<Tower {tower} placement={index % 2 !== 0 ? 'end' : 'start'} />
-		{/each}
-	</div> -->
-
-	{#each entityManager.enemies as enemy (enemy.id)}
-		<DynamicEntity entity={enemy} />
-		<!-- <Enemy {enemy} /> -->
-	{/each}
-
 	{#each entityManager.loot as loot (loot.id)}
-		<Loot {loot} />
+		<DynamicEntity entity={loot} />
 	{/each}
 
 	{#each entityManager.projectiles as projectile (projectile.id)}
-		<Projectile {projectile} />
+		<DynamicEntity entity={projectile} />
+	{/each}
+
+	{#each entityManager.enemies as enemy (enemy.id)}
+		<DynamicEntity entity={enemy} />
 	{/each}
 
 	<div class="towers">
 		{#each entityManager.topTowers as tower, index (tower.id)}
-			<!-- <Tower {tower} placement={index === 0 ? 'start' : 'end'} /> -->
 			<StaticEntity
 				entity={tower}
 				onclick={onclick(tower)}
 				--cursor={'url(/cursor-hammer.svg), auto'}
 				--z-index={10}
 				--pointer-events={'auto'}
+				--margin-left={index === 0 ? '40px' : '0'}
+				--margin-right={index === 1 ? '40px' : '0'}
 			/>
 		{/each}
 	</div>
 
 	<div class="throne">
-		<!-- <AnimationImageNew name="Throne" currentFrame={0} entity={entityManager.throne} /> -->
-		<!-- <AnimationImage name="Throne" currentFrame={0} entity={entityManager.throne} /> -->
 		<StaticEntity entity={entityManager.throne} />
 	</div>
 
 	<div class="towers">
 		{#each entityManager.bottomTowers as tower, index (tower.id)}
-			<StaticEntity entity={tower} onclick={onclick(tower)} />
-
-			<!-- <Tower {tower} placement={index === 0 ? 'start' : 'end'} /> -->
+			<StaticEntity
+				entity={tower}
+				onclick={onclick(tower)}
+				--cursor={'url(/cursor-hammer.svg), auto'}
+				--z-index={10}
+				--pointer-events={'auto'}
+				--margin-left={index === 0 ? '40px' : '0'}
+				--margin-right={index === 1 ? '40px' : '0'}
+			/>
 		{/each}
 	</div>
-
-	<!-- {#each entityManager.towers as tower, index (tower.id)}
-		<Tower {tower} {index} />
-	{/each}
-
-	<Throne throne={entityManager.throne} /> -->
 </section>
 
 <style>

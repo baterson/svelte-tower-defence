@@ -19,10 +19,6 @@
 		imageLoaded = true;
 	}
 
-	// const transform = $derived(
-	// 	`translate(${entity.position.x}px, ${entity.position.x}px) rotate(${entity.rotation}deg) scale(${entity.scale})`
-	// );
-
 	const transform = $derived(`rotate(${entity.rotation}deg) scale(${entity.scale})`);
 
 	$effect(() => {
@@ -32,9 +28,7 @@
 		entity.width = _rect.width;
 		entity.height = _rect.height;
 
-		if (entity.type === 'throne') {
-			console.log(_rect);
-		}
+		// console.log('screen changes', screen.width, screen.height);
 	});
 </script>
 

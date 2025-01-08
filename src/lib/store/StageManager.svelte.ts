@@ -118,6 +118,7 @@ export class StageManager {
 		const enemy = pickRandomEnemy(enemies);
 		const spawnPoint = getRandomSpawnPoint();
 		const position = new Vector2(spawnPoint.x, spawnPoint.y);
+		// const position = new Vector2(500, 100);
 		// const position = new Vector2(0, 0);
 
 		const entity = this.spawnEntity(enemy, position, { throne: entityManager.throne });

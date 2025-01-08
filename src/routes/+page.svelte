@@ -148,7 +148,8 @@
 
 	.game-container {
 		position: relative;
-		width: 680px;
+		/* width: 680px; */
+		width: 100%;
 		height: 100dvh;
 		z-index: 330;
 		will-change: transform;

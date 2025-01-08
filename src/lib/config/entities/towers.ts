@@ -11,7 +11,7 @@ export const towers = {
 			damage: 999,
 			speed: 0
 		},
-		scale: 0.8,
+		scale: 0.6,
 		stateToAnimation: {
 			Idle: 'Throne'
 		},

@@ -1,5 +1,6 @@
 <script>
 	import { managers } from '$lib/store/managers.svelte';
+	import { screen } from '$lib/store/Screen.svelte';
 	import Effect from '../Effect.svelte';
 	import AnimationImage from '$lib/components/AnimationImage.svelte';
 	import { Vector2 } from '$lib/store/Vector2.svelte';
@@ -19,10 +20,6 @@
 		imageLoaded = true;
 	}
 
-	// const transform = $derived(
-	// 	`translate(${entity.position.x}px, ${entity.position.x}px) rotate(${entity.rotation}deg) scale(${entity.scale})`
-	// );
-
 	const transform = $derived(`scale(${entity.scale})`);
 
 	$effect(() => {
@@ -32,6 +29,7 @@
 		entity.position = new Vector2(_rect.x, _rect.y);
 		entity.width = _rect.width;
 		entity.height = _rect.height;
+		console.log('entity.position', frame, entity.width, entity.height, screen.width);
 	});
 </script>
 
@@ -49,14 +47,15 @@
 		pointer-events: var(--pointer-events, none);
 		z-index: var(--z-index, 12);
 
+		margin-right: var(--margin-right, 0);
+		margin-left: var(--margin-left, 0);
+
 		will-change: transform;
 		backface-visibility: hidden;
 		-webkit-backface-visibility: hidden;
 		perspective: 1000;
 		-webkit-perspective: 1000;
 
-		padding: 0;
-		margin: 0;
 		border: 0;
 		box-sizing: border-box; /* Ensures accurate sizing */
 		overflow: hidden; /* Prevents content from escaping */
