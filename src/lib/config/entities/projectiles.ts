@@ -8,8 +8,8 @@ export const projectiles = {
 		vfx: [],
 		initialState: 'FollowTarget',
 		stateToAnimation: {
-			FollowTarget: 'Fireball',
-			FollowAngle: 'Fireball',
+			FollowTarget: 'FireballFollow',
+			FollowAngle: 'FireballFollow',
 			Explode: 'FireballDie'
 		},
 		scale: 2,
@@ -27,8 +27,8 @@ export const projectiles = {
 		vfx: [],
 		initialState: 'FollowTarget',
 		stateToAnimation: {
-			FollowTarget: 'Icebolt',
-			FollowAngle: 'Icebolt',
+			FollowTarget: 'IceboltFollow',
+			FollowAngle: 'IceboltFollow',
 			Explode: 'IceboltDie'
 		},
 		scale: 2,
@@ -46,8 +46,8 @@ export const projectiles = {
 		vfx: [],
 		initialState: 'FollowTarget',
 		stateToAnimation: {
-			FollowTarget: 'Poisonball',
-			FollowAngle: 'Poisonball',
+			FollowTarget: 'PoisonballFollow',
+			FollowAngle: 'PoisonballFollow',
 			Explode: 'PoisonballDie'
 		},
 		scale: 2,
@@ -65,8 +65,8 @@ export const projectiles = {
 		vfx: [],
 		initialState: 'FollowTarget',
 		stateToAnimation: {
-			FollowTarget: 'Thunderbolt',
-			FollowAngle: 'Thunderbolt',
+			FollowTarget: 'ThunderboltFollow',
+			FollowAngle: 'ThunderboltFollow',
 			Explode: 'ThunderboltDie'
 		},
 		scale: 2,
@@ -85,7 +85,7 @@ export const projectiles = {
 		height: 19,
 		initialState: 'FollowTarget',
 		stateToAnimation: {
-			FollowTarget: 'Fireball'
+			FollowTarget: 'FireballFollow'
 		},
 		scale: 1,
 		stats: {
@@ -103,7 +103,7 @@ export const projectiles = {
 		height: 30,
 		initialState: 'Explode',
 		stateToAnimation: {
-			Explode: 'ClickDie'
+			Explode: 'Click'
 		},
 		scale: 1,
 		stats: {

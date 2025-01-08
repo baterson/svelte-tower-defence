@@ -1,14 +1,14 @@
 <script>
 	import { managers } from '$lib/store/managers.svelte';
 	import Effect from '../Effect.svelte';
-	import Animation from '$lib/components/Animation.svelte';
+	import AnimationImage from '$lib/components/AnimationImage.svelte';
 
 	let { entity, position, onclick, children } = $props();
 
 	const uiManager = $derived(managers.get('uiManager'));
 
-	// style:transform={`rotate(${entity.rotation}deg) scale(${entity.scale}) translate(${position ? position.x : entity.positionWithOffset.x}px, ${position ? position.y : entity.positionWithOffset.y}px)`}
-	// style:transform={`translate(${position ? position.x : entity.positionWithOffset.x}px, ${position ? position.y : entity.positionWithOffset.y}px) rotate(${entity.rotation}deg) scale(${entity.scale})`}
+	let x = $derived(position ? position.x : entity.positionWithOffset.x);
+	let y = $derived(position ? position.y : entity.positionWithOffset.y);
 </script>
 
 <!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions (because of reasons) -->
@@ -18,19 +18,15 @@
 		uiManager.highlightedEntity?.name === entity.name}
 	style:width={`${entity.width}px`}
 	style:height={`${entity.height}px`}
-	style:-transform={`rotate(${entity.rotation}deg) scale(${entity.scale}) translateZ(0)`}
-	style:-webkit-transform={`rotate(${entity.rotation}deg) scale(${entity.scale}) translateZ(0)`}
 	style:transform-origin={'center'}
-	style:top={`${position ? position.y : entity.positionWithOffset.y}px`}
-	style:left={`${position ? position.x : entity.positionWithOffset.x}px`}
+	style:transform={`translate(${x}px, ${y}px) rotate(${entity.rotation}deg) scale(${entity.scale})`}
+	style:--webkit-transform={`translate(${x}px, ${y}px) rotate(${entity.rotation}deg) scale(${entity.scale})`}
 >
-	{#if Animation}
-		<Animation name={entity.animation.name} currentFrame={entity.animation.currentFrame} />
-	{/if}
-
+	<AnimationImage name={entity.animation.name} currentFrame={entity.animation.currentFrame} />
+	<!--
 	{#each entity.vfx as vfx (vfx)}
 		<Effect name={vfx} {entity} />
-	{/each}
+	{/each} -->
 
 	{#if children}
 		{@render children(entity)}
@@ -42,7 +38,10 @@
 		position: absolute;
 		pointer-events: var(--pointer-events, none);
 		z-index: var(--z-index, 3);
+		left: 0;
+		top: 0;
 
+		will-change: transform;
 		backface-visibility: hidden;
 		-webkit-backface-visibility: hidden;
 		perspective: 1000;

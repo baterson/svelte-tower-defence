@@ -7,7 +7,7 @@ const LOOT_MAP = {
 };
 
 export class LootTracker {
-	collectedLoot = $state(100);
+	collectedLoot = $state(10000);
 	playLowLootAnimation = $state(false);
 	playTowerUpgradeAnimation = $state(false);
 	playEnemyClickAnimation = $state(false);

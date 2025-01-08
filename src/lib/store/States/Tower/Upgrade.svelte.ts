@@ -19,11 +19,11 @@ const UPGRADE_SIZES = {
 
 const getPrefix = (level) => {
 	if (level === 1) {
-		return 'One';
+		return '1';
 	} else if (level === 2) {
-		return 'Two';
+		return '2';
 	}
-	return '';
+	return '0';
 };
 
 const getUpgradeAnimationName = (tower, level) => {

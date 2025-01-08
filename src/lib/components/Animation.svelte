@@ -1,5 +1,5 @@
 <script>
-	import { getAnimation } from '$lib/config/animations';
+	import { getAnimation } from '$lib/config/animations/_index';
 
 	const { name, currentFrame } = $props();
 

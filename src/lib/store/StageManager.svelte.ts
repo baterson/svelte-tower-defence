@@ -52,6 +52,7 @@ export class StageManager {
 
 	init = () => {
 		const gameLoop = managers.get('gameLoop');
+		// this.commonSpawnCd = gameLoop.setCD(this.stageConfig.spawnDelays.common, false);
 		this.commonSpawnCd = gameLoop.setCD(this.stageConfig.spawnDelays.common, true);
 		this.eliteSpawnCd = gameLoop.setCD(this.stageConfig.spawnDelays.elite, false);
 		this.spawnTowers();
@@ -73,7 +74,7 @@ export class StageManager {
 	};
 
 	spawnTowers() {
-		['FireTower', 'ThunderTower', 'PoisonTower', 'IceTower'].forEach((name, index) => {
+		['IceTower', 'FireTower', 'PoisonTower', 'ThunderTower'].forEach((name, index) => {
 			const tower = this.spawnEntity(name, new Vector2(0, 0));
 			tower.staticSlot = index;
 		});
