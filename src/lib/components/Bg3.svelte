@@ -65,7 +65,7 @@
 	.energy-fields {
 		position: absolute;
 		inset: 0;
-		mix-blend-mode: screen;
+		/* mix-blend-mode: screen; */
 	}
 
 	.field {

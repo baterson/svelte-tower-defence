@@ -32,7 +32,9 @@ export interface EntityConfig {
 }
 
 export const enemies: Record<string, EntityConfig> = {
-	PurpleBlobEnemy: {
+	// Commons
+
+	PurpleCommon: {
 		type: 'enemy',
 		width: 88,
 		height: 58,
@@ -40,8 +42,8 @@ export const enemies: Record<string, EntityConfig> = {
 		vfx: [],
 		scale: 0.6,
 		stateToAnimation: {
-			FollowThrone: 'PurpleBlobEnemyFollow',
-			Die: 'PurpleBlobEnemyDie'
+			FollowThrone: 'PurpleCommonFollow',
+			Die: 'PurpleCommonDie'
 		},
 		stats: {
 			health: 20,
@@ -50,61 +52,7 @@ export const enemies: Record<string, EntityConfig> = {
 		},
 		onCollide: enemyCollider
 	},
-	GreenFlatEnemy: {
-		type: 'enemy',
-		width: 162,
-		height: 230,
-		initialState: 'FollowThrone',
-		vfx: [],
-		scale: 1,
-		stateToAnimation: {
-			FollowThrone: 'GreenFlatEnemyFollow',
-			Die: 'GreenFlatEnemyDie'
-		},
-		stats: {
-			health: 90,
-			speed: 0.01,
-			damage: 15
-		},
-		onCollide: enemyCollider
-	},
-	RedBlobEnemy: {
-		type: 'enemy',
-		width: 120,
-		height: 180,
-		initialState: 'FollowThrone',
-		vfx: [],
-		scale: 0.8,
-		stateToAnimation: {
-			FollowThrone: 'RedBlobEnemyFollow',
-			Die: 'RedBlobEnemyDie'
-		},
-		stats: {
-			health: 30,
-			speed: 0.015,
-			damage: 10
-		},
-		onCollide: enemyCollider
-	},
-	GreyBlobEnemy: {
-		type: 'enemy',
-		width: 100,
-		height: 160,
-		initialState: 'FollowThrone',
-		vfx: [],
-		scale: 1,
-		stateToAnimation: {
-			FollowThrone: 'GreyBlobEnemyFollow',
-			Die: 'GreyBlobEnemyDie'
-		},
-		stats: {
-			health: 35,
-			speed: 0.04,
-			damage: 8
-		},
-		onCollide: enemyCollider
-	},
-	YellowBlobEnemy: {
+	YellowCommon: {
 		type: 'enemy',
 		width: 70,
 		height: 62,
@@ -112,8 +60,8 @@ export const enemies: Record<string, EntityConfig> = {
 		vfx: [],
 		scale: 0.8,
 		stateToAnimation: {
-			FollowThrone: 'YellowBlobEnemyFollow',
-			Die: 'YellowBlobEnemyDie'
+			FollowThrone: 'YellowCommonFollow',
+			Die: 'YellowCommonDie'
 		},
 		stats: {
 			health: 15,
@@ -122,7 +70,7 @@ export const enemies: Record<string, EntityConfig> = {
 		},
 		onCollide: enemyCollider
 	},
-	BlueBlobEnemy: {
+	BlueCommon: {
 		type: 'enemy',
 		width: 95,
 		height: 75,
@@ -130,8 +78,8 @@ export const enemies: Record<string, EntityConfig> = {
 		vfx: [],
 		scale: 0.7,
 		stateToAnimation: {
-			FollowThrone: 'BlueBlobEnemyFollow',
-			Die: 'BlueBlobEnemyDie'
+			FollowThrone: 'BlueCommonFollow',
+			Die: 'BlueCommonDie'
 		},
 		stats: {
 			health: 30,
@@ -140,7 +88,65 @@ export const enemies: Record<string, EntityConfig> = {
 		},
 		onCollide: enemyCollider
 	},
-	GreyCircleEnemy: {
+
+	// Elites
+
+	GreenCircleElite: {
+		type: 'enemy',
+		width: 162,
+		height: 230,
+		initialState: 'FollowThrone',
+		vfx: [],
+		scale: 1,
+		stateToAnimation: {
+			FollowThrone: 'GreenCircleEliteFollow',
+			Die: 'GreenCircleEliteDie'
+		},
+		stats: {
+			health: 40,
+			speed: 0.01,
+			damage: 15
+		},
+		onCollide: enemyCollider
+	},
+
+	RedBlobElite: {
+		type: 'enemy',
+		width: 120,
+		height: 180,
+		initialState: 'FollowThrone',
+		vfx: [],
+		scale: 0.8,
+		stateToAnimation: {
+			FollowThrone: 'RedBlobEliteFollow',
+			Die: 'RedBlobEliteDie'
+		},
+		stats: {
+			health: 30,
+			speed: 0.015,
+			damage: 10
+		},
+		onCollide: enemyCollider
+	},
+	BlueBlobElite: {
+		type: 'enemy',
+		width: 100,
+		height: 160,
+		initialState: 'FollowThrone',
+		vfx: [],
+		scale: 1,
+		stateToAnimation: {
+			FollowThrone: 'BlueBlobEliteFollow',
+			Die: 'BlueBlobEliteDie'
+		},
+		stats: {
+			health: 5,
+			speed: 0.04,
+			damage: 8
+		},
+		onCollide: enemyCollider
+	},
+	BlueCircleElite: {
 		type: 'enemy',
 		width: 150,
 		height: 160,
@@ -148,8 +154,8 @@ export const enemies: Record<string, EntityConfig> = {
 		vfx: [],
 		scale: 1,
 		stateToAnimation: {
-			FollowThrone: 'GreyCircleEnemyFollow',
-			Die: 'GreyCircleEnemyDie'
+			FollowThrone: 'BlueCircleEliteFollow',
+			Die: 'BlueCircleEliteDie'
 		},
 		stats: {
 			health: 60,

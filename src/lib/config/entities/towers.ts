@@ -13,7 +13,7 @@ export const towers = {
 		},
 		scale: 0.5,
 		stateToAnimation: {
-			Idle: 'Base'
+			Idle: 'Throne'
 		},
 		initialState: 'Idle',
 		onCollide: throneCollider
@@ -24,10 +24,10 @@ export const towers = {
 		height: 72,
 		initialState: 'NotBuilt',
 		stateToAnimation: {
-			Guard: 'FireTowerBase',
-			Shoot: 'FireTowerBase',
-			NotBuilt: 'NotBuilt',
-			Upgrade: 'FireTowerUpgrade'
+			Guard: 'FireTowerBase0',
+			Shoot: 'FireTowerBase0',
+			NotBuilt: 'TowerBase',
+			Upgrade: 'FireTowerUpgrade0'
 		},
 		effects: [],
 		stats: {
@@ -46,10 +46,10 @@ export const towers = {
 		height: 72,
 		initialState: 'NotBuilt',
 		stateToAnimation: {
-			Guard: 'ThunderTowerBase',
-			Shoot: 'ThunderTowerBase',
-			NotBuilt: 'NotBuilt',
-			Upgrade: 'ThunderTowerUpgrade'
+			Guard: 'ThunderTowerBase0',
+			Shoot: 'ThunderTowerBase0',
+			NotBuilt: 'TowerBase',
+			Upgrade: 'ThunderTowerUpgrade0'
 		},
 		effects: [],
 		stats: {
@@ -68,10 +68,10 @@ export const towers = {
 		height: 72,
 		initialState: 'NotBuilt',
 		stateToAnimation: {
-			Guard: 'PoisonTowerBase',
-			Shoot: 'PoisonTowerBase',
-			NotBuilt: 'NotBuilt',
-			Upgrade: 'PoisonTowerUpgrade'
+			Guard: 'PoisonTowerBase0',
+			Shoot: 'PoisonTowerBase0',
+			NotBuilt: 'TowerBase',
+			Upgrade: 'PoisonTowerUpgrade0'
 		},
 		effects: [],
 		stats: {
@@ -90,10 +90,10 @@ export const towers = {
 		height: 72,
 		initialState: 'NotBuilt',
 		stateToAnimation: {
-			Guard: 'IceTowerBase',
-			Shoot: 'IceTowerBase',
-			NotBuilt: 'NotBuilt',
-			Upgrade: 'IceTowerUpgrade'
+			Guard: 'IceTowerBase0',
+			Shoot: 'IceTowerBase0',
+			NotBuilt: 'TowerBase',
+			Upgrade: 'IceTowerUpgrade0'
 		},
 		effects: [],
 		stats: {

@@ -30,7 +30,6 @@
 	.aurora-layers {
 		position: absolute;
 		inset: 0;
-		mix-blend-mode: screen;
 	}
 
 	.aurora-layer {

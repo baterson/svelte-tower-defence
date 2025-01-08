@@ -28,6 +28,6 @@
 			rgba(255, 0, 255, 0.1) 20%
 		);
 		filter: blur(10px);
-		mix-blend-mode: screen;
+		/* mix-blend-mode: screen; */
 	}
 </style>

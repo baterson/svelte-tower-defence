@@ -34,7 +34,7 @@
 </script>
 
 <div
-	out:fade={{ duration: 100 }}
+	out:fade={{ duration: 40 }}
 	onanimationend={() => {
 		entity.removeVFX('TowerShoot');
 	}}
@@ -53,8 +53,8 @@
 		height: 16px;
 		border-radius: 50%;
 		background: var(--effect-color);
-		mix-blend-mode: screen;
-		animation: shootAndGrow 0.4s ease-out forwards;
+		/* mix-blend-mode: screen; */
+		animation: shootAndGrow 0.3s ease-out forwards;
 	}
 
 	@keyframes shootAndGrow {
