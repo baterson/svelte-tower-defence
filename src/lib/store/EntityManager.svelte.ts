@@ -4,7 +4,7 @@ import type { Entity } from './Entity.svelte';
 import type { Vector2 } from './Vector2.svelte';
 
 export class EntityManager {
-	entities = $state<Entity[]>([]);
+	entities = $state.raw<Entity[]>([]);
 
 	enemies = $derived(this.entities.filter((entity) => entity.type === 'enemy'));
 	towers = $derived(this.entities.filter((entity) => entity.type === 'tower'));
@@ -25,17 +25,6 @@ export class EntityManager {
 		});
 	}
 
-	// findNearestEntity(source: Entity, targets: Entity[]): Entity | undefined {
-	// 	const distances = targets
-	// 		.filter((target) => target.isInteractable)
-	// 		.map((target) => {
-	// 			return source.position.distance(target.position);
-	// 		});
-	// 	const minDistance = Math.min(...distances);
-	// 	const index = distances.indexOf(minDistance);
-
-	// 	return targets[index];
-	// }
 	findNearestEntity(source: Entity, targets: Entity[]): Entity | undefined {
 		const validTargets = targets.filter(
 			(target) => target.isInteractable && screen.isEntityInScreen(target)

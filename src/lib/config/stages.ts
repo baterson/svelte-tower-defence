@@ -4,8 +4,10 @@ export const stages = [
 		time: 60000,
 		eliteEnemies: ['RedBlobEnemy'],
 		spawnDelays: {
-			common: 1000,
-			elite: 1500
+			common: 300,
+			elite: 700
+			// common: 1000,
+			// elite: 1500
 		},
 		statsAmplify: {
 			health: 1,

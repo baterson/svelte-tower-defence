@@ -32,22 +32,25 @@ export class GameLoop {
 		requestAnimationFrame(this.loop);
 	}
 
-	loop(currentTime) {
+	loop(currentTime: number) {
 		if (this.pauseState) {
 			this.previousTime = currentTime;
 			requestAnimationFrame(this.loop);
 			return;
 		}
 
-		let elapsed = currentTime - this.previousTime;
-		if (elapsed > 1000) elapsed = MS_PER_UPDATE;
+		let frameTime = currentTime - this.previousTime;
+
+		if (frameTime > 250) {
+			frameTime = 250;
+		}
 
 		this.previousTime = currentTime;
-		this.accumulator += elapsed;
-		this.elapsedTime += elapsed;
+		this.accumulator += frameTime;
+		this.elapsedTime += frameTime;
 
 		while (this.accumulator >= MS_PER_UPDATE) {
-			this.update(MS_PER_UPDATE, this.elapsedTime);
+			this.update(MS_PER_UPDATE);
 			this.accumulator -= MS_PER_UPDATE;
 		}
 

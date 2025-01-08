@@ -11,12 +11,11 @@ export class Entity {
 	type = $state('');
 	width = $state(0);
 	height = $state(0);
-	velocity = $state<Vector2>();
-	effects = $state([]);
+	effects = $state.raw([]);
+	vfx = $state.raw([]);
+	animation = $state.raw<Animation>();
+	position = $state.raw<Vector2>();
 
-	vfx = $state([]);
-	animation = $state<Animation>();
-	position = $state<Vector2>();
 	offsetPosition = $state<Vector2 | null>(null);
 	staticSlot = $state<number | null>(null);
 
@@ -72,9 +71,7 @@ export class Entity {
 		this.position = position;
 		this.offsetPosition = offsetPosition || null;
 		this.staticSlot = staticSlot || null;
-		// this.animation = null;
 
-		this.velocity = new Vector2();
 		this.stats = { ...stats };
 		this.upgradeLevel = upgradeLevel || -1;
 		this.upgrades = upgrades || [];
