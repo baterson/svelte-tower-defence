@@ -6,24 +6,24 @@
 
 	const { throne } = $props();
 
-	$effect(() => {
-		if (screen.isMobile) {
-			throne.scale = 0.4;
-		} else {
-			throne.scale = 0.5;
-		}
-	});
+	// $effect(() => {
+	// 	if (screen.isMobile) {
+	// 		throne.scale = 0.4;
+	// 	} else {
+	// 		throne.scale = 0.5;
+	// 	}
+	// });
 
-	$effect(() => {
-		const bottomMargin = screen.isMobile ? 250 : 300;
+	// $effect(() => {
+	// 	const bottomMargin = screen.isMobile ? 250 : 300;
 
-		const width = Number(screen.gameAreaWidth / 2 - throne.width / 2);
-		const height = Number(screen.gameAreaHeight - bottomMargin);
+	// 	const width = Number(screen.gameAreaWidth / 2 - throne.width / 2);
+	// 	const height = Number(screen.gameAreaHeight - bottomMargin);
 
-		throne.position = new Vector2(width, height);
-	});
+	// 	throne.position = new Vector2(width, height);
+	// });
 </script>
 
-<Entity entity={throne} --z-index={10}>
+<Entity entity={throne} --z-index={10} isStatic={true}>
 	<HealthBar entity={throne} />
 </Entity>

@@ -25,36 +25,14 @@
 
 	let containerRect = $state(null);
 
-	// $effect(() => {
-	// 	if (!node || !imageLoaded) return;
-
-	// 	// Get both rects
-	// 	if (entity.type === 'throne') {
-	// 		const nodeRect = node.getBoundingClientRect();
-	// 		containerRect = node.parentElement.getBoundingClientRect();
-
-	// 		if (entity.type === 'throne') {
-	// 			// Calculate position relative to the parent container
-	// 			const relativeX = nodeRect.x - containerRect.x;
-	// 			const relativeY = nodeRect.y - containerRect.y;
-
-	// 			entity.position = new Vector2(relativeX, relativeY);
-	// 			entity.width = nodeRect.width;
-	// 			entity.height = nodeRect.height;
-	// 		}
-	// 	}
-	// });
-
 	const setPosition = () => {
-		if (entity.type === 'throne' || entity.type === 'tower') {
+		if (entity.type === 'throne') {
 			let _rect = node.getBoundingClientRect();
 			entity.position = new Vector2(_rect.x, _rect.y);
 			entity.width = _rect.width;
 			entity.height = _rect.height;
 
-			if (entity.type === 'throne') {
-				console.log(_rect);
-			}
+			console.log(_rect.x);
 		}
 	};
 
@@ -119,12 +97,18 @@
 	}
 </script>
 
-<img bind:this={node} src={frame} alt="Enemy animation" onload={onImageLoad} />
+<img
+	bind:this={node}
+	style:transform={`scale(${entity.scale})`}
+	src={frame}
+	alt="Enemy animation"
+	onload={onImageLoad}
+/>
 
 <style>
 	img {
-		width: 100%;
-		height: 100%;
+		/* width: 100%;
+		height: 100%; */
 	}
 	/* svg {
 		position: absolute;

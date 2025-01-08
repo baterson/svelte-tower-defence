@@ -23,6 +23,11 @@
 	const soundManager = $derived(managers.get('soundManager'));
 	const stageManager = $derived(managers.get('stageManager'));
 
+	onMount(() => {
+		window.e = () => managers.get('entityManager');
+		window.s = () => screen;
+	});
+
 	const startGame = () => {
 		game = new Game();
 		soundManager.init();
@@ -51,7 +56,19 @@
 	};
 </script>
 
-<svelte:window bind:innerWidth={screen.width} bind:innerHeight={screen.height} />
+<svelte:window
+	bind:innerWidth={screen.width}
+	bind:innerHeight={screen.height}
+	onkeypress={(e) => {
+		if (e.key === ' ') {
+			if (gameLoop.isPaused) {
+				gameLoop.resume();
+			} else {
+				gameLoop.pause();
+			}
+		}
+	}}
+/>
 
 <!-- <Dialog /> -->
 <!-- <BackDrop /> -->
@@ -60,7 +77,7 @@
 		<GameMenu onStart={startGame} />
 	{:else if game}
 		<div class="wrapper">
-			<BackgroundContainer stageNumber={stageManager.stageNumber} />
+			<!-- <BackgroundContainer stageNumber={stageManager.stageNumber} /> -->
 			<div class="time">Stage {managers.get('stageManager').stageNumber + 1}</div>
 			<Loot />
 			<button class="btn-pause" onclick={pauseGame}><PauseIcon /></button>
@@ -125,6 +142,8 @@
 		width: 100vw;
 		height: 100dvh;
 		overflow: hidden;
+		/* padding-left: 100px;
+		padding-right: 100px; */
 	}
 
 	.game-container {

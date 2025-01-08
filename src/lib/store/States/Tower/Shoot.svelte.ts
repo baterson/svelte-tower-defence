@@ -11,14 +11,18 @@ export class Shoot extends BaseState {
 	}
 
 	shoot() {
+		// debugger;
+
 		const stageManager = managers.get('stageManager');
 		const { spawner, target } = this.stateMachine.context;
 		const projectileType = spawner.stats.projectileType;
-		const towerShootPoint = boundingBoxFromPoint(
-			spawner.staticPosition,
-			spawner.width,
-			spawner.height
-		).topMiddle;
+		const towerShootPoint = spawner.position;
+		// const towerShootPoint = boundingBoxFromPoint(
+		// 	// spawner.staticPosition,
+		// 	spawner.position,
+		// 	spawner.width,
+		// 	spawner.height
+		// ).topMiddle;
 
 		// Calculate base angle to target
 		const baseAngle = Math.atan2(
@@ -37,6 +41,7 @@ export class Shoot extends BaseState {
 			let projectileAngle;
 
 			if (this.entity.stats.projectileNumber === 1) {
+				// debugger;
 				stageManager.spawnEntity(projectileType, towerShootPoint, {
 					spawner,
 					target
@@ -54,4 +59,53 @@ export class Shoot extends BaseState {
 
 		managers.get('soundManager').play('pickUp');
 	}
+
+	// shoot() {
+	// 	// debugger;
+
+	// 	const stageManager = managers.get('stageManager');
+	// 	const { spawner, target } = this.stateMachine.context;
+	// 	const projectileType = spawner.stats.projectileType;
+	// 	const towerShootPoint = spawner.position;
+	// 	// const towerShootPoint = boundingBoxFromPoint(
+	// 	// 	// spawner.staticPosition,
+	// 	// 	spawner.position,
+	// 	// 	spawner.width,
+	// 	// 	spawner.height
+	// 	// ).topMiddle;
+
+	// 	// Calculate base angle to target
+	// 	const baseAngle = Math.atan2(
+	// 		target.position.y - towerShootPoint.y,
+	// 		target.position.x - towerShootPoint.x
+	// 	);
+	// 	// const baseAngle = Math.atan2(
+	// 	// 	target.position.y - spawner.position.y,
+	// 	// 	target.position.x - spawner.position.x
+	// 	// );
+
+	// 	// Spread for multiple projectiles
+	// 	const angleSpread = Math.PI / 10;
+
+	// 	for (let i = 0; i < this.entity.stats.projectileNumber; i++) {
+	// 		let projectileAngle;
+
+	// 		if (this.entity.stats.projectileNumber === 1) {
+	// 			stageManager.spawnEntity(projectileType, towerShootPoint, {
+	// 				spawner,
+	// 				target
+	// 			});
+	// 		} else {
+	// 			projectileAngle = baseAngle + (i - 1) * angleSpread;
+
+	// 			stageManager.spawnEntity(projectileType, towerShootPoint, {
+	// 				initialState: 'FollowAngle',
+	// 				spawner,
+	// 				angle: projectileAngle
+	// 			});
+	// 		}
+	// 	}
+
+	// 	managers.get('soundManager').play('pickUp');
+	// }
 }

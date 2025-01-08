@@ -6,10 +6,11 @@ export class Die extends BaseState {
 		super(stateMachine);
 
 		stateMachine.owner.stopInteractions();
+		this.entity.removeCollider();
 	}
 
 	update() {
-		if (!this.entity.animation || (this.entity.animation && this.entity.animation.isComplete)) {
+		if (this.entity.animation.isComplete) {
 			const { entityManager, stageManager } = managers.get(['entityManager', 'stageManager']);
 			entityManager.destroy(this.entity.id);
 			stageManager.spawnLoot(this.entity);

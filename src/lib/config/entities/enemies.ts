@@ -47,7 +47,7 @@ export const enemies: Record<string, EntityConfig> = {
 		},
 		stats: {
 			health: 20,
-			speed: 0.02,
+			speed: 0.11,
 			damage: 5
 		},
 		onCollide: enemyCollider

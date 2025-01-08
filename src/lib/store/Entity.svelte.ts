@@ -7,6 +7,8 @@ import { screen } from '$lib/store/Screen.svelte';
 export class Entity {
 	static lastId = 0;
 	id;
+	x = $state(0);
+	y = $state(0);
 	name = $state('');
 	type = $state('');
 	width = $state(0);
@@ -14,7 +16,7 @@ export class Entity {
 	effects = $state.raw([]);
 	vfx = $state.raw([]);
 	animation = $state.raw<Animation>();
-	position = $state.raw<Vector2>();
+	position = $state<Vector2>();
 
 	offsetPosition = $state<Vector2 | null>(null);
 	staticSlot = $state<number | null>(null);
@@ -32,10 +34,10 @@ export class Entity {
 	upgrades = $state([]);
 
 	isUpgradable = $derived(this.upgrades.length && this.upgradeLevel < this.upgrades.length);
-	positionWithOffset = $derived(
-		this.offsetPosition ? this.position?.add(this.offsetPosition) : this.position
-	);
-	staticPosition = $derived(this.getStaticPosition());
+	// positionWithOffset = $derived(
+	// 	this.offsetPosition ? this.position?.add(this.offsetPosition) : this.position
+	// );
+	// staticPosition = $derived(this.getStaticPosition());
 
 	constructor(
 		name,
@@ -66,7 +68,9 @@ export class Entity {
 		this.type = type;
 		this.width = width;
 		this.height = height;
+
 		this.scale = scale || 1;
+
 		this.rotation = rotation || 0;
 		this.position = position;
 		this.offsetPosition = offsetPosition || null;
@@ -98,24 +102,70 @@ export class Entity {
 		});
 	}
 
-	get boundingBox() {
-		const scaledWidth = this.width * this.scale;
-		const scaledHeight = this.height * this.scale;
+	// get boundingBox() {
+	// 	const scaledWidth = this.width * this.scale;
+	// 	const scaledHeight = this.height * this.scale;
 
-		const offsetX = (scaledWidth - this.width) / 2;
-		const offsetY = (scaledHeight - this.height) / 2;
+	// 	const offsetX = (scaledWidth - this.width) / 2;
+	// 	const offsetY = (scaledHeight - this.height) / 2;
+
+	// 	const x1 = this.position.x;
+	// 	const y1 = this.position.y;
+	// 	const x2 = this.position.x;
+	// 	const y2 = this.position.y;
+
+	// 	return {
+	// 		x1: x1,
+	// 		y1: y2,
+	// 		x2: x2,
+	// 		y2: y2,
+	// 		center: new Vector2(x1 + this.width / 2, y2 + this.height / 2),
+	// 		topMiddle: new Vector2(x1 + this.width / 2, y2)
+	// 	};
+	// }
+
+	get boundingBox() {
+		// const scaledWidth = this.width * this.scale;
+		// const scaledHeight = this.height * this.scale;
+
+		// const offsetX = (scaledWidth - this.width) / 2;
+		// const offsetY = (scaledHeight - this.height) / 2;
+
+		const x1 = this.position.x;
+		const y1 = this.position.y;
+		const x2 = this.position.x + this.width;
+		const y2 = this.position.y + this.height;
 
 		return {
-			x1: this.position.x - offsetX,
-			y1: this.position.y - offsetY,
-			x2: this.position.x - offsetX + scaledWidth,
-			y2: this.position.y - offsetY + scaledHeight,
-			center: new Vector2(
-				this.position.x - offsetX + scaledWidth / 2,
-				this.position.y - offsetY + scaledHeight / 2
-			)
+			x1: x1,
+			y1: y1,
+			x2: x2,
+			y2: y2,
+			center: new Vector2(x1 + this.width / 2, y1 + this.height / 2),
+			topMiddle: new Vector2(x1 + this.width / 2, y2)
 		};
 	}
+	// get boundingBox() {
+	// 	const scaledWidth = this.width * this.scale;
+	// 	const scaledHeight = this.height * this.scale;
+
+	// 	const offsetX = (scaledWidth - this.width) / 2;
+	// 	const offsetY = (scaledHeight - this.height) / 2;
+
+	// 	const x1 = this.position.x;
+	// 	const y1 = this.position.y;
+	// 	const x2 = this.position.x + scaledWidth;
+	// 	const y2 = this.position.y + scaledHeight;
+
+	// 	return {
+	// 		x1: x1,
+	// 		y1: y2,
+	// 		x2: x2,
+	// 		y2: y2,
+	// 		center: new Vector2(x1 + scaledWidth / 2, y1 + scaledHeight / 2),
+	// 		topMiddle: new Vector2(x1 + scaledWidth / 2, y2)
+	// 	};
+	// }
 
 	update(deltaTime: number) {
 		if (this.isDestroyed) return;

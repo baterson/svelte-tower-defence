@@ -40,27 +40,33 @@ export class Upgrade extends BaseState {
 
 		this.entity.upgradeLevel += 1;
 
+		// debugger;
+
 		const upgradeFn = this.entity.upgrades[this.entity.upgradeLevel];
 		upgradeFn(this.entity);
 
 		this.entity.animation.onFrameChange = (frame) => {
-			if (this.entity.upgradeLevel === 1) {
-				// debugger;
-			}
-			const upgrades = UPGRADE_SIZES[this.entity.upgradeLevel];
-			const currentFrameUpgrade = upgrades[frame];
-			this.entity.height = currentFrameUpgrade.height;
-			this.entity.width = currentFrameUpgrade.width;
-
-			const xDirection = [0, 2].includes(this.entity.staticSlot) ? -1 : 1;
-
-			const slotOffset = new Vector2(
-				xDirection * currentFrameUpgrade.offset.x,
-				currentFrameUpgrade.offset.y
-			);
-
-			this.entity.offsetPosition = slotOffset;
+			// this.entity.scale += 0.1;
 		};
+
+		// this.entity.animation.onFrameChange = (frame) => {
+		// 	if (this.entity.upgradeLevel === 1) {
+		// 		// debugger;
+		// 	}
+		// 	const upgrades = UPGRADE_SIZES[this.entity.upgradeLevel];
+		// 	const currentFrameUpgrade = upgrades[frame];
+		// 	this.entity.height = currentFrameUpgrade.height;
+		// 	this.entity.width = currentFrameUpgrade.width;
+
+		// 	const xDirection = [0, 2].includes(this.entity.staticSlot) ? -1 : 1;
+
+		// 	const slotOffset = new Vector2(
+		// 		xDirection * currentFrameUpgrade.offset.x,
+		// 		currentFrameUpgrade.offset.y
+		// 	);
+
+		// 	this.entity.offsetPosition = slotOffset;
+		// };
 
 		managers.get('soundManager').play('lvlUp');
 	}

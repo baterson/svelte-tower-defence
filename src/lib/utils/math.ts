@@ -11,7 +11,7 @@ export function normalizeVector(current: Vector2, target: Vector2): Vector2 {
 	const dx = target.x - current.x;
 	const dy = target.y - current.y;
 	const distance = Math.sqrt(dx * dx + dy * dy);
-	return distance ? new Vector2(dx / distance, dy / distance) : Vector2.Zero();
+	return distance ? new Vector2(dx / distance, dy / distance) : new Vector2(0, 0);
 }
 
 export function checkRectCollision(rect1: Rect2D, rect2: Rect2D): boolean {

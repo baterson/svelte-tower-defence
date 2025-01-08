@@ -4,10 +4,12 @@ import type { Entity } from './Entity.svelte';
 import type { Vector2 } from './Vector2.svelte';
 
 export class EntityManager {
-	entities = $state.raw<Entity[]>([]);
+	entities = $state<Entity[]>([]);
 
 	enemies = $derived(this.entities.filter((entity) => entity.type === 'enemy'));
 	towers = $derived(this.entities.filter((entity) => entity.type === 'tower'));
+	topTowers = $derived(this.towers.filter((tower, index) => index <= 1));
+	bottomTowers = $derived(this.towers.filter((tower, index) => index >= 2));
 	projectiles = $derived(this.entities.filter((entity) => entity.type === 'projectile'));
 	throne = $derived(this.entities.find((entity) => entity.type === 'throne'));
 	loot = $derived(this.entities.filter((entity) => entity.type === 'loot'));
@@ -27,7 +29,8 @@ export class EntityManager {
 
 	findNearestEntity(source: Entity, targets: Entity[]): Entity | undefined {
 		const validTargets = targets.filter(
-			(target) => target.isInteractable && screen.isEntityInScreen(target)
+			(target) => target.isInteractable
+			// (target) => target.isInteractable && screen.isEntityInScreen(target)
 		);
 
 		if (validTargets.length === 0) return undefined;

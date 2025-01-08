@@ -3,6 +3,29 @@ import { initEntity } from '$lib/store/entityFabric';
 import { managers } from './managers.svelte';
 import { Vector2 } from './Vector2.svelte';
 import { screen } from '$lib/store/Screen.svelte';
+import type { Entity } from './Entity.svelte';
+
+// const spawnZones = $derived({
+// 	top: [
+// 		{ x: screen.width * 0.1, y: 20 },
+// 		{ x: screen.width * 0.3, y: 20 },
+// 		{ x: screen.width * 0.5, y: 20 },
+// 		{ x: screen.width * 0.7, y: 20 },
+// 		{ x: screen.width * 0.9, y: 20 }
+// 	],
+// 	left: [
+// 		{ x: -20, y: 50 },
+// 		{ x: -20, y: 80 },
+// 		{ x: -20, y: 110 },
+// 		{ x: -20, y: 140 }
+// 	],
+// 	right: [
+// 		{ x: screen.width + 20, y: 50 },
+// 		{ x: screen.width + 20, y: 80 },
+// 		{ x: screen.width + 20, y: 110 },
+// 		{ x: screen.width + 20, y: 140 }
+// 	]
+// });
 
 const spawnZones = $derived({
 	top: [
@@ -56,7 +79,7 @@ export class StageManager {
 		this.commonSpawnCd = gameLoop.setCD(this.stageConfig.spawnDelays.common, true);
 		this.eliteSpawnCd = gameLoop.setCD(this.stageConfig.spawnDelays.elite, false);
 		this.spawnTowers();
-		this.spawnEntity('Throne', new Vector2(200, 200));
+		this.spawnEntity('Throne', new Vector2(0, 0));
 		this.spawnEnemy('common');
 	};
 
@@ -67,7 +90,7 @@ export class StageManager {
 			this.spawnEnemy('common');
 		}
 		if (gameLoop.isCDReady(this.eliteSpawnCd)) {
-			this.spawnEnemy('elite');
+			// this.spawnEnemy('elite');
 		}
 
 		this.checkStageTime();
@@ -95,6 +118,7 @@ export class StageManager {
 		const enemy = pickRandomEnemy(enemies);
 		const spawnPoint = getRandomSpawnPoint();
 		const position = new Vector2(spawnPoint.x, spawnPoint.y);
+		// const position = new Vector2(0, 0);
 
 		const entity = this.spawnEntity(enemy, position, { throne: entityManager.throne });
 		this.apllyAmlify(entity);

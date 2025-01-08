@@ -4,7 +4,9 @@
 	import { managers } from '$lib/store/managers.svelte';
 	import { lootTracker } from '$lib/store/LootTracker.svelte';
 
-	const { tower } = $props();
+	const { tower, placement } = $props();
+
+	let node = $state();
 
 	const onclick = (e) => {
 		// move to upgrade
@@ -23,11 +25,13 @@
 			tower.scale = 1;
 		}
 	});
+	// position={tower.staticPosition}
 </script>
 
 <Entity
 	{onclick}
-	position={tower.staticPosition}
+	--placement={placement}
+	isStatic={true}
 	entity={tower}
 	--cursor={'url(/cursor-hammer.svg), auto'}
 	--z-index={10}

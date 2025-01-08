@@ -4,14 +4,14 @@ import * as upgrades from '../upgrades';
 export const towers = {
 	Throne: {
 		type: 'throne',
-		width: 256,
-		height: 252,
+		// width: 256,
+		// height: 252,
 		stats: {
 			health: 500,
 			damage: 999,
 			speed: 0
 		},
-		scale: 0.5,
+		scale: 0.8,
 		stateToAnimation: {
 			Idle: 'Throne'
 		},
@@ -20,8 +20,8 @@ export const towers = {
 	},
 	FireTower: {
 		type: 'tower',
-		width: 68,
-		height: 72,
+		// width: 68,
+		// height: 72,
 		initialState: 'NotBuilt',
 		stateToAnimation: {
 			Guard: 'FireTowerBase0',
@@ -36,14 +36,14 @@ export const towers = {
 			projectileNumber: 1,
 			projectileType: 'Fireball'
 		},
-		scale: 0.5,
+		scale: 0.8,
 		upgrades: upgrades.FireTower
 	},
 
 	ThunderTower: {
 		type: 'tower',
-		width: 68,
-		height: 72,
+		// width: 68,
+		// height: 72,
 		initialState: 'NotBuilt',
 		stateToAnimation: {
 			Guard: 'ThunderTowerBase0',
@@ -58,14 +58,14 @@ export const towers = {
 			projectileNumber: 1,
 			projectileType: 'Thunderbolt'
 		},
-		scale: 1,
+		scale: 0.8,
 		upgrades: upgrades.ThunderTower
 	},
 
 	PoisonTower: {
 		type: 'tower',
-		width: 68,
-		height: 72,
+		// width: 68,
+		// height: 72,
 		initialState: 'NotBuilt',
 		stateToAnimation: {
 			Guard: 'PoisonTowerBase0',
@@ -80,14 +80,14 @@ export const towers = {
 			projectileNumber: 1,
 			projectileType: 'Poisonball'
 		},
-		scale: 1,
+		scale: 0.8,
 		upgrades: upgrades.PoisonTower
 	},
 
 	IceTower: {
 		type: 'tower',
-		width: 68,
-		height: 72,
+		// width: 68,
+		// height: 72,
 		initialState: 'NotBuilt',
 		stateToAnimation: {
 			Guard: 'IceTowerBase0',
@@ -102,7 +102,7 @@ export const towers = {
 			projectileNumber: 1,
 			projectileType: 'Icebolt'
 		},
-		scale: 1,
+		scale: 0.8,
 		upgrades: upgrades.IceTower
 	}
 };
