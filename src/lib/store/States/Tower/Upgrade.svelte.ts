@@ -62,7 +62,7 @@ export class Upgrade extends BaseState {
 			this.entity.offsetPosition = slotOffset;
 		};
 
-		managers.get('soundManager').play('lvlUp');
+		managers.get('soundManager').play('towerUpgrade');
 	}
 
 	update(deltaTime) {
