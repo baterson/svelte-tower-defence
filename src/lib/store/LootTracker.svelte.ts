@@ -2,12 +2,12 @@ import { boundingBoxFromPoint } from '$lib/utils/math';
 import { managers } from './managers.svelte';
 
 const LOOT_MAP = {
-	click: 5,
+	click: 3,
 	upgrade: 50
 };
 
 export class LootTracker {
-	collectedLoot = $state(100);
+	collectedLoot = $state(50);
 	playLowLootAnimation = $state(false);
 	playTowerUpgradeAnimation = $state(false);
 	playEnemyClickAnimation = $state(false);
