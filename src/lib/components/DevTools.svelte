@@ -138,7 +138,6 @@
 		border: none;
 		padding: 10px 20px;
 		font-size: 16px;
-		cursor: pointer;
 		margin-bottom: 10px;
 	}
 

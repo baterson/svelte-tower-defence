@@ -94,5 +94,22 @@ export const projectiles = {
 			speed: 0.5
 		},
 		onCollide: lootCollider
+	},
+
+	ClickExplode: {
+		type: 'projectile',
+		vfx: [],
+		width: 30,
+		height: 30,
+		initialState: 'Explode',
+		stateToAnimation: {
+			Explode: 'ClickDie'
+		},
+		scale: 1,
+		stats: {
+			health: 1,
+			damage: 10,
+			speed: 0.5
+		}
 	}
 };

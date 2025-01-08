@@ -29,6 +29,7 @@
 	{onclick}
 	position={tower.staticPosition}
 	entity={tower}
+	--cursor={'url(/cursor-hammer.svg), auto'}
 	--z-index={10}
 	--pointer-events={'auto'}
 />

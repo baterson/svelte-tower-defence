@@ -55,44 +55,58 @@
 
 <!-- <Dialog /> -->
 <!-- <BackDrop /> -->
-
-{#if !isGameStarted}
-	<GameMenu onStart={startGame} />
-{:else if game}
-	<div class="wrapper">
-		<BackgroundContainer stageNumber={stageManager.stageNumber} />
-		<div class="time">Stage {managers.get('stageManager').stageNumber + 1}</div>
-		<Loot />
-		<button class="btn-pause" onclick={pauseGame}><PauseIcon /></button>
-		<div
-			onclick={handleGameClick}
-			bind:offsetHeight={screen.gameAreaHeight}
-			bind:offsetWidth={screen.gameAreaWidth}
-			class="game-container"
-			style:transform-origin="center"
-		>
-			<GameArea />
+<div class="window-wrapper">
+	{#if !isGameStarted}
+		<GameMenu onStart={startGame} />
+	{:else if game}
+		<div class="wrapper">
+			<BackgroundContainer stageNumber={stageManager.stageNumber} />
+			<div class="time">Stage {managers.get('stageManager').stageNumber + 1}</div>
+			<Loot />
+			<button class="btn-pause" onclick={pauseGame}><PauseIcon /></button>
+			<div
+				onclick={handleGameClick}
+				bind:offsetHeight={screen.gameAreaHeight}
+				bind:offsetWidth={screen.gameAreaWidth}
+				class="game-container"
+				style:transform-origin="center"
+			>
+				<GameArea />
+			</div>
+			{#if isPaused}
+				<GameMenu onResume={resumeGame} isPaused={true} onRestart={restartGame} />
+			{/if}
 		</div>
-		{#if isPaused}
-			<GameMenu onResume={resumeGame} isPaused={true} onRestart={restartGame} />
-		{/if}
-	</div>
-{/if}
+	{/if}
+</div>
 
 <style>
+	.window-wrapper {
+		cursor: url('/cursor-pointer.svg'), auto !important;
+	}
+
+	.window-wrapper:hover {
+		cursor: url('/cursor-pointer.svg'), auto;
+	}
+
 	.btn-pause {
 		position: absolute;
+		cursor: url('/cursor-pointer.svg'), auto;
 		top: 20px;
 		right: 20px;
 		border: none;
 		font-size: 16px;
-		cursor: pointer;
 		background: none;
 		z-index: 1000;
 		-webkit-tap-highlight-color: transparent;
 		user-select: none;
 		-webkit-touch-callout: none;
 	}
+
+	.btn-pause:hover {
+		cursor: url('/cursor-pointer.svg'), auto;
+	}
+
 	.time {
 		position: absolute;
 		top: 0;

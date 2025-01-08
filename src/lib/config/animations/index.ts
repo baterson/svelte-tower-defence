@@ -6,6 +6,7 @@ import { FireballDie } from './Projectiles/FireballDie';
 import { IceboltDie } from './Projectiles/IceboltDie';
 import { PoisonballDie } from './Projectiles/PoisonballDie';
 import { ThunderboltDie } from './Projectiles/ThunderboltDie';
+import { ClickDie } from './Projectiles/ClickDie';
 
 import { NotBuilt } from './Towers/NotBuilt';
 import { Base } from './Base';
@@ -36,6 +37,7 @@ export const animations = {
 	IceboltDie,
 	PoisonballDie,
 	ThunderboltDie,
+	ClickDie,
 
 	...PurpleBlobEnemy,
 	...GreenFlatEnemy,

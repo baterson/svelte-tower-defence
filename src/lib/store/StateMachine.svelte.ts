@@ -9,8 +9,8 @@ export class StateMachine {
 		this.onEnter = onEnter;
 		this.context = context;
 
-		this.currentState = initState(this, owner.type, initialState, context);
 		this.onEnter(initialState);
+		this.currentState = initState(this, owner.type, initialState, context);
 	}
 
 	update(deltaTime, entityManager) {
