@@ -17,6 +17,7 @@
 	import BackgroundContainer from '$lib/components/BackgroundContainer.svelte';
 	import { resourceManager } from '$lib/store/ResourceManager.svelte';
 	import Loot from '$lib/components/Loot.svelte';
+	import Pause from '$lib/components/Gui/Pause.svelte';
 
 	const gameLoop = $derived(managers.get('gameLoop'));
 	const stageManager = $derived(managers.get('stageManager'));
@@ -69,7 +70,7 @@
 			<BackgroundContainer stageNumber={stageManager.stageNumber} />
 			<div class="time">Stage {managers.get('stageManager').stageNumber + 1}</div>
 			<Loot />
-			<button class="btn-pause" onclick={() => gameLoop.pause()}><PauseIcon /></button>
+			<button class="btn-pause" onclick={() => gameLoop.pause()}><Pause /></button>
 			<div
 				bind:offsetHeight={screen.gameAreaHeight}
 				bind:offsetWidth={screen.gameAreaWidth}

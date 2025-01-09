@@ -22,6 +22,7 @@
 		-webkit-tap-highlight-color: transparent;
 		user-select: none;
 		-webkit-touch-callout: none;
+		font-family: 'Astro Space', sans-serif;
 	}
 
 	.btn:hover {
