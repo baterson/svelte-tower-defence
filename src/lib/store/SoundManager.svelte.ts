@@ -1,63 +1,11 @@
-import { sounds } from '$lib/sound';
 import { resourceManager } from './ResourceManager.svelte';
 
 export class SoundManager {
-	sounds = $state({});
+	sounds = $state.raw({});
 	musicVolume = $state(0.06);
 	sfxVolume = $state(0.09);
 	isMuted = $state(false);
-	isReady = $state(false);
-	effectPool = $state([]);
-	effectPoolSize = 3;
-
-	/**
-	 * Preloads all sounds into memory.
-	 * Returns a promise that resolves when all sounds are loaded.
-	 */
-	async preload() {
-		const loadSound = (name, url, type) => {
-			return new Promise((resolve, reject) => {
-				const audio = new Audio(url);
-				audio.volume = type === 'music' ? this.musicVolume : this.sfxVolume;
-				audio.loop = type === 'music';
-
-				// Resolve the promise once the audio is loaded
-				audio.addEventListener('canplaythrough', () => {
-					this.sounds[name] = { audio, type };
-					resolve();
-				});
-
-				// Reject the promise if there's an error loading the audio
-				audio.addEventListener('error', (error) => reject(error));
-
-				audio.load();
-			});
-		};
-
-		try {
-			// Preload the background music
-			await loadSound('bgSound', sounds.bgSound, 'music');
-
-			// Preload sound effects
-			const effectPromises = Object.entries(sounds.effects).map(([name, url]) =>
-				loadSound(name, url, 'effect')
-			);
-
-			await Promise.all(effectPromises);
-
-			// Initialize effect pool
-			this.initializeEffectPool();
-
-			this.isReady = true;
-			console.log('All sounds preloaded successfully.');
-		} catch (error) {
-			console.error('Error preloading sounds:', error);
-		}
-	}
-
-	initializeEffectPool() {
-		this.effectPool = Array.from({ length: this.effectPoolSize }, () => null);
-	}
+	playingEffectsCount = $state(0);
 
 	setMusicVolume(volume) {
 		this.musicVolume = volume;
@@ -75,26 +23,31 @@ export class SoundManager {
 		});
 	}
 
-	play(name) {
+	play(name, isImportant = false) {
 		if (this.isMuted) return;
 		const resource = resourceManager.getResource(name);
-		if (resource) {
-			if (name === 'bgSound') {
-				resource.volume = this.musicVolume;
-				resource.currentTime = 0;
-				resource.play();
-			} else {
-				const availableSlot = this.effectPool.findIndex(
-					(slot) => !slot || slot.paused || slot.ended
-				);
-				if (availableSlot !== -1) {
-					// const effectAudio = resource.cloneNode();
-					// effectAudio.volume = this.sfxVolume;
-					// effectAudio.currentTime = 0;
-					// effectAudio.play();
-					// this.effectPool[availableSlot] = effectAudio;
-				}
-			}
+
+		if (name === 'bgSound') {
+			resource.volume = this.musicVolume;
+			resource.currentTime = 0;
+			resource.play();
+			return;
+		}
+
+		if (isImportant || this.playingEffectsCount < 10) {
+			const effectAudio = resource;
+			effectAudio.volume = this.sfxVolume;
+			effectAudio.currentTime = 0;
+			effectAudio.play();
+
+			const onEnded = () => {
+				this.playingEffectsCount -= 1;
+				effectAudio.removeEventListener('ended', onEnded);
+			};
+
+			effectAudio.addEventListener('ended', onEnded);
+
+			this.playingEffectsCount += 1;
 		}
 	}
 

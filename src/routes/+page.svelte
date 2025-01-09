@@ -10,7 +10,7 @@
 	import { lootTracker } from '$lib/store/LootTracker.svelte';
 	import WinLoseScreen from '$lib/components/Gui/WinLoseScreen.svelte';
 	import StartScreen from '$lib/components/Gui/StartScreen.svelte';
-	import { onMount, tick } from 'svelte';
+	import { onMount } from 'svelte';
 	import { game } from '$lib/store/Game.svelte';
 	import PauseScreen from '$lib/components/Gui/PauseScreen.svelte';
 	import PauseIcon from '$lib/components/PauseIcon.svelte';
@@ -18,6 +18,7 @@
 	import { resourceManager } from '$lib/store/ResourceManager.svelte';
 	import Loot from '$lib/components/Loot.svelte';
 	import Pause from '$lib/components/Gui/Pause.svelte';
+	import { preloadUrls } from '$lib/utils/preload';
 
 	const gameLoop = $derived(managers.get('gameLoop'));
 	const stageManager = $derived(managers.get('stageManager'));
@@ -52,6 +53,12 @@
 		}
 	}}
 />
+
+<svelte:head>
+	{#each preloadUrls as image}
+		<link rel="preload" as="image" href={image} />
+	{/each}
+</svelte:head>
 
 <!-- <Dialog /> -->
 <!-- <BackDrop /> -->

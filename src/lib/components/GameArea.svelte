@@ -86,6 +86,7 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+		padding: 0 40px;
 
 		/* display: grid;
 		grid-template-columns: 1fr 1fr; */
