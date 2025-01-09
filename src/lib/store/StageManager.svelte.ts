@@ -7,38 +7,41 @@ import type { Entity } from './Entity.svelte';
 
 const spawnZones = $derived({
 	top: [
-		{ x: screen.gameAreaWidth * 0.1, y: 20 },
-		{ x: screen.gameAreaWidth * 0.3, y: 20 },
-		{ x: screen.gameAreaWidth * 0.5, y: 20 },
-		{ x: screen.gameAreaWidth * 0.7, y: 20 },
-		{ x: screen.gameAreaWidth * 0.9, y: 20 }
+		{ x: screen.width * 0.1, y: 20 },
+		{ x: screen.width * 0.3, y: 20 },
+		{ x: screen.width * 0.5, y: 20 },
+		{ x: screen.width * 0.7, y: 20 },
+		{ x: screen.width * 0.9, y: 20 }
+	],
+	bottom: [
+		{ x: screen.width * 0.1, y: screen.height - 20 },
+		{ x: screen.width * 0.3, y: screen.height - 20 },
+		{ x: screen.width * 0.5, y: screen.height - 20 },
+		{ x: screen.width * 0.7, y: screen.height - 20 },
+		{ x: screen.width * 0.9, y: screen.height - 20 }
 	],
 	left: [
-		{ x: -20, y: 50 },
-		{ x: -20, y: 80 },
-		{ x: -20, y: 110 },
-		{ x: -20, y: 140 }
+		{ x: 20, y: screen.height * 0.1 },
+		{ x: 20, y: screen.height * 0.3 },
+		{ x: 20, y: screen.height * 0.5 },
+		{ x: 20, y: screen.height * 0.7 },
+		{ x: 20, y: screen.height * 0.9 }
 	],
 	right: [
-		{ x: screen.gameAreaWidth + 20, y: 50 },
-		{ x: screen.gameAreaWidth + 20, y: 80 },
-		{ x: screen.gameAreaWidth + 20, y: 110 },
-		{ x: screen.gameAreaWidth + 20, y: 140 }
+		{ x: screen.width - 20, y: screen.height * 0.1 },
+		{ x: screen.width - 20, y: screen.height * 0.3 },
+		{ x: screen.width - 20, y: screen.height * 0.5 },
+		{ x: screen.width - 20, y: screen.height * 0.7 },
+		{ x: screen.width - 20, y: screen.height * 0.9 }
 	]
 });
 
 const getRandomSpawnPoint = () => {
-	const rand = Math.floor(Math.random() * 100);
+	const avaliableZones = screen.isMobile ? ['top', 'bottom'] : ['top', 'bottom', 'left', 'right'];
+	const selectedZone = avaliableZones[Math.floor(Math.random() * avaliableZones.length)];
+	const spawnPoints = spawnZones[selectedZone];
 
-	let selectedZone;
-	if (rand < 20) {
-		selectedZone = spawnZones.left;
-	} else if (rand < 40) {
-		selectedZone = spawnZones.right;
-	} else {
-		selectedZone = spawnZones.top;
-	}
-	return selectedZone[Math.floor(Math.random() * selectedZone.length)];
+	return spawnPoints[Math.floor(Math.random() * spawnPoints.length)];
 };
 
 const pickRandomEnemy = (enemies: string[]) => {
@@ -79,7 +82,7 @@ export class StageManager {
 			this.spawnEnemy('common');
 		}
 		if (gameLoop.isCDReady(this.eliteSpawnCd)) {
-			// this.spawnEnemy('elite');
+			this.spawnEnemy('elite');
 		}
 
 		this.checkStageTime();
