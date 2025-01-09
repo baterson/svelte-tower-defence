@@ -7,25 +7,23 @@
 	import { managers } from '$lib/store/managers.svelte';
 	// import Dialog from '$components/Dialog.svelte';
 	// import BackDrop from '$components/BackDrop.svelte';
-	import Bg1 from '$lib/components/Bg1.svelte';
 	import BackgroundContainer from '$lib/components/BackgroundContainer.svelte';
-	import { onMount } from 'svelte';
-	import GameMenu from '$lib/components/GameMenu.svelte';
 	import PauseIcon from '$lib/components/PauseIcon.svelte';
 	import { lootTracker } from '$lib/store/LootTracker.svelte';
 	import Loot from '$lib/components/Loot.svelte';
+	import WinLoseScreen from '$lib/components/Gui/WinLoseScreen.svelte';
+	import StartScreen from '$lib/components/Gui/StartScreen.svelte';
+	import PauseScreen from '$lib/components/Gui/PauseScreen.svelte';
 
 	let game = $state(null);
 	let isGameStarted = $state(false);
 	let isPaused = $state(false);
 
 	const gameLoop = $derived(managers.get('gameLoop'));
-	const soundManager = $derived(managers.get('soundManager'));
 	const stageManager = $derived(managers.get('stageManager'));
 
 	const startGame = () => {
 		game = new Game();
-		soundManager.init();
 		game.start();
 		isGameStarted = true;
 	};
@@ -55,9 +53,12 @@
 
 <!-- <Dialog /> -->
 <!-- <BackDrop /> -->
+
 <div class="window-wrapper">
 	{#if !isGameStarted}
-		<GameMenu onStart={startGame} />
+		<StartScreen onStart={startGame} />
+	{:else if stageManager.isGameOver}
+		<WinLoseScreen onRestart={restartGame} />
 	{:else if game}
 		<div class="wrapper">
 			<BackgroundContainer stageNumber={stageManager.stageNumber} />
@@ -74,7 +75,7 @@
 				<GameArea />
 			</div>
 			{#if isPaused}
-				<GameMenu onResume={resumeGame} isPaused={true} onRestart={restartGame} />
+				<PauseScreen onResume={resumeGame} onRestart={restartGame} />
 			{/if}
 		</div>
 	{/if}
@@ -117,7 +118,6 @@
 	}
 
 	.wrapper {
-		background-color: rgb(236, 209, 218);
 		z-index: 3;
 		position: relative;
 		display: flex;
@@ -125,6 +125,7 @@
 		width: 100vw;
 		height: 100dvh;
 		overflow: hidden;
+		background-color: black;
 	}
 
 	.game-container {
