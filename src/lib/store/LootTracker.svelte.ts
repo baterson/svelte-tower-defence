@@ -40,7 +40,7 @@ export class LootTracker {
 			const enemies = collisionManager.filterEnemiesByBounds(boundingBox);
 
 			stageManager.spawnEntity('ClickExplode', offset);
-			soundManager.play('clickEnemy');
+			soundManager.play('clickEnemy', true);
 
 			enemies.forEach((enemy) => {
 				enemy.state.setState('Die');

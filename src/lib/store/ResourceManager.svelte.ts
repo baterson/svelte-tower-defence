@@ -1,8 +1,17 @@
-import { sounds } from '$lib/sound';
+const sounds = {
+	bgSound: '/sound/bgSound.mp3',
+	effects: {
+		pickUp: '/sound/sfx/pickUp.wav',
+		shoot: '/sound/sfx/shoot.wav',
+		towerUpgrade: '/sound/sfx/towerUpgrade.wav',
+		clickEnemy: '/sound/sfx/clickEnemy.wav',
+		towerShoot: '/sound/sfx/towerShoot.wav',
+		clickMenu: '/sound/sfx/clickMenu.wav'
+	}
+};
 
 export class ResourceManager {
-	static instance = null;
-	resources = $state({});
+	resources = $state.raw({});
 	preloaded = $state(false);
 	loadedCount = $state(0);
 	totalResources = $derived(Object.keys(sounds.effects).length + 1);
