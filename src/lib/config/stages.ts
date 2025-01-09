@@ -1,7 +1,7 @@
 export const stages = [
 	{
 		// commonEnemies: ['PurpleCommon', 'YellowCommon', 'BlueCommon'],
-		commonEnemies: ['PurpleCommon'],
+		commonEnemies: ['PurpleCommon', 'RedBlobElite'],
 		time: 60000,
 		eliteEnemies: ['RedBlobElite'],
 		spawnDelays: {

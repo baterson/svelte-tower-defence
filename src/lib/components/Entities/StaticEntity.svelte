@@ -29,6 +29,7 @@
 		entity.position = new Vector2(_rect.x, _rect.y);
 		entity.width = _rect.width;
 		entity.height = _rect.height;
+
 		console.log('entity.position', frame, entity.width, entity.height, screen.width);
 	});
 </script>

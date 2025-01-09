@@ -36,8 +36,6 @@ export const enemies: Record<string, EntityConfig> = {
 
 	PurpleCommon: {
 		type: 'enemy',
-		width: 88,
-		height: 58,
 		initialState: 'FollowThrone',
 		vfx: [],
 		scale: 0.6,
@@ -54,8 +52,6 @@ export const enemies: Record<string, EntityConfig> = {
 	},
 	YellowCommon: {
 		type: 'enemy',
-		width: 70,
-		height: 62,
 		initialState: 'FollowThrone',
 		vfx: [],
 		scale: 0.8,
@@ -72,8 +68,6 @@ export const enemies: Record<string, EntityConfig> = {
 	},
 	BlueCommon: {
 		type: 'enemy',
-		width: 95,
-		height: 75,
 		initialState: 'FollowThrone',
 		vfx: [],
 		scale: 0.7,
@@ -93,8 +87,6 @@ export const enemies: Record<string, EntityConfig> = {
 
 	GreenCircleElite: {
 		type: 'enemy',
-		width: 162,
-		height: 230,
 		initialState: 'FollowThrone',
 		vfx: [],
 		scale: 1,
@@ -112,8 +104,6 @@ export const enemies: Record<string, EntityConfig> = {
 
 	RedBlobElite: {
 		type: 'enemy',
-		width: 120,
-		height: 180,
 		initialState: 'FollowThrone',
 		vfx: [],
 		scale: 0.8,
@@ -130,8 +120,6 @@ export const enemies: Record<string, EntityConfig> = {
 	},
 	BlueBlobElite: {
 		type: 'enemy',
-		width: 100,
-		height: 160,
 		initialState: 'FollowThrone',
 		vfx: [],
 		scale: 1,
@@ -148,8 +136,6 @@ export const enemies: Record<string, EntityConfig> = {
 	},
 	BlueCircleElite: {
 		type: 'enemy',
-		width: 150,
-		height: 160,
 		initialState: 'FollowThrone',
 		vfx: [],
 		scale: 1,
