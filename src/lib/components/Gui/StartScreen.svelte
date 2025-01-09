@@ -1,9 +1,14 @@
 <script>
 	import { fade } from 'svelte/transition';
+	import { resourceManager } from '$lib/store/ResourceManager.svelte';
 	import Button from './Button.svelte';
 	import MenuLayout from './MenuLayout.svelte';
 
 	const { onStart } = $props();
+
+	const text = $derived(
+		resourceManager.preloaded ? 'Start game' : `${resourceManager.preloadPercent}%`
+	);
 </script>
 
 <MenuLayout>
@@ -12,7 +17,7 @@
 			<h1>Welcome to the game!</h1>
 		</div>
 		<div class="buttons-container">
-			<Button text="Start Game" onclick={onStart} />
+			<Button disabled={!resourceManager.preloaded} {text} onclick={onStart} />
 		</div>
 	</div>
 </MenuLayout>

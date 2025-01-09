@@ -1,8 +1,8 @@
 <script>
-	const { onclick, text = '' } = $props();
+	const { onclick, disabled, text = '' } = $props();
 </script>
 
-<button class="btn" {onclick}>{text}</button>
+<button {disabled} class="btn" {onclick}>{text}</button>
 
 <style>
 	.btn {
@@ -17,6 +17,7 @@
 			background 0.3s ease,
 			transform 0.3s ease;
 		width: 100%;
+		min-width: 204px;
 		max-width: 300px;
 		-webkit-tap-highlight-color: transparent;
 		user-select: none;

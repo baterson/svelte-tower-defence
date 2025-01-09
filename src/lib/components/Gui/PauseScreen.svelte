@@ -3,7 +3,6 @@
 	import MenuLayout from './MenuLayout.svelte';
 	import { managers } from '$lib/store/managers.svelte';
 	import GitHubIcon from '../GitHubIcon.svelte';
-	import { slide } from 'svelte/transition';
 
 	const { onResume, onRestart } = $props();
 

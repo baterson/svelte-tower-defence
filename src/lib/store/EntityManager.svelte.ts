@@ -4,7 +4,7 @@ import type { Entity } from './Entity.svelte';
 import type { Vector2 } from './Vector2.svelte';
 
 export class EntityManager {
-	entities = $state<Entity[]>([]);
+	entities = $state.raw<Entity[]>([]);
 
 	enemies = $derived(this.entities.filter((entity) => entity.type === 'enemy'));
 	livingEnemies = $derived(this.enemies.filter((entity) => entity.isInteractable));
