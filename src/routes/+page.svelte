@@ -15,6 +15,7 @@
 	import PauseScreen from '$lib/components/Gui/PauseScreen.svelte';
 	import PauseIcon from '$lib/components/PauseIcon.svelte';
 	import BackgroundContainer from '$lib/components/BackgroundContainer.svelte';
+	import { resourceManager } from '$lib/store/ResourceManager.svelte';
 	import Loot from '$lib/components/Loot.svelte';
 
 	const gameLoop = $derived(managers.get('gameLoop'));
@@ -31,6 +32,10 @@
 			payload: { offset: new Vector2(e.clientX, e.clientY) }
 		});
 	};
+
+	onMount(() => {
+		resourceManager.preload();
+	});
 </script>
 
 <svelte:window
@@ -49,6 +54,7 @@
 
 <!-- <Dialog /> -->
 <!-- <BackDrop /> -->
+
 {#if !game.isStarted}
 	<StartScreen onStart={() => game.start()} />
 {:else if stageManager.stageResult}
@@ -57,7 +63,7 @@
 	<PauseScreen onResume={() => gameLoop.resume()} onRestart={() => game.restart()} />
 {/if}
 
-{#if game.isStarted}
+{#if game.isStarted && resourceManager.preloaded}
 	<div class="window-wrapper" onclick={handleGameClick}>
 		<div class="wrapper">
 			<BackgroundContainer stageNumber={stageManager.stageNumber} />

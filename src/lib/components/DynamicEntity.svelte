@@ -20,7 +20,12 @@
 	}
 	const scale = $derived(screen.isMobile ? entity.scale - 0.2 : entity.scale);
 
-	const transform = $derived(`rotate(${entity.rotation}deg) scale(${scale})`);
+	const translateX = $derived(entity.position.x);
+	const translateY = $derived(entity.position.y);
+
+	const transform = $derived(
+		`translate(${translateX}px, ${translateY}px) rotate(${entity.rotation}deg) scale(${scale})`
+	);
 
 	$effect(() => {
 		if (!node || !imageLoaded) return;
@@ -31,11 +36,13 @@
 
 		// console.log('screen changes', screen.width, screen.height);
 	});
+	// style:left={`${entity.position.x}px`}
+	// style:top={`${entity.position.y}px`}
 </script>
 
 <img
-	style:left={`${entity.position.x}px`}
-	style:top={`${entity.position.y}px`}
+	style:left={`${0}px`}
+	style:top={`${0}px`}
 	style:transform
 	bind:this={node}
 	src={frame}

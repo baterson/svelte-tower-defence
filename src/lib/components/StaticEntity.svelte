@@ -30,7 +30,7 @@
 		entity.width = _rect.width;
 		entity.height = _rect.height;
 
-		// console.log('entity.position', frame, entity.width, entity.height, screen.width);
+		console.log('entity.position', frame, entity.width, entity.height, screen.width);
 	});
 </script>
 

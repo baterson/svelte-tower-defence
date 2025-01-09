@@ -15,26 +15,24 @@ export class Game {
 		managers.update(deltaTime);
 	};
 
-	// init = () => {
-	// 	managers.setup(setupManagers());
-	// };
-
-	start = () => {
+	start = async () => {
 		managers.setup(setupManagers());
 
-		this.isStarted = true;
 		const { gameLoop, soundManager, stageManager } = managers.get([
 			'gameLoop',
 			'soundManager',
 			'stageManager'
 		]);
 
+		// await soundManager.preload();
+
 		stageManager.init();
-		soundManager.init();
 
 		gameLoop.start(this.update);
 
 		soundManager.play('bgSound');
+
+		this.isStarted = true;
 	};
 
 	restart = () => {
