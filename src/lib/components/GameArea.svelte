@@ -38,8 +38,8 @@
 				--cursor={'url(/cursor-hammer.svg), auto'}
 				--z-index={10}
 				--pointer-events={'auto'}
-				--margin-left={index === 0 ? '40px' : '0'}
-				--margin-right={index === 1 ? '40px' : '0'}
+				--margin-left={index === 0 ? '12px' : '0'}
+				--margin-right={index === 1 ? '12px' : '0'}
 			/>
 		{/each}
 	</div>
@@ -56,8 +56,8 @@
 				--cursor={'url(/cursor-hammer.svg), auto'}
 				--z-index={10}
 				--pointer-events={'auto'}
-				--margin-left={index === 0 ? '40px' : '0'}
-				--margin-right={index === 1 ? '40px' : '0'}
+				--margin-left={index === 0 ? '12px' : '0'}
+				--margin-right={index === 1 ? '12px' : '0'}
 			/>
 		{/each}
 	</div>

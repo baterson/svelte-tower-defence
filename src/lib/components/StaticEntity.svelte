@@ -19,7 +19,8 @@
 		imageLoaded = true;
 	}
 
-	const transform = $derived(`scale(${entity.scale})`);
+	const scale = $derived(screen.isMobile ? entity.scale - 0.2 : entity.scale);
+	const transform = $derived(`scale(${scale})`);
 
 	$effect(() => {
 		if (!node || !imageLoaded) return;

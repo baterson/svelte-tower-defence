@@ -2,6 +2,7 @@
 	import { managers } from '$lib/store/managers.svelte';
 	import Effect from './Effect.svelte';
 	import { Vector2 } from '$lib/store/Vector2.svelte';
+	import { screen } from '$lib/store/Screen.svelte';
 	import { getAnimation } from '$lib/config/animations';
 
 	let { entity, onclick } = $props();
@@ -17,8 +18,9 @@
 	function onImageLoad() {
 		imageLoaded = true;
 	}
+	const scale = $derived(screen.isMobile ? entity.scale - 0.2 : entity.scale);
 
-	const transform = $derived(`rotate(${entity.rotation}deg) scale(${entity.scale})`);
+	const transform = $derived(`rotate(${entity.rotation}deg) scale(${scale})`);
 
 	$effect(() => {
 		if (!node || !imageLoaded) return;

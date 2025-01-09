@@ -34,6 +34,8 @@ export class Entity {
 	upgrades = $state([]);
 
 	isUpgradable = $derived(this.upgrades.length && this.upgradeLevel < this.upgrades.length);
+
+	// adjustedScale = $derived(screen.isMobile ? this.scale - 0.2 : this.scale);
 	// positionWithOffset = $derived(
 	// 	this.offsetPosition ? this.position?.add(this.offsetPosition) : this.position
 	// );
