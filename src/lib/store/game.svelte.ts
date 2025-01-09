@@ -6,6 +6,7 @@ import { UIManager } from './UIManager.svelte';
 import { GameLoop } from './GameLoop.svelte';
 import { managers } from './managers.svelte';
 import { SoundManager } from './SoundManager.svelte';
+import { lootTracker } from './LootTracker.svelte';
 
 export class Game {
 	constructor() {
@@ -28,12 +29,18 @@ export class Game {
 	};
 
 	restart = () => {
-		const entityManager = managers.get('entityManager');
-		const stageManager = managers.get('stageManager');
-		const soundManager = managers.get('soundManager');
-
+		const { entityManager, stageManager, soundManager, gameLoop } = managers.get([
+			'entityManager',
+			'stageManager',
+			'soundManager',
+			'gameLoop'
+		]);
 		entityManager.entities = [];
-		stageManager.stageNumber = 0;
+		gameLoop.elapsedTime = 0.0;
+		gameLoop.accumulator = 0.0;
+		stageManager.reset();
+		lootTracker.reset();
+
 		stageManager.init();
 
 		soundManager.restartBgMusic();

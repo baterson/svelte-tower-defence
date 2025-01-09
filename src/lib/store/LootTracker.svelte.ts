@@ -11,6 +11,8 @@ export class LootTracker {
 	playLowLootAnimation = $state(false);
 	playTowerUpgradeAnimation = $state(false);
 	playEnemyClickAnimation = $state(false);
+	score = $state(50);
+	killsEnemy = $state(0);
 
 	spendLoot(action) {
 		const toSpend = LOOT_MAP[action.type];
@@ -49,6 +51,12 @@ export class LootTracker {
 
 	receiveLoot(loot) {
 		this.collectedLoot += loot;
+		this.score += loot;
+		this.killsEnemy++;
+	}
+	reset() {
+		this.collectedLoot = 50;
+		this.killsEnemy = 0;
 	}
 
 	getAnimation(name) {
