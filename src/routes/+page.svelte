@@ -14,6 +14,7 @@
 	import WinLoseScreen from '$lib/components/Gui/WinLoseScreen.svelte';
 	import StartScreen from '$lib/components/Gui/StartScreen.svelte';
 	import PauseScreen from '$lib/components/Gui/PauseScreen.svelte';
+	import { onMount } from 'svelte';
 
 	let game = $state(null);
 	let isGameStarted = $state(false);
@@ -80,7 +81,7 @@
 		<WinLoseScreen onRestart={restartGame} />
 	{:else if game}
 		<div class="wrapper">
-			<!-- <BackgroundContainer stageNumber={stageManager.stageNumber} /> -->
+			<BackgroundContainer stageNumber={stageManager.stageNumber} />
 			<div class="time">Stage {managers.get('stageManager').stageNumber + 1}</div>
 			<Loot />
 			<button class="btn-pause" onclick={pauseGame}><PauseIcon /></button>

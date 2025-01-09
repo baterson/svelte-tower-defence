@@ -70,6 +70,7 @@ const pickRandomEnemy = (enemies: string[]) => {
 export class StageManager {
 	stageNumber = $state(0);
 	stageConfig = $derived(stages[this.stageNumber]);
+	stageStartTime = $state(0);
 	commonSpawnCd;
 	eliteSpawnCd;
 	isGameOver = $state(false);
@@ -82,7 +83,7 @@ export class StageManager {
 		this.eliteSpawnCd = gameLoop.setCD(this.stageConfig.spawnDelays.elite, true);
 		this.spawnTowers();
 		this.spawnEntity('Throne', new Vector2(0, 0));
-		this.spawnEnemy('common');
+		// this.spawnEnemy('common');
 	};
 
 	reset() {
@@ -152,20 +153,24 @@ export class StageManager {
 
 	checkStageTime() {
 		const gameLoop = managers.get('gameLoop');
-		if (gameLoop.elapsedTime > this.stageConfig.time) {
+		if (this.stageStartTime + this.stageConfig.time < gameLoop.elapsedTime) {
 			this.nextStage();
 		}
 	}
 
 	nextStage() {
+		// debugger;
 		if (this.stageNumber < stages.length - 1) {
+			const gameLoop = managers.get('gameLoop');
+
 			this.stageNumber++;
+			this.stageStartTime = gameLoop.elapsedTime;
+
+			this.commonSpawnCd = gameLoop.setCD(this.stageConfig.spawnDelays.common, true);
+			this.eliteSpawnCd = gameLoop.setCD(this.stageConfig.spawnDelays.elite, false);
 		} else {
 			this.gameOver(true);
 		}
-		const gameLoop = managers.get('gameLoop');
-		this.commonSpawnCd = gameLoop.setCD(this.stageConfig.spawnDelays.common, true);
-		this.eliteSpawnCd = gameLoop.setCD(this.stageConfig.spawnDelays.elite, false);
 	}
 
 	spawnEntity = (name: string, position: Vector2, context = {}) => {
