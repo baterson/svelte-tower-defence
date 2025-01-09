@@ -4,7 +4,8 @@
 	import MenuLayout from './MenuLayout.svelte';
 	import { lootTracker } from '$lib/store/LootTracker.svelte';
 	import { managers } from '$lib/store/managers.svelte';
-	import { fade, fly, slide } from 'svelte/transition';
+	import { fade, slide } from 'svelte/transition';
+
 	const stageManager = managers.get('stageManager');
 </script>
 

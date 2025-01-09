@@ -12,8 +12,8 @@ export class Game {
 	constructor() {
 		managers.init(initManagers());
 
-		const stageManager = managers.get('stageManager');
-		stageManager.init();
+		// const stageManager = managers.get('stageManager');
+		// stageManager.init();
 	}
 
 	update = async (deltaTime) => {
@@ -29,22 +29,26 @@ export class Game {
 	};
 
 	restart = () => {
-		const { entityManager, stageManager, soundManager, gameLoop } = managers.get([
-			'entityManager',
-			'stageManager',
-			'soundManager',
-			'gameLoop'
-		]);
-		entityManager.entities = [];
-		gameLoop.elapsedTime = 0.0;
-		gameLoop.accumulator = 0.0;
-		stageManager.reset();
+		initManagers();
+
 		lootTracker.reset();
 
-		stageManager.init();
+		// const { entityManager, stageManager, soundManager, gameLoop } = managers.get([
+		// 	'entityManager',
+		// 	'stageManager',
+		// 	'soundManager',
+		// 	'gameLoop'
+		// ]);
+		// entityManager.entities = [];
+		//  .elapsedTime = 0.0;
+		// gameLoop.accumulator = 0.0;
+		// stageManager.reset();
+		// lootTracker.reset();
 
-		soundManager.restartBgMusic();
-		soundManager.setMusicVolume(0.06);
+		// stageManager.init();
+
+		// soundManager.restartBgMusic();
+		// soundManager.setMusicVolume(0.06);
 	};
 }
 
@@ -52,10 +56,11 @@ const initManagers = () => {
 	managers.background = new Background();
 	managers.collisionManager = new CollisionManager();
 	managers.entityManager = new EntityManager();
-	managers.stageManager = new StageManager();
 	managers.uiManager = new UIManager();
 	managers.gameLoop = new GameLoop();
 	managers.soundManager = new SoundManager();
+
+	managers.stageManager = new StageManager();
 
 	return managers;
 };

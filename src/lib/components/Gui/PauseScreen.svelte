@@ -3,7 +3,8 @@
 	import MenuLayout from './MenuLayout.svelte';
 	import { managers } from '$lib/store/managers.svelte';
 	import GitHubIcon from '../GitHubIcon.svelte';
-	import { fade, slide } from 'svelte/transition';
+	import { slide } from 'svelte/transition';
+
 	const { onResume, onRestart } = $props();
 
 	const { soundManager, stageManager } = managers.get(['soundManager', 'stageManager']);

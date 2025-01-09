@@ -1,8 +1,9 @@
 <script>
-	const { onStart } = $props();
+	import { fade } from 'svelte/transition';
 	import Button from './Button.svelte';
 	import MenuLayout from './MenuLayout.svelte';
-	import { fade } from 'svelte/transition';
+
+	const { onStart } = $props();
 </script>
 
 <MenuLayout>

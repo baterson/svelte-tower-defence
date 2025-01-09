@@ -20,6 +20,9 @@ export class GameLoop {
 
 	constructor() {
 		this.loop = this.loop.bind(this);
+		this.previousTime = 0;
+		this.elapsedTime = 0;
+		this.accumulator = 0;
 	}
 
 	get elapsedInSeconds() {

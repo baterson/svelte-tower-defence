@@ -1,4 +1,8 @@
-<div class="menu-container"><slot /></div>
+<script>
+	const { children } = $props();
+</script>
+
+<div class="menu-container">{@render children()}</div>
 
 <style>
 	.menu-container {
