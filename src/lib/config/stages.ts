@@ -7,8 +7,8 @@ export const stages = [
 		spawnDelays: {
 			// common: 300,
 			// elite: 700
-			common: 700,
-			elite: 1000
+			common: 900,
+			elite: 1400
 			// elite: 1500
 		},
 		statsAmplify: {
