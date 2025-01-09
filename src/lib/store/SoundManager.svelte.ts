@@ -26,27 +26,22 @@ export class SoundManager {
 	play(name, isImportant = false) {
 		if (this.isMuted) return;
 		const resource = resourceManager.getResource(name);
-
 		if (name === 'bgSound') {
 			resource.volume = this.musicVolume;
 			resource.currentTime = 0;
 			resource.play();
 			return;
 		}
-
 		if (isImportant || this.playingEffectsCount < 10) {
 			const effectAudio = resource;
 			effectAudio.volume = this.sfxVolume;
 			effectAudio.currentTime = 0;
 			effectAudio.play();
-
 			const onEnded = () => {
 				this.playingEffectsCount -= 1;
 				effectAudio.removeEventListener('ended', onEnded);
 			};
-
 			effectAudio.addEventListener('ended', onEnded);
-
 			this.playingEffectsCount += 1;
 		}
 	}

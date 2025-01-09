@@ -19,11 +19,11 @@
 
 <section>
 	{#each entityManager.loot as loot (loot.id)}
-		<DynamicEntity entity={loot} --z-index={5} />
+		<DynamicEntity entity={loot} --z-index={11} />
 	{/each}
 
 	{#each entityManager.projectiles as projectile (projectile.id)}
-		<DynamicEntity entity={projectile} />
+		<DynamicEntity entity={projectile} --z-index={12} />
 	{/each}
 
 	{#each entityManager.enemies as enemy (enemy.id)}
@@ -32,15 +32,17 @@
 
 	<div class="towers">
 		{#each entityManager.topTowers as tower, index (tower.id)}
-			<StaticEntity
-				entity={tower}
-				onclick={onclick(tower)}
-				--cursor={'url(/cursor-hammer.svg), auto'}
-				--z-index={10}
-				--pointer-events={'auto'}
-				--margin-left={index === 0 ? '12px' : '0'}
-				--margin-right={index === 1 ? '12px' : '0'}
-			/>
+			<div class="tower-wrapper">
+				<StaticEntity
+					entity={tower}
+					onclick={onclick(tower)}
+					--cursor={'url(/cursor-hammer.svg), auto'}
+					--z-index={10}
+					--pointer-events={'auto'}
+					--margin-left={index === 0 ? '12px' : '0'}
+					--margin-right={index === 1 ? '12px' : '0'}
+				/>
+			</div>
 		{/each}
 	</div>
 
@@ -50,15 +52,17 @@
 
 	<div class="towers">
 		{#each entityManager.bottomTowers as tower, index (tower.id)}
-			<StaticEntity
-				entity={tower}
-				onclick={onclick(tower)}
-				--cursor={'url(/cursor-hammer.svg), auto'}
-				--z-index={10}
-				--pointer-events={'auto'}
-				--margin-left={index === 0 ? '12px' : '0'}
-				--margin-right={index === 1 ? '12px' : '0'}
-			/>
+			<div class="tower-wrapper">
+				<StaticEntity
+					entity={tower}
+					onclick={onclick(tower)}
+					--cursor={'url(/cursor-hammer.svg), auto'}
+					--z-index={10}
+					--pointer-events={'auto'}
+					--margin-left={index === 0 ? '12px' : '0'}
+					--margin-right={index === 1 ? '12px' : '0'}
+				/>
+			</div>
 		{/each}
 	</div>
 </section>
@@ -84,14 +88,16 @@
 		width: 100%;
 		height: 100%;
 		display: flex;
-		justify-content: space-between;
 		align-items: center;
-		padding: 0 40px;
+		justify-content: center;
+	}
 
-		/* display: grid;
-		grid-template-columns: 1fr 1fr; */
-		/* gap: 60px; */
-		/* padding: 100px; */
+	.tower-wrapper {
+		width: 100%;
+		height: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 
 	.throne {
@@ -122,8 +128,7 @@
 		}
 
 		.towers {
-			gap: 20px;
-			padding: 0 20px 0 20px;
+			gap: 60px;
 		}
 	}
 </style>
