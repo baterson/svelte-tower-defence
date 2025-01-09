@@ -1,6 +1,6 @@
 <script>
 	import { lootTracker } from '$lib/store/LootTracker.svelte';
-
+	import Loot from './Gui/Loot.svelte';
 	let isAnimated = $derived(lootTracker.playLowLootAnimation);
 </script>
 
@@ -11,7 +11,8 @@
 		lootTracker.unsetAnimation('LowLoot');
 	}}
 >
-	Loot: {lootTracker.collectedLoot}
+	<Loot />
+	{lootTracker.collectedLoot}
 </div>
 
 <style>

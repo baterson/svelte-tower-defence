@@ -2,9 +2,11 @@ import * as Enemies from './enemies';
 import * as Towers from './towers';
 import * as Projectiles from './projectiles';
 import { Throne } from './Throne';
+import { Loot } from './Loot';
 
 export const animations = {
 	Throne,
+	Loot,
 	...Enemies,
 	...Towers,
 	...Projectiles

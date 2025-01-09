@@ -85,7 +85,7 @@ export const projectiles = {
 		height: 19,
 		initialState: 'FollowTarget',
 		stateToAnimation: {
-			FollowTarget: 'FireballFollow'
+			FollowTarget: 'Loot'
 		},
 		scale: 1,
 		stats: {

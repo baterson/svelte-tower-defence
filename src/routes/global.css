@@ -2,4 +2,14 @@ body {
 	-webkit-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
+	font-family: 'Astro Space', sans-serif;
+}
+@font-face {
+	font-family: 'Astro Space';
+	src:
+		url('/font/AstroSpace-0Wl3o.otf') format('opentype'),
+		url('/font/AstroSpace-0Wl3o.ttf') format('truetype');
+	font-weight: 200;
+	font-style: normal;
+	font-display: swap;
 }
