@@ -2,23 +2,18 @@
 	import GameArea from '$lib/components/GameArea.svelte';
 	import { screen } from '$lib/store/Screen.svelte';
 	import { Vector2 } from '$lib/store/Vector2.svelte';
-
-	import { Game } from '$lib/store/Game.svelte';
 	import { managers } from '$lib/store/managers.svelte';
 	// import Dialog from '$components/Dialog.svelte';
 	// import BackDrop from '$components/BackDrop.svelte';
-	import BackgroundContainer from '$lib/components/BackgroundContainer.svelte';
-	import PauseIcon from '$lib/components/PauseIcon.svelte';
 	import { lootTracker } from '$lib/store/LootTracker.svelte';
-	import Loot from '$lib/components/Loot.svelte';
 	import WinLoseScreen from '$lib/components/Gui/WinLoseScreen.svelte';
 	import StartScreen from '$lib/components/Gui/StartScreen.svelte';
+	import { onMount, tick } from 'svelte';
+	import { game } from '$lib/store/Game.svelte';
 	import PauseScreen from '$lib/components/Gui/PauseScreen.svelte';
-	import { onMount } from 'svelte';
-
-	let game = $state(null);
-	let isGameStarted = $state(false);
-	let isPaused = $state(false);
+	import PauseIcon from '$lib/components/PauseIcon.svelte';
+	import BackgroundContainer from '$lib/components/BackgroundContainer.svelte';
+	import Loot from '$lib/components/Loot.svelte';
 
 	const gameLoop = $derived(managers.get('gameLoop'));
 	const stageManager = $derived(managers.get('stageManager'));
@@ -27,27 +22,6 @@
 		window.e = () => managers.get('entityManager');
 		window.s = () => screen;
 	});
-
-	const startGame = () => {
-		game = new Game();
-		game.start();
-		isGameStarted = true;
-	};
-	const pauseGame = () => {
-		gameLoop.pause();
-		isPaused = true;
-		soundManager.setMusicVolume(0.02);
-	};
-	const resumeGame = () => {
-		gameLoop.resume();
-		isPaused = false;
-		soundManager.setMusicVolume(0.06);
-	};
-	const restartGame = () => {
-		game.restart();
-		gameLoop.resume();
-		isPaused = false;
-	};
 
 	const handleGameClick = (e) => {
 		lootTracker.spendLoot({
@@ -73,18 +47,21 @@
 
 <!-- <Dialog /> -->
 <!-- <BackDrop /> -->
+{#if !game.isStarted}
+	<StartScreen onStart={() => game.start()} />
+{:else if stageManager.stageResult}
+	<WinLoseScreen onRestart={() => game.restart()} />
+{:else if gameLoop.pauseState}
+	<PauseScreen onResume={() => gameLoop.resume()} onRestart={() => game.restart()} />
+{/if}
 
 <div class="window-wrapper">
-	{#if !isGameStarted}
-		<StartScreen onStart={startGame} />
-	{:else if stageManager.isGameOver}
-		<WinLoseScreen onRestart={restartGame} />
-	{:else if game}
+	{#if game.isStarted}
 		<div class="wrapper">
 			<BackgroundContainer stageNumber={stageManager.stageNumber} />
 			<div class="time">Stage {managers.get('stageManager').stageNumber + 1}</div>
 			<Loot />
-			<button class="btn-pause" onclick={pauseGame}><PauseIcon /></button>
+			<button class="btn-pause" onclick={() => gameLoop.pause()}><PauseIcon /></button>
 			<div
 				onclick={handleGameClick}
 				bind:offsetHeight={screen.gameAreaHeight}
@@ -94,9 +71,6 @@
 			>
 				<GameArea />
 			</div>
-			{#if isPaused}
-				<PauseScreen onResume={resumeGame} onRestart={restartGame} />
-			{/if}
 		</div>
 	{/if}
 </div>

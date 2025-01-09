@@ -35,6 +35,12 @@ export class GameLoop {
 		requestAnimationFrame(this.loop);
 	}
 
+	reset() {
+		this.previousTime = 0;
+		this.elapsedTime = 0;
+		this.accumulator = 0;
+	}
+
 	loop(currentTime: number) {
 		if (this.pauseState) {
 			this.previousTime = currentTime;

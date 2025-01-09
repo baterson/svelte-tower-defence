@@ -9,29 +9,49 @@ import { SoundManager } from './SoundManager.svelte';
 import { lootTracker } from './LootTracker.svelte';
 
 export class Game {
-	constructor() {
-		managers.init(initManagers());
-
-		// const stageManager = managers.get('stageManager');
-		// stageManager.init();
-	}
+	isStarted = $state(false);
 
 	update = async (deltaTime) => {
 		managers.update(deltaTime);
 	};
 
+	// init = () => {
+	// 	managers.setup(setupManagers());
+	// };
+
 	start = () => {
-		const gameLoop = managers.get('gameLoop');
-		gameLoop.start(this.update);
-		const soundManager = managers.get('soundManager');
+		managers.setup(setupManagers());
+
+		this.isStarted = true;
+		const { gameLoop, soundManager, stageManager } = managers.get([
+			'gameLoop',
+			'soundManager',
+			'stageManager'
+		]);
+
+		stageManager.init();
 		soundManager.init();
+
+		gameLoop.start(this.update);
+
 		soundManager.play('bgSound');
 	};
 
 	restart = () => {
-		initManagers();
+		const { entityManager, gameLoop, soundManager, stageManager } = managers.get([
+			'entityManager',
+			'gameLoop',
+			'soundManager',
+			'stageManager'
+		]);
 
+		gameLoop.reset();
+		entityManager.reset();
+		stageManager.reset();
+		soundManager.reset();
 		lootTracker.reset();
+
+		gameLoop.resume();
 
 		// const { entityManager, stageManager, soundManager, gameLoop } = managers.get([
 		// 	'entityManager',
@@ -52,7 +72,7 @@ export class Game {
 	};
 }
 
-const initManagers = () => {
+const setupManagers = () => {
 	managers.background = new Background();
 	managers.collisionManager = new CollisionManager();
 	managers.entityManager = new EntityManager();
@@ -64,3 +84,5 @@ const initManagers = () => {
 
 	return managers;
 };
+
+export const game = new Game();

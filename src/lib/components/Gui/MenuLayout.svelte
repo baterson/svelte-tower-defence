@@ -6,6 +6,7 @@
 
 <style>
 	.menu-container {
+		position: fixed;
 		width: 100dvw;
 		height: 100dvh;
 		display: flex;

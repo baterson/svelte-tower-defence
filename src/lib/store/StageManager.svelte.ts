@@ -5,28 +5,6 @@ import { Vector2 } from './Vector2.svelte';
 import { screen } from '$lib/store/Screen.svelte';
 import type { Entity } from './Entity.svelte';
 
-// const spawnZones = $derived({
-// 	top: [
-// 		{ x: screen.width * 0.1, y: 20 },
-// 		{ x: screen.width * 0.3, y: 20 },
-// 		{ x: screen.width * 0.5, y: 20 },
-// 		{ x: screen.width * 0.7, y: 20 },
-// 		{ x: screen.width * 0.9, y: 20 }
-// 	],
-// 	left: [
-// 		{ x: -20, y: 50 },
-// 		{ x: -20, y: 80 },
-// 		{ x: -20, y: 110 },
-// 		{ x: -20, y: 140 }
-// 	],
-// 	right: [
-// 		{ x: screen.width + 20, y: 50 },
-// 		{ x: screen.width + 20, y: 80 },
-// 		{ x: screen.width + 20, y: 110 },
-// 		{ x: screen.width + 20, y: 140 }
-// 	]
-// });
-
 const spawnZones = $derived({
 	top: [
 		{ x: screen.gameAreaWidth * 0.1, y: 20 },
@@ -73,8 +51,7 @@ export class StageManager {
 	stageStartTime = $state(0);
 	commonSpawnCd;
 	eliteSpawnCd;
-	isGameOver = $state(false);
-	isWin = $state(false);
+	stageResult = $state<'win ' | 'lose' | ''>('');
 
 	init = () => {
 		const gameLoop = managers.get('gameLoop');
@@ -90,7 +67,9 @@ export class StageManager {
 		this.commonSpawnCd = null;
 		this.eliteSpawnCd = null;
 		this.stageNumber = 0;
-		this.isGameOver = false;
+		this.stageResult = '';
+
+		this.init();
 	}
 
 	update = (deltaTime: number) => {
@@ -108,8 +87,7 @@ export class StageManager {
 
 	spawnTowers() {
 		['IceTower', 'FireTower', 'PoisonTower', 'ThunderTower'].forEach((name, index) => {
-			const tower = this.spawnEntity(name, new Vector2(0, 0));
-			tower.staticSlot = index;
+			this.spawnEntity(name, new Vector2(0, 0));
 		});
 	}
 
@@ -144,9 +122,9 @@ export class StageManager {
 			target: throne
 		});
 	}
-	gameOver(isWin) {
-		this.isGameOver = true;
-		this.isWin = isWin;
+	gameOver(result) {
+		this.stageResult = result;
+
 		const gameLoop = managers.get('gameLoop');
 		gameLoop.pause();
 	}
@@ -169,7 +147,7 @@ export class StageManager {
 			this.commonSpawnCd = gameLoop.setCD(this.stageConfig.spawnDelays.common, true);
 			this.eliteSpawnCd = gameLoop.setCD(this.stageConfig.spawnDelays.elite, false);
 		} else {
-			this.gameOver(true);
+			this.gameOver('win');
 		}
 	}
 

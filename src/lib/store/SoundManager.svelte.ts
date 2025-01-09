@@ -11,6 +11,10 @@ export class SoundManager {
 		this.isReady = true;
 	}
 
+	reset() {
+		this.restartBgMusic();
+	}
+
 	setMusicVolume(volume: number) {
 		this.musicVolume = volume;
 		const bgSound = this.sounds['bgSound'];

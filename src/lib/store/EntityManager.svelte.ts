@@ -18,6 +18,10 @@ export class EntityManager {
 		this.entities.forEach((entity) => entity.update(deltaTime));
 	};
 
+	reset = () => {
+		this.entities = [];
+	};
+
 	filterByName(name: string | string[]): Entity[] {
 		return this.entities.filter((entity) => {
 			if (Array.isArray(name)) {

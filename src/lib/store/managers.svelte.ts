@@ -1,7 +1,7 @@
 export class Managers {
 	managers = $state({});
 
-	init = (managers: any) => {
+	setup = (managers: any) => {
 		this.managers = managers;
 	};
 
