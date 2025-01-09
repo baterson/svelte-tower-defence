@@ -51,6 +51,20 @@ export class EntityManager {
 
 		return validTargets[index];
 	}
+	findNearestEntities(source: Entity, targets: Entity[], count: number = 3): Entity[] | undefined {
+		const validTargets = targets.filter((target) => target.isInteractable);
+
+		if (validTargets.length === 0) return undefined;
+
+		const targetWithDistances = validTargets.map((target) => ({
+			target,
+			distance: source.position.distance(target.position)
+		}));
+		targetWithDistances.sort((a, b) => a.distance - b.distance);
+		const neartstCount = Math.min(count, targetWithDistances.length);
+
+		return targetWithDistances.slice(0, neartstCount).map((target) => target.target);
+	}
 
 	findByPosition(position: Vector2): Entity[] | [] {
 		const boundingBox = boundingBoxFromPoint(position, 100, 100);
