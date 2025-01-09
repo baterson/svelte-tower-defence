@@ -49,7 +49,7 @@ export class Shoot extends BaseState {
 			}
 		}
 
-		managers.get('soundManager').play('pickUp');
+		managers.get('soundManager').play('towerShoot');
 	}
 
 	// shoot() {

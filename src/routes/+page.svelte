@@ -37,10 +37,12 @@
 	const pauseGame = () => {
 		gameLoop.pause();
 		isPaused = true;
+		soundManager.setMusicVolume(0.02);
 	};
 	const resumeGame = () => {
 		gameLoop.resume();
 		isPaused = false;
+		soundManager.setMusicVolume(0.06);
 	};
 	const restartGame = () => {
 		game.restart();

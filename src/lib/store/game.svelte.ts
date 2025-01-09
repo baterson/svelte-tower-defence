@@ -36,9 +36,8 @@ export class Game {
 		stageManager.stageNumber = 0;
 		stageManager.init();
 
-		if (!soundManager.isMuted) {
-			soundManager.play('bgSound');
-		}
+		soundManager.restartBgMusic();
+		soundManager.setMusicVolume(0.06);
 	};
 }
 

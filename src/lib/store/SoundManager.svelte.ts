@@ -1,7 +1,7 @@
 import { sounds } from '$lib/sound';
 export class SoundManager {
 	sounds = $state({});
-	musicVolume = $state(0.02);
+	musicVolume = $state(0.06);
 	sfxVolume = $state(0.09);
 	isMuted = $state(false);
 	isReady = $state(false);
@@ -9,6 +9,19 @@ export class SoundManager {
 	init() {
 		this.loadSounds();
 		this.isReady = true;
+	}
+
+	setMusicVolume(volume: number) {
+		this.musicVolume = volume;
+		const bgSound = this.sounds['bgSound'];
+		bgSound.audio.volume = volume;
+	}
+	restartBgMusic() {
+		const bgSound = this.sounds['bgSound'];
+		if (bgSound && !this.isMuted) {
+			bgSound.audio.currentTime = 0;
+			bgSound.audio.play();
+		}
 	}
 
 	loadSounds() {
@@ -30,14 +43,15 @@ export class SoundManager {
 	}
 
 	play(name: string) {
-		// const sound = this.sounds[name];
-		// if (sound.type === 'effect') {
-		// 	const effectAudio = new Audio(sound.audio.src);
-		// 	effectAudio.volume = this.sfxVolume;
-		// 	effectAudio.play();
-		// } else {
-		// 	sound.audio.play();
-		// }
+		if (this.isMuted) return;
+		const sound = this.sounds[name];
+		if (sound.type === 'effect') {
+			const effectAudio = new Audio(sound.audio.src);
+			effectAudio.volume = this.sfxVolume;
+			effectAudio.play();
+		} else {
+			sound.audio.play();
+		}
 	}
 
 	pause(name: string) {
