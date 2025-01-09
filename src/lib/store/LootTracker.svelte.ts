@@ -24,8 +24,9 @@ export class LootTracker {
 
 		if (action.type === 'upgrade') {
 			const { tower } = action.payload;
-			tower.state.setState('Upgrade');
+			this.collectedLoot -= toSpend;
 
+			tower.state.setState('Upgrade');
 			this.playAnimation('TowerUpgrade');
 		} else if (action.type === 'click') {
 			const { collisionManager, stageManager, soundManager } = managers.get([
@@ -34,19 +35,21 @@ export class LootTracker {
 				'soundManager'
 			]);
 			const { offset } = action.payload;
-			// spawn projectile in explossion
 
-			const boundingBox = boundingBoxFromPoint(offset, 20, 20);
+			const boundingBox = boundingBoxFromPoint(offset, 60, 60);
 			const enemies = collisionManager.filterEnemiesByBounds(boundingBox);
 
 			stageManager.spawnEntity('ClickExplode', offset);
 			soundManager.play('clickEnemy');
+
 			enemies.forEach((enemy) => {
 				enemy.state.setState('Die');
 			});
-		}
 
-		this.collectedLoot -= toSpend;
+			if (enemies.length > 0) {
+				this.collectedLoot -= toSpend;
+			}
+		}
 	}
 
 	receiveLoot(loot) {

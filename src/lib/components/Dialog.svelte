@@ -42,6 +42,5 @@
 		background-color: gainsboro;
 		border: 2px solid purple;
 		padding: 40px;
-		z-index: 1001;
 	}
 </style>

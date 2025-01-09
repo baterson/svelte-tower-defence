@@ -1,4 +1,6 @@
 <script>
+	import './global.css';
+
 	import GameArea from '$lib/components/GameArea.svelte';
 	import { screen } from '$lib/store/Screen.svelte';
 	import { Vector2 } from '$lib/store/Vector2.svelte';
@@ -26,7 +28,7 @@
 	const handleGameClick = (e) => {
 		lootTracker.spendLoot({
 			type: 'click',
-			payload: { offset: new Vector2(e.offsetX, e.offsetY) }
+			payload: { offset: new Vector2(e.clientX, e.clientY) }
 		});
 	};
 </script>
@@ -55,15 +57,14 @@
 	<PauseScreen onResume={() => gameLoop.resume()} onRestart={() => game.restart()} />
 {/if}
 
-<div class="window-wrapper">
-	{#if game.isStarted}
+{#if game.isStarted}
+	<div class="window-wrapper" onclick={handleGameClick}>
 		<div class="wrapper">
 			<BackgroundContainer stageNumber={stageManager.stageNumber} />
 			<div class="time">Stage {managers.get('stageManager').stageNumber + 1}</div>
 			<Loot />
 			<button class="btn-pause" onclick={() => gameLoop.pause()}><PauseIcon /></button>
 			<div
-				onclick={handleGameClick}
 				bind:offsetHeight={screen.gameAreaHeight}
 				bind:offsetWidth={screen.gameAreaWidth}
 				class="game-container"
@@ -72,8 +73,8 @@
 				<GameArea />
 			</div>
 		</div>
-	{/if}
-</div>
+	</div>
+{/if}
 
 <style>
 	.window-wrapper {
@@ -92,7 +93,7 @@
 		border: none;
 		font-size: 16px;
 		background: none;
-		z-index: 1000;
+		z-index: 10;
 		-webkit-tap-highlight-color: transparent;
 		user-select: none;
 		-webkit-touch-callout: none;
@@ -106,13 +107,12 @@
 		position: absolute;
 		top: 0;
 		left: 0;
-		z-index: 3;
+		z-index: 10;
 		font-size: 40px;
 		color: white;
 	}
 
 	.wrapper {
-		z-index: 3;
 		position: relative;
 		display: flex;
 		justify-content: center;
@@ -127,7 +127,6 @@
 		/* width: 680px; */
 		width: 100%;
 		height: 100dvh;
-		z-index: 330;
 		will-change: transform;
 	}
 

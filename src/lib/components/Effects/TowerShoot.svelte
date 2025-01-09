@@ -46,7 +46,6 @@
 
 <style>
 	.shoot-effect {
-		z-index: 100;
 		position: absolute;
 		/* transform: translate(-50%, -50%); */
 		width: 16px;

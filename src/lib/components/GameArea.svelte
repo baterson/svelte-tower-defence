@@ -1,7 +1,7 @@
 <script>
 	import { managers } from '$lib/store/managers.svelte';
-	import DynamicEntity from './Entities/DynamicEntity.svelte';
-	import StaticEntity from './Entities/StaticEntity.svelte';
+	import DynamicEntity from './DynamicEntity.svelte';
+	import StaticEntity from './StaticEntity.svelte';
 	import { lootTracker } from '$lib/store/LootTracker.svelte';
 
 	const entityManager = $derived(managers.get('entityManager'));
@@ -19,7 +19,7 @@
 
 <section>
 	{#each entityManager.loot as loot (loot.id)}
-		<DynamicEntity entity={loot} />
+		<DynamicEntity entity={loot} --z-index={5} />
 	{/each}
 
 	{#each entityManager.projectiles as projectile (projectile.id)}

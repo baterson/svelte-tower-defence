@@ -7,12 +7,18 @@ export class EntityManager {
 	entities = $state<Entity[]>([]);
 
 	enemies = $derived(this.entities.filter((entity) => entity.type === 'enemy'));
+	livingEnemies = $derived(this.enemies.filter((entity) => entity.isInteractable));
+
 	towers = $derived(this.entities.filter((entity) => entity.type === 'tower'));
 	topTowers = $derived(this.towers.filter((tower, index) => index <= 1));
 	bottomTowers = $derived(this.towers.filter((tower, index) => index >= 2));
 	projectiles = $derived(this.entities.filter((entity) => entity.type === 'projectile'));
+
+	livingProjectiles = $derived(this.projectiles.filter((entity) => entity.isInteractable));
 	throne = $derived(this.entities.find((entity) => entity.type === 'throne'));
+
 	loot = $derived(this.entities.filter((entity) => entity.type === 'loot'));
+	livingLoot = $derived(this.loot.filter((entity) => entity.isInteractable));
 
 	update = (deltaTime: number) => {
 		this.entities.forEach((entity) => entity.update(deltaTime));

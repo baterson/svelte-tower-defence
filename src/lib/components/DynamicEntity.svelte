@@ -1,7 +1,6 @@
 <script>
 	import { managers } from '$lib/store/managers.svelte';
-	import Effect from '../Effect.svelte';
-	import AnimationImage from '$lib/components/AnimationImage.svelte';
+	import Effect from './Effect.svelte';
 	import { Vector2 } from '$lib/store/Vector2.svelte';
 	import { getAnimation } from '$lib/config/animations';
 
@@ -46,7 +45,7 @@
 	img {
 		position: absolute;
 		pointer-events: var(--pointer-events, none);
-		z-index: var(--z-index, 12);
+		z-index: var(--z-index, 5);
 
 		will-change: transform;
 		backface-visibility: hidden;

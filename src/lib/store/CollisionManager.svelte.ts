@@ -1,21 +1,21 @@
 import { managers } from './managers.svelte';
 import type { Entity } from './Entity.svelte';
 import { screen } from '$lib/store/Screen.svelte';
-import { checkRectCollision, checkRotatedRectIntersection, type Rect2D } from '$lib/utils/math';
+import { checkRectCollision, type Rect2D } from '$lib/utils/math';
 
 export class CollisionManager {
 	update() {
 		const entityManager = managers.get('entityManager');
 
 		this.handleEnemyCollisions(
-			entityManager.enemies.filter((e) => e.isInteractable),
-			entityManager.projectiles.filter((p) => p.isInteractable),
+			entityManager.livingEnemies,
+			entityManager.livingProjectiles,
 			entityManager.throne
 		);
 
-		this.handleProjectileCollisions(entityManager.projectiles, entityManager.enemies);
+		this.handleProjectileCollisions(entityManager.livingProjectiles);
 
-		this.handleLootCollisions(entityManager.loot, entityManager.throne);
+		this.handleLootCollisions(entityManager.livingLoot, entityManager.throne);
 	}
 
 	handleEnemyCollisions(enemies: Entity[], projectiles: Entity[], throne: Entity): void {
@@ -27,41 +27,29 @@ export class CollisionManager {
 				}
 			}
 
-			// console.log('enemy', enemy.position?.x, enemy.position?.y);
-
 			if (this.checkCollision(enemy, throne)) {
-				// debugger;
 				enemy.onCollide(throne);
 				throne.onCollide(enemy);
 			}
 		}
 	}
 
-	handleProjectileCollisions(projectiles: Entity[], enemies: Entity[]): void {
-		for (const projectile of projectiles.filter((p) => p.isInteractable)) {
+	handleProjectileCollisions(projectiles: Entity[]): void {
+		for (const projectile of projectiles) {
 			if (!this.checkScreenBounds(projectile)) {
 				projectile.onCollide('OUT_OF_BOUNDS');
 				continue;
 			}
-
-			// for (const enemy of enemies.filter((e) => e.isInteractable)) {
-			// 	if (this.checkCollision(projectile, enemy)) {
-			// 		projectile.onCollide(enemy);
-			// 		enemy.onCollide(projectile);
-			// 	}
-			// }
 		}
 	}
 
 	handleLootCollisions(lootEntities, throne): void {
-		lootEntities
-			.filter((e) => e.isInteractable)
-			.forEach((loot) => {
-				if (this.checkCollision(loot, throne)) {
-					loot.onCollide(throne);
-					throne.onCollide(loot);
-				}
-			});
+		lootEntities.forEach((loot) => {
+			if (this.checkCollision(loot, throne)) {
+				loot.onCollide(throne);
+				throne.onCollide(loot);
+			}
+		});
 	}
 
 	checkCollision(entity1: Entity, entity2: Entity): boolean {
@@ -82,7 +70,9 @@ export class CollisionManager {
 	filterEnemiesByBounds = (bounds) => {
 		const entityManager = managers.get('entityManager');
 
-		return entityManager.enemies.filter((entity) => checkRectCollision(entity.boundingBox, bounds));
+		return entityManager.livingEnemies.filter((entity) =>
+			checkRectCollision(entity.boundingBox, bounds)
+		);
 	};
 
 	checkBounds(entity: Entity, boundsRect: Rect2D): boolean {

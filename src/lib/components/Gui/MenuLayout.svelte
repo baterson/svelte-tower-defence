@@ -13,7 +13,7 @@
 		justify-content: center;
 		align-items: center;
 		background: radial-gradient(circle at center, #5b1578 0%, #1c0334 80%);
-		z-index: 1000;
+		z-index: 10;
 		flex-direction: column;
 	}
 </style>

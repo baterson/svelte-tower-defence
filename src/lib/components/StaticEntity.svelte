@@ -1,8 +1,7 @@
 <script>
 	import { managers } from '$lib/store/managers.svelte';
 	import { screen } from '$lib/store/Screen.svelte';
-	import Effect from '../Effect.svelte';
-	import AnimationImage from '$lib/components/AnimationImage.svelte';
+	import Effect from './Effect.svelte';
 	import { Vector2 } from '$lib/store/Vector2.svelte';
 	import { getAnimation } from '$lib/config/animations';
 
@@ -46,7 +45,7 @@
 <style>
 	img {
 		pointer-events: var(--pointer-events, none);
-		z-index: var(--z-index, 12);
+		z-index: var(--z-index, 6);
 
 		margin-right: var(--margin-right, 0);
 		margin-left: var(--margin-left, 0);
