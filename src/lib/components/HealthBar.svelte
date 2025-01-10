@@ -1,5 +1,5 @@
 <script>
-	import { managers } from '$lib/store/managers.svelte';
+	import { cursor } from '$lib/store/Cursor.svelte';
 
 	const { entity } = $props();
 
@@ -13,23 +13,10 @@
 
 	// Generate array of segment markers
 	const segmentMarkers = Array.from({ length: segments - 1 }, (_, i) => (i + 1) * (100 / segments));
-
-	// First segment width (20% of total)
-	const firstSegmentWidth = 100 / segments;
-
-	let manager = managers.get('uiManager');
-	let hightlightHealth = $derived(manager.hightlightHealth);
 </script>
 
-<div class="health-bar-container">
+<div class="health-bar-container" style:cursor={cursor.get('arrow')}>
 	<div class="health-bar-background">
-		{#if hightlightHealth}
-			<div
-				class="first-segment-highlight"
-				style:width="{firstSegmentWidth}%"
-				onanimationend={() => manager.hightlightThroneHealth(false)}
-			/>
-		{/if}
 		{#each segmentMarkers as marker}
 			<div class="segment-marker" style:left="{marker}%" />
 		{/each}
@@ -45,20 +32,19 @@
 
 <style>
 	.health-bar-container {
+		bottom: 12px;
 		position: absolute;
-		bottom: -60px;
-		left: 0;
-		width: 100%;
+		width: var(--width);
+		height: 24px;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		gap: 5px;
 	}
 
 	.health-bar-background {
 		position: relative;
 		width: 100%;
-		height: 30px;
+		height: 40px;
 		background-color: rgba(0, 0, 0, 0.5);
 		border-radius: 10px;
 		overflow: hidden;
@@ -107,6 +93,12 @@
 		background-color: rgba(195, 116, 20, 0.8);
 		z-index: 2;
 		animation: flashOnce 1s ease-out forwards;
+	}
+
+	@media (max-width: 768px) {
+		.health-bar-container {
+			bottom: 40px;
+		}
 	}
 
 	@keyframes flashOnce {

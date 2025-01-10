@@ -4,6 +4,7 @@
 	import DynamicEntity from './DynamicEntity.svelte';
 	import StaticEntity from './StaticEntity.svelte';
 	import { lootTracker } from '$lib/store/LootTracker.svelte';
+	import HealthBar from './HealthBar.svelte';
 
 	const entityManager = $derived(managers.get('entityManager'));
 
@@ -49,6 +50,7 @@
 
 	<div class="throne">
 		<StaticEntity entity={entityManager.throne} --cursor={cursor.get('arrow')} />
+		<HealthBar entity={entityManager.throne} --width={`${entityManager.throne.width}px`} />
 	</div>
 
 	<div class="towers">
@@ -76,9 +78,6 @@
 		justify-content: center;
 		align-items: center;
 		align-items: center;
-		/* padding: 0 40px 0 40px; */
-		/* height: 100dvh;
-		width: 100dvw; */
 		width: 100%;
 		height: 100%;
 		will-change: transform;
@@ -102,25 +101,15 @@
 	}
 
 	.throne {
-		font-size: 94px;
-		width: 100%;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-	}
-
-	/* section {
 		position: relative;
-		flex: 1;
+		width: 100%;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-		width: 100%;
-		height: 100%;
-		will-change: transform;
-		z-index: 4;
-	} */
+
+		gap: -10px;
+	}
 
 	@media (max-width: 768px) {
 		section {

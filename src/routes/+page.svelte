@@ -92,7 +92,6 @@
 <style>
 	.btn-pause {
 		position: absolute;
-		/* cursor: url('/cursor-pointer.svg'), auto; */
 		top: 20px;
 		right: 20px;
 		border: none;
@@ -102,15 +101,6 @@
 		-webkit-tap-highlight-color: transparent;
 		user-select: none;
 		-webkit-touch-callout: none;
-	}
-
-	.time {
-		position: absolute;
-		top: 0;
-		left: 0;
-		z-index: 10;
-		font-size: 40px;
-		color: white;
 	}
 
 	.wrapper {
