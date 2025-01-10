@@ -9,9 +9,8 @@
 	const entityManager = $derived(managers.get('entityManager'));
 
 	const onclick = (tower) => (e) => {
-		// move to upgrade
 		e.stopPropagation();
-		if (tower.upgradeLevel === 2 || !tower.isUpgradable) {
+		if (tower.upgradeLevel === 2 || !tower.isUpgradable || cursor.inAnimation) {
 			return;
 		}
 

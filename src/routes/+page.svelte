@@ -15,18 +15,11 @@
 	import Loot from '$lib/components/Loot.svelte';
 	import Pause from '$lib/components/Gui/Pause.svelte';
 	import { preloadUrls } from '$lib/utils/preload';
-
 	import { soundManager } from '$lib/store/SoundManager.svelte';
-
 	import { cursor } from '$lib/store/Cursor.svelte';
 
 	const gameLoop = $derived(managers.get('gameLoop'));
 	const stageManager = $derived(managers.get('stageManager'));
-
-	onMount(() => {
-		window.e = () => managers.get('entityManager');
-		window.s = () => screen;
-	});
 
 	const handleGameClick = (e) => {
 		lootTracker.spendLoot({
@@ -34,12 +27,14 @@
 			payload: { offset: new Vector2(e.clientX, e.clientY) }
 		});
 	};
+
 	const handlePauseClick = () => {
 		soundManager.play('clickMenu', true);
 		gameLoop.pause();
 	};
+
 	const handlePressKey = (e) => {
-		if (e.key === ' ' || e.key === 'Escape') {
+		if (e.key === 'Escape') {
 			if (gameLoop.isPaused) {
 				gameLoop.resume();
 			} else {
@@ -51,8 +46,6 @@
 	onMount(() => {
 		soundManager.preload();
 	});
-
-	// todo: Put effect for sound change based by pause here
 </script>
 
 <svelte:window
@@ -66,9 +59,6 @@
 		<link rel="preload" as="image" href={image} />
 	{/each}
 </svelte:head>
-
-<!-- <Dialog /> -->
-<!-- <BackDrop /> -->
 
 {#if !game.isStarted}
 	<StartScreen onStart={() => game.start()} />
@@ -122,7 +112,6 @@
 
 	.game-container {
 		position: relative;
-		/* width: 680px; */
 		width: 100%;
 		height: 100dvh;
 		will-change: transform;
