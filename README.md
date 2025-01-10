@@ -1,7 +1,7 @@
 # Svelte Space
 
 A TowerDefence clicker game made with Svelte 5, without canvas.
-Check out [Live demo](https://svelte-tower-defence.vercel.app/)
+[Live demo link](https://svelte-tower-defence.vercel.app/)
 
 Game was made during the [Svelte Hack 2024](https://hack.sveltesociety.dev/2024) hackathon.
 Project team:
