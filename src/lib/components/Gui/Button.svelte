@@ -21,7 +21,8 @@
 		position: relative;
 		padding: 1rem 3rem;
 		font-size: 1.3rem;
-		color: #fff;
+		color: rgba(214, 133, 218);
+
 		background: #3b005f;
 		border: 2px solid #ac82d4;
 		border-radius: 10px;

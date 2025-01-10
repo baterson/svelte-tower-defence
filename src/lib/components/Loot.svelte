@@ -24,7 +24,7 @@
 		left: 10px;
 		color: white;
 		font-size: 34px;
-		z-index: 20;
+		z-index: 10;
 	}
 
 	.isAnimated {
