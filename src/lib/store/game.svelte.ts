@@ -6,6 +6,7 @@ import { UIManager } from './UIManager.svelte';
 import { GameLoop } from './GameLoop.svelte';
 import { managers } from './managers.svelte';
 import { SoundManager } from './SoundManager.svelte';
+import { cursor } from './Cursor.svelte';
 import { lootTracker } from './LootTracker.svelte';
 
 export class Game {
@@ -13,6 +14,7 @@ export class Game {
 
 	update = async (deltaTime) => {
 		managers.update(deltaTime);
+		cursor.update(deltaTime);
 	};
 
 	start = async () => {
@@ -25,7 +27,6 @@ export class Game {
 		]);
 
 		await soundManager.preload();
-
 		stageManager.init();
 
 		gameLoop.start(this.update);

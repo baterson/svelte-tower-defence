@@ -3,8 +3,8 @@ body {
 	-ms-user-select: none;
 	user-select: none;
 	font-family: 'Astro Space', sans-serif;
-	/* cursor: url('/cursor-arrow.svg'), auto !important; */
 }
+
 @font-face {
 	font-family: 'Astro Space';
 	src:

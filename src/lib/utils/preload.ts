@@ -67,7 +67,9 @@ export const preloadUrls = [
 	'/towers/Upgrade0.svg',
 	'/throne.svg',
 
-	'/cursor-hammer.svg',
-	'/cursor-arrow.svg'
-	// '/cursor-pointer.svg'
+	'/cursors/cursor-hammer.svg',
+	'/cursors/cursor-arrow.svg',
+	'/cursors/build0.svg',
+	'/cursors/build1.svg',
+	'/cursors/build2.svg'
 ];

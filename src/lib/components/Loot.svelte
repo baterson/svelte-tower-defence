@@ -1,4 +1,5 @@
 <script>
+	import { cursor } from '$lib/store/Cursor.svelte';
 	import { lootTracker } from '$lib/store/LootTracker.svelte';
 	import Loot from './Gui/Loot.svelte';
 	let isAnimated = $derived(lootTracker.playLowLootAnimation);
@@ -7,6 +8,7 @@
 <div
 	class="loot"
 	class:isAnimated
+	style:cursor={cursor.get('arrow')}
 	onanimationend={(e) => {
 		lootTracker.unsetAnimation('LowLoot');
 	}}

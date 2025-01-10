@@ -1,5 +1,6 @@
 <script>
 	import { managers } from '$lib/store/managers.svelte';
+	import { cursor } from '$lib/store/Cursor.svelte';
 	import DynamicEntity from './DynamicEntity.svelte';
 	import StaticEntity from './StaticEntity.svelte';
 	import { lootTracker } from '$lib/store/LootTracker.svelte';
@@ -36,7 +37,7 @@
 				<StaticEntity
 					entity={tower}
 					onclick={onclick(tower)}
-					--cursor={'url(/cursor-hammer.svg), auto'}
+					--cursor={cursor.get('hammer')}
 					--z-index={10}
 					--pointer-events={'auto'}
 					--margin-left={index === 0 ? '12px' : '0'}
@@ -47,7 +48,7 @@
 	</div>
 
 	<div class="throne">
-		<StaticEntity entity={entityManager.throne} />
+		<StaticEntity entity={entityManager.throne} --cursor={cursor.get('arrow')} />
 	</div>
 
 	<div class="towers">
@@ -56,7 +57,7 @@
 				<StaticEntity
 					entity={tower}
 					onclick={onclick(tower)}
-					--cursor={'url(/cursor-hammer.svg), auto'}
+					--cursor={cursor.get('hammer')}
 					--z-index={10}
 					--pointer-events={'auto'}
 					--margin-left={index === 0 ? '12px' : '0'}

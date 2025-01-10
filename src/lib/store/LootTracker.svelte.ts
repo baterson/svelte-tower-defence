@@ -30,7 +30,7 @@ export class LootTracker {
 			tower.state.setState('Upgrade');
 			this.playAnimation('TowerUpgrade');
 
-			cursor.setType('hammer');
+			cursor.setAnimation('TowerBuildCursor');
 		} else if (action.type === 'click') {
 			const { collisionManager, stageManager, soundManager } = managers.get([
 				'collisionManager',

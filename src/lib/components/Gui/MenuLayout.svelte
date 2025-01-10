@@ -7,7 +7,7 @@
 
 <div
 	class="menu-container"
-	style:cursor={cursor.image}
+	style:cursor={cursor.get('arrow')}
 	in:fade={{ duration: 200 }}
 	out:fade={{ duration: 200 }}
 >

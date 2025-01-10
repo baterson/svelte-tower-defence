@@ -4,7 +4,7 @@
 	const { onclick, disabled, text = '' } = $props();
 </script>
 
-<button style:cursor={cursor.image} {disabled} class="btn" {onclick}>{text}</button>
+<button style:cursor={cursor.get('arrow')} {disabled} class="btn" {onclick}>{text}</button>
 
 <style>
 	.btn {

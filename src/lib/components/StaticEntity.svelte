@@ -1,10 +1,7 @@
 <script>
-	import { managers } from '$lib/store/managers.svelte';
 	import { screen } from '$lib/store/Screen.svelte';
-	import Effect from './Effect.svelte';
 	import { Vector2 } from '$lib/store/Vector2.svelte';
 	import { getAnimation } from '$lib/config/animations';
-	import { cursor } from '$lib/store/Cursor.svelte';
 
 	let { entity, onclick } = $props();
 
@@ -38,7 +35,6 @@
 <img
 	{onclick}
 	style:transform
-	style:cursor={cursor.image}
 	bind:this={node}
 	src={frame}
 	alt="Enemy animation"

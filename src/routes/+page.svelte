@@ -16,7 +16,6 @@
 	import Pause from '$lib/components/Gui/Pause.svelte';
 	import { preloadUrls } from '$lib/utils/preload';
 	import { soundManager } from '$lib/store/SoundManager.svelte';
-	import Cursor from '$lib/components/Cursor.svelte';
 	import { cursor } from '$lib/store/Cursor.svelte';
 
 	const gameLoop = $derived(managers.get('gameLoop'));
@@ -63,8 +62,6 @@
 
 <!-- <Dialog /> -->
 <!-- <BackDrop /> -->
-<!-- <div style:cursor={`url(${cursor.image}), auto;`}></div> -->
-<!-- <Cursor --cursor-image={`url(${cursor.image}), auto; !important`} /> -->
 
 {#if !game.isStarted}
 	<StartScreen onStart={() => game.start()} />
@@ -75,7 +72,7 @@
 {/if}
 
 {#if game.isStarted && soundManager.preloaded}
-	<div class="window-wrapper" onclick={handleGameClick} style:cursor={cursor.image}>
+	<div class="window-wrapper" onclick={handleGameClick} style:cursor={cursor.get('arrow')}>
 		<div class="wrapper">
 			<BackgroundContainer stageNumber={stageManager.stageNumber} />
 			<Loot />

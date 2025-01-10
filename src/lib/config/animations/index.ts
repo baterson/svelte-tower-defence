@@ -1,6 +1,7 @@
 import * as Enemies from './enemies';
 import * as Towers from './towers';
 import * as Projectiles from './projectiles';
+import * as Cursors from './cursors';
 import { Throne } from './Throne';
 import { Loot } from './Loot';
 
@@ -9,7 +10,8 @@ export const animations = {
 	Loot,
 	...Enemies,
 	...Towers,
-	...Projectiles
+	...Projectiles,
+	...Cursors
 };
 
 export const getAnimation = (name: string) => {

@@ -1,36 +1,48 @@
-export const cursors = {
-	arrow: '/cursor-arrow.svg',
-	hammer: '/cursor-hammer.svg'
-};
+import { getAnimation } from '$lib/config/animations';
+import { Animation } from '$lib/store/Animation.svelte';
 
-const animations = {
-	build: '/cursor-arrow.svg',
-	hammer: '/cursor-hammer.svg'
+export const cursors = {
+	arrow: '/cursors/cursor-arrow.svg',
+	hammer: '/cursors/cursor-hammer.svg'
 };
 
 export class Cursor {
-	type = $state('arrow');
-	playBuild = $state(false);
+	animation = $state<Animation>();
 
-	image = $derived(this.getUrl(this.type));
-	animation = $derived(animations[this.type]);
+	arrow = $derived(`url(${cursors.arrow}), auto`);
+	hammer = $derived(`url(${cursors.hammer}), auto`);
 
-	getUrl(type) {
-		return `url(${cursors[type]}), auto`;
+	inAnimation = $derived(this.animation && !this.animation.isComplete);
+	currentFrame = $derived(this.getCurrentFrame());
+
+	update(deltaTime: number) {
+		if (this.inAnimation) {
+			this.animation.update(deltaTime);
+		}
 	}
 
-	setType(type) {
-		this.type = type;
+	get(name) {
+		if (this.inAnimation) {
+			return this.currentFrame;
+		} else {
+			return this[name];
+		}
 	}
 
-	play(animation) {
-		const name = `play${animation}`;
-		this[name] = true;
+	setAnimation(animation: string) {
+		if (!animation) {
+			this.animation = null;
+			return;
+		}
+
+		const animationConfig = getAnimation(animation);
+
+		this.animation = new Animation({ ...animationConfig });
 	}
 
-	stop(animation) {
-		const name = `play${animation}`;
-		this[name] = true;
+	getCurrentFrame() {
+		const { frames } = getAnimation(this.animation.name);
+		return `url(${frames[this.animation.currentFrame]}), auto`;
 	}
 }
 
