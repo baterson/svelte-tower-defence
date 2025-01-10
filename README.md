@@ -3,7 +3,7 @@
 A TowerDefence clicker game made with Svelte 5, without canvas.
 [Live demo link](https://svelte-tower-defence.vercel.app/)  
 
-![image](https://github.com/user-attachments/assets/ede79df0-3b0c-4521-9a4a-afa6a7ea41ed)
+![svelte-tower-defence vercel app-10January2025-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/3083899b-50a0-482d-9878-f2bb880ccb9a)
 
 
 Game was made during the [Svelte Hack 2024](https://hack.sveltesociety.dev/2024) hackathon.  
