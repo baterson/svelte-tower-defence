@@ -72,7 +72,7 @@
 	}
 
 	.title {
-		color: #fff;
+		color: rgba(214, 133, 218);
 		font-weight: bold;
 		font-size: 2rem;
 	}

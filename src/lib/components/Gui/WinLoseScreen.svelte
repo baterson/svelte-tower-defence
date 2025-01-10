@@ -38,13 +38,12 @@
 		align-items: center;
 		justify-content: space-around;
 		height: 100%;
+		color: rgba(214, 133, 218);
 	}
 	h2 {
 		font-size: 2rem;
-		color: white;
 	}
 	h1 {
 		font-size: 4rem;
-		color: white;
 	}
 </style>
