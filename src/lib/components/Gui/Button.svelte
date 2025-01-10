@@ -2,7 +2,7 @@
 	import { cursor } from '$lib/store/Cursor.svelte';
 	import { soundManager } from '$lib/store/SoundManager.svelte';
 
-	const { onclick, disabled, text = '' } = $props();
+	const { onclick, disabled = false, text = '' } = $props();
 
 	const handleClick = () => {
 		if (soundManager?.preloaded) {

@@ -6,7 +6,7 @@
 	import { managers } from '$lib/store/managers.svelte';
 	import { fade, slide } from 'svelte/transition';
 	import { soundManager } from '$lib/store/SoundManager.svelte';
-	import { onMount } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
 
 	const stageManager = $derived(managers.get('stageManager'));
 

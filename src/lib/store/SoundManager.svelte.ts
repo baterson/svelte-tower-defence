@@ -66,7 +66,7 @@ export class SoundManager {
 	};
 
 	reduceBgVolume = () => {
-		this.sounds.bgSound.volume = MUSIC_VOLUME - 0.1;
+		this.sounds.bgSound.volume = MUSIC_VOLUME - 0.2;
 	};
 
 	restoreBgVolume = () => {
