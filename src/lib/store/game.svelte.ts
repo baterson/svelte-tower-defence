@@ -46,7 +46,7 @@ export class Game {
 		gameLoop.reset();
 		entityManager.reset();
 		stageManager.reset();
-		// soundManager.reset();
+		soundManager.reset();
 		lootTracker.reset();
 
 		gameLoop.resume();
