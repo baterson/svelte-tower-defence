@@ -108,6 +108,7 @@
 		height: 100dvh;
 		overflow: hidden;
 		background-color: black;
+		touch-action: none;
 	}
 
 	.game-container {

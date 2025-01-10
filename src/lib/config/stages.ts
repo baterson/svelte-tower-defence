@@ -2,6 +2,7 @@ export const stages = [
 	{
 		commonEnemies: ['PurpleCommon', 'YellowCommon'],
 		time: 60000,
+
 		eliteEnemies: ['RedBlobElite'],
 		spawnDelays: {
 			common: 900,
@@ -23,7 +24,7 @@ export const stages = [
 			elite: 1300
 		},
 		statsAmplify: {
-			health: 1.4,
+			health: 1.2,
 			speed: 1.2,
 			damage: 1.2
 		}
@@ -38,7 +39,7 @@ export const stages = [
 			elite: 1100
 		},
 		statsAmplify: {
-			health: 1.8,
+			health: 1.7,
 			speed: 1.4,
 			damage: 1.5
 		}

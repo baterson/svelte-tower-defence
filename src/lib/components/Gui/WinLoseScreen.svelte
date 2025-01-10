@@ -26,7 +26,12 @@
 			<h2>Enemies killed: {lootTracker.killsEnemy}</h2>
 			<h2>Score: {lootTracker.score}</h2>
 		</div>
-
+		<div class="hint">
+			<h2>Hint:</h2>
+			<p>- Click on an Enemy to kill it</p>
+			<p>- Click on a gray spot to build a Tower</p>
+			<p>- Click on a Tower to upgrade</p>
+		</div>
 		<Button onclick={onRestart} text="Restart" />
 	</div>
 </MenuLayout>
@@ -39,6 +44,9 @@
 		justify-content: space-around;
 		height: 100%;
 		color: rgba(214, 133, 218);
+	}
+	.hint {
+		text-align: center;
 	}
 	h2 {
 		font-size: 2rem;

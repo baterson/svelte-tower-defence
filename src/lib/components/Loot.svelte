@@ -25,6 +25,7 @@
 		color: white;
 		font-size: 34px;
 		z-index: 10;
+		color: rgba(214, 133, 218);
 	}
 
 	.isAnimated {
