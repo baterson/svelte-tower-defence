@@ -7,11 +7,11 @@ const LOOT_MAP = {
 };
 
 export class LootTracker {
-	collectedLoot = $state(5000);
+	collectedLoot = $state(50);
 	playLowLootAnimation = $state(false);
 	playTowerUpgradeAnimation = $state(false);
 	playEnemyClickAnimation = $state(false);
-	score = $state(50);
+	score = $state(100);
 	killsEnemy = $state(0);
 
 	spendLoot(action) {
@@ -58,7 +58,7 @@ export class LootTracker {
 		this.killsEnemy++;
 	}
 	reset() {
-		this.collectedLoot = 50;
+		this.collectedLoot = 100;
 		this.killsEnemy = 0;
 	}
 

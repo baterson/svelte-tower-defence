@@ -1,12 +1,11 @@
 const sounds = {
 	bgSound: '/sound/bgSound.mp3',
 	effects: {
-		pickUp: '/sound/sfx/pickUp.wav',
-		shoot: '/sound/sfx/shoot.wav',
-		towerUpgrade: '/sound/sfx/towerUpgrade.wav',
-		clickEnemy: '/sound/sfx/clickEnemy.wav',
-		towerShoot: '/sound/sfx/towerShoot.wav',
-		clickMenu: '/sound/sfx/clickMenu.wav'
+		pickUp: '/sound/sfx/pickUp.m4a',
+		towerUpgrade: '/sound/sfx/towerUpgrade.m4a',
+		clickEnemy: '/sound/sfx/clickEnemy.m4a',
+		towerShoot: '/sound/sfx/towerShoot.m4a',
+		clickMenu: '/sound/sfx/clickMenu.m4a'
 	}
 };
 

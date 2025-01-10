@@ -1,10 +1,11 @@
 <script>
-	import { slide } from 'svelte/transition';
+	import { slide, fade } from 'svelte/transition';
 
 	const { children } = $props();
 </script>
 
-<div class="menu-container">
+<!-- in:slide={{ duration: 500 }} out:slide={{ duration: 300 }} -->
+<div class="menu-container" in:fade={{ duration: 200 }} out:fade={{ duration: 200 }}>
 	{@render children()}
 </div>
 

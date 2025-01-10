@@ -75,7 +75,6 @@
 	<div class="window-wrapper" onclick={handleGameClick}>
 		<div class="wrapper">
 			<BackgroundContainer stageNumber={stageManager.stageNumber} />
-			<div class="time">Stage {managers.get('stageManager').stageNumber + 1}</div>
 			<Loot />
 			<button class="btn-pause" onclick={() => gameLoop.pause()}><Pause /></button>
 			<div
@@ -102,8 +101,8 @@
 	.btn-pause {
 		position: absolute;
 		cursor: url('/cursor-pointer.svg'), auto;
-		top: 20px;
-		right: 20px;
+		top: 10px;
+		right: 10px;
 		border: none;
 		font-size: 16px;
 		background: none;
@@ -115,15 +114,6 @@
 
 	.btn-pause:hover {
 		cursor: url('/cursor-pointer.svg'), auto;
-	}
-
-	.time {
-		position: absolute;
-		top: 0;
-		left: 0;
-		z-index: 10;
-		font-size: 40px;
-		color: white;
 	}
 
 	.wrapper {
