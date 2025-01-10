@@ -5,7 +5,8 @@ const sounds = {
 		towerUpgrade: '/sound/sfx/towerUpgrade.m4a',
 		clickEnemy: '/sound/sfx/clickEnemy.m4a',
 		towerShoot: '/sound/sfx/towerShoot.m4a',
-		clickMenu: '/sound/sfx/clickMenu.m4a'
+		clickMenu: '/sound/sfx/clickMenu.m4a',
+		lowResourse: '/sound/sfx/lowResourse.m4a'
 	}
 };
 
@@ -103,6 +104,15 @@ export class SoundManager {
 			this.pause('bgSound');
 		} else {
 			this.play('bgSound');
+		}
+	}
+	reset() {
+		if (this.isMuted) return;
+		const bgSound = this.sounds['bgSound'];
+		if (bgSound) {
+			bgSound.currentTime = 0;
+			bgSound.volume = this.musicVolume;
+			bgSound.play();
 		}
 	}
 }

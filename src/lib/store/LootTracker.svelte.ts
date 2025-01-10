@@ -17,9 +17,10 @@ export class LootTracker {
 
 	spendLoot(action) {
 		const toSpend = LOOT_MAP[action.type];
-
+		const soundManager = managers.get('soundManager');
 		if (this.collectedLoot < toSpend) {
 			this.playAnimation('LowLoot');
+			// soundManager.play('lowResourse');
 			return;
 		}
 
