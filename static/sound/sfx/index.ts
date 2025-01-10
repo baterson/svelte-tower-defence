@@ -1,13 +1,11 @@
-import pickUp from './pickUp.wav';
-import shoot from './shoot.wav';
-import towerUpgrade from './towerUpgrade.wav';
-import clickEnemy from './clickEnemy.wav';
-import towerShoot from './towerShoot.wav';
-import clickMenu from './clickMenu.wav';
+import pickUp from './pickUp.m4a';
+import towerUpgrade from './towerUpgrade.m4a';
+import clickEnemy from './clickEnemy.m4a';
+import towerShoot from './towerShoot.m4a';
+import clickMenu from './clickMenu.m4a';
 
 export const sfx = {
 	pickUp,
-	shoot,
 	towerUpgrade,
 	clickEnemy,
 	towerShoot,

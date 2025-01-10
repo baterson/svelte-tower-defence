@@ -18,8 +18,8 @@
 <style>
 	.loot {
 		position: absolute;
-		top: 60px;
-		left: 0;
+		top: 20px;
+		left: 10px;
 		color: white;
 		font-size: 34px;
 		z-index: 20;
@@ -33,9 +33,22 @@
 		0%,
 		100% {
 			transform: scale(1);
+			color: white;
 		}
-		50% {
-			transform: scale(3);
+		10%,
+		30%,
+		50%,
+		70%,
+		90% {
+			transform: scale(1.2) translateX(-4px);
+			color: red;
+		}
+		20%,
+		40%,
+		60%,
+		80% {
+			transform: scale(1.2) translateX(4px);
+			color: red;
 		}
 	}
 </style>

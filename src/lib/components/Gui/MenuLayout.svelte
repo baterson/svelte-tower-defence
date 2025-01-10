@@ -1,10 +1,16 @@
 <script>
+	import { fade } from 'svelte/transition';
 	import { cursor } from '$lib/store/Cursor.svelte';
 
 	const { children } = $props();
 </script>
 
-<div class="menu-container" style:cursor={cursor.image}>
+<div
+	class="menu-container"
+	style:cursor={cursor.image}
+	in:fade={{ duration: 200 }}
+	out:fade={{ duration: 200 }}
+>
 	{@render children()}
 </div>
 

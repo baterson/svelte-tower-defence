@@ -6,19 +6,17 @@
 
 	const { onResume, onRestart } = $props();
 
-	const { soundManager, stageManager } = managers.get(['soundManager', 'stageManager']);
+	const { soundManager } = managers.get(['soundManager']);
 
 	const toggleMute = () => {
 		soundManager.toggleMute();
 	};
 </script>
 
-<div class="pause-overlay" in:slide={{ duration: 500 }} out:slide={{ duration: 300 }}>
+<div class="pause-overlay">
 	<MenuLayout>
 		<div class="content">
 			<div class="header">
-				<div class="stage">Stage {stageManager.stageNumber + 1}</div>
-
 				<a href="https://github.com/baterson/svelte-tower-defence" class="git-link"
 					><GitHubIcon /></a
 				>
@@ -45,15 +43,15 @@
 		justify-content: space-around;
 	}
 	.pause-overlay {
-		position: fixed;
+		position: relative;
 		inset: 0;
 		width: 100%;
 		height: 100%;
-		z-index: 10;
+		z-index: 100;
 	}
 	.header {
 		display: flex;
-		justify-content: space-between;
+		justify-content: end;
 		align-items: center;
 		width: 90%;
 		font-size: 1.5rem;
@@ -65,11 +63,6 @@
 		display: flex;
 	}
 
-	.stage {
-		color: #fff;
-		font-weight: bold;
-		font-size: 2rem;
-	}
 	.title {
 		color: #fff;
 		font-weight: bold;

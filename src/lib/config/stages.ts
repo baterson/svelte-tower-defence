@@ -1,15 +1,11 @@
 export const stages = [
 	{
-		// commonEnemies: ['PurpleCommon', 'YellowCommon', 'BlueCommon'],
-		commonEnemies: ['PurpleCommon', 'RedBlobElite'],
-		time: 200000,
+		commonEnemies: ['PurpleCommon', 'YellowCommon'],
+		time: 60000,
 		eliteEnemies: ['RedBlobElite'],
 		spawnDelays: {
-			// common: 300,
-			// elite: 700
 			common: 900,
 			elite: 1400
-			// elite: 1500
 		},
 		statsAmplify: {
 			health: 1,
@@ -20,8 +16,8 @@ export const stages = [
 	{
 		commonEnemies: ['YellowCommon', 'BlueCommon'],
 		eliteEnemies: ['GreenCircleElite', 'RedBlobElite'],
-		// time: 120000,
-		time: 3000,
+		time: 120000,
+
 		spawnDelays: {
 			common: 800,
 			elite: 1300
@@ -35,8 +31,8 @@ export const stages = [
 	{
 		commonEnemies: ['PurpleCommon', 'YellowCommon', 'BlueCommon'],
 		eliteEnemies: ['BlueBlobElite', 'GreenCircleElite', 'RedBlobElite'],
-		// time: 150000,
-		time: 3000,
+		time: 120000,
+
 		spawnDelays: {
 			common: 600,
 			elite: 1100
@@ -50,8 +46,8 @@ export const stages = [
 	{
 		commonEnemies: ['PurpleCommon', 'YellowCommon', 'BlueCommon'],
 		eliteEnemies: ['BlueBlobElite', 'GreenCircleElite', 'BlueBlobElite', 'RedBlobElite'],
-		// time: 240000,
-		time: 3000,
+		time: 120000,
+
 		spawnDelays: {
 			common: 400,
 			elite: 800
