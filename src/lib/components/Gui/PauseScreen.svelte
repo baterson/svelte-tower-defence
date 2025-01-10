@@ -3,14 +3,22 @@
 	import MenuLayout from './MenuLayout.svelte';
 	import { managers } from '$lib/store/managers.svelte';
 	import GitHubIcon from '../GitHubIcon.svelte';
+	import { soundManager } from '$lib/store/SoundManager.svelte';
+	import { onDestroy, onMount } from 'svelte';
 
 	const { onResume, onRestart } = $props();
-
-	const { soundManager } = managers.get(['soundManager']);
 
 	const toggleMute = () => {
 		soundManager.toggleMute();
 	};
+
+	onMount(() => {
+		soundManager.reduceBgVolume();
+	});
+
+	onDestroy(() => {
+		soundManager.restoreBgVolume();
+	});
 </script>
 
 <div class="pause-overlay">

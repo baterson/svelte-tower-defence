@@ -1,4 +1,5 @@
 import { boundingBoxFromPoint } from '$lib/utils/math';
+import { soundManager } from './SoundManager.svelte';
 import { cursor } from './Cursor.svelte';
 import { managers } from './managers.svelte';
 
@@ -17,7 +18,6 @@ export class LootTracker {
 
 	spendLoot(action) {
 		const toSpend = LOOT_MAP[action.type];
-		const soundManager = managers.get('soundManager');
 
 		if (this.collectedLoot < toSpend) {
 			this.playAnimation('LowLoot');
@@ -34,11 +34,7 @@ export class LootTracker {
 
 			cursor.setAnimation('TowerBuildCursor');
 		} else if (action.type === 'click') {
-			const { collisionManager, stageManager, soundManager } = managers.get([
-				'collisionManager',
-				'stageManager',
-				'soundManager'
-			]);
+			const { collisionManager, stageManager } = managers.get(['collisionManager', 'stageManager']);
 			const { offset } = action.payload;
 
 			const boundingBox = boundingBoxFromPoint(offset, 60, 60);

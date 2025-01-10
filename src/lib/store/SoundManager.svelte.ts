@@ -10,10 +10,11 @@ const sounds = {
 	}
 };
 
+const MUSIC_VOLUME = 0.4;
+const SFX_VOLUME = 0.6;
+
 export class SoundManager {
 	sounds = $state.raw({});
-	musicVolume = $state(0.06);
-	sfxVolume = $state(0.09);
 	isMuted = $state(false);
 	playingEffectsCount = $state(0);
 
@@ -25,16 +26,27 @@ export class SoundManager {
 		Math.min(Math.floor((this.loadedCount / this.totalResources) * 100), 100)
 	);
 
-	async preload() {
+	preload = async () => {
 		const loadSound = (name, url) => {
 			return new Promise((resolve, reject) => {
 				const audio = new Audio(url);
-				audio.addEventListener('canplaythrough', () => {
+
+				const onLoad = () => {
 					this.sounds[name] = audio;
+					this.sounds[name].volume = name === 'bgSound' ? MUSIC_VOLUME : SFX_VOLUME;
+					this.sounds[name].loop = name === 'bgSound';
 					this.loadedCount += 1;
+					audio.removeEventListener('canplaythrough', onLoad);
 					resolve();
-				});
-				audio.addEventListener('error', (error) => reject(error));
+				};
+
+				const onError = (error) => {
+					audio.removeEventListener('error', onError);
+					reject(error);
+				};
+
+				audio.addEventListener('canplaythrough', onLoad);
+				audio.addEventListener('error', onError);
 				audio.load();
 			});
 		};
@@ -49,37 +61,30 @@ export class SoundManager {
 			console.log('Sounds preloaded successfully.');
 		} catch (error) {
 			console.error('Error preloading sounds:', error);
+			throw error;
 		}
-	}
+	};
 
-	setMusicVolume(volume) {
-		this.musicVolume = volume;
-		const bgSound = this.sounds['bgSound'];
-		if (bgSound) bgSound.volume = volume;
-	}
+	reduceBgVolume = () => {
+		this.sounds.bgSound.volume = MUSIC_VOLUME - 0.3;
+	};
 
-	setSfxVolume(volume) {
-		this.sfxVolume = volume;
-		// Update the volume of all effect sounds
-		Object.entries(this.sounds).forEach(([name, audio]) => {
-			if (name !== 'bgSound') {
-				audio.volume = volume;
-			}
-		});
-	}
+	restoreBgVolume = () => {
+		this.sounds.bgSound.volume = MUSIC_VOLUME;
+	};
 
-	play(name, isImportant = false) {
+	play = (name, isImportant = false) => {
 		if (this.isMuted) return;
+
 		const audio = this.sounds[name];
 		if (!audio) return;
+
 		if (name === 'bgSound') {
-			audio.volume = this.musicVolume;
 			audio.currentTime = 0;
 			audio.play();
 			return;
 		}
 		if (isImportant || this.playingEffectsCount < 10) {
-			audio.volume = this.sfxVolume;
 			audio.currentTime = 0;
 			audio.play();
 			const onEnded = () => {
@@ -89,7 +94,7 @@ export class SoundManager {
 			audio.addEventListener('ended', onEnded);
 			this.playingEffectsCount += 1;
 		}
-	}
+	};
 
 	pause(name) {
 		const audio = this.sounds[name];
@@ -100,18 +105,21 @@ export class SoundManager {
 
 	toggleMute() {
 		this.isMuted = !this.isMuted;
+
 		if (this.isMuted) {
 			this.pause('bgSound');
 		} else {
 			this.play('bgSound');
 		}
 	}
+
 	reset() {
 		if (this.isMuted) return;
 		const bgSound = this.sounds['bgSound'];
+
 		if (bgSound) {
 			bgSound.currentTime = 0;
-			bgSound.volume = this.musicVolume;
+			bgSound.volume = MUSIC_VOLUME;
 			bgSound.play();
 		}
 	}

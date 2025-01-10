@@ -2,6 +2,7 @@ import { BaseState } from '$lib/store/States/BaseState.svelte';
 import { managers } from '$lib/store/managers.svelte';
 import { Vector2 } from '$lib/store/Vector2.svelte';
 import { boundingBoxFromPoint } from '$lib/utils/math';
+import { soundManager } from '$lib/store/SoundManager.svelte';
 
 export class Shoot extends BaseState {
 	update() {
@@ -32,6 +33,6 @@ export class Shoot extends BaseState {
 			});
 		});
 
-		managers.get('soundManager').play('towerShoot');
+		soundManager.play('towerShoot');
 	}
 }

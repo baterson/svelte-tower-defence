@@ -5,7 +5,7 @@ import { StageManager } from './StageManager.svelte';
 import { UIManager } from './UIManager.svelte';
 import { GameLoop } from './GameLoop.svelte';
 import { managers } from './managers.svelte';
-import { SoundManager } from './SoundManager.svelte';
+import { soundManager } from './SoundManager.svelte';
 import { cursor } from './Cursor.svelte';
 import { lootTracker } from './LootTracker.svelte';
 
@@ -20,13 +20,8 @@ export class Game {
 	start = async () => {
 		managers.setup(setupManagers());
 
-		const { gameLoop, soundManager, stageManager } = managers.get([
-			'gameLoop',
-			'soundManager',
-			'stageManager'
-		]);
+		const { gameLoop, stageManager } = managers.get(['gameLoop', 'stageManager']);
 
-		await soundManager.preload();
 		stageManager.init();
 
 		gameLoop.start(this.update);
@@ -37,10 +32,9 @@ export class Game {
 	};
 
 	restart = () => {
-		const { entityManager, gameLoop, soundManager, stageManager } = managers.get([
+		const { entityManager, gameLoop, stageManager } = managers.get([
 			'entityManager',
 			'gameLoop',
-			'soundManager',
 			'stageManager'
 		]);
 
@@ -77,8 +71,6 @@ const setupManagers = () => {
 	managers.entityManager = new EntityManager();
 	managers.uiManager = new UIManager();
 	managers.gameLoop = new GameLoop();
-	managers.soundManager = new SoundManager();
-
 	managers.stageManager = new StageManager();
 
 	return managers;

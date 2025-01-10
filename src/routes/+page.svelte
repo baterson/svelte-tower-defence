@@ -8,7 +8,7 @@
 	import { lootTracker } from '$lib/store/LootTracker.svelte';
 	import WinLoseScreen from '$lib/components/Gui/WinLoseScreen.svelte';
 	import StartScreen from '$lib/components/Gui/StartScreen.svelte';
-	import { onMount } from 'svelte';
+	import { onMount, tick } from 'svelte';
 	import { game } from '$lib/store/Game.svelte';
 	import PauseScreen from '$lib/components/Gui/PauseScreen.svelte';
 	import BackgroundContainer from '$lib/components/BackgroundContainer.svelte';
@@ -35,7 +35,7 @@
 
 	const handlePressKey = (e) => {
 		if (e.key === 'Escape') {
-			if (gameLoop.isPaused) {
+			if (gameLoop.pauseState) {
 				gameLoop.resume();
 			} else {
 				gameLoop.pause();

@@ -1,6 +1,7 @@
 import type { Entity } from '$lib/store/Entity.svelte';
 import { lootTracker } from '$lib/store/LootTracker.svelte';
 import { managers } from '$lib/store/managers.svelte';
+import { soundManager } from '$lib/store/SoundManager.svelte';
 
 export const enemyCollider = (entity: Entity, other: Entity) => {
 	entity.takeDamage(other.stats.damage);
@@ -24,7 +25,7 @@ export const projectileCollider = (projectile, other) => {
 export const throneCollider = (entity, other) => {
 	if (other.type === 'loot') {
 		lootTracker.receiveLoot(2);
-		managers.get('soundManager').play('pickUp');
+		soundManager.play('pickUp');
 	} else if (other.type === 'enemy') {
 		entity.takeDamage(other.stats.damage);
 	}

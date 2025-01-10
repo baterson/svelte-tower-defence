@@ -1,4 +1,5 @@
 import { managers } from '$lib/store/managers.svelte';
+import { soundManager } from '$lib/store/SoundManager.svelte';
 import { BaseState } from '$lib/store/States/BaseState.svelte';
 import { Vector2 } from '$lib/store/Vector2.svelte';
 
@@ -49,7 +50,7 @@ export class Upgrade extends BaseState {
 			// this.entity.scale += 0.1;
 		};
 
-		managers.get('soundManager').play('towerUpgrade');
+		soundManager.play('towerUpgrade');
 	}
 
 	update(deltaTime) {
