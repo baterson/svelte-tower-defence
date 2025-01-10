@@ -1,6 +1,6 @@
 # Svelte Space
 
-A TowerDefence clicker game made with Svelte 5, without canvas. Playable on different screens, mobile and desktop.  
+A TowerDefence clicker game made with Svelte 5, without canvas. Playable on different screens, Mobile or Desktop.  
 [Live demo link](https://svelte-tower-defence.vercel.app/)  
 
 ![svelte-tower-defence vercel app-10January2025-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/3083899b-50a0-482d-9878-f2bb880ccb9a)
