@@ -13,9 +13,9 @@
 <rect x="64" y="1" width="22" height="22" rx="4" fill="url(#paint5_linear_2294_2162)" stroke="#350F42" stroke-width="2"/>
 <path d="M64 43.416H86V79.0002C86 81.2093 84.2091 83.0002 82 83.0002H68C65.7909 83.0002 64 81.2093 64 79.0002V43.416Z" fill="#8384AA" stroke="#350F42" stroke-width="2"/>
 <rect x="64" y="29" width="22" height="22" rx="4" fill="url(#paint6_linear_2294_2162)" stroke="#350F42" stroke-width="2"/>
-<circle cx="60.5" cy="23.5" r="15.5" fill="#F2A841" stroke="#1E0528" stroke-width="2"/>
+<circle cx="60.5" cy="23.5" r="15.5" fill="#F5492B" stroke="#1E0528" stroke-width="2"/>
 <circle cx="55.8471" cy="17.1537" r="2.53846" fill="white"/>
-<circle cx="67.2692" cy="32.2692" r="1.26923" fill="#E7E7F8"/>
+<circle cx="67.2692" cy="32.2692" r="1.26923" fill="#FF8C78"/>
 <defs>
 <linearGradient id="paint0_linear_2294_2162" x1="61" y1="56" x2="61" y2="151" gradientUnits="userSpaceOnUse">
 <stop stop-color="#8F90BD"/>

@@ -12,7 +12,7 @@
 <MenuLayout>
 	<div class="content" out:fade={{ duration: 300 }}>
 		<div class="title">
-			<h1>Welcome to the game!</h1>
+			<h1>Svelte Space</h1>
 		</div>
 		<div class="buttons-container">
 			<Button disabled={!soundManager.preloaded} {text} onclick={onStart} />

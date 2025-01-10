@@ -13,7 +13,8 @@ export const towers = {
 		},
 		scale: 0.6,
 		stateToAnimation: {
-			Idle: 'Throne'
+			Idle: 'Throne',
+			Die: 'Throne'
 		},
 		initialState: 'Idle',
 		onCollide: throneCollider

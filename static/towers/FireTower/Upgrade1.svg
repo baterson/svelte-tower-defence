@@ -1,4 +1,3 @@
-
 <svg width="84" height="126" viewBox="0 0 84 126" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M1 58.6719H83V115.237C83 120.207 78.9706 124.237 74 124.237H10C5.02944 124.237 1 120.207 1 115.237V58.6719Z" fill="#8384AA" stroke="#350F42" stroke-width="2"/>
 <path d="M1 52C1 47.0294 5.02944 43 10 43H74C78.9706 43 83 47.0294 83 52V106.36C83 111.331 78.9706 115.36 74 115.36H10C5.02944 115.36 1 111.331 1 106.36V52Z" fill="url(#paint0_linear_2294_2292)" stroke="#350F42" stroke-width="2"/>
@@ -12,9 +11,9 @@
 <rect x="45" y="1" width="22" height="22" rx="4" fill="url(#paint4_linear_2294_2292)" stroke="#350F42" stroke-width="2"/>
 <path d="M45 43.416H67V79.0002C67 81.2093 65.2091 83.0002 63 83.0002H49C46.7909 83.0002 45 81.2093 45 79.0002V43.416Z" fill="#8384AA" stroke="#350F42" stroke-width="2"/>
 <rect x="45" y="29" width="22" height="22" rx="4" fill="url(#paint5_linear_2294_2292)" stroke="#350F42" stroke-width="2"/>
-<circle cx="41.5" cy="23.5" r="15.5" fill="#F2A841" stroke="#1E0528" stroke-width="2"/>
+<circle cx="41.5" cy="23.5" r="15.5" fill="#F5492B" stroke="#1E0528" stroke-width="2"/>
 <circle cx="36.8471" cy="17.1537" r="2.53846" fill="white"/>
-<circle cx="48.2692" cy="32.2692" r="1.26923" fill="#E7E7F8"/>
+<circle cx="48.2692" cy="32.2692" r="1.26923" fill="#FF8C78"/>
 <defs>
 <linearGradient id="paint0_linear_2294_2292" x1="42" y1="42" x2="42" y2="116.36" gradientUnits="userSpaceOnUse">
 <stop stop-color="#8F90BD"/>
