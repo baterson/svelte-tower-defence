@@ -10,8 +10,8 @@ const sounds = {
 	}
 };
 
-const MUSIC_VOLUME = 0.4;
-const SFX_VOLUME = 0.6;
+const MUSIC_VOLUME = 0.3;
+const SFX_VOLUME = 0.2;
 
 export class SoundManager {
 	sounds = $state.raw({});
@@ -66,7 +66,7 @@ export class SoundManager {
 	};
 
 	reduceBgVolume = () => {
-		this.sounds.bgSound.volume = MUSIC_VOLUME - 0.3;
+		this.sounds.bgSound.volume = MUSIC_VOLUME - 0.1;
 	};
 
 	restoreBgVolume = () => {
