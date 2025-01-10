@@ -15,7 +15,9 @@
 	import Loot from '$lib/components/Loot.svelte';
 	import Pause from '$lib/components/Gui/Pause.svelte';
 	import { preloadUrls } from '$lib/utils/preload';
+
 	import { soundManager } from '$lib/store/SoundManager.svelte';
+
 	import { cursor } from '$lib/store/Cursor.svelte';
 
 	const gameLoop = $derived(managers.get('gameLoop'));
@@ -32,6 +34,19 @@
 			payload: { offset: new Vector2(e.clientX, e.clientY) }
 		});
 	};
+	const handlePauseClick = () => {
+		soundManager.play('clickMenu', true);
+		gameLoop.pause();
+	};
+	const handlePressKey = (e) => {
+		if (e.key === ' ' || e.key === 'Escape') {
+			if (gameLoop.isPaused) {
+				gameLoop.resume();
+			} else {
+				gameLoop.pause();
+			}
+		}
+	};
 
 	onMount(() => {
 		soundManager.preload();
@@ -43,15 +58,7 @@
 <svelte:window
 	bind:innerWidth={screen.width}
 	bind:innerHeight={screen.height}
-	onkeypress={(e) => {
-		if (e.key === ' ') {
-			if (gameLoop.isPaused) {
-				gameLoop.resume();
-			} else {
-				gameLoop.pause();
-			}
-		}
-	}}
+	onkeydown={handlePressKey}
 />
 
 <svelte:head>
@@ -76,7 +83,7 @@
 		<div class="wrapper">
 			<BackgroundContainer stageNumber={stageManager.stageNumber} />
 			<Loot />
-			<button class="btn-pause" onclick={() => gameLoop.pause()}><Pause /></button>
+			<button tabindex="-1" class="btn-pause" onclick={handlePauseClick}><Pause /></button>
 			<div
 				bind:offsetHeight={screen.gameAreaHeight}
 				bind:offsetWidth={screen.gameAreaWidth}
@@ -102,15 +109,6 @@
 		-webkit-tap-highlight-color: transparent;
 		user-select: none;
 		-webkit-touch-callout: none;
-	}
-
-	.time {
-		position: absolute;
-		top: 0;
-		left: 0;
-		z-index: 10;
-		font-size: 40px;
-		color: white;
 	}
 
 	.wrapper {

@@ -1,10 +1,20 @@
 <script>
 	import { cursor } from '$lib/store/Cursor.svelte';
+	import { soundManager } from '$lib/store/SoundManager.svelte';
 
 	const { onclick, disabled, text = '' } = $props();
+
+	const handleClick = () => {
+		if (soundManager?.preloaded) {
+			soundManager.play('clickMenu', true);
+		}
+		onclick();
+	};
 </script>
 
-<button style:cursor={cursor.get('arrow')} {disabled} class="btn" {onclick}>{text}</button>
+<button style:cursor={cursor.get('arrow')} {disabled} class="btn" onclick={handleClick}
+	>{text}</button
+>
 
 <style>
 	.btn {
