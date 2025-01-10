@@ -14,7 +14,7 @@
 	}}
 >
 	<Loot />
-	{lootTracker.collectedLoot}
+	<span style:cursor={cursor.get('arrow')}>{lootTracker.collectedLoot}</span>
 </div>
 
 <style>

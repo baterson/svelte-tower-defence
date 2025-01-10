@@ -18,7 +18,7 @@
 	};
 </script>
 
-<section>
+<section style:cursor={cursor.get('arrow')}>
 	{#each entityManager.loot as loot (loot.id)}
 		<DynamicEntity entity={loot} --z-index={11} />
 	{/each}

@@ -73,7 +73,12 @@
 		<div class="wrapper">
 			<BackgroundContainer stageNumber={stageManager.stageNumber} />
 			<Loot />
-			<button tabindex="-1" class="btn-pause" onclick={handlePauseClick}><Pause /></button>
+			<button
+				tabindex="-1"
+				class="btn-pause"
+				onclick={handlePauseClick}
+				style:cursor={cursor.get('arrow')}><Pause /></button
+			>
 			<div
 				bind:offsetHeight={screen.gameAreaHeight}
 				bind:offsetWidth={screen.gameAreaWidth}
