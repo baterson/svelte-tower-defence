@@ -1,8 +1,10 @@
 <script>
+	import { cursor } from '$lib/store/Cursor.svelte';
+
 	const { onclick, disabled, text = '' } = $props();
 </script>
 
-<button {disabled} class="btn" {onclick}>{text}</button>
+<button style:cursor={cursor.image} {disabled} class="btn" {onclick}>{text}</button>
 
 <style>
 	.btn {

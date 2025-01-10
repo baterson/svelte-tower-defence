@@ -4,6 +4,7 @@
 	import { Vector2 } from '$lib/store/Vector2.svelte';
 	import { screen } from '$lib/store/Screen.svelte';
 	import { getAnimation } from '$lib/config/animations';
+	import { cursor } from '$lib/store/Cursor.svelte';
 
 	let { entity, onclick } = $props();
 
@@ -33,17 +34,14 @@
 		let _rect = node.getBoundingClientRect();
 		entity.width = _rect.width;
 		entity.height = _rect.height;
-
-		// console.log('screen changes', screen.width, screen.height);
 	});
-	// style:left={`${entity.position.x}px`}
-	// style:top={`${entity.position.y}px`}
 </script>
 
 <img
 	style:left={`${0}px`}
 	style:top={`${0}px`}
 	style:transform
+	style:cursor={cursor.image}
 	bind:this={node}
 	src={frame}
 	alt="Enemy animation"

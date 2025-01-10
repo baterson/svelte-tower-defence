@@ -68,6 +68,6 @@ export const preloadUrls = [
 	'/throne.svg',
 
 	'/cursor-hammer.svg',
-	'/cursor-pointer.svg',
-	'/cursor-pointer.svg'
+	'/cursor-arrow.svg'
+	// '/cursor-pointer.svg'
 ];

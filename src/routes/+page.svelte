@@ -5,20 +5,19 @@
 	import { screen } from '$lib/store/Screen.svelte';
 	import { Vector2 } from '$lib/store/Vector2.svelte';
 	import { managers } from '$lib/store/managers.svelte';
-	// import Dialog from '$components/Dialog.svelte';
-	// import BackDrop from '$components/BackDrop.svelte';
 	import { lootTracker } from '$lib/store/LootTracker.svelte';
 	import WinLoseScreen from '$lib/components/Gui/WinLoseScreen.svelte';
 	import StartScreen from '$lib/components/Gui/StartScreen.svelte';
 	import { onMount } from 'svelte';
 	import { game } from '$lib/store/Game.svelte';
 	import PauseScreen from '$lib/components/Gui/PauseScreen.svelte';
-	import PauseIcon from '$lib/components/PauseIcon.svelte';
 	import BackgroundContainer from '$lib/components/BackgroundContainer.svelte';
-	import { resourceManager } from '$lib/store/ResourceManager.svelte';
 	import Loot from '$lib/components/Loot.svelte';
 	import Pause from '$lib/components/Gui/Pause.svelte';
 	import { preloadUrls } from '$lib/utils/preload';
+	import { soundManager } from '$lib/store/SoundManager.svelte';
+	import Cursor from '$lib/components/Cursor.svelte';
+	import { cursor } from '$lib/store/Cursor.svelte';
 
 	const gameLoop = $derived(managers.get('gameLoop'));
 	const stageManager = $derived(managers.get('stageManager'));
@@ -36,8 +35,10 @@
 	};
 
 	onMount(() => {
-		resourceManager.preload();
+		soundManager.preload();
 	});
+
+	// todo: Put effect for sound change based by pause here
 </script>
 
 <svelte:window
@@ -62,6 +63,8 @@
 
 <!-- <Dialog /> -->
 <!-- <BackDrop /> -->
+<!-- <div style:cursor={`url(${cursor.image}), auto;`}></div> -->
+<!-- <Cursor --cursor-image={`url(${cursor.image}), auto; !important`} /> -->
 
 {#if !game.isStarted}
 	<StartScreen onStart={() => game.start()} />
@@ -71,8 +74,8 @@
 	<PauseScreen onResume={() => gameLoop.resume()} onRestart={() => game.restart()} />
 {/if}
 
-{#if game.isStarted && resourceManager.preloaded}
-	<div class="window-wrapper" onclick={handleGameClick}>
+{#if game.isStarted && soundManager.preloaded}
+	<div class="window-wrapper" onclick={handleGameClick} style:cursor={cursor.image}>
 		<div class="wrapper">
 			<BackgroundContainer stageNumber={stageManager.stageNumber} />
 			<div class="time">Stage {managers.get('stageManager').stageNumber + 1}</div>
@@ -91,17 +94,21 @@
 {/if}
 
 <style>
+	/* :global(body) {
+		cursor: url('/cursor-arrow.svg'), auto !important;
+	}
+
 	.window-wrapper {
 		cursor: url('/cursor-pointer.svg'), auto !important;
 	}
 
 	.window-wrapper:hover {
 		cursor: url('/cursor-pointer.svg'), auto;
-	}
+	} */
 
 	.btn-pause {
 		position: absolute;
-		cursor: url('/cursor-pointer.svg'), auto;
+		/* cursor: url('/cursor-pointer.svg'), auto; */
 		top: 20px;
 		right: 20px;
 		border: none;
@@ -111,10 +118,6 @@
 		-webkit-tap-highlight-color: transparent;
 		user-select: none;
 		-webkit-touch-callout: none;
-	}
-
-	.btn-pause:hover {
-		cursor: url('/cursor-pointer.svg'), auto;
 	}
 
 	.time {

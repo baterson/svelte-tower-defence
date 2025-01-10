@@ -24,7 +24,7 @@ export class Game {
 			'stageManager'
 		]);
 
-		// await soundManager.preload();
+		await soundManager.preload();
 
 		stageManager.init();
 

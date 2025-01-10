@@ -1,10 +1,10 @@
 <script>
-	import { slide } from 'svelte/transition';
+	import { cursor } from '$lib/store/Cursor.svelte';
 
 	const { children } = $props();
 </script>
 
-<div class="menu-container">
+<div class="menu-container" style:cursor={cursor.image}>
 	{@render children()}
 </div>
 

@@ -1,4 +1,5 @@
 import { boundingBoxFromPoint } from '$lib/utils/math';
+import { cursor } from './Cursor.svelte';
 import { managers } from './managers.svelte';
 
 const LOOT_MAP = {
@@ -28,6 +29,8 @@ export class LootTracker {
 
 			tower.state.setState('Upgrade');
 			this.playAnimation('TowerUpgrade');
+
+			cursor.setType('hammer');
 		} else if (action.type === 'click') {
 			const { collisionManager, stageManager, soundManager } = managers.get([
 				'collisionManager',
