@@ -1,22 +1,5 @@
-import { managers } from '$lib/store/managers.svelte';
 import { soundManager } from '$lib/store/SoundManager.svelte';
 import { BaseState } from '$lib/store/States/BaseState.svelte';
-import { Vector2 } from '$lib/store/Vector2.svelte';
-
-const UPGRADE_SIZES = {
-	'0': {
-		'0': { width: 68, height: 86, offset: new Vector2(0, 0) },
-		'1': { width: 68, height: 107, offset: new Vector2(0, 0) }
-	},
-	'1': {
-		'0': { width: 84, height: 125, offset: new Vector2(12, 17) },
-		'1': { width: 93, height: 140, offset: new Vector2(12, 33) }
-	},
-	'2': {
-		'0': { width: 109, height: 156, offset: new Vector2(18, 50) },
-		'1': { width: 122, height: 176, offset: new Vector2(18, 66) }
-	}
-};
 
 const getPrefix = (level) => {
 	if (level === 1) {
@@ -40,8 +23,6 @@ export class Upgrade extends BaseState {
 		super(stateMachine);
 
 		this.entity.upgradeLevel += 1;
-
-		// debugger;
 
 		const upgradeFn = this.entity.upgrades[this.entity.upgradeLevel];
 		upgradeFn(this.entity);

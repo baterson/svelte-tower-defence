@@ -4,8 +4,8 @@ import { cursor } from './Cursor.svelte';
 import { managers } from './managers.svelte';
 
 const LOOT_MAP = {
-	click: 3,
-	upgrade: 50
+	click: 2,
+	upgrade: 35
 };
 
 export class LootTracker {

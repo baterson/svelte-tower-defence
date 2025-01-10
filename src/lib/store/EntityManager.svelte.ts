@@ -1,5 +1,4 @@
 import { boundingBoxFromPoint, checkRectCollision } from '$lib/utils/math';
-import { screen } from '$lib/store/Screen.svelte';
 import type { Entity } from './Entity.svelte';
 import type { Vector2 } from './Vector2.svelte';
 

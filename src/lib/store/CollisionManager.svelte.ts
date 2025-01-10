@@ -54,17 +54,6 @@ export class CollisionManager {
 
 	checkCollision(entity1: Entity, entity2: Entity): boolean {
 		return checkRectCollision(entity1.boundingBox, entity2.boundingBox);
-
-		// if (entity1.rotation === 0 && entity2.rotation === 0) {
-		// 	return checkRectCollision(entity1.boundingBox, entity2.boundingBox);
-		// }
-
-		// return checkRotatedRectIntersection(
-		// 	entity1.boundingBox,
-		// 	entity1.rotation,
-		// 	entity2.boundingBox,
-		// 	entity2.rotation
-		// );
 	}
 
 	filterEnemiesByBounds = (bounds) => {

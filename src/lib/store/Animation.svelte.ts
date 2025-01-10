@@ -1,8 +1,3 @@
-/**
- * Sprite class handling animation frames and transformations
- */
-type Frame = [number, number];
-
 interface AnimationConfig {
 	name: string;
 	framesAmount: number;

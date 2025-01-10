@@ -2,7 +2,6 @@ import { Vector2 } from '$lib/store/Vector2.svelte';
 import { StateMachine } from '$lib/store/StateMachine.svelte';
 import { Animation } from '$lib/store/Animation.svelte';
 import { getAnimation } from '$lib/config/animations';
-import { screen } from '$lib/store/Screen.svelte';
 
 export class Entity {
 	static lastId = 0;
