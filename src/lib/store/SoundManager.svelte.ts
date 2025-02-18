@@ -84,6 +84,12 @@ export class SoundManager {
 			audio.play();
 			return;
 		}
+
+		// Disable sfx on Safari due to performance issues
+		if (navigator.userAgent.includes('Safari') && !navigator.userAgent.includes('Chrome')) {
+			return;
+		}
+
 		if (isImportant || this.playingEffectsCount < 10) {
 			audio.currentTime = 0;
 			audio.play();
