@@ -24,7 +24,7 @@ export const projectileCollider = (projectile, other) => {
 
 export const throneCollider = (entity, other) => {
 	if (other.type === 'loot') {
-		lootTracker.receiveLoot(2);
+		lootTracker.receiveLoot(1);
 		soundManager.play('pickUp');
 	} else if (other.type === 'enemy') {
 		entity.takeDamage(other.stats.damage);

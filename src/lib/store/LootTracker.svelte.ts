@@ -4,7 +4,7 @@ import { cursor } from './Cursor.svelte';
 import { managers } from './managers.svelte';
 
 const LOOT_MAP = {
-	click: 2,
+	click: 5,
 	upgrade: 35
 };
 
