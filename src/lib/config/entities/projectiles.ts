@@ -16,7 +16,7 @@ export const projectiles = {
 		stats: {
 			health: 1,
 			speed: 0.5,
-			damage: 9
+			damage: 11
 		},
 		onCollide: fireballCollider
 	},
@@ -35,7 +35,7 @@ export const projectiles = {
 		stats: {
 			health: 1,
 			speed: 0.3,
-			damage: 9
+			damage: 11
 		},
 		onCollide: fireballCollider
 	},
@@ -53,8 +53,8 @@ export const projectiles = {
 		scale: 2,
 		stats: {
 			health: 1,
-			speed: 0.3,
-			damage: 9
+			speed: 0.4,
+			damage: 11
 		},
 		onCollide: fireballCollider
 	},
@@ -72,8 +72,8 @@ export const projectiles = {
 		scale: 2,
 		stats: {
 			health: 1,
-			speed: 0.3,
-			damage: 9
+			speed: 0.4,
+			damage: 11
 		},
 		onCollide: fireballCollider
 	},

@@ -1,4 +1,8 @@
-<svg width="40" height="40" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+<script>
+	const { width = 40, height = 40 } = $props();
+</script>
+
+<svg {width} {height} viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
 	<circle cx="25" cy="25" r="24.5" fill="#FFD700" stroke="white" />
 	<circle cx="25" cy="25" r="18" fill="#FFAE00" />
 	<path
